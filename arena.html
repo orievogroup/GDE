@@ -611,21 +611,40 @@
             container.innerHTML = `
                 <div class="arena-container">
                     <div class="arena-card">
-                        <h2>🎮 Arena Ao Vivo - Criar Sessão</h2>
-                        <label>Nome da Sessão:</label>
-                        <input type="text" id="nomeSessao" placeholder="Ex: DDS Terça-feira">
-                        <label>Selecione Atividades:</label>
-                        <div style="margin: 15px 0;">
-                            <label><input type="checkbox" id="quiz1" checked> Quiz: EPIs Básicos</label><br>
-                            <label><input type="checkbox" id="nuvem1"> Nuvem de Palavras</label><br>
-                            <label><input type="checkbox" id="quiz2"> Quiz: NR-6</label>
+                        <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Arena Ao Vivo - Criar Sessão</h2>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">📝 Nome da Sessão:</label>
+                            <input type="text" id="nomeSessao" placeholder="Ex: DDS Terça-feira" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
                         </div>
-                        <label>Modo:</label>
-                        <select id="modoSessao">
-                            <option value="individual">Individual</option>
-                            <option value="equipes">Por Equipes</option>
-                        </select>
-                        <button class="btn-arena" onclick="criarSessao()">🚀 CRIAR SESSÃO</button>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 12px; font-weight: 600; color: #333;">✅ Selecione Atividades:</label>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
+                                    <input type="checkbox" id="quiz1" checked style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
+                                    <span style="font-size: 16px;">📊 Quiz: EPIs Básicos</span>
+                                </label>
+                                <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
+                                    <input type="checkbox" id="nuvem1" style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
+                                    <span style="font-size: 16px;">☁️ Nuvem de Palavras</span>
+                                </label>
+                                <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
+                                    <input type="checkbox" id="quiz2" style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
+                                    <span style="font-size: 16px;">📊 Quiz: NR-6</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">👥 Modo:</label>
+                            <select id="modoSessao" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; cursor: pointer;">
+                                <option value="individual">Individual</option>
+                                <option value="equipes">Por Equipes</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn-arena" onclick="criarSessao()" style="width: 100%; margin-top: 10px;">🚀 CRIAR SESSÃO</button>
                     </div>
                 </div>
             `;
@@ -780,12 +799,22 @@
             document.getElementById('telaInicial').classList.add('hidden');
             document.getElementById('telaAluno').classList.remove('hidden');
             document.getElementById('conteudoAluno').innerHTML = `
-                <div class="aluno-screen">
-                    <h1>🎮 Arena Ao Vivo</h1>
-                    <p>Código: <strong>${codigo}</strong></p>
-                    <div style="margin: 30px 0;">
-                        <input type="text" id="nomeAlunoInput" placeholder="Digite seu nome" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; margin: 10px 0;">
-                        <button class="btn-arena" style="width: 100%;" onclick="entrarSessao('${codigo}')">ENTRAR</button>
+                <div style="min-height: 70vh;">
+                    <div class="aluno-screen">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 60px; margin-bottom: 10px;">
+                            <h1 style="color: var(--orievo-primary); margin: 10px 0;">ARENA ORIEVO</h1>
+                            <p style="color: #666; font-size: 14px;">Desenvolvido para Grupo Dislub Equador</p>
+                        </div>
+                        
+                        <div style="background: var(--orievo-light); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                            <p style="text-align: center; font-size: 18px;">Código da Sessão: <strong style="color: var(--orievo-primary);">${codigo}</strong></p>
+                        </div>
+                        
+                        <div style="margin: 30px 0;">
+                            <input type="text" id="nomeAlunoInput" placeholder="Digite seu nome completo" style="width: 100%; padding: 18px; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; margin: 15px 0;">
+                            <button class="btn-arena" style="width: 100%;" onclick="entrarSessao('${codigo}')">ENTRAR NA SESSÃO</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -808,14 +837,22 @@
 
         function mostrarAguardando(codigo, nome) {
             document.getElementById('conteudoAluno').innerHTML = `
-                <div class="aluno-screen">
-                    <h1>✅ Conectado!</h1>
-                    <p style="font-size: 20px; margin: 20px 0;">Olá, <strong>${nome}</strong>!</p>
-                    <div class="status-aguardando">
-                        <h3>⏳ Aguardando instrutor iniciar...</h3>
-                        <p>Fique atento! O quiz começará em breve.</p>
+                <div style="min-height: 70vh;">
+                    <div class="aluno-screen">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px; margin-bottom: 10px;">
+                        </div>
+                        
+                        <h1 style="color: #28a745;">✅ Conectado!</h1>
+                        <p style="font-size: 20px; margin: 20px 0;">Olá, <strong>${nome}</strong>!</p>
+                        
+                        <div class="status-aguardando">
+                            <h3>⏳ Aguardando instrutor iniciar...</h3>
+                            <p>Fique atento! O quiz começará em breve.</p>
+                        </div>
+                        
+                        <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">0</span></div>
                     </div>
-                    <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">0</span></div>
                 </div>
             `;
         }
@@ -837,15 +874,22 @@
             if (!pergunta) return;
 
             document.getElementById('conteudoAluno').innerHTML = `
-                <div class="aluno-screen">
-                    <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">${pontosAluno}</span></div>
-                    <div class="quiz-pergunta">
-                        <h2>${pergunta.pergunta}</h2>
-                        <div>${pergunta.opcoes.map((opcao, i) => `
-                            <div class="quiz-opcao" onclick="responder(${i}, ${pergunta.correta}, '${codigo}', '${alunoId}')">
-                                ${String.fromCharCode(65 + i)}) ${opcao}
-                            </div>
-                        `).join('')}</div>
+                <div style="min-height: 70vh;">
+                    <div class="aluno-screen">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 40px;">
+                        </div>
+                        
+                        <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">${pontosAluno}</span></div>
+                        
+                        <div class="quiz-pergunta">
+                            <h2 style="margin-bottom: 25px;">${pergunta.pergunta}</h2>
+                            <div>${pergunta.opcoes.map((opcao, i) => `
+                                <div class="quiz-opcao" onclick="responder(${i}, ${pergunta.correta}, '${codigo}', '${alunoId}')">
+                                    ${String.fromCharCode(65 + i)}) ${opcao}
+                                </div>
+                            `).join('')}</div>
+                        </div>
                     </div>
                 </div>
             `;

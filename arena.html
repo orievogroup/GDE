@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GDE - Plataforma de Treinamentos</title>
+    <title>Arena Orievo - Grupo Dislub Equador</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --orievo-primary: #4FC3DC;
+            --orievo-secondary: #2A9BB8;
+            --orievo-dark: #1a1a1a;
+            --orievo-light: #E0F6FF;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,35 +22,85 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+            background: linear-gradient(135deg, var(--orievo-light) 0%, #ffffff 100%);
             min-height: 100vh;
-            padding: 20px;
+        }
+
+        /* HEADER PROFISSIONAL */
+        .header-profissional {
+            background: linear-gradient(135deg, var(--orievo-primary) 0%, var(--orievo-secondary) 100%);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-orievo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-orievo img {
+            height: 45px;
+            background: white;
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .logo-orievo .text h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .logo-orievo .text p {
+            font-size: 11px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .header-info {
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-info img {
+            height: 50px;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .header-info .text p {
+            color: white;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .header-info .text h2 {
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        .logo-container {
-            text-align: center;
-            background: white;
-            padding: 40px 20px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .logo-container img {
-            max-width: 350px;
-            height: auto;
-            margin-bottom: 15px;
-        }
-
-        .logo-container h2 {
-            color: #1a1a1a;
-            font-size: 22px;
-            font-weight: 600;
+            padding: 40px 30px;
         }
 
         .cards-container {
@@ -67,7 +124,7 @@
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            border-color: #4FC3DC;
+            border-color: var(--orievo-primary);
         }
 
         .card-icon {
@@ -89,7 +146,7 @@
         }
 
         .card-btn {
-            background: #4FC3DC;
+            background: linear-gradient(135deg, var(--orievo-primary), var(--orievo-secondary));
             color: white;
             border: none;
             padding: 12px 30px;
@@ -101,7 +158,6 @@
         }
 
         .card-btn:hover {
-            background: #3ab0c9;
             transform: scale(1.05);
         }
 
@@ -151,7 +207,7 @@
         .modal-content button {
             width: 100%;
             padding: 15px;
-            background: #4FC3DC;
+            background: linear-gradient(135deg, var(--orievo-primary), var(--orievo-secondary));
             color: white;
             border: none;
             border-radius: 10px;
@@ -159,10 +215,6 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
-        }
-
-        .modal-content button:hover {
-            background: #3ab0c9;
         }
 
         .modulo-screen {
@@ -181,10 +233,6 @@
             cursor: pointer;
             font-size: 16px;
             margin-bottom: 20px;
-        }
-
-        .btn-voltar:hover {
-            background: #555;
         }
 
         .arena-container {
@@ -233,10 +281,6 @@
             margin: 20px 0;
         }
 
-        .btn-arena:hover {
-            background: #8e44ad;
-        }
-
         #qrcodeArena {
             text-align: center;
             margin: 20px 0;
@@ -263,7 +307,6 @@
             letter-spacing: 8px;
         }
 
-        /* TELA ALUNO */
         .aluno-screen {
             background: white;
             padding: 40px;
@@ -273,21 +316,11 @@
             text-align: center;
         }
 
-        .aluno-screen h1 {
-            color: #9b59b6;
-            margin-bottom: 20px;
-        }
-
         .status-aguardando {
             background: #fff3cd;
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
-        }
-
-        .status-aguardando h3 {
-            color: #856404;
-            margin-bottom: 10px;
         }
 
         .quiz-pergunta {
@@ -296,12 +329,6 @@
             border-radius: 15px;
             margin: 20px 0;
             border: 3px solid #9b59b6;
-        }
-
-        .quiz-pergunta h2 {
-            color: #9b59b6;
-            margin-bottom: 20px;
-            font-size: 24px;
         }
 
         .quiz-opcao {
@@ -340,13 +367,6 @@
             font-weight: 700;
         }
 
-        .timer {
-            font-size: 48px;
-            font-weight: 700;
-            color: #9b59b6;
-            margin: 20px 0;
-        }
-
         .participantes-count {
             background: #e7f3ff;
             padding: 15px;
@@ -355,15 +375,102 @@
             color: #004085;
             font-weight: 600;
         }
+
+        .ranking-item {
+            background: white;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #f39c12;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .ranking-item.primeiro {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-left-color: #ffd700;
+        }
+
+        .ranking-item.segundo {
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+            border-left-color: #c0c0c0;
+        }
+
+        .ranking-item.terceiro {
+            background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
+            border-left-color: #cd7f32;
+        }
+
+        .ranking-posicao {
+            font-size: 24px;
+            font-weight: 900;
+            min-width: 40px;
+        }
+
+        .ranking-nome {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 15px;
+        }
+
+        .ranking-pontos {
+            font-size: 20px;
+            font-weight: 700;
+            color: #9b59b6;
+        }
+
+        .footer-profissional {
+            background: var(--orievo-dark);
+            color: white;
+            padding: 30px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .footer-profissional p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+
+        .footer-profissional strong {
+            color: var(--orievo-primary);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .header-info {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Logo GDE">
-            <h2>GDE - Plataforma de Treinamentos</h2>
+    <header class="header-profissional">
+        <div class="header-content">
+            <div class="logo-orievo">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo">
+                <div class="text">
+                    <h1>ARENA ORIEVO</h1>
+                    <p>Treinamentos Interativos</p>
+                </div>
+            </div>
+            <div class="header-info">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Dislub Equador">
+                <div class="text">
+                    <p>Plataforma desenvolvida para</p>
+                    <h2>Grupo Dislub Equador</h2>
+                </div>
+            </div>
         </div>
+    </header>
 
+    <div class="container">
         <div id="telaInicial">
             <div class="cards-container">
                 <div class="card" onclick="abrirModulo('seguranca')">
@@ -394,7 +501,6 @@
             <div id="conteudoModulo"></div>
         </div>
 
-        <!-- TELA ALUNO -->
         <div id="telaAluno" class="hidden">
             <div id="conteudoAluno"></div>
         </div>
@@ -410,11 +516,17 @@
         </div>
     </div>
 
+    <footer class="footer-profissional">
+        <p>&copy; 2026 <strong>ORIEVO GROUP</strong>. Todos os direitos reservados.</p>
+        <p>Plataforma desenvolvida para <strong>Grupo Dislub Equador</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Soluções em Treinamento e Desenvolvimento</p>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getDatabase, ref, set, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getDatabase, ref, set, update, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
@@ -423,76 +535,41 @@
             projectId: "dislub-equador",
             storageBucket: "dislub-equador.firebasestorage.app",
             messagingSenderId: "160052415363",
-            appId: "1:160052415363:web:f17df9700cd511122504b6",
-            measurementId: "G-SHMCTNHGBX"
+            appId: "1:160052415363:web:f17df9700cd511122504b6"
         };
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         
-        console.log('🔥 Firebase inicializado com sucesso!');
-        
         window.firebaseDB = database;
         window.firebaseRef = ref;
         window.firebaseSet = set;
-        window.firebaseOnValue = onValue;
         window.firebaseUpdate = update;
+        window.firebaseOnValue = onValue;
         window.firebaseReady = true;
+        
+        console.log('🔥 Firebase OK');
     </script>
 
     <script>
         const MODULOS = {
-            seguranca: {
-                nome: 'Segurança no Trabalho',
-                senha: 'Seguranca2026',
-                mensagem: 'Módulo de segurança em desenvolvimento.'
-            },
-            lideranca: {
-                nome: 'Líder de Excelência',
-                senha: 'Lider2026',
-                mensagem: 'Módulo de liderança em desenvolvimento.'
-            },
-            arena: {
-                nome: 'Arena Ao Vivo',
-                senha: 'Arena2026GDE',
-                tipo: 'arena'
-            }
+            seguranca: { nome: 'Segurança no Trabalho', senha: 'Seguranca2026', mensagem: 'Módulo em desenvolvimento.' },
+            lideranca: { nome: 'Líder de Excelência', senha: 'Lider2026', mensagem: 'Módulo em desenvolvimento.' },
+            arena: { nome: 'Arena Ao Vivo', senha: 'Arena2026GDE', tipo: 'arena' }
         };
 
         const PERGUNTAS = {
             quiz1: [
-                {
-                    pergunta: "O que significa EPI?",
-                    opcoes: [
-                        "Equipamento de Proteção Individual",
-                        "Equipamento de Produção Industrial",
-                        "Equipamento Pessoal Interno",
-                        "Equipamento de Processo Industrial"
-                    ],
-                    correta: 0
-                },
-                {
-                    pergunta: "Qual a finalidade do capacete de segurança?",
-                    opcoes: [
-                        "Proteger contra ruídos",
-                        "Proteger contra impactos na cabeça",
-                        "Proteger contra produtos químicos",
-                        "Proteger contra quedas"
-                    ],
-                    correta: 1
-                }
+                { pergunta: "O que significa EPI?", opcoes: ["Equipamento de Proteção Individual", "Equipamento de Produção Industrial", "Equipamento Pessoal Interno", "Equipamento de Processo Industrial"], correta: 0 },
+                { pergunta: "Qual a finalidade do capacete de segurança?", opcoes: ["Proteger contra ruídos", "Proteger contra impactos na cabeça", "Proteger contra produtos químicos", "Proteger contra quedas"], correta: 1 }
             ]
         };
 
-        let moduloAtual = null;
-        let sessaoAtual = null;
-        let nomeAluno = null;
-        let pontosAluno = 0;
+        let moduloAtual = null, sessaoAtual = null, nomeAluno = null, pontosAluno = 0;
 
         function abrirModulo(id) {
             moduloAtual = id;
-            const modulo = MODULOS[id];
-            document.getElementById('modalTitulo').textContent = modulo.nome;
+            document.getElementById('modalTitulo').textContent = MODULOS[id].nome;
             document.getElementById('modalLogin').classList.add('active');
         }
 
@@ -500,9 +577,8 @@
             const senha = document.getElementById('inputSenha').value;
             const nome = document.getElementById('inputNome').value;
             const email = document.getElementById('inputEmail').value;
-            const modulo = MODULOS[moduloAtual];
 
-            if (senha === modulo.senha && nome && email) {
+            if (senha === MODULOS[moduloAtual].senha && nome && email) {
                 document.getElementById('modalLogin').classList.remove('active');
                 mostrarModulo();
             } else {
@@ -511,21 +587,14 @@
         }
 
         function mostrarModulo() {
-            const modulo = MODULOS[moduloAtual];
             document.getElementById('telaInicial').classList.add('hidden');
             document.getElementById('telaModulo').classList.remove('hidden');
             
             const conteudo = document.getElementById('conteudoModulo');
-            
-            if (modulo.tipo === 'arena') {
+            if (MODULOS[moduloAtual].tipo === 'arena') {
                 mostrarArena(conteudo);
             } else {
-                conteudo.innerHTML = `
-                    <div class="modulo-screen">
-                        <h1>${modulo.nome}</h1>
-                        <p>${modulo.mensagem}</p>
-                    </div>
-                `;
+                conteudo.innerHTML = `<div class="modulo-screen"><h1>${MODULOS[moduloAtual].nome}</h1><p>${MODULOS[moduloAtual].mensagem}</p></div>`;
             }
         }
 
@@ -543,23 +612,19 @@
                 <div class="arena-container">
                     <div class="arena-card">
                         <h2>🎮 Arena Ao Vivo - Criar Sessão</h2>
-                        
                         <label>Nome da Sessão:</label>
                         <input type="text" id="nomeSessao" placeholder="Ex: DDS Terça-feira">
-                        
                         <label>Selecione Atividades:</label>
                         <div style="margin: 15px 0;">
                             <label><input type="checkbox" id="quiz1" checked> Quiz: EPIs Básicos</label><br>
                             <label><input type="checkbox" id="nuvem1"> Nuvem de Palavras</label><br>
                             <label><input type="checkbox" id="quiz2"> Quiz: NR-6</label>
                         </div>
-                        
                         <label>Modo:</label>
                         <select id="modoSessao">
                             <option value="individual">Individual</option>
                             <option value="equipes">Por Equipes</option>
                         </select>
-                        
                         <button class="btn-arena" onclick="criarSessao()">🚀 CRIAR SESSÃO</button>
                     </div>
                 </div>
@@ -568,10 +633,7 @@
 
         function criarSessao() {
             const nome = document.getElementById('nomeSessao').value;
-            if (!nome) {
-                alert('Digite o nome da sessão!');
-                return;
-            }
+            if (!nome) { alert('Digite o nome da sessão!'); return; }
 
             const codigo = gerarCodigo();
             const atividades = [];
@@ -579,203 +641,151 @@
             if (document.getElementById('nuvem1').checked) atividades.push('nuvem1');
             if (document.getElementById('quiz2').checked) atividades.push('quiz2');
 
-            if (atividades.length === 0) {
-                alert('Selecione pelo menos uma atividade!');
-                return;
-            }
+            if (atividades.length === 0) { alert('Selecione pelo menos uma atividade!'); return; }
 
             const modo = document.getElementById('modoSessao').value;
             const linkSessao = window.location.origin + window.location.pathname + '?codigo=' + codigo;
-
             sessaoAtual = codigo;
 
             document.getElementById('conteudoModulo').innerHTML = `
                 <div class="arena-container">
                     <div class="arena-card">
-                        <h2>✅ Sessão Criada com Sucesso!</h2>
-                        
+                        <h2>✅ Sessão Criada!</h2>
                         <div class="sessao-info">
-                            <h3>📋 Informações da Sessão</h3>
+                            <h3>📋 Informações</h3>
                             <p><strong>Nome:</strong> ${nome}</p>
                             <p><strong>Modo:</strong> ${modo === 'individual' ? '👤 Individual' : '👥 Equipes'}</p>
                             <p><strong>Atividades:</strong> ${atividades.length}</p>
                         </div>
-                        
                         <h3 style="text-align: center; margin: 30px 0 10px 0;">Código da Sessão:</h3>
                         <div class="codigo-sessao">${codigo}</div>
-                        
                         <div id="qrcodeArena"></div>
-                        
                         <div style="text-align: center; margin: 20px 0;">
                             <p><strong>Link:</strong></p>
                             <p style="word-break: break-all; color: #666;">${linkSessao}</p>
                             <button class="btn-arena" onclick="copiarLink('${linkSessao}')">📋 Copiar Link</button>
                         </div>
-
-                        <div class="participantes-count" id="participantesCount">
-                            👥 Participantes conectados: <span id="countNum">0</span>
+                        <div class="participantes-count">
+                            👥 Participantes: <span id="countNum">0</span>
                         </div>
+                        <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
+                        <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
+                        <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING</button>
                         
-                        <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR SESSÃO (Limpar Tudo)</button>
-                        
-                        <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ RESETAR E INICIAR QUIZ</button>
-                        
-                        <button class="btn-voltar" onclick="voltarInicio()" style="width: 100%; margin-top: 20px;">← Criar Nova Sessão</button>
+                        <div id="rankingArea" style="display: none; margin-top: 30px;">
+                            <h3 style="color: #f39c12; text-align: center; margin-bottom: 20px;">🏆 Ranking de Pontuação</h3>
+                            <div id="rankingLista"></div>
+                        </div>
                     </div>
                 </div>
             `;
 
-            setTimeout(() => {
-                new QRCode(document.getElementById("qrcodeArena"), {
-                    text: linkSessao,
-                    width: 200,
-                    height: 200
-                });
-            }, 100);
-
+            setTimeout(() => new QRCode(document.getElementById("qrcodeArena"), {text: linkSessao, width: 200, height: 200}), 100);
             salvarSessaoFirebase(codigo, nome, atividades, modo);
             monitorarParticipantes(codigo);
+        }
+
+        function gerarCodigo() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let codigo = '';
+            for (let i = 0; i < 6; i++) codigo += chars.charAt(Math.floor(Math.random() * chars.length));
+            return codigo;
+        }
+
+        function copiarLink(link) {
+            navigator.clipboard.writeText(link).then(() => alert('✅ Link copiado!'));
+        }
+
+        function salvarSessaoFirebase(codigo, nome, atividades, modo) {
+            if (window.firebaseReady) {
+                const dbRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
+                window.firebaseSet(dbRef, {nome, atividades, modo, status: 'aguardando', criado: new Date().toISOString(), participantes: {}});
+            }
         }
 
         function monitorarParticipantes(codigo) {
             if (window.firebaseReady) {
                 const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes');
                 window.firebaseOnValue(participantesRef, (snapshot) => {
-                    const participantes = snapshot.val();
-                    const count = participantes ? Object.keys(participantes).length : 0;
+                    const count = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
                     const countEl = document.getElementById('countNum');
-                    if (countEl) {
-                        countEl.textContent = count;
-                    }
-                });
-            }
-        }
-
-        function iniciarQuiz() {
-            if (window.firebaseReady && sessaoAtual) {
-                // Confirmar reset
-                const confirma = confirm('🔄 RESETAR E INICIAR?\n\n' +
-                    '• Todos os participantes serão REMOVIDOS\n' +
-                    '• Todos os pontos serão ZERADOS\n' +
-                    '• Quiz começará do zero\n\n' +
-                    'Alunos precisarão ENTRAR NOVAMENTE.\n\n' +
-                    'Continuar?');
-                
-                if (!confirma) return;
-                
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                
-                // RESETAR TUDO - Limpa participantes e dados
-                window.firebaseSet(sessaoRef, {
-                    status: 'quiz_ativo',
-                    perguntaAtual: 0,
-                    timestamp: Date.now(),
-                    participantes: {},  // ← LIMPA TODOS PARTICIPANTES
-                    respostas: {},      // ← LIMPA TODAS RESPOSTAS
-                    iniciadoEm: new Date().toISOString()
-                }).then(() => {
-                    alert('✅ Sessão RESETADA!\n\n' +
-                        '• Participantes zerados\n' +
-                        '• Pontos zerados\n' +
-                        '• Quiz pronto para começar!\n\n' +
-                        'Peça aos alunos para ENTRAREM NOVAMENTE.');
-                    
-                    // Atualizar contador na tela
-                    const countEl = document.getElementById('countNumArena');
-                    if (countEl) countEl.textContent = '0';
+                    if (countEl) countEl.textContent = count;
                 });
             }
         }
 
         function resetarSessao() {
+            if (confirm('🔄 Resetar sessão?\n\nTodos participantes e pontos serão removidos.')) {
+                if (window.firebaseReady && sessaoAtual) {
+                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                    window.firebaseUpdate(sessaoRef, {status: 'aguardando', participantes: {}, respostas: {}});
+                    alert('✅ Sessão resetada!');
+                }
+            }
+        }
+
+        function iniciarQuiz() {
             if (window.firebaseReady && sessaoAtual) {
-                const confirma = confirm('🔄 RESETAR SESSÃO?\n\n' +
-                    '• Todos os participantes serão REMOVIDOS\n' +
-                    '• Todos os pontos serão ZERADOS\n' +
-                    '• Status voltará para AGUARDANDO\n\n' +
-                    'Use isso para limpar antes de começar nova rodada.\n\n' +
-                    'Continuar?');
-                
-                if (!confirma) return;
-                
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                
-                // RESETAR para estado inicial
-                window.firebaseUpdate(sessaoRef, {
-                    status: 'aguardando',
-                    participantes: {},
-                    respostas: {},
-                    perguntaAtual: null,
-                    resetadoEm: new Date().toISOString()
-                }).then(() => {
-                    alert('✅ Sessão LIMPA!\n\n' +
-                        '• Participantes removidos\n' +
-                        '• Pontos zerados\n' +
-                        '• Pronta para nova rodada!\n\n' +
-                        'Peça aos alunos para entrarem novamente.');
-                    
-                    // Atualizar contador
-                    const countEl = document.getElementById('countNumArena');
-                    if (countEl) countEl.textContent = '0';
-                });
+                if (confirm('▶ Iniciar quiz?\n\nParticipantes receberão a primeira pergunta.')) {
+                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                    window.firebaseSet(sessaoRef, {status: 'quiz_ativo', perguntaAtual: 0, timestamp: Date.now(), participantes: {}, respostas: {}});
+                    alert('✅ Quiz iniciado!');
+                }
             }
         }
 
-        function gerarCodigo() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let codigo = '';
-            for (let i = 0; i < 6; i++) {
-                codigo += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return codigo;
-        }
-
-        function copiarLink(link) {
-            navigator.clipboard.writeText(link).then(() => {
-                alert('✅ Link copiado!\n\nCompartilhe com seus alunos.');
-            });
-        }
-
-        function salvarSessaoFirebase(codigo, nome, atividades, modo) {
-            if (window.firebaseReady) {
-                const sessaoData = {
-                    nome: nome,
-                    atividades: atividades,
-                    modo: modo,
-                    status: 'aguardando',
-                    criado: new Date().toISOString(),
-                    participantes: {}
-                };
+        function mostrarRanking() {
+            const rankingArea = document.getElementById('rankingArea');
+            const rankingLista = document.getElementById('rankingLista');
+            
+            if (rankingArea.style.display === 'none') {
+                rankingArea.style.display = 'block';
                 
-                const dbRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseSet(dbRef, sessaoData)
-                    .then(() => {
-                        console.log('🔥 Sessão salva no Firebase:', codigo);
-                        console.log('📦 Dados:', sessaoData);
-                    })
-                    .catch((error) => {
-                        console.error('❌ Erro ao salvar:', error);
+                if (window.firebaseReady && sessaoAtual) {
+                    const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual + '/participantes');
+                    window.firebaseOnValue(participantesRef, (snapshot) => {
+                        const participantes = snapshot.val();
+                        
+                        if (!participantes) {
+                            rankingLista.innerHTML = '<p style="text-align: center; color: #999; padding: 30px;">Nenhum participante ainda.</p>';
+                            return;
+                        }
+                        
+                        // Converter para array e ordenar por pontos
+                        const ranking = Object.values(participantes).sort((a, b) => (b.pontos || 0) - (a.pontos || 0));
+                        
+                        let html = '';
+                        ranking.forEach((participante, index) => {
+                            const classe = index === 0 ? 'primeiro' : index === 1 ? 'segundo' : index === 2 ? 'terceiro' : '';
+                            const posicao = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}º`;
+                            
+                            html += `
+                                <div class="ranking-item ${classe}">
+                                    <div class="ranking-posicao">${posicao}</div>
+                                    <div class="ranking-nome">${participante.nome}</div>
+                                    <div class="ranking-pontos">${participante.pontos || 0} pts</div>
+                                </div>
+                            `;
+                        });
+                        
+                        rankingLista.innerHTML = html;
                     });
+                }
+            } else {
+                rankingArea.style.display = 'none';
             }
         }
 
-        // TELA DO ALUNO
         function mostrarTelaAluno(codigo) {
             document.getElementById('telaInicial').classList.add('hidden');
             document.getElementById('telaAluno').classList.remove('hidden');
-            
-            const conteudo = document.getElementById('conteudoAluno');
-            conteudo.innerHTML = `
+            document.getElementById('conteudoAluno').innerHTML = `
                 <div class="aluno-screen">
                     <h1>🎮 Arena Ao Vivo</h1>
                     <p>Código: <strong>${codigo}</strong></p>
-                    
                     <div style="margin: 30px 0;">
-                        <input type="text" id="nomeAlunoInput" placeholder="Digite seu nome" 
-                               style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; margin: 10px 0;">
-                        <button class="btn-arena" style="width: 100%;" onclick="entrarSessao('${codigo}')">
-                            ENTRAR NA SESSÃO
-                        </button>
+                        <input type="text" id="nomeAlunoInput" placeholder="Digite seu nome" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; margin: 10px 0;">
+                        <button class="btn-arena" style="width: 100%;" onclick="entrarSessao('${codigo}')">ENTRAR</button>
                     </div>
                 </div>
             `;
@@ -783,43 +793,29 @@
 
         function entrarSessao(codigo) {
             const nome = document.getElementById('nomeAlunoInput').value.trim();
-            if (!nome) {
-                alert('Digite seu nome!');
-                return;
-            }
+            if (!nome) { alert('Digite seu nome!'); return; }
 
             nomeAluno = nome;
             const alunoId = nome.toLowerCase().replace(/[^a-z0-9]/g, '_');
 
             if (window.firebaseReady) {
                 const alunoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes/' + alunoId);
-                window.firebaseSet(alunoRef, {
-                    nome: nome,
-                    pontos: 0,
-                    conectado: true,
-                    timestamp: Date.now()
-                });
-
+                window.firebaseSet(alunoRef, {nome, pontos: 0, conectado: true, timestamp: Date.now()});
                 mostrarAguardando(codigo, nome);
                 escutarSessao(codigo, alunoId);
             }
         }
 
         function mostrarAguardando(codigo, nome) {
-            const conteudo = document.getElementById('conteudoAluno');
-            conteudo.innerHTML = `
+            document.getElementById('conteudoAluno').innerHTML = `
                 <div class="aluno-screen">
                     <h1>✅ Conectado!</h1>
                     <p style="font-size: 20px; margin: 20px 0;">Olá, <strong>${nome}</strong>!</p>
-                    
                     <div class="status-aguardando">
                         <h3>⏳ Aguardando instrutor iniciar...</h3>
                         <p>Fique atento! O quiz começará em breve.</p>
                     </div>
-
-                    <div class="pontos-display">
-                        🏆 Seus pontos: <span id="pontosAluno">0</span>
-                    </div>
+                    <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">0</span></div>
                 </div>
             `;
         }
@@ -829,10 +825,8 @@
                 const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
                 window.firebaseOnValue(sessaoRef, (snapshot) => {
                     const sessao = snapshot.val();
-                    if (sessao) {
-                        if (sessao.status === 'quiz_ativo' && sessao.perguntaAtual !== undefined) {
-                            mostrarPergunta(codigo, alunoId, sessao.perguntaAtual);
-                        }
+                    if (sessao && sessao.status === 'quiz_ativo' && sessao.perguntaAtual !== undefined) {
+                        mostrarPergunta(codigo, alunoId, sessao.perguntaAtual);
                     }
                 });
             }
@@ -842,22 +836,16 @@
             const pergunta = PERGUNTAS.quiz1[indice];
             if (!pergunta) return;
 
-            const conteudo = document.getElementById('conteudoAluno');
-            conteudo.innerHTML = `
+            document.getElementById('conteudoAluno').innerHTML = `
                 <div class="aluno-screen">
-                    <div class="pontos-display">
-                        🏆 Seus pontos: <span id="pontosAluno">${pontosAluno}</span>
-                    </div>
-
+                    <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">${pontosAluno}</span></div>
                     <div class="quiz-pergunta">
                         <h2>${pergunta.pergunta}</h2>
-                        <div id="opcoesQuiz">
-                            ${pergunta.opcoes.map((opcao, i) => `
-                                <div class="quiz-opcao" onclick="responder(${i}, ${pergunta.correta}, '${codigo}', '${alunoId}')">
-                                    ${String.fromCharCode(65 + i)}) ${opcao}
-                                </div>
-                            `).join('')}
-                        </div>
+                        <div>${pergunta.opcoes.map((opcao, i) => `
+                            <div class="quiz-opcao" onclick="responder(${i}, ${pergunta.correta}, '${codigo}', '${alunoId}')">
+                                ${String.fromCharCode(65 + i)}) ${opcao}
+                            </div>
+                        `).join('')}</div>
                     </div>
                 </div>
             `;
@@ -868,50 +856,31 @@
             opcoes.forEach(opcao => opcao.style.pointerEvents = 'none');
 
             const acertou = escolhida === correta;
-            
             opcoes[escolhida].classList.add(acertou ? 'correta' : 'errada');
-            if (!acertou) {
-                opcoes[correta].classList.add('correta');
-            }
+            if (!acertou) opcoes[correta].classList.add('correta');
 
             if (acertou) {
                 pontosAluno += 100;
                 document.getElementById('pontosAluno').textContent = pontosAluno;
-
                 if (window.firebaseReady) {
                     const alunoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes/' + alunoId);
-                    window.firebaseUpdate(alunoRef, {
-                        pontos: pontosAluno
-                    });
+                    window.firebaseUpdate(alunoRef, {pontos: pontosAluno});
                 }
             }
 
-            setTimeout(() => {
-                mostrarAguardando(codigo, nomeAluno);
-            }, 3000);
+            setTimeout(() => mostrarAguardando(codigo, nomeAluno), 3000);
         }
 
         window.addEventListener('load', function() {
-            console.log('✅ Página carregada');
-            
             const params = new URLSearchParams(window.location.search);
             const codigo = params.get('codigo');
             
-            if (codigo) {
-                console.log('🎮 Código detectado:', codigo);
-                
-                if (window.firebaseReady) {
-                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                    window.firebaseOnValue(sessaoRef, (snapshot) => {
-                        const sessao = snapshot.val();
-                        if (sessao) {
-                            console.log('✅ Sessão encontrada:', sessao.nome);
-                            mostrarTelaAluno(codigo);
-                        } else {
-                            alert('❌ Sessão não encontrada: ' + codigo);
-                        }
-                    }, { onlyOnce: true });
-                }
+            if (codigo && window.firebaseReady) {
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
+                window.firebaseOnValue(sessaoRef, (snapshot) => {
+                    if (snapshot.val()) mostrarTelaAluno(codigo);
+                    else alert('❌ Sessão não encontrada: ' + codigo);
+                }, { onlyOnce: true });
             }
         });
     </script>

@@ -687,8 +687,18 @@
                         <div class="participantes-count">
                             👥 Participantes: <span id="countNum">0</span>
                         </div>
+                        
+                        <div id="statusQuiz" style="display: none; background: #fff3cd; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                            <p style="font-weight: 600; color: #856404; margin-bottom: 10px;">📊 Status do Quiz</p>
+                            <p id="statusTexto">Aguardando...</p>
+                            <div style="margin-top: 10px;">
+                                <span id="responderam">0</span> / <span id="totalParticipantes">0</span> responderam
+                            </div>
+                        </div>
+                        
                         <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
                         <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
+                        <button class="btn-arena" id="btnProxima" style="width: 100%; background: #28a745; display: none;" onclick="proximaPergunta()">➡️ PRÓXIMA PERGUNTA</button>
                         <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING</button>
                         
                         <div id="rankingArea" style="display: none; margin-top: 30px;">
@@ -726,9 +736,52 @@
             if (window.firebaseReady) {
                 const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes');
                 window.firebaseOnValue(participantesRef, (snapshot) => {
-                    const count = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
+                    const participantes = snapshot.val();
+                    const count = participantes ? Object.keys(participantes).length : 0;
                     const countEl = document.getElementById('countNum');
                     if (countEl) countEl.textContent = count;
+                    
+                    // Atualizar total de participantes no status
+                    const totalEl = document.getElementById('totalParticipantes');
+                    if (totalEl) totalEl.textContent = count;
+                });
+                
+                // Monitorar status da sessão e respostas
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
+                window.firebaseOnValue(sessaoRef, (snapshot) => {
+                    const sessao = snapshot.val();
+                    if (sessao && sessao.status === 'quiz_ativo') {
+                        // Mostrar status do quiz
+                        const statusDiv = document.getElementById('statusQuiz');
+                        if (statusDiv) statusDiv.style.display = 'block';
+                        
+                        // Contar quantos responderam
+                        const participantes = sessao.participantes || {};
+                        const respostas = sessao.respostas || {};
+                        const perguntaAtual = sessao.perguntaAtual || 0;
+                        
+                        const totalParticipantes = Object.keys(participantes).length;
+                        const totalRespostas = Object.keys(respostas).filter(key => 
+                            respostas[key].pergunta === perguntaAtual
+                        ).length;
+                        
+                        const responderamEl = document.getElementById('responderam');
+                        if (responderamEl) responderamEl.textContent = totalRespostas;
+                        
+                        const statusTexto = document.getElementById('statusTexto');
+                        if (statusTexto) {
+                            if (totalRespostas === 0) {
+                                statusTexto.textContent = '⏳ Aguardando respostas...';
+                            } else if (totalRespostas < totalParticipantes) {
+                                statusTexto.textContent = '📝 Alguns já responderam...';
+                            } else if (totalRespostas === totalParticipantes && totalParticipantes > 0) {
+                                statusTexto.innerHTML = '✅ <strong>TODOS RESPONDERAM!</strong> Pode liberar próxima pergunta.';
+                                // Mostrar botão próxima pergunta
+                                const btnProxima = document.getElementById('btnProxima');
+                                if (btnProxima) btnProxima.style.display = 'block';
+                            }
+                        }
+                    }
                 });
             }
         }
@@ -750,6 +803,53 @@
                     window.firebaseSet(sessaoRef, {status: 'quiz_ativo', perguntaAtual: 0, timestamp: Date.now(), participantes: {}, respostas: {}});
                     alert('✅ Quiz iniciado!');
                 }
+            }
+        }
+
+        function proximaPergunta() {
+            if (window.firebaseReady && sessaoAtual) {
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                
+                // Pegar pergunta atual
+                window.firebaseOnValue(sessaoRef, (snapshot) => {
+                    const sessao = snapshot.val();
+                    const perguntaAtual = (sessao.perguntaAtual || 0) + 1;
+                    
+                    // Verificar se ainda tem perguntas
+                    if (perguntaAtual >= PERGUNTAS.quiz1.length) {
+                        alert('✅ Quiz finalizado!\n\nTodas as perguntas foram respondidas.');
+                        // Voltar para aguardando
+                        window.firebaseUpdate(sessaoRef, {
+                            status: 'finalizado',
+                            perguntaAtual: null
+                        });
+                        
+                        // Esconder status e botão
+                        const statusDiv = document.getElementById('statusQuiz');
+                        const btnProxima = document.getElementById('btnProxima');
+                        if (statusDiv) statusDiv.style.display = 'none';
+                        if (btnProxima) btnProxima.style.display = 'none';
+                        
+                        return;
+                    }
+                    
+                    // Liberar próxima pergunta
+                    window.firebaseUpdate(sessaoRef, {
+                        perguntaAtual: perguntaAtual,
+                        timestamp: Date.now()
+                    });
+                    
+                    // Esconder botão até todos responderem novamente
+                    const btnProxima = document.getElementById('btnProxima');
+                    if (btnProxima) btnProxima.style.display = 'none';
+                    
+                    const statusTexto = document.getElementById('statusTexto');
+                    if (statusTexto) statusTexto.textContent = '⏳ Aguardando respostas...';
+                    
+                    const responderamEl = document.getElementById('responderam');
+                    if (responderamEl) responderamEl.textContent = '0';
+                    
+                }, { onlyOnce: true });
             }
         }
 
@@ -905,11 +1005,44 @@
 
             if (acertou) {
                 pontosAluno += 100;
-                document.getElementById('pontosAluno').textContent = pontosAluno;
+                
+                // Atualizar pontos localmente
+                const pontosEl = document.getElementById('pontosAluno');
+                if (pontosEl) pontosEl.textContent = pontosAluno;
+                
+                // Atualizar no Firebase
                 if (window.firebaseReady) {
                     const alunoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes/' + alunoId);
-                    window.firebaseUpdate(alunoRef, {pontos: pontosAluno});
+                    window.firebaseUpdate(alunoRef, {
+                        pontos: pontosAluno,
+                        nome: nomeAluno,
+                        ultimaResposta: Date.now()
+                    }).then(() => {
+                        console.log('✅ Pontos atualizados:', pontosAluno);
+                    }).catch(err => {
+                        console.error('❌ Erro ao atualizar pontos:', err);
+                    });
                 }
+            }
+            
+            // Salvar resposta no Firebase
+            if (window.firebaseReady) {
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
+                window.firebaseOnValue(sessaoRef, (snapshot) => {
+                    const sessao = snapshot.val();
+                    const perguntaAtual = sessao.perguntaAtual || 0;
+                    
+                    // Salvar resposta
+                    const respostaRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/respostas/' + alunoId + '_' + perguntaAtual);
+                    window.firebaseSet(respostaRef, {
+                        alunoId: alunoId,
+                        pergunta: perguntaAtual,
+                        escolhida: escolhida,
+                        correta: correta,
+                        acertou: acertou,
+                        timestamp: Date.now()
+                    });
+                }, { onlyOnce: true });
             }
 
             setTimeout(() => mostrarAguardando(codigo, nomeAluno), 3000);

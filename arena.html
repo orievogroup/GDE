@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Treinamentos</title>
+    <title>GDE - Plataforma de Treinamentos</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -472,36 +472,6 @@
                     correta: 0
                 },
                 {
-                    pergunta: "Qual a cor da luva para trabalho elétrico?",
-                    opcoes: [
-                    "Amarela",
-                    "Vermelha",
-                    "Laranja",
-                    "Branca"
-            ],
-            correta: 2  // C = Laranja
-        },
-        {
-                pergunta: "Qual a cor da luva para trabalho elétrico?",
-                opcoes: [
-                    "Amarela",
-                    "Vermelha",
-                    "Laranja",
-                    "Branca"
-            ],
-            correta: 2  // C = Laranja
-        },
-        {
-            pergunta: "Qual a cor da luva para trabalho elétrico?",
-            opcoes: [
-                "Amarela",
-                "Vermelha",
-                "Laranja",
-                "Branca"
-            ],
-            correta: 2  // C = Laranja
-        },
-        {
                     pergunta: "Qual a finalidade do capacete de segurança?",
                     opcoes: [
                         "Proteger contra ruídos",
@@ -646,7 +616,9 @@
                             👥 Participantes conectados: <span id="countNum">0</span>
                         </div>
                         
-                        <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
+                        <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR SESSÃO (Limpar Tudo)</button>
+                        
+                        <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ RESETAR E INICIAR QUIZ</button>
                         
                         <button class="btn-voltar" onclick="voltarInicio()" style="width: 100%; margin-top: 20px;">← Criar Nova Sessão</button>
                     </div>
@@ -681,13 +653,71 @@
 
         function iniciarQuiz() {
             if (window.firebaseReady && sessaoAtual) {
+                // Confirmar reset
+                const confirma = confirm('🔄 RESETAR E INICIAR?\n\n' +
+                    '• Todos os participantes serão REMOVIDOS\n' +
+                    '• Todos os pontos serão ZERADOS\n' +
+                    '• Quiz começará do zero\n\n' +
+                    'Alunos precisarão ENTRAR NOVAMENTE.\n\n' +
+                    'Continuar?');
+                
+                if (!confirma) return;
+                
                 const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                window.firebaseUpdate(sessaoRef, {
+                
+                // RESETAR TUDO - Limpa participantes e dados
+                window.firebaseSet(sessaoRef, {
                     status: 'quiz_ativo',
                     perguntaAtual: 0,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    participantes: {},  // ← LIMPA TODOS PARTICIPANTES
+                    respostas: {},      // ← LIMPA TODAS RESPOSTAS
+                    iniciadoEm: new Date().toISOString()
+                }).then(() => {
+                    alert('✅ Sessão RESETADA!\n\n' +
+                        '• Participantes zerados\n' +
+                        '• Pontos zerados\n' +
+                        '• Quiz pronto para começar!\n\n' +
+                        'Peça aos alunos para ENTRAREM NOVAMENTE.');
+                    
+                    // Atualizar contador na tela
+                    const countEl = document.getElementById('countNumArena');
+                    if (countEl) countEl.textContent = '0';
                 });
-                alert('✅ Quiz iniciado!\n\nOs alunos já podem ver a primeira pergunta!');
+            }
+        }
+
+        function resetarSessao() {
+            if (window.firebaseReady && sessaoAtual) {
+                const confirma = confirm('🔄 RESETAR SESSÃO?\n\n' +
+                    '• Todos os participantes serão REMOVIDOS\n' +
+                    '• Todos os pontos serão ZERADOS\n' +
+                    '• Status voltará para AGUARDANDO\n\n' +
+                    'Use isso para limpar antes de começar nova rodada.\n\n' +
+                    'Continuar?');
+                
+                if (!confirma) return;
+                
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                
+                // RESETAR para estado inicial
+                window.firebaseUpdate(sessaoRef, {
+                    status: 'aguardando',
+                    participantes: {},
+                    respostas: {},
+                    perguntaAtual: null,
+                    resetadoEm: new Date().toISOString()
+                }).then(() => {
+                    alert('✅ Sessão LIMPA!\n\n' +
+                        '• Participantes removidos\n' +
+                        '• Pontos zerados\n' +
+                        '• Pronta para nova rodada!\n\n' +
+                        'Peça aos alunos para entrarem novamente.');
+                    
+                    // Atualizar contador
+                    const countEl = document.getElementById('countNumArena');
+                    if (countEl) countEl.textContent = '0';
+                });
             }
         }
 

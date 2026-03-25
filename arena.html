@@ -422,6 +422,165 @@
             color: #9b59b6;
         }
 
+        /* PÓDIO VISUAL */
+        .podio-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 15px;
+            margin: 40px 0;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .podio-posicao {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .podio-posicao:hover {
+            transform: scale(1.05);
+        }
+
+        .podio-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 10px;
+            border: 4px solid;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .podio-medalha {
+            font-size: 48px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .podio-nome {
+            font-weight: 700;
+            margin: 10px 0 5px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .podio-pontos {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            background: #9b59b6;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .podio-bloco {
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .podio-bloco-primeiro {
+            height: 200px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            order: 2;
+            animation-delay: 0.2s;
+        }
+
+        .podio-bloco-segundo {
+            height: 150px;
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+            order: 1;
+            animation-delay: 0.1s;
+        }
+
+        .podio-bloco-terceiro {
+            height: 120px;
+            background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
+            order: 3;
+            animation-delay: 0s;
+        }
+
+        .podio-numero {
+            font-size: 48px;
+            font-weight: 900;
+            color: rgba(0,0,0,0.1);
+            position: absolute;
+            bottom: 20px;
+        }
+
+        .ranking-lista-completa {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .ranking-lista-titulo {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .tela-ranking-aluno {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .ranking-header-aluno {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .ranking-header-aluno h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .podio-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .podio-bloco {
+                width: 100%;
+                max-width: 300px;
+            }
+            .podio-bloco-primeiro,
+            .podio-bloco-segundo,
+            .podio-bloco-terceiro {
+                height: auto;
+                padding: 20px;
+                order: 0 !important;
+                margin: 10px 0;
+            }
+        }
+
         .footer-profissional {
             background: var(--orievo-dark);
             color: white;
@@ -699,7 +858,8 @@
                         <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
                         <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
                         <button class="btn-arena" id="btnProxima" style="width: 100%; background: #28a745; display: none;" onclick="proximaPergunta()">➡️ PRÓXIMA PERGUNTA</button>
-                        <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING</button>
+                        <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING (Instrutor)</button>
+                        <button class="btn-arena" style="width: 100%; background: #8e44ad;" onclick="exibirRankingParaAlunos()">📺 MOSTRAR RANKING PARA ALUNOS</button>
                         
                         <div id="rankingArea" style="display: none; margin-top: 30px;">
                             <h3 style="color: #f39c12; text-align: center; margin-bottom: 20px;">🏆 Ranking de Pontuação</h3>
@@ -853,6 +1013,29 @@
             }
         }
 
+        function exibirRankingParaAlunos() {
+            if (window.firebaseReady && sessaoAtual) {
+                const confirma = confirm('📺 MOSTRAR RANKING PARA ALUNOS?\n\nTodos os alunos verão o ranking com pódio e medalhas.');
+                if (confirma) {
+                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                    window.firebaseUpdate(sessaoRef, {
+                        mostrarRanking: true,
+                        timestamp: Date.now()
+                    });
+                    alert('✅ Ranking exibido para todos os alunos!');
+                }
+            }
+        }
+
+        function esconderRankingDosAlunos() {
+            if (window.firebaseReady && sessaoAtual) {
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                window.firebaseUpdate(sessaoRef, {
+                    mostrarRanking: false
+                });
+            }
+        }
+
         function mostrarRanking() {
             const rankingArea = document.getElementById('rankingArea');
             const rankingLista = document.getElementById('rankingLista');
@@ -962,10 +1145,110 @@
                 const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
                 window.firebaseOnValue(sessaoRef, (snapshot) => {
                     const sessao = snapshot.val();
-                    if (sessao && sessao.status === 'quiz_ativo' && sessao.perguntaAtual !== undefined) {
-                        mostrarPergunta(codigo, alunoId, sessao.perguntaAtual);
+                    if (sessao) {
+                        // Verificar se deve mostrar ranking
+                        if (sessao.mostrarRanking === true) {
+                            mostrarRankingParaAluno(codigo);
+                        }
+                        // Verificar se deve mostrar pergunta
+                        else if (sessao.status === 'quiz_ativo' && sessao.perguntaAtual !== undefined) {
+                            mostrarPergunta(codigo, alunoId, sessao.perguntaAtual);
+                        }
                     }
                 });
+            }
+        }
+
+        function mostrarRankingParaAluno(codigo) {
+            if (window.firebaseReady) {
+                const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes');
+                window.firebaseOnValue(participantesRef, (snapshot) => {
+                    const participantes = snapshot.val();
+                    
+                    if (!participantes) {
+                        return;
+                    }
+                    
+                    // Ordenar por pontos
+                    const ranking = Object.values(participantes).sort((a, b) => (b.pontos || 0) - (a.pontos || 0));
+                    
+                    // Criar tela de ranking visual
+                    let html = `
+                        <div class="tela-ranking-aluno">
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px;">
+                            </div>
+                            
+                            <div class="ranking-header-aluno">
+                                <h1>🏆 RANKING FINAL</h1>
+                                <p style="font-size: 18px;">Parabéns a todos os participantes!</p>
+                            </div>
+                            
+                            <div class="podio-container">
+                    `;
+                    
+                    // Top 3 no pódio
+                    for (let i = 0; i < Math.min(3, ranking.length); i++) {
+                        const participante = ranking[i];
+                        const classe = i === 0 ? 'primeiro' : i === 1 ? 'segundo' : 'terceiro';
+                        const medalha = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
+                        const cor = i === 0 ? '#ffd700' : i === 1 ? '#c0c0c0' : '#cd7f32';
+                        const numero = i + 1;
+                        
+                        html += `
+                            <div class="podio-posicao">
+                                <div class="podio-medalha">${medalha}</div>
+                                <div class="podio-nome" style="color: white;">${participante.nome}</div>
+                                <div class="podio-pontos">${participante.pontos || 0} pts</div>
+                                <div class="podio-bloco podio-bloco-${classe}">
+                                    <div class="podio-numero">${numero}</div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    html += `</div>`;
+                    
+                    // Lista completa (a partir do 4º)
+                    if (ranking.length > 3) {
+                        html += `
+                            <div class="ranking-lista-completa">
+                                <div class="ranking-lista-titulo">Classificação Completa</div>
+                        `;
+                        
+                        for (let i = 3; i < ranking.length; i++) {
+                            const participante = ranking[i];
+                            html += `
+                                <div class="ranking-item" style="margin: 10px 0;">
+                                    <div class="ranking-posicao">${i + 1}º</div>
+                                    <div class="ranking-nome">${participante.nome}</div>
+                                    <div class="ranking-pontos">${participante.pontos || 0} pts</div>
+                                </div>
+                            `;
+                        }
+                        
+                        html += `</div>`;
+                    }
+                    
+                    // Mensagem de parabéns personalizada
+                    const minhaPosicao = ranking.findIndex(p => p.nome === nomeAluno) + 1;
+                    if (minhaPosicao > 0) {
+                        html += `
+                            <div style="text-align: center; margin: 40px 20px; padding: 30px; background: white; border-radius: 15px;">
+                                <h2 style="color: #9b59b6; margin-bottom: 10px;">Sua Posição</h2>
+                                <p style="font-size: 48px; font-weight: 900; color: #333; margin: 20px 0;">${minhaPosicao}º lugar</p>
+                                <p style="font-size: 20px; color: #666;">Você fez ${pontosAluno} pontos!</p>
+                                ${minhaPosicao === 1 ? '<p style="font-size: 24px; margin-top: 20px;">🎉 <strong>PARABÉNS, CAMPEÃO!</strong> 🎉</p>' : ''}
+                                ${minhaPosicao === 2 ? '<p style="font-size: 20px; margin-top: 20px;">🎊 Excelente resultado! 🎊</p>' : ''}
+                                ${minhaPosicao === 3 ? '<p style="font-size: 20px; margin-top: 20px;">👏 Muito bem! 👏</p>' : ''}
+                            </div>
+                        `;
+                    }
+                    
+                    html += `</div>`;
+                    
+                    document.getElementById('conteudoAluno').innerHTML = html;
+                }, { onlyOnce: true });
             }
         }
 

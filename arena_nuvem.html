@@ -4,14 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arena Nuvem - Orievo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --nuvem-primary: #3498db;
-            --nuvem-secondary: #2980b9;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -21,7 +16,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--nuvem-primary) 0%, var(--nuvem-secondary) 100%);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             padding: 20px;
             color: white;
             text-align: center;
@@ -43,7 +38,7 @@
         }
 
         .btn {
-            background: var(--nuvem-primary);
+            background: #3498db;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -57,7 +52,7 @@
         }
 
         .btn:hover { 
-            background: var(--nuvem-secondary); 
+            background: #2980b9; 
             transform: scale(1.02);
         }
 
@@ -77,10 +72,9 @@
             font-size: 64px;
             font-weight: 900;
             text-align: center;
-            color: var(--nuvem-primary);
+            color: #3498db;
             letter-spacing: 12px;
             margin: 30px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         #qrcode {
@@ -88,101 +82,68 @@
             margin: 30px 0;
         }
 
-        /* NUVEM DE PALAVRAS ESTILO MENTIMETER */
-        .nuvem-palavras {
+        /* NUVEM ESTILO MENTIMETER */
+        .nuvem-container {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 60px 40px;
-            border-radius: 20px;
             min-height: 500px;
+            border-radius: 20px;
+            padding: 60px 40px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            align-content: center;
+            gap: 20px 40px;
             position: relative;
         }
 
-        .palavra-nuvem {
-            display: inline-block;
-            font-weight: 900;
+        .palavra {
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: aparecer 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            transition: all 0.3s;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: default;
-            user-select: none;
+            transition: all 0.3s ease;
+            animation: surgir 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            line-height: 1.2;
         }
 
-        .palavra-nuvem:hover {
-            transform: scale(1.1);
+        .palavra:hover {
+            transform: scale(1.15) rotate(5deg);
         }
 
-        /* Tamanhos baseados na frequência */
-        .tam-1 { font-size: 24px; }
-        .tam-2 { font-size: 32px; }
-        .tam-3 { font-size: 44px; }
-        .tam-4 { font-size: 56px; }
-        .tam-5 { font-size: 72px; }
-        .tam-6 { font-size: 92px; }
-        .tam-7 { font-size: 112px; }
-        .tam-8 { font-size: 132px; }
-        .tam-9 { font-size: 152px; }
-        .tam-10 { font-size: 172px; }
+        /* 10 tamanhos diferentes baseados em frequência */
+        .freq-1  { font-size: 28px; opacity: 0.7; }
+        .freq-2  { font-size: 36px; opacity: 0.75; }
+        .freq-3  { font-size: 48px; opacity: 0.8; }
+        .freq-4  { font-size: 60px; opacity: 0.85; }
+        .freq-5  { font-size: 76px; opacity: 0.9; }
+        .freq-6  { font-size: 92px; opacity: 0.93; }
+        .freq-7  { font-size: 112px; opacity: 0.96; }
+        .freq-8  { font-size: 136px; opacity: 0.98; }
+        .freq-9  { font-size: 164px; opacity: 1; }
+        .freq-10 { font-size: 200px; opacity: 1; font-weight: 900; }
 
-        @keyframes aparecer {
-            from {
+        @keyframes surgir {
+            0% {
                 opacity: 0;
                 transform: scale(0) rotate(-180deg);
             }
-            to {
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
+            100% {
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
             }
         }
 
-        .tela-cheia {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: 9999;
-            overflow: auto;
-            padding: 40px;
-            display: none;
-        }
-
-        .tela-cheia.ativa {
-            display: block;
-        }
-
-        .tela-cheia .header-tela {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
-        }
-
-        .tela-cheia h1 {
-            color: white;
-            font-size: 56px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .btn-fechar-tela {
-            background: rgba(255,255,255,0.2);
-            border: 3px solid white;
-            color: white;
-            padding: 20px 40px;
+        .nuvem-vazia {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
             font-size: 28px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-fechar-tela:hover {
-            background: rgba(255,255,255,0.4);
+            padding: 100px 20px;
         }
 
         .contador {
@@ -190,7 +151,7 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1565c0;
             margin: 20px 0;
@@ -203,76 +164,119 @@
             border-radius: 10px;
             margin: 20px 0;
         }
+
+        /* TELA CHEIA */
+        .tela-cheia {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+            display: none;
+        }
+
+        .tela-cheia.ativa {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tela-cheia-header {
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tela-cheia h1 {
+            color: white;
+            font-size: 48px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-fechar {
+            background: rgba(255,255,255,0.2);
+            border: 3px solid white;
+            color: white;
+            padding: 15px 30px;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .btn-fechar:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .tela-cheia-nuvem {
+            flex: 1;
+            padding: 40px;
+            overflow: auto;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>☁️ ARENA NUVEM DE PALAVRAS</h1>
+        <h1>☁️ NUVEM DE PALAVRAS - ESTILO MENTIMETER</h1>
         <p>Grupo Dislub Equador | Powered by Orievo</p>
     </div>
 
     <div class="container">
-        <!-- TELA INICIAL -->
-        <div id="telaInicial">
+        <!-- LOGIN -->
+        <div id="telaLogin">
             <div class="card">
-                <h2 style="color: var(--nuvem-primary); text-align: center; margin-bottom: 20px;">Criar ou Retomar Nuvem</h2>
-                
-                <div class="info-box">
-                    <strong>💡 Dica:</strong> Use "Retomar Sessão" para reusar o mesmo QR Code em apresentações!
-                </div>
-                
-                <input type="password" id="senha" placeholder="Digite a senha">
+                <h2 style="color: #3498db; text-align: center; margin-bottom: 20px;">Login - Instrutor</h2>
+                <input type="password" id="senha" placeholder="Senha">
                 <input type="text" id="instrutor" placeholder="Nome do Instrutor">
                 <button class="btn" onclick="login()">ENTRAR</button>
             </div>
         </div>
 
-        <!-- TELA OPÇÕES -->
+        <!-- OPÇÕES -->
         <div id="telaOpcoes" class="hidden">
             <div class="card">
-                <h2 style="color: var(--nuvem-primary); text-align: center; margin-bottom: 30px;">O que deseja fazer?</h2>
-                
+                <h2 style="color: #3498db; text-align: center; margin-bottom: 30px;">O que deseja fazer?</h2>
                 <button class="btn" onclick="mostrarFormularioNova()">➕ CRIAR NOVA NUVEM</button>
-                <button class="btn" style="background: #f39c12;" onclick="mostrarFormularioRetomar()">🔄 RETOMAR SESSÃO EXISTENTE</button>
+                <button class="btn" style="background: #f39c12;" onclick="mostrarFormularioRetomar()">🔄 RETOMAR SESSÃO</button>
             </div>
         </div>
 
-        <!-- FORMULÁRIO NOVA -->
+        <!-- CRIAR NOVA -->
         <div id="telaFormularioNova" class="hidden">
             <div class="card">
-                <h2 style="color: var(--nuvem-primary);">➕ Criar Nova Nuvem</h2>
+                <h2 style="color: #3498db;">➕ Criar Nova Nuvem</h2>
                 
-                <label style="font-weight: 600; margin-top: 20px; display: block;">📝 Nome da Sessão:</label>
-                <input type="text" id="nomeNuvem" placeholder="Ex: DDS - Reflexão sobre Segurança">
+                <label style="font-weight: 600; margin-top: 20px; display: block;">Nome da Sessão:</label>
+                <input type="text" id="nomeNuvem" placeholder="Ex: DDS Terça-feira">
                 
-                <label style="font-weight: 600; margin-top: 20px; display: block;">💭 Tema/Pergunta:</label>
-                <textarea id="temaNuvem" rows="3" placeholder="Ex: O que é segurança para você?">O que é segurança para você?</textarea>
+                <label style="font-weight: 600; margin-top: 20px; display: block;">Pergunta para os alunos:</label>
+                <textarea id="temaNuvem" rows="3" placeholder="Ex: O que é segurança para você?"></textarea>
                 
                 <button class="btn" onclick="criarNuvem()">☁️ CRIAR NUVEM</button>
                 <button class="btn" style="background: #666;" onclick="voltarOpcoes()">← Voltar</button>
             </div>
         </div>
 
-        <!-- FORMULÁRIO RETOMAR -->
+        <!-- RETOMAR -->
         <div id="telaFormularioRetomar" class="hidden">
             <div class="card">
-                <h2 style="color: #f39c12;">🔄 Retomar Sessão Existente</h2>
+                <h2 style="color: #f39c12;">🔄 Retomar Sessão</h2>
                 
                 <div class="info-box">
-                    <strong>📌 Como funciona:</strong><br>
-                    Digite o código de uma sessão já criada para reusar o mesmo QR Code.
-                    Útil para apresentações preparadas!
+                    <strong>💡 Dica:</strong> Retome uma sessão anterior para reusar o mesmo QR Code!
                 </div>
                 
-                <label style="font-weight: 600; margin-top: 20px; display: block;">🔑 Código da Sessão:</label>
-                <input type="text" id="codigoRetomar" placeholder="Ex: ABC123" maxlength="6" style="text-transform: uppercase;">
+                <label style="font-weight: 600; margin-top: 20px; display: block;">Código da Sessão:</label>
+                <input type="text" id="codigoRetomar" placeholder="ABC123" maxlength="6" style="text-transform: uppercase;">
                 
                 <button class="btn" style="background: #f39c12;" onclick="retomarNuvem()">🔄 RETOMAR</button>
                 <button class="btn" style="background: #666;" onclick="voltarOpcoes()">← Voltar</button>
             </div>
         </div>
 
-        <!-- TELA SESSÃO -->
+        <!-- SESSÃO ATIVA -->
         <div id="telaSessao" class="hidden">
             <div class="card">
                 <h2 style="text-align: center; color: #28a745;">✅ Nuvem Ativa!</h2>
@@ -288,14 +292,16 @@
                 <button class="btn" style="background: #666;" onclick="copiarLink()">📋 COPIAR LINK</button>
                 
                 <div class="contador">
-                    👥 Participantes: <span id="countPart">0</span> | 
-                    💬 Palavras únicas: <span id="countPalavrasUnicas">0</span> |
-                    📊 Total enviadas: <span id="countPalavrasTotal">0</span>
+                    👥 <span id="countPart">0</span> participantes | 
+                    💬 <span id="countUnicas">0</span> palavras únicas | 
+                    📊 <span id="countTotal">0</span> total
                 </div>
                 
-                <h3 style="text-align: center; color: var(--nuvem-primary); margin: 30px 0 20px;">☁️ Nuvem de Palavras (Tempo Real)</h3>
+                <h3 style="text-align: center; color: #3498db; margin: 30px 0 20px;">☁️ Nuvem ao Vivo</h3>
                 
-                <div id="nuvemPalavras" class="nuvem-palavras"></div>
+                <div id="nuvemPalavras" class="nuvem-container">
+                    <div class="nuvem-vazia">Aguardando palavras...</div>
+                </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 30px;">
                     <button class="btn" style="background: #9b59b6;" onclick="toggleTelaCheia()">📺 TELA CHEIA</button>
@@ -307,52 +313,49 @@
 
         <!-- TELA ALUNO -->
         <div id="telaAluno" class="hidden">
-            <div class="card" style="max-width: 600px; margin: 0 auto;">
-                <div style="text-align: center;">
-                    <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px; margin-bottom: 20px;">
-                    <h1 style="color: var(--nuvem-primary);">☁️ Nuvem de Palavras</h1>
-                    <p style="margin: 10px 0; color: #666;">Código: <strong id="codigoAluno"></strong></p>
-                    
-                    <input type="text" id="nomeAluno" placeholder="Digite seu nome" style="margin-top: 30px;">
-                    <button class="btn" onclick="entrarAluno()">ENTRAR</button>
-                </div>
+            <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <h1 style="color: #3498db;">☁️ Nuvem de Palavras</h1>
+                <p style="margin: 20px 0; color: #666;">Código: <strong id="codigoAluno"></strong></p>
+                
+                <input type="text" id="nomeAluno" placeholder="Digite seu nome">
+                <button class="btn" onclick="entrarAluno()">ENTRAR</button>
             </div>
         </div>
 
-        <!-- TELA ENVIAR (ALUNO) -->
+        <!-- TELA ENVIAR -->
         <div id="telaEnviar" class="hidden">
-            <div class="card" style="max-width: 700px; margin: 0 auto;">
-                <div style="text-align: center;">
-                    <h2 style="color: var(--nuvem-primary);">☁️ Nuvem de Palavras</h2>
-                    <p id="temaAluno" style="font-size: 22px; font-weight: 600; margin: 20px 0; color: #333;"></p>
-                    
-                    <input type="text" id="palavraInput" placeholder="Digite uma palavra..." maxlength="30">
-                    <button class="btn" onclick="enviarPalavra()">ENVIAR PALAVRA</button>
-                    
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px;">
-                        <h3 style="color: var(--nuvem-primary); margin-bottom: 15px;">📝 Suas palavras enviadas: <span id="countMinhas">0</span></h3>
-                        <p style="color: #666; font-size: 14px;">Suas palavras estão sendo exibidas na nuvem</p>
-                    </div>
+            <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <h2 style="color: #3498db;">☁️ Nuvem de Palavras</h2>
+                <p id="temaAluno" style="font-size: 22px; font-weight: 600; margin: 20px 0; color: #333;"></p>
+                
+                <input type="text" id="palavraInput" placeholder="Digite uma palavra..." maxlength="30">
+                <button class="btn" onclick="enviarPalavra()">ENVIAR PALAVRA</button>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px;">
+                    <h3 style="color: #3498db;">✅ Palavras enviadas: <span id="countMinhas">0</span></h3>
+                    <p style="color: #666; margin-top: 10px;">Suas palavras aparecem na nuvem!</p>
                 </div>
             </div>
         </div>
 
-        <!-- TELA FECHADA (ALUNO) -->
+        <!-- TELA FECHADA -->
         <div id="telaFechada" class="hidden">
             <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
                 <h1 style="color: #e74c3c;">🔒 Nuvem Fechada</h1>
-                <p style="margin: 20px 0; color: #666; font-size: 18px;">A nuvem foi encerrada pelo instrutor.</p>
+                <p style="margin: 20px 0; color: #666;">A nuvem foi encerrada.</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL TELA CHEIA -->
+    <!-- TELA CHEIA -->
     <div id="modalTelaCheia" class="tela-cheia">
-        <div class="header-tela">
+        <div class="tela-cheia-header">
             <h1>☁️ NUVEM DE PALAVRAS</h1>
-            <button class="btn-fechar-tela" onclick="toggleTelaCheia()">✕ FECHAR</button>
+            <button class="btn-fechar" onclick="toggleTelaCheia()">✕ FECHAR</button>
         </div>
-        <div id="nuvemPalavrasTelaCheia" class="nuvem-palavras" style="min-height: 80vh;"></div>
+        <div class="tela-cheia-nuvem">
+            <div id="nuvemTelaCheia" class="nuvem-container" style="min-height: 80vh;"></div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -371,8 +374,7 @@
             appId: "1:160052415363:web:f17df9700cd511122504b6"
         });
 
-        const db = getDatabase(app);
-        window.db = db;
+        window.db = getDatabase(app);
         window.dbRef = ref;
         window.dbSet = set;
         window.dbUpdate = update;
@@ -385,7 +387,7 @@
     <script>
         let codigo = null;
         let nomeUsuario = null;
-        let minhasPalavrasCount = 0;
+        let countMinhas = 0;
 
         function login() {
             const senha = document.getElementById('senha').value;
@@ -393,10 +395,10 @@
             
             if (senha === 'Nuvem2026GDE' && instrutor) {
                 nomeUsuario = instrutor;
-                document.getElementById('telaInicial').classList.add('hidden');
+                document.getElementById('telaLogin').classList.add('hidden');
                 document.getElementById('telaOpcoes').classList.remove('hidden');
             } else {
-                alert('⚠️ Senha incorreta ou nome não preenchido!');
+                alert('⚠️ Senha incorreta!');
             }
         }
 
@@ -435,14 +437,22 @@
             }
 
             codigo = gerarCodigo();
-            salvarNuvem(codigo, nome, tema);
+            
+            window.dbSet(window.dbRef(window.db, 'nuvens/' + codigo), {
+                nome: nome,
+                tema: tema,
+                status: 'ativa',
+                criado: new Date().toISOString(),
+                participantes: {},
+                palavras: {}
+            }).then(() => abrirSessao());
         }
 
         function retomarNuvem() {
             const cod = document.getElementById('codigoRetomar').value.trim().toUpperCase();
             
             if (!cod || cod.length !== 6) {
-                alert('⚠️ Digite um código válido de 6 caracteres!');
+                alert('⚠️ Código inválido!');
                 return;
             }
 
@@ -451,25 +461,9 @@
                     codigo = cod;
                     abrirSessao();
                 } else {
-                    alert('❌ Sessão não encontrada!\n\nCódigo: ' + cod);
+                    alert('❌ Sessão não encontrada!');
                 }
             }, { onlyOnce: true });
-        }
-
-        function salvarNuvem(cod, nome, tema) {
-            window.dbSet(window.dbRef(window.db, 'nuvens/' + cod), {
-                nome: nome,
-                tema: tema,
-                status: 'ativa',
-                criado: new Date().toISOString(),
-                instrutor: nomeUsuario,
-                participantes: {},
-                palavras: {}
-            }).then(() => {
-                abrirSessao();
-            }).catch(err => {
-                alert('❌ Erro ao criar nuvem: ' + err.message);
-            });
         }
 
         function abrirSessao() {
@@ -483,11 +477,7 @@
             document.getElementById('telaSessao').classList.remove('hidden');
             
             document.getElementById('qrcode').innerHTML = '';
-            new QRCode(document.getElementById('qrcode'), {
-                text: link,
-                width: 256,
-                height: 256
-            });
+            new QRCode(document.getElementById('qrcode'), { text: link, width: 256, height: 256 });
             
             monitorarParticipantes();
             monitorarPalavras();
@@ -495,9 +485,7 @@
 
         function copiarLink() {
             const link = document.getElementById('linkDisplay').textContent;
-            navigator.clipboard.writeText(link).then(() => {
-                alert('✅ Link copiado!');
-            });
+            navigator.clipboard.writeText(link).then(() => alert('✅ Link copiado!'));
         }
 
         function monitorarParticipantes() {
@@ -510,78 +498,85 @@
         function monitorarPalavras() {
             window.dbOnValue(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras'), (snap) => {
                 const palavrasObj = snap.val();
-                atualizarNuvem(palavrasObj, 'nuvemPalavras');
-                atualizarNuvem(palavrasObj, 'nuvemPalavrasTelaCheia');
-                
-                if (palavrasObj) {
-                    const todasPalavras = Object.values(palavrasObj);
-                    document.getElementById('countPalavrasTotal').textContent = todasPalavras.length;
-                    
-                    // Contar palavras únicas
-                    const palavrasUnicas = new Set();
-                    todasPalavras.forEach(p => palavrasUnicas.add(p.palavra.toLowerCase()));
-                    document.getElementById('countPalavrasUnicas').textContent = palavrasUnicas.size;
-                } else {
-                    document.getElementById('countPalavrasTotal').textContent = 0;
-                    document.getElementById('countPalavrasUnicas').textContent = 0;
-                }
+                renderizarNuvem(palavrasObj, 'nuvemPalavras');
+                renderizarNuvem(palavrasObj, 'nuvemTelaCheia');
+                atualizarContadores(palavrasObj);
             });
         }
 
-        function atualizarNuvem(palavrasObj, elementoId) {
-            const container = document.getElementById(elementoId);
+        function renderizarNuvem(palavrasObj, containerId) {
+            const container = document.getElementById(containerId);
             if (!container) return;
             
             if (!palavrasObj) {
-                container.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7); font-size: 24px;">Aguardando palavras...</p>';
+                container.innerHTML = '<div class="nuvem-vazia">Aguardando palavras...</div>';
                 return;
             }
-            
-            // Contar frequência de cada palavra
+
+            // Contar frequência
             const frequencia = {};
             Object.values(palavrasObj).forEach(item => {
                 const palavra = item.palavra.toLowerCase();
                 frequencia[palavra] = (frequencia[palavra] || 0) + 1;
             });
-            
+
             // Ordenar por frequência
-            const palavrasOrdenadas = Object.entries(frequencia)
-                .sort((a, b) => b[1] - a[1]);
+            const palavrasOrdenadas = Object.entries(frequencia).sort((a, b) => b[1] - a[1]);
             
-            // Calcular tamanho baseado na frequência
-            const maxFreq = Math.max(...Object.values(frequencia));
+            if (palavrasOrdenadas.length === 0) {
+                container.innerHTML = '<div class="nuvem-vazia">Aguardando palavras...</div>';
+                return;
+            }
+
+            // Calcular classe de frequência (1-10)
+            const maxFreq = palavrasOrdenadas[0][1];
             
             let html = '';
             palavrasOrdenadas.forEach(([palavra, freq]) => {
-                // Tamanho de 1 a 10 baseado na frequência
-                let tamanho = Math.ceil((freq / maxFreq) * 10);
-                tamanho = Math.max(1, Math.min(10, tamanho)); // Entre 1 e 10
+                // Calcular nível de 1 a 10
+                let nivel;
+                if (maxFreq === 1) {
+                    nivel = 5; // Se todas têm frequência 1, tamanho médio
+                } else {
+                    nivel = Math.ceil((freq / maxFreq) * 10);
+                    nivel = Math.max(1, Math.min(10, nivel));
+                }
                 
-                // Capitalizar primeira letra
-                const palavraDisplay = palavra.charAt(0).toUpperCase() + palavra.slice(1);
-                
-                html += `<span class="palavra-nuvem tam-${tamanho}" title="${freq}x">${palavraDisplay}</span>`;
+                html += `<span class="palavra freq-${nivel}">${palavra}</span>`;
             });
             
             container.innerHTML = html;
         }
 
+        function atualizarContadores(palavrasObj) {
+            if (!palavrasObj) {
+                document.getElementById('countUnicas').textContent = 0;
+                document.getElementById('countTotal').textContent = 0;
+                return;
+            }
+
+            const total = Object.values(palavrasObj).length;
+            const unicas = new Set(Object.values(palavrasObj).map(p => p.palavra.toLowerCase())).size;
+            
+            document.getElementById('countUnicas').textContent = unicas;
+            document.getElementById('countTotal').textContent = total;
+        }
+
         function toggleTelaCheia() {
-            const modal = document.getElementById('modalTelaCheia');
-            modal.classList.toggle('ativa');
+            document.getElementById('modalTelaCheia').classList.toggle('ativa');
         }
 
         function limparPalavras() {
-            if (confirm('🗑️ Limpar todas as palavras?\n\nEsta ação não pode ser desfeita.')) {
+            if (confirm('🗑️ Limpar todas as palavras?')) {
                 window.dbRemove(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras'));
                 alert('✅ Palavras limpas!');
             }
         }
 
         function fecharNuvem() {
-            if (confirm('🔒 Fechar nuvem?\n\nAlunos não poderão mais enviar palavras.\nA sessão continuará salva para reuso futuro.')) {
+            if (confirm('🔒 Fechar nuvem?')) {
                 window.dbUpdate(window.dbRef(window.db, 'nuvens/' + codigo), { status: 'fechada' });
-                alert('✅ Nuvem fechada!\n\n💡 Você pode retomar esta sessão depois usando o código: ' + codigo);
+                alert('✅ Nuvem fechada!');
             }
         }
 
@@ -633,23 +628,20 @@
             
             document.getElementById('palavraInput').value = '';
             document.getElementById('palavraInput').focus();
-            minhasPalavrasCount++;
-            document.getElementById('countMinhas').textContent = minhasPalavrasCount;
         }
 
         function monitorarMinhasEnvios() {
             window.dbOnValue(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras'), (snap) => {
                 if (!snap.val()) {
-                    minhasPalavrasCount = 0;
+                    countMinhas = 0;
                 } else {
-                    const minhas = Object.values(snap.val()).filter(p => p.autor === nomeUsuario);
-                    minhasPalavrasCount = minhas.length;
+                    countMinhas = Object.values(snap.val()).filter(p => p.autor === nomeUsuario).length;
                 }
-                document.getElementById('countMinhas').textContent = minhasPalavrasCount;
+                document.getElementById('countMinhas').textContent = countMinhas;
             });
         }
 
-        // Detectar código na URL
+        // URL
         window.addEventListener('load', function() {
             const params = new URLSearchParams(window.location.search);
             const cod = params.get('codigo');
@@ -659,10 +651,10 @@
                 window.dbOnValue(window.dbRef(window.db, 'nuvens/' + codigo), (snap) => {
                     if (snap.val()) {
                         document.getElementById('codigoAluno').textContent = codigo;
-                        document.getElementById('telaInicial').classList.add('hidden');
+                        document.getElementById('telaLogin').classList.add('hidden');
                         document.getElementById('telaAluno').classList.remove('hidden');
                     } else {
-                        alert('❌ Nuvem não encontrada: ' + codigo);
+                        alert('❌ Nuvem não encontrada!');
                     }
                 }, { onlyOnce: true });
             }

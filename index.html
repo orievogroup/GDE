@@ -1192,136 +1192,465 @@
         .hidden {
             display: none !important;
         }
+
+        /* ARENA AO VIVO */
+        /* ========================================== */
+        
+        .arena-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .arena-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .arena-header h1 {
+            color: var(--primary);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .arena-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        
+        .arena-session-code {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin: 20px 0;
+            letter-spacing: 8px;
+        }
+        
+        .arena-participants {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin: 20px 0;
+        }
+        
+        .arena-question {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .arena-question h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .arena-timer {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .arena-options {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .arena-option {
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            font-size: 18px;
+            text-align: left;
+        }
+        
+        .arena-option:hover {
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+        
+        .arena-option.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .arena-option.correct {
+            background: #28a745;
+            color: white;
+        }
+        
+        .arena-option.incorrect {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .arena-ranking {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .arena-ranking h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .ranking-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .ranking-position {
+            font-size: 24px;
+            font-weight: 700;
+            width: 60px;
+            text-align: center;
+        }
+        
+        .ranking-item:nth-child(1) .ranking-position {
+            color: #FFD700;
+        }
+        
+        .ranking-item:nth-child(2) .ranking-position {
+            color: #C0C0C0;
+        }
+        
+        .ranking-item:nth-child(3) .ranking-position {
+            color: #CD7F32;
+        }
+        
+        .ranking-name {
+            flex: 1;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .ranking-points {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .btn-arena {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        
+        .btn-arena-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-arena-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-arena-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-arena-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .word-cloud {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            min-height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .word-item {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: all 0.3s;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .fases-list {
+            list-style: none;
+        }
+
+        .fase-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 5px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .fase-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .fase-item.completa {
+            opacity: 0.7;
+            border-left-color: #28a745;
+        }
+
+        .fase-icon {
+            font-size: 28px;
+        }
+
+        .fase-info {
+            flex: 1;
+        }
+
+        .fase-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .fase-status {
+            font-size: 24px;
+        }
+
+        .fase-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .fase-screen h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .artigo-content {
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .artigo-content h2 {
+            color: var(--primary);
+            margin: 30px 0 15px 0;
+        }
+
+        .artigo-content h3 {
+            color: #333;
+            margin: 25px 0 10px 0;
+        }
+
+        .artigo-content p {
+            margin-bottom: 15px;
+        }
+
+        .artigo-content ul, .artigo-content ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        .artigo-content li {
+            margin-bottom: 8px;
+        }
+
+        .artigo-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .pergunta-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .pergunta-box h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .opcao {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .opcao:hover {
+            border-color: var(--primary);
+            background: #f0f8ff;
+        }
+
+        .opcao.selecionada {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            background: white;
+            border: 3px solid var(--primary);
+            color: #333;
+        }
+
+        .memory-card.matched {
+            background: #28a745;
+            cursor: default;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 22px;
+            color: var(--primary);
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .btn-voltar {
+            background: #6c757d;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .btn-voltar:hover {
+            background: #5a6268;
+        }
+
+        .btn-concluir {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .btn-concluir:hover {
+            background: var(--secondary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
     </style>
     
     <!-- Bibliotecas para gerar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <style>
-        /* HEADER E FOOTER PROFISSIONAL */
-        .header-profissional {
-            background: linear-gradient(135deg, #4FC3DC 0%, #2A9BB8 100%);
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin: -20px -20px 30px -20px;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-orievo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-orievo img {
-            height: 45px;
-            background: white;
-            padding: 5px 12px;
-            border-radius: 8px;
-        }
-
-        .logo-orievo .text h1 {
-            font-size: 22px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 2px;
-        }
-
-        .logo-orievo .text p {
-            font-size: 11px;
-            color: white;
-            opacity: 0.9;
-        }
-
-        .header-info {
-            text-align: right;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .header-info img {
-            height: 50px;
-            background: white;
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .header-info .text p {
-            color: white;
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
-        .header-info .text h2 {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .footer-profissional {
-            background: #1a1a1a;
-            color: white;
-            padding: 30px 0;
-            margin: 60px -20px -20px -20px;
-            text-align: center;
-        }
-
-        .footer-profissional p {
-            margin: 5px 0;
-            opacity: 0.8;
-        }
-
-        .footer-profissional strong {
-            color: #4FC3DC;
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .header-info {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <!-- QR Code Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
 </head>
 <body>
-    <!-- HEADER PROFISSIONAL -->
-    <header class="header-profissional">
-        <div class="header-content">
-            <div class="logo-orievo">
-                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo">
-                <div class="text">
-                    <h1>ORIEVO SAFETY LEARN</h1>
-                    <p>Plataforma de Treinamentos</p>
-                </div>
-            </div>
-            <div class="header-info">
-                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Dislub Equador">
-                <div class="text">
-                    <p>Plataforma desenvolvida para</p>
-                    <h2>Grupo Dislub Equador</h2>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
     <div class="container">
         <div class="logo-container">
            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo Logo" style="max-width: 300px;">
-            <h2>Safety Learn - Plataforma de Treinamentos</h2>
+            <h2 id="nomePlataforma">GDE - Plataforma de Treinamentos</h2>
         </div>
 
         <div id="telaSelecao">
@@ -1442,15 +1771,58 @@
         }
 
         // ============================================
-        // SENHA MASTER DO INSTRUTOR
-        // ============================================
-        const SENHA_MASTER = 'MasterOrievo2026';  // ← Mude para sua senha master
-        
         // ============================================
         // CONFIGURAÇÃO DOS MUNDOS
         // EDITE AQUI PARA PERSONALIZAR!
         // ============================================
 
+        
+        // ============================================
+        // NOME DA PLATAFORMA - GDE
+        // ============================================
+        const NOME_PLATAFORMA = 'GDE - Plataforma de Treinamentos';
+        
+        // ============================================
+        // SENHA MASTER DO INSTRUTOR
+        // ============================================
+        const SENHA_MASTER = 'MasterGDE2026';
+        
+        // ============================================
+        // TEMPLATES PREDEFINIDOS DA ARENA
+        // EDITE AQUI PARA CRIAR TEMPLATES PRONTOS!
+        // ============================================
+        
+        const TEMPLATES_PREDEFINIDOS = [
+            {
+                nome: 'DDS Semanal - Segurança GDE',
+                atividades: ['quiz1', 'nuvem1'],
+                modo: 'individual',
+                descricao: 'Quiz sobre EPIs + Nuvem de palavras sobre segurança'
+            },
+            {
+                nome: 'Treinamento Completo GDE',
+                atividades: ['quiz1', 'nuvem1', 'quiz2'],
+                modo: 'individual',
+                descricao: 'Quiz EPIs + Nuvem + Quiz NR-6'
+            },
+            {
+                nome: 'Integração Novos Funcionários GDE',
+                atividades: ['quiz1', 'nuvem1'],
+                modo: 'individual',
+                descricao: 'Treinamento básico de segurança para integração'
+            },
+            {
+                nome: 'Competição por Equipes GDE',
+                atividades: ['quiz1', 'quiz2'],
+                modo: 'equipes',
+                descricao: 'Dois quizzes em modo competição entre times'
+            }
+        ];
+        
+        // ============================================
+        // MUNDOS / MÓDULOS
+        // ============================================
+        
         const MUNDOS = {
             'seguranca': {
                 nome: 'Segurança no Trabalho',
@@ -1678,6 +2050,27 @@
                     }
                 ]
             }
+,
+
+            'arena': {
+                nome: '🎮 Arena Ao Vivo',
+                descricao: 'Quiz e Nuvem de Palavras em Tempo Real',
+                icone: '🎮',
+                cor: '#9b59b6',
+                senha: 'Arena2026GDE',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
+                
+                fases: [
+                    {
+                        nome: '🚀 Criar Nova Sessão',
+                        tipo: 'arena_criar',
+                        conteudo: 'Interface para criar sessões interativas'
+                    }
+                ]
+            }
+        
         };
 
         // ============================================
@@ -1692,9 +2085,27 @@
         let memoriaFlipped = [];
 
         window.onload = function() {
-            renderizarRoadmap();
-            calcularProgressoGlobal();
-        };
+            // Atualiza nome da plataforma
+            if (typeof NOME_PLATAFORMA !== 'undefined') {
+                const nomeEl = document.getElementById('nomePlataforma');
+                if (nomeEl) nomeEl.textContent = NOME_PLATAFORMA;
+            }
+            
+            // Detecta código de Arena na URL
+            const params = new URLSearchParams(window.location.search);
+            const codigoArena = params.get('codigo');
+            
+            if (codigoArena) {
+                // Link de arena - mostra tela de participante
+                setTimeout(() => {
+                    mostrarTelaParticipante(codigoArena);
+                }, 500);
+            } else {
+                // Carregamento normal
+                renderizarRoadmap();
+                calcularProgressoGlobal();
+            }
+        }
         
         function renderizarRoadmap() {
             const roadmap = document.getElementById('mundosRoadmap');
@@ -2261,7 +2672,9 @@
                 carregarQuiz(fase, conteudo);
             } else if (fase.tipo === 'memoria') {
                 carregarMemoria(fase, conteudo);
-            } else if (fase.tipo === 'associar') {
+            } else if (fase.tipo === 'arena_criar') {
+                    carregarArenaCriar(fase, conteudo);
+                } else if (fase.tipo === 'associar') {
                 carregarAssociar(fase, conteudo);
             }
         }
@@ -2675,7 +3088,1399 @@
             renderizarRoadmap();
             calcularProgressoGlobal();
         }
-    </script>
+    
+        // ============================================
+        // ARENA AO VIVO - CRIAR SESSÃO
+        // ============================================
+        
+        function carregarArenaCriar(fase, conteudo) {
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-header">
+                        <h1>🎮 Arena Ao Vivo</h1>
+                        <p>Crie sessões interativas em tempo real com Quiz, Nuvem de Palavras e Competições</p>
+                    </div>
+                    
+                    <div class="arena-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                            <h2 style="margin: 0;">🚀 Criar Nova Sessão</h2>
+                            <button class="btn-copy-link" onclick="mostrarTemplatesSalvos()" style="padding: 12px 20px;">
+                                📋 Usar Template Salvo
+                            </button>
+                        </div>
+                        
+                        <div style="margin: 30px 0;">
+                            <label style="font-weight: 700; display: block; margin-bottom: 10px;">Nome da Sessão:</label>
+                            <input type="text" id="nomeSessao" placeholder="Ex: Treinamento Segurança - Turma A" 
+                                   style="width: 100%; padding: 15px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px;">
+                        </div>
+                        
+                        <div style="margin: 30px 0;">
+                            <h3 style="margin-bottom: 15px;">📝 Adicione Atividades:</h3>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <label style="display: flex; align-items: center; cursor: pointer;">
+                                    <input type="checkbox" id="addQuiz1" style="width: 20px; height: 20px; margin-right: 10px;">
+                                    <span style="font-weight: 600;">⚡ Quiz: EPIs Básicos (5 perguntas)</span>
+                                </label>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <label style="display: flex; align-items: center; cursor: pointer;">
+                                    <input type="checkbox" id="addNuvem1" style="width: 20px; height: 20px; margin-right: 10px;">
+                                    <span style="font-weight: 600;">☁️ Nuvem: O que é segurança para você?</span>
+                                </label>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <label style="display: flex; align-items: center; cursor: pointer;">
+                                    <input type="checkbox" id="addQuiz2" style="width: 20px; height: 20px; margin-right: 10px;">
+                                    <span style="font-weight: 600;">⚡ Quiz: NR-6 (3 perguntas)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 30px 0;">
+                            <h3 style="margin-bottom: 15px;">🎯 Modo de Jogo:</h3>
+                            
+                            <label style="display: block; background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 10px; cursor: pointer;">
+                                <input type="radio" name="modo" value="individual" checked style="margin-right: 10px;">
+                                <strong>👤 Individual</strong> - Ranking pessoal, cada um por si
+                            </label>
+                            
+                            <label style="display: block; background: #f8f9fa; padding: 15px; border-radius: 10px; cursor: pointer;">
+                                <input type="radio" name="modo" value="equipes" style="margin-right: 10px;">
+                                <strong>👥 Equipes</strong> - Times competindo (divide turma automaticamente)
+                            </label>
+                        </div>
+                        
+                        <div id="numEquipes" style="margin: 20px 0; display: none;">
+                            <label style="font-weight: 700; display: block; margin-bottom: 10px;">Número de Equipes:</label>
+                            <select style="padding: 10px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px;">
+                                <option value="2">2 Equipes</option>
+                                <option value="3" selected>3 Equipes</option>
+                                <option value="4">4 Equipes</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin: 30px 0; background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                            <h4 style="margin-bottom: 10px;">⚡ Sistema de Pontuação:</h4>
+                            <p style="margin: 5px 0;">• Pontos por acerto: <strong>1000 pontos base</strong></p>
+                            <p style="margin: 5px 0;">• Desconto por tempo: <strong>-10 pontos/segundo</strong></p>
+                            <p style="margin: 5px 0;">• Responder em 2s: <strong>980 pontos</strong></p>
+                            <p style="margin: 5px 0;">• Responder em 10s: <strong>900 pontos</strong></p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 40px;">
+                            <button class="btn-arena btn-arena-primary" onclick="criarSessaoArena()" style="font-size: 20px; padding: 20px 60px;">
+                                🚀 CRIAR SESSÃO
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-voltar" onclick="voltarMundo()">← Voltar</button>
+                    </div>
+                </div>
+            `;
+            
+            // Adiciona listener para mostrar/esconder número de equipes
+            document.querySelectorAll('input[name="modo"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const numEquipesDiv = document.getElementById('numEquipes');
+                    numEquipesDiv.style.display = e.target.value === 'equipes' ? 'block' : 'none';
+                });
+            });
+        }
+        
+        function criarSessaoArena() {
+            const nomeSessao = document.getElementById('nomeSessao').value.trim();
+            
+            if (!nomeSessao) {
+                alert('⚠️ Digite um nome para a sessão!');
+                return;
+            }
+            
+            // Verifica atividades selecionadas
+            const atividades = [];
+            if (document.getElementById('addQuiz1').checked) atividades.push('quiz1');
+            if (document.getElementById('addNuvem1').checked) atividades.push('nuvem1');
+            if (document.getElementById('addQuiz2').checked) atividades.push('quiz2');
+            
+            if (atividades.length === 0) {
+                alert('⚠️ Selecione pelo menos uma atividade!');
+                return;
+            }
+            
+            // Gera código da sessão (6 caracteres)
+            const codigo = gerarCodigoSessao();
+            
+            // Modo de jogo
+            const modo = document.querySelector('input[name="modo"]:checked').value;
+            
+            // Mostra tela de sessão criada
+            mostrarSessaoCriada(codigo, nomeSessao, atividades, modo);
+        }
+        
+        function gerarCodigoSessao() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let codigo = '';
+            for (let i = 0; i < 6; i++) {
+                codigo += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return codigo;
+        }
+        
+        function mostrarSessaoCriada(codigo, nome, atividades, modo) {
+            const conteudo = document.getElementById('faseConteudo');
+            
+            // Gera link da sessão
+            const baseUrl = window.location.href.split('?')[0];
+            const linkSessao = `${baseUrl.replace('.html', '-arena.html')}?codigo=${codigo}`;
+            
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card" style="text-align: center;">
+                        <h1 style="color: var(--primary); margin-bottom: 30px;">✅ Sessão Criada!</h1>
+                        
+                        <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 40px; border-radius: 15px; margin: 30px 0;">
+                            <h3 style="margin-bottom: 10px;">Código da Sessão:</h3>
+                            <div class="arena-session-code">${codigo}</div>
+                            <p style="font-size: 18px; margin-top: 20px;">${nome}</p>
+                        </div>
+                        
+                        <div style="margin: 40px 0;">
+                            <h3 style="margin-bottom: 20px;">📱 Alunos entram por:</h3>
+                            
+                            <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                                <h4 style="margin-bottom: 15px;">1️⃣ QR CODE:</h4>
+                                <div id="qrcodeArena" style="display: inline-block; padding: 20px; background: white; border-radius: 10px;"></div>
+                                <p style="margin-top: 15px; color: #666;">Escaneie com a câmera do celular</p>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                                <h4 style="margin-bottom: 10px;">2️⃣ LINK DIRETO:</h4>
+                                <div class="qr-link" style="margin: 15px auto; max-width: 600px;">${linkSessao}</div>
+                                <button class="btn-copy-link" onclick="copiarLinkArena('${linkSessao}')">📋 Copiar Link</button>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
+                                <h4 style="margin-bottom: 10px;">3️⃣ CÓDIGO MANUAL:</h4>
+                                <p style="color: #666;">Os alunos podem acessar <strong>${baseUrl}</strong> e digitar o código:</p>
+                                <p style="font-size: 32px; font-weight: 700; color: var(--primary); margin: 15px 0; letter-spacing: 5px;">${codigo}</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 40px 0;">
+                            <div class="arena-participants" id="participantesCount">
+                                👥 <span id="numParticipantes">0</span> participantes conectados
+                            </div>
+                        </div>
+                        
+                        <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107; margin: 30px 0; text-align: left;">
+                            <h4 style="margin-bottom: 15px;">📋 Atividades da sessão:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                ${atividades.includes('quiz1') ? '<li style="margin: 10px 0;">✅ Quiz: EPIs Básicos (5 perguntas)</li>' : ''}
+                                ${atividades.includes('nuvem1') ? '<li style="margin: 10px 0;">✅ Nuvem: O que é segurança?</li>' : ''}
+                                ${atividades.includes('quiz2') ? '<li style="margin: 10px 0;">✅ Quiz: NR-6 (3 perguntas)</li>' : ''}
+                            </ul>
+                            <p style="margin-top: 15px;"><strong>Modo:</strong> ${modo === 'individual' ? '👤 Individual' : '👥 Equipes'}</p>
+                        </div>
+                        
+                        <div style="margin-top: 40px; text-align: center;">
+                            <button class="btn-copy-link" onclick="salvarComoTemplate('${nome}', '${JSON.stringify(atividades).replace(/'/g, "\\'")}', '${modo}')" style="margin-bottom: 20px; padding: 15px 40px;">
+                                💾 Salvar como Template
+                            </button>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <button class="btn-arena btn-arena-primary" onclick="iniciarSessaoArena('${codigo}')" style="font-size: 22px; padding: 20px 60px;">
+                                ▶ INICIAR SESSÃO
+                            </button>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <button class="btn btn-voltar" onclick="voltarMundo()">← Voltar e Criar Nova Sessão</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Gera QR Code da Arena
+            setTimeout(() => {
+                new QRCode(document.getElementById("qrcodeArena"), {
+                    text: linkSessao,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }, 100);
+            
+            // Simula participantes conectando (em produção, usaria Firebase)
+            simulaParticipantes();
+        }
+        
+        function copiarLinkArena(link) {
+            navigator.clipboard.writeText(link).then(() => {
+                alert('✅ Link copiado!\n\nCompartilhe com seus alunos.');
+            }).catch(() => {
+                alert('✅ Link: ' + link);
+            });
+        }
+        
+        function simulaParticipantes() {
+            // Simula participantes conectando (demonstração)
+            let num = 0;
+            const interval = setInterval(() => {
+                num++;
+                const el = document.getElementById('numParticipantes');
+                if (el) {
+                    el.textContent = num;
+                }
+                if (num >= 15) clearInterval(interval);
+            }, 2000);
+        }
+        
+        // ============================================
+        // GERENCIAMENTO DE TEMPLATES
+        // ============================================
+        
+        function salvarComoTemplate(nome, atividadesStr, modo) {
+            const atividades = JSON.parse(atividadesStr);
+            
+            // Busca templates salvos do localStorage
+            let templates = JSON.parse(localStorage.getItem('arenaTemplates') || '[]');
+            
+            // Cria novo template
+            const template = {
+                id: Date.now(),
+                nome: nome,
+                atividades: atividades,
+                modo: modo,
+                dataCriacao: new Date().toLocaleString('pt-BR')
+            };
+            
+            templates.push(template);
+            
+            // Salva no localStorage
+            localStorage.setItem('arenaTemplates', JSON.stringify(templates));
+            
+            alert(`✅ Template salvo com sucesso!\n\n` +
+                  `Nome: ${nome}\n` +
+                  `Atividades: ${atividades.length}\n` +
+                  `Modo: ${modo === 'individual' ? 'Individual' : 'Equipes'}\n\n` +
+                  `Você pode reutilizá-lo clicando em "📋 Usar Template Salvo"`);
+        }
+        
+        function mostrarTemplatesSalvos() {
+            const templatesSalvos = JSON.parse(localStorage.getItem('arenaTemplates') || '[]');
+            
+            // Combina templates predefinidos + salvos pelo usuário
+            const todosTempates = [
+                ...TEMPLATES_PREDEFINIDOS.map((t, index) => ({
+                    ...t,
+                    id: `predefinido_${index}`,
+                    isPredefinido: true,
+                    dataCriacao: 'Template do Sistema'
+                })),
+                ...templatesSalvos
+            ];
+            
+            if (todosTempates.length === 0) {
+                alert('📋 Nenhum template disponível!\n\nCrie uma sessão e clique em "💾 Salvar como Template".');
+                return;
+            }
+            
+            const conteudo = document.getElementById('faseConteudo');
+            
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card">
+                        <h1 style="text-align: center; color: var(--primary); margin-bottom: 20px;">
+                            📋 Templates Disponíveis
+                        </h1>
+                        
+                        <p style="text-align: center; color: #666; margin-bottom: 40px;">
+                            Selecione um template para criar uma nova sessão
+                        </p>
+                        
+                        ${TEMPLATES_PREDEFINIDOS.length > 0 ? `
+                            <h3 style="margin: 30px 0 20px 0; color: #333; border-bottom: 2px solid var(--primary); padding-bottom: 10px;">
+                                🎯 Templates do Sistema
+                            </h3>
+                        ` : ''}
+                        
+                        <div style="display: grid; gap: 20px; margin-bottom: 40px;">
+                            ${TEMPLATES_PREDEFINIDOS.map((template, index) => `
+                                <div style="background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%); padding: 25px; border-radius: 15px; border: 2px solid var(--primary);">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                        <div style="flex: 1;">
+                                            <h3 style="margin: 0 0 10px 0; color: #333;">
+                                                ${template.nome}
+                                            </h3>
+                                            <p style="color: #666; font-size: 14px; margin: 5px 0;">
+                                                📌 ${template.descricao || 'Template do Sistema'}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                                        <p style="margin: 0 0 10px 0; font-weight: 600; color: #333;">📝 Atividades:</p>
+                                        <ul style="margin: 0; padding-left: 20px; color: #666;">
+                                            ${template.atividades.includes('quiz1') ? '<li>⚡ Quiz: EPIs Básicos (5 perguntas)</li>' : ''}
+                                            ${template.atividades.includes('nuvem1') ? '<li>☁️ Nuvem: O que é segurança?</li>' : ''}
+                                            ${template.atividades.includes('quiz2') ? '<li>⚡ Quiz: NR-6 (3 perguntas)</li>' : ''}
+                                        </ul>
+                                        <p style="margin: 10px 0 0 0; color: #666;">
+                                            <strong>Modo:</strong> ${template.modo === 'individual' ? '👤 Individual' : '👥 Equipes'}
+                                        </p>
+                                    </div>
+                                    
+                                    <button class="btn-arena btn-arena-primary" onclick="carregarTemplatePredefinido(${index})" style="width: 100%; margin-top: 15px;">
+                                        ▶ Usar este Template
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        ${templatesSalvos.length > 0 ? `
+                            <h3 style="margin: 30px 0 20px 0; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 10px;">
+                                💾 Meus Templates Salvos
+                            </h3>
+                            
+                            <div style="display: grid; gap: 20px;">
+                                ${templatesSalvos.map(template => `
+                                    <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 5px solid #28a745;">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                            <div>
+                                                <h3 style="margin: 0 0 10px 0; color: #333;">${template.nome}</h3>
+                                                <p style="color: #666; font-size: 14px; margin: 5px 0;">
+                                                    📅 Criado em: ${template.dataCriacao}
+                                                </p>
+                                            </div>
+                                            <button onclick="excluirTemplate(${template.id})" 
+                                                    style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 14px;"
+                                                    title="Excluir template">
+                                                🗑️
+                                            </button>
+                                        </div>
+                                        
+                                        <div style="background: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #333;">📝 Atividades:</p>
+                                            <ul style="margin: 0; padding-left: 20px; color: #666;">
+                                                ${template.atividades.includes('quiz1') ? '<li>⚡ Quiz: EPIs Básicos (5 perguntas)</li>' : ''}
+                                                ${template.atividades.includes('nuvem1') ? '<li>☁️ Nuvem: O que é segurança?</li>' : ''}
+                                                ${template.atividades.includes('quiz2') ? '<li>⚡ Quiz: NR-6 (3 perguntas)</li>' : ''}
+                                            </ul>
+                                            <p style="margin: 10px 0 0 0; color: #666;">
+                                                <strong>Modo:</strong> ${template.modo === 'individual' ? '👤 Individual' : '👥 Equipes'}
+                                            </p>
+                                        </div>
+                                        
+                                        <button class="btn-arena btn-arena-primary" onclick="carregarTemplate(${template.id})" style="width: 100%; margin-top: 15px;">
+                                            ▶ Usar este Template
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div style="text-align: center; margin-top: 40px;">
+                            <button class="btn btn-voltar" onclick="voltarMundo()">← Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function carregarTemplatePredefinido(index) {
+            const template = TEMPLATES_PREDEFINIDOS[index];
+            
+            if (!template) {
+                alert('❌ Template não encontrado!');
+                return;
+            }
+            
+            // Volta para tela de criação e preenche campos
+            const conteudo = document.getElementById('faseConteudo');
+            carregarArenaCriar(null, conteudo);
+            
+            // Aguarda renderização
+            setTimeout(() => {
+                // Preenche nome
+                document.getElementById('nomeSessao').value = template.nome;
+                
+                // Marca atividades
+                if (template.atividades.includes('quiz1')) {
+                    document.getElementById('addQuiz1').checked = true;
+                }
+                if (template.atividades.includes('nuvem1')) {
+                    document.getElementById('addNuvem1').checked = true;
+                }
+                if (template.atividades.includes('quiz2')) {
+                    document.getElementById('addQuiz2').checked = true;
+                }
+                
+                // Seleciona modo
+                const modoRadio = document.querySelector(`input[name="modo"][value="${template.modo}"]`);
+                if (modoRadio) {
+                    modoRadio.checked = true;
+                    modoRadio.dispatchEvent(new Event('change'));
+                }
+                
+                alert(`✅ Template carregado!\n\n` +
+                      `"${template.nome}"\n\n` +
+                      `${template.descricao}\n\n` +
+                      `Ajuste o nome se necessário e clique em "CRIAR SESSÃO"`);
+            }, 100);
+        }
+        
+        function carregarTemplate(templateId) {
+            const templates = JSON.parse(localStorage.getItem('arenaTemplates') || '[]');
+            const template = templates.find(t => t.id === templateId);
+            
+            if (!template) {
+                alert('❌ Template não encontrado!');
+                return;
+            }
+            
+            // Volta para tela de criação e preenche campos
+            const conteudo = document.getElementById('faseConteudo');
+            carregarArenaCriar(null, conteudo);
+            
+            // Aguarda renderização
+            setTimeout(() => {
+                // Preenche nome
+                document.getElementById('nomeSessao').value = template.nome + ' - Nova Sessão';
+                
+                // Marca atividades
+                if (template.atividades.includes('quiz1')) {
+                    document.getElementById('addQuiz1').checked = true;
+                }
+                if (template.atividades.includes('nuvem1')) {
+                    document.getElementById('addNuvem1').checked = true;
+                }
+                if (template.atividades.includes('quiz2')) {
+                    document.getElementById('addQuiz2').checked = true;
+                }
+                
+                // Seleciona modo
+                const modoRadio = document.querySelector(`input[name="modo"][value="${template.modo}"]`);
+                if (modoRadio) {
+                    modoRadio.checked = true;
+                    modoRadio.dispatchEvent(new Event('change'));
+                }
+                
+                alert(`✅ Template carregado!\n\n` +
+                      `"${template.nome}"\n\n` +
+                      `Ajuste o nome se necessário e clique em "CRIAR SESSÃO"`);
+            }, 100);
+        }
+        
+        function excluirTemplate(templateId) {
+            if (!confirm('⚠️ Tem certeza que deseja excluir este template?\n\nEsta ação não pode ser desfeita.')) {
+                return;
+            }
+            
+            let templates = JSON.parse(localStorage.getItem('arenaTemplates') || '[]');
+            templates = templates.filter(t => t.id !== templateId);
+            localStorage.setItem('arenaTemplates', JSON.stringify(templates));
+            
+            alert('✅ Template excluído com sucesso!');
+            
+            // Atualiza lista
+            mostrarTemplatesSalvos();
+        }
+        
+        function iniciarSessaoArena(codigo) {
+            const conteudo = document.getElementById('faseConteudo');
+            
+            // Dados da demo
+            const demoData = {
+                currentActivity: 'waiting',
+                currentQuestion: 0,
+                participants: [
+                    {nome: 'João Silva', pontos: 0, respostas: []},
+                    {nome: 'Maria Santos', pontos: 0, respostas: []},
+                    {nome: 'Pedro Costa', pontos: 0, respostas: []},
+                    {nome: 'Ana Lima', pontos: 0, respostas: []},
+                    {nome: 'Carlos Souza', pontos: 0, respostas: []}
+                ],
+                quiz: [
+                    {
+                        pergunta: 'O que significa EPI?',
+                        opcoes: ['Equipamento de Proteção Individual', 'Equipamento de Produção Industrial', 'Equipamento Pessoal Interno', 'Equipamento de Processo'],
+                        correta: 0
+                    },
+                    {
+                        pergunta: 'Qual a cor da sinalização de perigo?',
+                        opcoes: ['Verde', 'Amarelo', 'Vermelho', 'Azul'],
+                        correta: 2
+                    },
+                    {
+                        pergunta: 'DDS significa?',
+                        opcoes: ['Diálogo Diário de Segurança', 'Documento de Segurança', 'Direção de Segurança', 'Demonstração de Segurança'],
+                        correta: 0
+                    }
+                ],
+                nuvemPalavras: []
+            };
+            
+            mostrarPainelInstrutor(conteudo, demoData, codigo);
+        }
+        
+        function mostrarPainelInstrutor(conteudo, data, codigo) {
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card">
+                        <h1 style="text-align: center; color: var(--primary); margin-bottom: 30px;">
+                            🎮 Painel do Instrutor - DEMO
+                        </h1>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                            <h3>Sessão: <span style="color: var(--primary); letter-spacing: 3px;">${codigo}</span></h3>
+                            <p style="color: #666; margin-top: 10px;">👥 ${data.participants.length} participantes conectados</p>
+                        </div>
+                        
+                        <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107; margin-bottom: 30px;">
+                            <h4>📌 Modo DEMO - Simulação</h4>
+                            <p style="margin-top: 10px; color: #666;">Esta é uma demonstração funcional. As respostas dos participantes são simuladas automaticamente para você ver o sistema funcionando!</p>
+                        </div>
+                        
+                        <div style="text-align: center; margin: 40px 0;">
+                            <h2 style="margin-bottom: 20px;">Escolha a atividade:</h2>
+                            
+                            <button class="btn-arena btn-arena-primary" onclick="iniciarQuizDemo()" style="margin: 10px;">
+                                ⚡ Iniciar Quiz (3 perguntas)
+                            </button>
+                            
+                            <button class="btn-arena btn-arena-primary" onclick="iniciarNuvemDemo()" style="margin: 10px;">
+                                ☁️ Iniciar Nuvem de Palavras
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ============================================
+        // TELA DO PARTICIPANTE (ALUNO)
+        // ============================================
+        
+        let participanteData = {
+            nome: '',
+            codigo: '',
+            conectado: false,
+            pontos: 0,
+            respostas: []
+        };
+        
+        function mostrarTelaParticipante(codigo) {
+            // Esconde telas do sistema
+            document.getElementById('telaSelecao').classList.add('hidden');
+            document.getElementById('telaCategoria').classList.add('hidden');
+            
+            const container = document.querySelector('.container');
+            
+            container.innerHTML = `
+                <div class="logo-container">
+                    <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo Logo" style="max-width: 300px;">
+                    <h2>Arena Ao Vivo - Participante</h2>
+                </div>
+                
+                <div id="telaParticipante">
+                    <div class="arena-container">
+                        <div class="arena-card" style="max-width: 600px; margin: 0 auto;">
+                            <h1 style="text-align: center; color: var(--primary); margin-bottom: 30px;">
+                                🎮 Entrar na Arena
+                            </h1>
+                            
+                            <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <p style="font-size: 16px; margin-bottom: 10px;">Código da Sessão:</p>
+                                <div style="font-size: 48px; font-weight: 700; letter-spacing: 8px;">${codigo}</div>
+                            </div>
+                            
+                            <div style="margin: 30px 0;">
+                                <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 18px;">
+                                    Digite seu nome:
+                                </label>
+                                <input type="text" id="nomeParticipante" placeholder="Ex: João Silva" 
+                                       style="width: 100%; padding: 20px; font-size: 18px; border: 2px solid #ddd; border-radius: 10px;"
+                                       onkeypress="if(event.key==='Enter') entrarNaArena('${codigo}')">
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 40px;">
+                                <button class="btn-arena btn-arena-primary" onclick="entrarNaArena('${codigo}')" style="width: 100%; padding: 20px; font-size: 20px;">
+                                    ▶ ENTRAR NA ARENA
+                                </button>
+                            </div>
+                            
+                            <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3; margin-top: 30px;">
+                                <p style="margin: 0; color: #666; text-align: center;">
+                                    💡 Dica: Responda rápido para ganhar mais pontos!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Foco no input
+            setTimeout(() => {
+                document.getElementById('nomeParticipante').focus();
+            }, 100);
+        }
+        
+        function entrarNaArena(codigo) {
+            const nome = document.getElementById('nomeParticipante').value.trim();
+            
+            if (!nome) {
+                alert('⚠️ Digite seu nome para entrar!');
+                return;
+            }
+            
+            participanteData.nome = nome;
+            participanteData.codigo = codigo;
+            participanteData.conectado = true;
+            
+            mostrarSalaEspera(codigo, nome);
+        }
+        
+        function mostrarSalaEspera(codigo, nome) {
+            const container = document.querySelector('#telaParticipante');
+            
+            container.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card" style="max-width: 700px; margin: 0 auto; text-align: center;">
+                        <h1 style="color: var(--primary); margin-bottom: 20px;">
+                            ✅ Conectado!
+                        </h1>
+                        
+                        <div style="background: #d4edda; border: 2px solid #28a745; padding: 25px; border-radius: 15px; margin: 20px 0;">
+                            <h2 style="margin: 0 0 10px 0; color: #155724;">Olá, ${nome}!</h2>
+                            <p style="margin: 0; color: #155724; font-size: 16px;">Você está conectado à sessão <strong>${codigo}</strong></p>
+                        </div>
+                        
+                        <div style="margin: 40px 0;">
+                            <div class="arena-timer" style="font-size: 72px;">⏳</div>
+                            <h3 style="color: #666; margin-top: 20px;">Aguardando instrutor iniciar...</h3>
+                            <p style="color: #999; margin-top: 10px;">Fique atento! A atividade começará em breve.</p>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0;">
+                            <h4 style="margin-bottom: 15px;">📊 Seus Dados:</h4>
+                            <p style="margin: 5px 0; color: #666;"><strong>Nome:</strong> ${nome}</p>
+                            <p style="margin: 5px 0; color: #666;"><strong>Código:</strong> ${codigo}</p>
+                            <p style="margin: 5px 0; color: #666;"><strong>Pontos:</strong> 0</p>
+                        </div>
+                        
+                        <div style="margin-top: 40px;">
+                            <button class="btn-arena btn-arena-primary" onclick="iniciarDemoParticipante('${codigo}', '${nome}')">
+                                🎮 INICIAR DEMO (Simulação)
+                            </button>
+                            <p style="color: #999; font-size: 14px; margin-top: 15px;">
+                                Clique acima para testar o sistema em modo demonstração
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function iniciarDemoParticipante(codigo, nome) {
+            alert(`🎮 MODO DEMO PARTICIPANTE!\n\n` +
+                  `Esta é uma simulação do que aconteceria quando o instrutor libera uma pergunta.\n\n` +
+                  `Vou te mostrar:\n` +
+                  `1️⃣ Pergunta aparecendo\n` +
+                  `2️⃣ Você respondendo\n` +
+                  `3️⃣ Resultado e pontuação\n` +
+                  `4️⃣ Ranking ao vivo`);
+            
+            mostrarPerguntaParticipante();
+        }
+        
+        function mostrarPerguntaParticipante() {
+            const container = document.querySelector('#telaParticipante');
+            let tempoRestante = 15;
+            
+            container.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card" style="max-width: 700px; margin: 0 auto;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div class="arena-timer" id="timerParticipante" style="font-size: 64px; color: ${tempoRestante > 5 ? '#28a745' : '#dc3545'};">
+                                ⏱ ${tempoRestante}s
+                            </div>
+                            <p style="color: #666; margin-top: 10px;">Responda rápido para ganhar mais pontos!</p>
+                        </div>
+                        
+                        <div class="arena-question">
+                            <h3 style="font-size: 24px; margin-bottom: 30px;">O que significa EPI?</h3>
+                            
+                            <div class="arena-options" id="opcoesParticipante">
+                                <div class="arena-option" onclick="responderParticipante(0)">
+                                    A) Equipamento de Proteção Individual
+                                </div>
+                                <div class="arena-option" onclick="responderParticipante(1)">
+                                    B) Equipamento de Produção Industrial
+                                </div>
+                                <div class="arena-option" onclick="responderParticipante(2)">
+                                    C) Equipamento Pessoal Interno
+                                </div>
+                                <div class="arena-option" onclick="responderParticipante(3)">
+                                    D) Equipamento de Processo
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="statusResposta" style="margin-top: 20px; text-align: center;"></div>
+                    </div>
+                </div>
+            `;
+            
+            // Timer countdown
+            const interval = setInterval(() => {
+                tempoRestante--;
+                const timerEl = document.getElementById('timerParticipante');
+                if (timerEl) {
+                    timerEl.textContent = `⏱ ${tempoRestante}s`;
+                    timerEl.style.color = tempoRestante > 5 ? '#28a745' : '#dc3545';
+                }
+                
+                if (tempoRestante <= 0) {
+                    clearInterval(interval);
+                    if (participanteData.respostas.length === 0) {
+                        // Não respondeu a tempo
+                        document.getElementById('statusResposta').innerHTML = `
+                            <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 10px;">
+                                <h3 style="color: #856404;">⏰ Tempo Esgotado!</h3>
+                                <p style="color: #856404; margin-top: 10px;">Você não respondeu a tempo.</p>
+                            </div>
+                        `;
+                        setTimeout(() => {
+                            mostrarRankingParticipante();
+                        }, 2000);
+                    }
+                }
+            }, 1000);
+        }
+        
+        let tempoResposta = 0;
+        
+        function responderParticipante(opcao) {
+            // Calcula tempo de resposta
+            const timerEl = document.getElementById('timerParticipante');
+            const tempoTexto = timerEl.textContent.match(/\d+/);
+            tempoResposta = 15 - parseInt(tempoTexto[0]);
+            
+            // Desabilita opções
+            const opcoes = document.querySelectorAll('.arena-option');
+            opcoes.forEach(op => {
+                op.style.pointerEvents = 'none';
+                op.style.opacity = '0.5';
+            });
+            
+            // Marca opção selecionada
+            opcoes[opcao].classList.add('selected');
+            opcoes[opcao].style.opacity = '1';
+            
+            // Resposta correta é 0 (A)
+            const correto = (opcao === 0);
+            
+            participanteData.respostas.push({
+                opcao: opcao,
+                correto: correto,
+                tempo: tempoResposta
+            });
+            
+            if (correto) {
+                const pontos = Math.floor(1000 - (tempoResposta * 10));
+                participanteData.pontos += pontos;
+                
+                setTimeout(() => {
+                    opcoes[opcao].classList.add('correct');
+                    
+                    document.getElementById('statusResposta').innerHTML = `
+                        <div style="background: #d4edda; border: 2px solid #28a745; padding: 25px; border-radius: 15px; animation: fadeIn 0.5s;">
+                            <h2 style="color: #155724; margin: 0 0 15px 0;">✅ CORRETO!</h2>
+                            <p style="color: #155724; font-size: 20px; margin: 0;">
+                                Você ganhou <strong>${pontos} pontos</strong>
+                            </p>
+                            <p style="color: #155724; margin-top: 10px;">
+                                Tempo de resposta: ${tempoResposta}s
+                            </p>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        mostrarRankingParticipante();
+                    }, 2500);
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    opcoes[opcao].classList.add('incorrect');
+                    opcoes[0].classList.add('correct'); // Mostra a correta
+                    
+                    document.getElementById('statusResposta').innerHTML = `
+                        <div style="background: #f8d7da; border: 2px solid #dc3545; padding: 25px; border-radius: 15px; animation: fadeIn 0.5s;">
+                            <h2 style="color: #721c24; margin: 0 0 15px 0;">❌ INCORRETO</h2>
+                            <p style="color: #721c24; font-size: 18px; margin: 0;">
+                                A resposta correta era: <strong>A</strong>
+                            </p>
+                            <p style="color: #721c24; margin-top: 10px;">
+                                Você não pontuou nesta pergunta
+                            </p>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        mostrarRankingParticipante();
+                    }, 3000);
+                }, 300);
+            }
+        }
+        
+        function mostrarRankingParticipante() {
+            const container = document.querySelector('#telaParticipante');
+            
+            // Simula outros participantes
+            const ranking = [
+                {nome: participanteData.nome, pontos: participanteData.pontos},
+                {nome: 'Maria Santos', pontos: 950},
+                {nome: 'Pedro Costa', pontos: 920},
+                {nome: 'Ana Lima', pontos: 890},
+                {nome: 'Carlos Souza', pontos: 0}
+            ].sort((a, b) => b.pontos - a.pontos);
+            
+            const posicao = ranking.findIndex(p => p.nome === participanteData.nome) + 1;
+            
+            container.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card" style="max-width: 800px; margin: 0 auto;">
+                        <h1 style="text-align: center; color: var(--primary); margin-bottom: 30px;">
+                            🏆 Ranking - Pergunta 1
+                        </h1>
+                        
+                        <div style="background: linear-gradient(135deg, ${posicao === 1 ? '#FFD700' : posicao === 2 ? '#C0C0C0' : posicao === 3 ? '#CD7F32' : 'var(--primary)'}, ${posicao <= 3 ? '#FFA500' : 'var(--accent)'}); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+                            <h2 style="margin: 0 0 10px 0;">Sua Posição: ${posicao}º ${posicao === 1 ? '🥇' : posicao === 2 ? '🥈' : posicao === 3 ? '🥉' : ''}</h2>
+                            <p style="font-size: 32px; font-weight: 700; margin: 10px 0;">${participanteData.pontos} pontos</p>
+                        </div>
+                        
+                        <div class="arena-ranking">
+                            <h3 style="text-align: center; margin-bottom: 20px;">📊 Classificação Geral</h3>
+                            ${ranking.map((p, i) => `
+                                <div class="ranking-item" style="${p.nome === participanteData.nome ? 'background: #e3f2fd; border: 2px solid var(--primary);' : ''}">
+                                    <div class="ranking-position">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1) + 'º'}</div>
+                                    <div class="ranking-name">${p.nome} ${p.nome === participanteData.nome ? '(Você)' : ''}</div>
+                                    <div class="ranking-points">${p.pontos} pts</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                            <p style="color: #666; margin: 0;">
+                                ⏳ Aguardando próxima pergunta...
+                            </p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn btn-voltar" onclick="location.reload()">
+                                ← Sair da Arena
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ============================================
+        // DEMO QUIZ
+        // ============================================
+        
+        let demoQuizData = null;
+        
+        function iniciarQuizDemo() {
+            demoQuizData = {
+                currentQuestion: 0,
+                participants: [
+                    {nome: 'João Silva', pontos: 0, acertos: 0},
+                    {nome: 'Maria Santos', pontos: 0, acertos: 0},
+                    {nome: 'Pedro Costa', pontos: 0, acertos: 0},
+                    {nome: 'Ana Lima', pontos: 0, acertos: 0},
+                    {nome: 'Carlos Souza', pontos: 0, acertos: 0}
+                ],
+                perguntas: [
+                    {
+                        pergunta: 'O que significa EPI?',
+                        opcoes: ['Equipamento de Proteção Individual', 'Equipamento de Produção Industrial', 'Equipamento Pessoal Interno', 'Equipamento de Processo'],
+                        correta: 0
+                    },
+                    {
+                        pergunta: 'Qual a cor da sinalização de perigo?',
+                        opcoes: ['Verde', 'Amarelo', 'Vermelho', 'Azul'],
+                        correta: 2
+                    },
+                    {
+                        pergunta: 'DDS significa?',
+                        opcoes: ['Diálogo Diário de Segurança', 'Documento de Segurança', 'Direção de Segurança', 'Demonstração de Segurança'],
+                        correta: 0
+                    }
+                ],
+                respostasRecebidas: 0
+            };
+            
+            mostrarPerguntaInstrutor();
+        }
+        
+        function mostrarPerguntaInstrutor() {
+            const conteudo = document.getElementById('faseConteudo');
+            const perguntaAtual = demoQuizData.perguntas[demoQuizData.currentQuestion];
+            
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card">
+                        <h2 style="text-align: center; color: var(--primary);">
+                            ⚡ Quiz - Pergunta ${demoQuizData.currentQuestion + 1}/${demoQuizData.perguntas.length}
+                        </h2>
+                        
+                        <div class="arena-question" style="margin: 30px 0;">
+                            <h3>${perguntaAtual.pergunta}</h3>
+                            <div class="arena-options" style="margin-top: 20px;">
+                                ${perguntaAtual.opcoes.map((op, i) => `
+                                    <div class="arena-option" style="pointer-events: none;">
+                                        ${String.fromCharCode(65 + i)}) ${op}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <h4>📊 Status: <span id="statusQuiz">Aguardando...</span></h4>
+                            <div id="respostasContainer"></div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn-arena btn-arena-primary" onclick="liberarPergunta()">
+                                ▶ LIBERAR PERGUNTA PARA ALUNOS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function liberarPergunta() {
+            document.getElementById('statusQuiz').innerHTML = '⏱ <strong style="color: #28a745;">PERGUNTA LIBERADA!</strong> Alunos respondendo...';
+            
+            const perguntaAtual = demoQuizData.perguntas[demoQuizData.currentQuestion];
+            demoQuizData.respostasRecebidas = 0;
+            
+            // Simula respostas dos participantes
+            demoQuizData.participants.forEach((p, index) => {
+                setTimeout(() => {
+                    // Simula tempo de resposta (2-8 segundos)
+                    const tempoResposta = 2 + Math.random() * 6;
+                    
+                    // 80% acertam, 20% erram
+                    const acertou = Math.random() > 0.2;
+                    const resposta = acertou ? perguntaAtual.correta : Math.floor(Math.random() * 4);
+                    
+                    if (acertou) {
+                        const pontos = Math.floor(1000 - (tempoResposta * 10));
+                        p.pontos += pontos;
+                        p.acertos++;
+                    }
+                    
+                    demoQuizData.respostasRecebidas++;
+                    
+                    atualizarRespostasRecebidas();
+                    
+                    // Quando todos responderem
+                    if (demoQuizData.respostasRecebidas === demoQuizData.participants.length) {
+                        setTimeout(() => {
+                            mostrarResultadoPergunta();
+                        }, 1000);
+                    }
+                }, index * 800);
+            });
+        }
+        
+        function atualizarRespostasRecebidas() {
+            const container = document.getElementById('respostasContainer');
+            container.innerHTML = `
+                <p style="margin-top: 15px; font-size: 18px; color: #333;">
+                    <strong>${demoQuizData.respostasRecebidas}/${demoQuizData.participants.length}</strong> respostas recebidas
+                </p>
+                <div style="width: 100%; height: 10px; background: #e9ecef; border-radius: 5px; margin-top: 10px;">
+                    <div style="width: ${(demoQuizData.respostasRecebidas / demoQuizData.participants.length) * 100}%; height: 100%; background: var(--primary); border-radius: 5px; transition: width 0.3s;"></div>
+                </div>
+            `;
+        }
+        
+        function mostrarResultadoPergunta() {
+            const conteudo = document.getElementById('faseConteudo');
+            const perguntaAtual = demoQuizData.perguntas[demoQuizData.currentQuestion];
+            
+            // Ordena por pontos
+            const ranking = [...demoQuizData.participants].sort((a, b) => b.pontos - a.pontos);
+            
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card">
+                        <h2 style="text-align: center; color: #28a745; margin-bottom: 30px;">
+                            ✅ Pergunta ${demoQuizData.currentQuestion + 1} - Resultado
+                        </h2>
+                        
+                        <div style="background: #d4edda; border: 2px solid #28a745; padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center;">
+                            <h3>Resposta Correta:</h3>
+                            <p style="font-size: 20px; font-weight: 700; margin-top: 10px;">
+                                ${String.fromCharCode(65 + perguntaAtual.correta)}) ${perguntaAtual.opcoes[perguntaAtual.correta]}
+                            </p>
+                        </div>
+                        
+                        <div class="arena-ranking" style="margin: 30px 0;">
+                            <h2>🏆 Ranking Atual</h2>
+                            ${ranking.map((p, i) => `
+                                <div class="ranking-item">
+                                    <div class="ranking-position">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1) + 'º'}</div>
+                                    <div class="ranking-name">${p.nome}</div>
+                                    <div style="flex: 1; text-align: right; margin-right: 20px; color: #666;">
+                                        ${p.acertos}/${demoQuizData.currentQuestion + 1} acertos
+                                    </div>
+                                    <div class="ranking-points">${p.pontos} pts</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 40px;">
+                            ${demoQuizData.currentQuestion < demoQuizData.perguntas.length - 1 ? `
+                                <button class="btn-arena btn-arena-primary" onclick="proximaPergunta()">
+                                    ▶ PRÓXIMA PERGUNTA
+                                </button>
+                            ` : `
+                                <button class="btn-arena btn-arena-success" onclick="mostrarPodium()">
+                                    🏆 VER PODIUM FINAL
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function proximaPergunta() {
+            demoQuizData.currentQuestion++;
+            mostrarPerguntaInstrutor();
+        }
+        
+        function mostrarPodium() {
+            const conteudo = document.getElementById('faseConteudo');
+            const ranking = [...demoQuizData.participants].sort((a, b) => b.pontos - a.pontos);
+            
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card" style="text-align: center;">
+                        <h1 style="font-size: 48px; margin-bottom: 30px;">🏆 PODIUM FINAL 🏆</h1>
+                        
+                        <div style="display: flex; align-items: flex-end; justify-content: center; gap: 20px; margin: 50px 0;">
+                            <!-- 2º Lugar -->
+                            <div style="background: linear-gradient(135deg, #C0C0C0, #E8E8E8); padding: 30px 20px; border-radius: 15px; width: 200px;">
+                                <div style="font-size: 64px; margin-bottom: 10px;">🥈</div>
+                                <h3 style="font-size: 20px; margin-bottom: 10px;">${ranking[1].nome}</h3>
+                                <p style="font-size: 28px; font-weight: 700; color: #666;">${ranking[1].pontos} pts</p>
+                                <p style="color: #666; margin-top: 10px;">${ranking[1].acertos}/${demoQuizData.perguntas.length} acertos</p>
+                            </div>
+                            
+                            <!-- 1º Lugar -->
+                            <div style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 40px 20px; border-radius: 15px; width: 220px; transform: translateY(-20px);">
+                                <div style="font-size: 80px; margin-bottom: 10px;">🥇</div>
+                                <h3 style="font-size: 24px; margin-bottom: 10px; font-weight: 700;">${ranking[0].nome}</h3>
+                                <p style="font-size: 36px; font-weight: 700; color: #8B4513;">${ranking[0].pontos} pts</p>
+                                <p style="color: #8B4513; margin-top: 10px; font-weight: 600;">${ranking[0].acertos}/${demoQuizData.perguntas.length} acertos</p>
+                            </div>
+                            
+                            <!-- 3º Lugar -->
+                            <div style="background: linear-gradient(135deg, #CD7F32, #DEB887); padding: 30px 20px; border-radius: 15px; width: 200px;">
+                                <div style="font-size: 64px; margin-bottom: 10px;">🥉</div>
+                                <h3 style="font-size: 20px; margin-bottom: 10px;">${ranking[2].nome}</h3>
+                                <p style="font-size: 28px; font-weight: 700; color: #654321;">${ranking[2].pontos} pts</p>
+                                <p style="color: #654321; margin-top: 10px;">${ranking[2].acertos}/${demoQuizData.perguntas.length} acertos</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 50px;">
+                            <h3 style="margin-bottom: 20px;">📊 Classificação Completa:</h3>
+                            ${ranking.slice(3).map((p, i) => `
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 10px auto; max-width: 600px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-weight: 700; font-size: 18px;">${i + 4}º</span>
+                                    <span style="font-size: 18px;">${p.nome}</span>
+                                    <span style="font-weight: 700; color: var(--primary);">${p.pontos} pts</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="margin-top: 50px;">
+                            <button class="btn-arena btn-arena-primary" onclick="iniciarNuvemDemo()">
+                                ☁️ Iniciar Nuvem de Palavras
+                            </button>
+                            <button class="btn btn-voltar" onclick="voltarMundo()" style="margin-top: 20px;">
+                                ← Encerrar Sessão
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ============================================
+        // DEMO NUVEM DE PALAVRAS
+        // ============================================
+        
+        let demoNuvemData = null;
+        
+        function iniciarNuvemDemo() {
+            demoNuvemData = {
+                pergunta: 'O que é segurança para você?',
+                palavras: {},
+                participantes: [
+                    'João Silva', 'Maria Santos', 'Pedro Costa', 
+                    'Ana Lima', 'Carlos Souza'
+                ],
+                respostasRecebidas: 0
+            };
+            
+            const conteudo = document.getElementById('faseConteudo');
+            
+            conteudo.innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card">
+                        <h2 style="text-align: center; color: var(--primary); margin-bottom: 30px;">
+                            ☁️ Nuvem de Palavras
+                        </h2>
+                        
+                        <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 30px; border-radius: 15px; margin: 20px 0; text-align: center;">
+                            <h3 style="font-size: 24px;">${demoNuvemData.pergunta}</h3>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <h4>📊 Status: <span id="statusNuvem">Aguardando...</span></h4>
+                            <p id="respostasNuvem" style="margin-top: 10px; font-size: 16px;">0/${demoNuvemData.participantes.length} participantes responderam</p>
+                        </div>
+                        
+                        <div class="word-cloud" id="nuvemContainer" style="min-height: 300px; background: white; border-radius: 15px;">
+                            <p style="color: #999; font-size: 18px;">Aguardando respostas...</p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn-arena btn-arena-primary" onclick="liberarNuvem()">
+                                ▶ LIBERAR PARA ALUNOS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function liberarNuvem() {
+            document.getElementById('statusNuvem').innerHTML = '⏱ <strong style="color: #28a745;">COLETA ATIVA!</strong> Palavras chegando...';
+            document.getElementById('nuvemContainer').innerHTML = '';
+            
+            const palavrasPool = [
+                'proteção', 'cuidado', 'prevenção', 'atenção', 'responsabilidade',
+                'vida', 'saúde', 'equipamento', 'treinamento', 'consciência',
+                'EPI', 'segurança', 'alerta', 'procedimento', 'norma'
+            ];
+            
+            // Simula participantes respondendo
+            demoNuvemData.participantes.forEach((nome, index) => {
+                setTimeout(() => {
+                    // Escolhe palavra aleatória
+                    const palavra = palavrasPool[Math.floor(Math.random() * palavrasPool.length)];
+                    
+                    // Adiciona à contagem
+                    if (!demoNuvemData.palavras[palavra]) {
+                        demoNuvemData.palavras[palavra] = 0;
+                    }
+                    demoNuvemData.palavras[palavra]++;
+                    
+                    demoNuvemData.respostasRecebidas++;
+                    
+                    // Atualiza nuvem
+                    atualizarNuvem();
+                    
+                    document.getElementById('respostasNuvem').textContent = 
+                        `${demoNuvemData.respostasRecebidas}/${demoNuvemData.participantes.length} participantes responderam`;
+                    
+                    // Quando todos responderem
+                    if (demoNuvemData.respostasRecebidas === demoNuvemData.participantes.length) {
+                        setTimeout(() => {
+                            document.getElementById('statusNuvem').innerHTML = '✅ <strong style="color: #28a745;">COLETA ENCERRADA!</strong>';
+                            
+                            const container = document.getElementById('faseConteudo').parentElement;
+                            const btnFinalizar = document.createElement('div');
+                            btnFinalizar.style.textAlign = 'center';
+                            btnFinalizar.style.marginTop = '30px';
+                            btnFinalizar.innerHTML = `
+                                <button class="btn-arena btn-arena-success" onclick="iniciarQuizDemo()">
+                                    ⚡ Iniciar Quiz Agora
+                                </button>
+                                <button class="btn btn-voltar" onclick="voltarMundo()" style="margin-left: 20px;">
+                                    ← Encerrar Sessão
+                                </button>
+                            `;
+                            
+                            const card = document.querySelector('.arena-card');
+                            if (card && !document.getElementById('btnFinalNuvem')) {
+                                btnFinalizar.id = 'btnFinalNuvem';
+                                card.appendChild(btnFinalizar);
+                            }
+                        }, 500);
+                    }
+                }, index * 1500);
+            });
+        }
+        
+        function atualizarNuvem() {
+            const container = document.getElementById('nuvemContainer');
+            const palavrasArray = Object.entries(demoNuvemData.palavras);
+            
+            // Encontra contagem máxima
+            const maxCount = Math.max(...palavrasArray.map(([_, count]) => count));
+            
+            container.innerHTML = palavrasArray.map(([palavra, count]) => {
+                // Tamanho baseado na contagem
+                const fontSize = 20 + (count / maxCount) * 40;
+                
+                // Cores aleatórias do tema
+                const cores = ['#4FC3DC', '#2A9BB8', '#6DD5ED', '#3498db', '#9b59b6'];
+                const cor = cores[Math.floor(Math.random() * cores.length)];
+                
+                return `
+                    <div class="word-item" style="
+                        font-size: ${fontSize}px;
+                        color: ${cor};
+                        background: ${cor}15;
+                        border: 2px solid ${cor};
+                    ">
+                        ${palavra} <span style="font-size: 0.6em; opacity: 0.7;">(${count})</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function concluirFase() {
+            if (!progresso[mundoSelecionado].includes(faseAtual)) {
+                progresso[mundoSelecionado].push(faseAtual);
+                
+                // ENVIA TRACKING DA FASE
+                const fase = MUNDOS[mundoSelecionado].fases[faseAtual];
+                if (fase.tipo !== 'quiz') { // Quiz já envia tracking próprio
+                    enviarTracking(
+                        MUNDOS[mundoSelecionado].nome,
+                        fase.nome,
+                        'Concluído'
+                    );
+                }
+            }
+            voltarMundo();
+        }
+
+        function voltarMundo() {
+            document.getElementById('telaFase').classList.add('hidden');
+            document.getElementById('telaMundo').classList.remove('hidden');
+            abrirMundo();
+        }
+
+        function voltarSelecao() {
+            document.getElementById('telaMundo').classList.add('hidden');
+            document.getElementById('telaCategoria').classList.remove('hidden');
+            mundoSelecionado = null;
+            if (categoriaSelecionada) {
+                renderizarRoadmapCategoria(categoriaSelecionada);
+                calcularProgressoGlobal();
+            }
+        }
+        
+        // ============================================
+        // QR CODE E COMPARTILHAMENTO
+        // ============================================
+        
+        let qrcodeInstance = null;
+        let linkAtual = '';
+        
+        function mostrarQRCodeModulo(mundoId) {
+            const mundo = MUNDOS[mundoId];
+            const modal = document.getElementById('qrModal');
+            const titulo = document.getElementById('qrTitulo');
+            const linkElement = document.getElementById('qrLink');
+            const qrcodeContainer = document.getElementById('qrcode');
+            
+            // Limpa QR Code anterior
+            qrcodeContainer.innerHTML = '';
+            
+            // Gera link do módulo (atual página + parâmetro)
+            const baseUrl = window.location.href.split('?')[0];
+            linkAtual = `${baseUrl}?modulo=${mundoId}`;
+            
+            // Atualiza título e link
+            titulo.textContent = `📱 Compartilhar: ${mundo.nome}`;
+            linkElement.textContent = linkAtual;
+            
+            // Gera QR Code
+            qrcodeInstance = new QRCode(qrcodeContainer, {
+                text: linkAtual,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            modal.classList.add('active');
+        }
+        
+        function copiarLinkModulo() {
+            navigator.clipboard.writeText(linkAtual).then(() => {
+                alert('✅ Link copiado!\n\nCompartilhe com seus alunos por WhatsApp, email ou SMS.');
+            }).catch(() => {
+                // Fallback para navegadores antigos
+                const textArea = document.createElement('textarea');
+                textArea.value = linkAtual;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('✅ Link copiado!');
+            });
+        }
+        
+        function fecharQRCode() {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+        
+        // Verifica se URL tem parâmetro de módulo ao carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const moduloId = params.get('modulo');
+            const codigoArena = params.get('codigo');
+            
+            if (codigoArena) {
+                // Link de arena - mostra tela de participante
+                setTimeout(() => {
+                    mostrarTelaParticipante(codigoArena);
+                }, 500);
+            } else if (moduloId && MUNDOS[moduloId]) {
+                // Link de módulo - abre modal de login
+                setTimeout(() => {
+                    abrirModalLogin(moduloId);
+                }, 500);
+            }
+        });
+        
+        
+
+</script>
 
     <!-- Modal de Certificado -->
     <div id="certificadoModal" class="certificate-modal">
@@ -2692,13 +4497,31 @@
             </div>
         </div>
     </div>
-
-
-    <!-- FOOTER PROFISSIONAL -->
-    <footer class="footer-profissional">
-        <p>&copy; 2026 <strong>ORIEVO GROUP</strong>. Todos os direitos reservados.</p>
-        <p>Plataforma desenvolvida para <strong>Grupo Dislub Equador</strong></p>
-        <p style="margin-top: 10px; font-size: 12px;">Soluções em Treinamento e Desenvolvimento</p>
-    </footer>
 </body>
-</html>
+</html
+
+        // ============================================
+        // FIREBASE PARA ARENA AO VIVO
+        // ============================================
+        // COLE SUAS CREDENCIAIS DO FIREBASE AQUI!
+        // Tutorial: https://console.firebase.google.com
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
+  authDomain: "dislub-equador.firebaseapp.com",
+  databaseURL: "https://dislub-equador-default-rtdb.firebaseio.com",
+  projectId: "dislub-equador",
+  storageBucket: "dislub-equador.firebasestorage.app",
+  messagingSenderId: "160052415363",
+  appId: "1:160052415363:web:f17df9700cd511122504b6",
+  measurementId: "G-SHMCTNHGBX"
+        };
+        
+        // ============================================
+        // INICIALIZAR FIREBASE
+        // DESCOMENTE AS 2 LINHAS ABAIXO APÓS CONFIGURAR!
+        // ============================================
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+>

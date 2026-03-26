@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Orievo - Grupo Dislub Equador</title>
+    <title>Arena Orievo Quiz - Grupo Dislub Equador</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -627,7 +627,7 @@
             <div class="logo-orievo">
                 <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo">
                 <div class="text">
-                    <h1>ARENA ORIEVO</h1>
+                    <h1>ARENA ORIEVO - QUIZ</h1>
                     <p>Treinamentos Interativos</p>
                 </div>
             </div>
@@ -820,44 +820,91 @@
         function mostrarArena(container) {
             container.innerHTML = `
                 <div class="arena-container">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                        
+                        <!-- CARD QUIZ -->
+                        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #9b59b6;">
+                            <h3 style="color: #9b59b6; margin-bottom: 20px; text-align: center;">📊 Quiz Interativo</h3>
+                            <p style="text-align: center; color: #666; margin-bottom: 20px;">Perguntas e respostas em tempo real</p>
+                            <button class="btn-arena" onclick="mostrarFormularioQuiz()" style="width: 100%; background: #9b59b6;">🎮 CRIAR QUIZ</button>
+                        </div>
+                        
+                        <!-- CARD NUVEM -->
+                        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #3498db;">
+                            <h3 style="color: #3498db; margin-bottom: 20px; text-align: center;">☁️ Nuvem de Palavras</h3>
+                            <p style="text-align: center; color: #666; margin-bottom: 20px;">Coleta de palavras do grupo</p>
+                            <button class="btn-arena" onclick="mostrarFormularioNuvem()" style="width: 100%; background: #3498db;">☁️ CRIAR NUVEM</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            `;
+        }
+
+        function mostrarFormularioQuiz() {
+            document.getElementById('conteudoModulo').innerHTML = `
+                <div class="arena-container">
                     <div class="arena-card">
-                        <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Arena Ao Vivo - Criar Sessão</h2>
+                        <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Criar Quiz Interativo</h2>
                         
                         <div style="margin-bottom: 25px;">
                             <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">📝 Nome da Sessão:</label>
-                            <input type="text" id="nomeSessao" placeholder="Ex: DDS Terça-feira" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
+                            <input type="text" id="nomeSessaoQuiz" placeholder="Ex: DDS Terça-feira" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
                         </div>
                         
                         <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 12px; font-weight: 600; color: #333;">✅ Selecione Atividades:</label>
+                            <label style="display: block; margin-bottom: 12px; font-weight: 600; color: #333;">✅ Selecione o Quiz:</label>
                             <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
                                 <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
                                     <input type="checkbox" id="quiz1" checked style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
-                                    <span style="font-size: 16px;">📊 Quiz: EPIs Básicos</span>
-                                </label>
-                                <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
-                                    <input type="checkbox" id="nuvem1" style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
-                                    <span style="font-size: 16px;">☁️ Nuvem de Palavras</span>
-                                </label>
-                                <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
-                                    <input type="checkbox" id="quiz2" style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
-                                    <span style="font-size: 16px;">📊 Quiz: NR-6</span>
+                                    <span style="font-size: 16px;">📊 Quiz: EPIs Básicos (2 perguntas)</span>
                                 </label>
                             </div>
                         </div>
                         
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">👥 Modo:</label>
-                            <select id="modoSessao" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; cursor: pointer;">
-                                <option value="individual">Individual</option>
-                                <option value="equipes">Por Equipes</option>
-                            </select>
-                        </div>
-                        
-                        <button class="btn-arena" onclick="criarSessao()" style="width: 100%; margin-top: 10px;">🚀 CRIAR SESSÃO</button>
+                        <button class="btn-arena" onclick="criarSessaoQuiz()" style="width: 100%; margin-top: 10px; background: #9b59b6;">🚀 CRIAR QUIZ</button>
+                        <button class="btn-voltar" onclick="voltarArena()" style="width: 100%; margin-top: 15px;">← Voltar</button>
                     </div>
                 </div>
             `;
+        }
+
+        function mostrarFormularioNuvemInstrutor() {
+            document.getElementById('conteudoModulo').innerHTML = `
+                <div class="arena-container">
+                    <div class="arena-card">
+                        <h2 style="text-align: center; color: #3498db; margin-bottom: 30px;">☁️ Criar Nuvem de Palavras</h2>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">📝 Nome da Sessão:</label>
+                            <input type="text" id="nomeSessaoNuvem" placeholder="Ex: DDS - Reflexão sobre Segurança" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">💭 Tema da Nuvem:</label>
+                            <input type="text" id="temaNuvem" placeholder="Ex: O que é segurança para você?" value="O que é segurança para você?" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
+                            <small style="color: #666; display: block; margin-top: 8px;">Esta pergunta aparecerá para os alunos</small>
+                        </div>
+                        
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #3498db;">
+                            <h4 style="color: #3498db; margin-bottom: 10px;">ℹ️ Como funciona:</h4>
+                            <ul style="margin-left: 20px; color: #666;">
+                                <li>Crie a sessão e compartilhe o QR Code</li>
+                                <li>Alunos acessam e enviam palavras</li>
+                                <li>Você vê todas as palavras em tempo real</li>
+                                <li>Feche quando quiser encerrar</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn-arena" onclick="criarSessaoNuvem()" style="width: 100%; margin-top: 10px; background: #3498db;">☁️ CRIAR NUVEM</button>
+                        <button class="btn-voltar" onclick="voltarArena()" style="width: 100%; margin-top: 15px;">← Voltar</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function voltarArena() {
+            mostrarModulo();
         }
 
         function criarSessao() {
@@ -909,20 +956,11 @@
                         <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
                         <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
                         <button class="btn-arena" id="btnProxima" style="width: 100%; background: #28a745; display: none;" onclick="proximaPergunta()">➡️ PRÓXIMA PERGUNTA</button>
-                        <button class="btn-arena" style="width: 100%; background: #3498db;" onclick="iniciarNuvem()">☁️ INICIAR NUVEM DE PALAVRAS</button>
+                        
                         <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING (Instrutor)</button>
                         <button class="btn-arena" style="width: 100%; background: #8e44ad;" onclick="exibirRankingParaAlunos()">📺 MOSTRAR RANKING PARA ALUNOS</button>
                         
-                        <div id="painelNuvem" style="display: none; margin-top: 30px; background: #f8f9fa; padding: 20px; border-radius: 15px;">
-                            <h3 style="color: #3498db; text-align: center; margin-bottom: 20px;">☁️ Palavras Enviadas (Tempo Real)</h3>
-                            <div id="listaPalavrasNuvem"></div>
-                            <button class="btn-arena" style="width: 100%; background: #e74c3c; margin-top: 20px;" onclick="fecharNuvem()">🔒 FECHAR NUVEM</button>
-                        </div>
                         
-                        <div id="rankingArea" style="display: none; margin-top: 30px;">
-                            <h3 style="color: #f39c12; text-align: center; margin-bottom: 20px;">🏆 Ranking de Pontuação</h3>
-                            <div id="rankingLista"></div>
-                        </div>
                     </div>
                 </div>
             `;
@@ -1208,7 +1246,7 @@
                     <div class="aluno-screen">
                         <div style="text-align: center; margin-bottom: 30px;">
                             <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 60px; margin-bottom: 10px;">
-                            <h1 style="color: var(--orievo-primary); margin: 10px 0;">ARENA ORIEVO</h1>
+                            <h1 style="color: var(--orievo-primary); margin: 10px 0;">ARENA ORIEVO - QUIZ</h1>
                             <p style="color: #666; font-size: 14px;">Desenvolvido para Grupo Dislub Equador</p>
                         </div>
                         

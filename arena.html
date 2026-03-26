@@ -863,30 +863,31 @@
         }
 
         function criarSessao() {
-            const nome = document.getElementById('nomeSessao').value;
-            if (!nome) { alert('Digite o nome da sessão!'); return; }
+            console.log('🎮 criarSessao() chamada');
+            
+            const nome = document.getElementById('nomeSessaoQuiz').value;
+            console.log('Nome:', nome);
+            
+            if (!nome) { 
+                alert('⚠️ Digite o nome da sessão!'); 
+                return; 
+            }
 
             const codigo = gerarCodigo();
-            const atividades = [];
-            if (document.getElementById('quiz1').checked) atividades.push('quiz1');
-            if (document.getElementById('nuvem1').checked) atividades.push('nuvem1');
-            if (document.getElementById('quiz2').checked) atividades.push('quiz2');
-
-            if (atividades.length === 0) { alert('Selecione pelo menos uma atividade!'); return; }
-
-            const modo = document.getElementById('modoSessao').value;
+            console.log('Código gerado:', codigo);
+            
             const linkSessao = window.location.origin + window.location.pathname + '?codigo=' + codigo;
             sessaoAtual = codigo;
 
             document.getElementById('conteudoModulo').innerHTML = `
                 <div class="arena-container">
                     <div class="arena-card">
-                        <h2>✅ Sessão Criada!</h2>
+                        <h2 style="text-align: center; color: #28a745;">✅ Sessão Criada!</h2>
                         <div class="sessao-info">
                             <h3>📋 Informações</h3>
                             <p><strong>Nome:</strong> ${nome}</p>
-                            <p><strong>Modo:</strong> ${modo === 'individual' ? '👤 Individual' : '👥 Equipes'}</p>
-                            <p><strong>Atividades:</strong> ${atividades.length}</p>
+                            <p><strong>Modo:</strong> 👤 Individual</p>
+                            <p><strong>Quiz:</strong> EPIs Básicos</p>
                         </div>
                         <h3 style="text-align: center; margin: 30px 0 10px 0;">Código da Sessão:</h3>
                         <div class="codigo-sessao">${codigo}</div>
@@ -911,15 +912,8 @@
                         <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
                         <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
                         <button class="btn-arena" id="btnProxima" style="width: 100%; background: #28a745; display: none;" onclick="proximaPergunta()">➡️ PRÓXIMA PERGUNTA</button>
-                        <button class="btn-arena" style="width: 100%; background: #3498db;" onclick="iniciarNuvem()">☁️ INICIAR NUVEM DE PALAVRAS</button>
                         <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING (Instrutor)</button>
                         <button class="btn-arena" style="width: 100%; background: #8e44ad;" onclick="exibirRankingParaAlunos()">📺 MOSTRAR RANKING PARA ALUNOS</button>
-                        
-                        <div id="painelNuvem" style="display: none; margin-top: 30px; background: #f8f9fa; padding: 20px; border-radius: 15px;">
-                            <h3 style="color: #3498db; text-align: center; margin-bottom: 20px;">☁️ Palavras Enviadas (Tempo Real)</h3>
-                            <div id="listaPalavrasNuvem"></div>
-                            <button class="btn-arena" style="width: 100%; background: #e74c3c; margin-top: 20px;" onclick="fecharNuvem()">🔒 FECHAR NUVEM</button>
-                        </div>
                         
                         <div id="rankingArea" style="display: none; margin-top: 30px;">
                             <h3 style="color: #f39c12; text-align: center; margin-bottom: 20px;">🏆 Ranking de Pontuação</h3>
@@ -929,9 +923,19 @@
                 </div>
             `;
 
-            setTimeout(() => new QRCode(document.getElementById("qrcodeArena"), {text: linkSessao, width: 200, height: 200}), 100);
-            salvarSessaoFirebase(codigo, nome, atividades, modo);
+            console.log('HTML atualizado, gerando QR Code...');
+            setTimeout(() => {
+                new QRCode(document.getElementById("qrcodeArena"), {
+                    text: linkSessao, 
+                    width: 200, 
+                    height: 200
+                });
+                console.log('✅ QR Code gerado');
+            }, 100);
+            
+            salvarSessaoFirebase(codigo, nome);
             monitorarParticipantes(codigo);
+            console.log('✅ Sessão criada com sucesso!');
         }
 
         function gerarCodigo() {
@@ -945,10 +949,19 @@
             navigator.clipboard.writeText(link).then(() => alert('✅ Link copiado!'));
         }
 
-        function salvarSessaoFirebase(codigo, nome, atividades, modo) {
+        function salvarSessaoFirebase(codigo, nome) {
             if (window.firebaseReady) {
+                console.log('💾 Salvando no Firebase...');
                 const dbRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseSet(dbRef, {nome, atividades, modo, status: 'aguardando', criado: new Date().toISOString(), participantes: {}});
+                window.firebaseSet(dbRef, {
+                    nome: nome, 
+                    status: 'aguardando', 
+                    criado: new Date().toISOString(), 
+                    participantes: {},
+                    respostas: {},
+                    perguntaAtual: 0
+                });
+                console.log('✅ Salvo no Firebase!');
             }
         }
 

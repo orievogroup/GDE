@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arena Nuvem - Orievo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -29,7 +29,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 40px auto;
             padding: 20px;
         }
@@ -88,48 +88,56 @@
             margin: 30px 0;
         }
 
-        .palavra-card {
+        /* NUVEM DE PALAVRAS ESTILO MENTIMETER */
+        .nuvem-palavras {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            border-radius: 20px;
+            min-height: 500px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+        }
+
+        .palavra-nuvem {
+            display: inline-block;
+            font-weight: 900;
             color: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            animation: aparecer 0.5s ease-out;
-            transition: transform 0.3s;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: aparecer 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s;
+            cursor: default;
+            user-select: none;
         }
 
-        .palavra-card:hover {
-            transform: scale(1.05);
+        .palavra-nuvem:hover {
+            transform: scale(1.1);
         }
 
-        .palavra-card .texto {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            word-wrap: break-word;
-        }
-
-        .palavra-card .autor {
-            font-size: 16px;
-            opacity: 0.9;
-        }
+        /* Tamanhos baseados na frequência */
+        .tam-1 { font-size: 24px; }
+        .tam-2 { font-size: 32px; }
+        .tam-3 { font-size: 44px; }
+        .tam-4 { font-size: 56px; }
+        .tam-5 { font-size: 72px; }
+        .tam-6 { font-size: 92px; }
+        .tam-7 { font-size: 112px; }
+        .tam-8 { font-size: 132px; }
+        .tam-9 { font-size: 152px; }
+        .tam-10 { font-size: 172px; }
 
         @keyframes aparecer {
             from {
                 opacity: 0;
-                transform: translateY(-30px) scale(0.8);
+                transform: scale(0) rotate(-180deg);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: scale(1) rotate(0deg);
             }
-        }
-
-        .grid-palavras {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
         }
 
         .tela-cheia {
@@ -281,12 +289,13 @@
                 
                 <div class="contador">
                     👥 Participantes: <span id="countPart">0</span> | 
-                    💬 Palavras: <span id="countPalavras">0</span>
+                    💬 Palavras únicas: <span id="countPalavrasUnicas">0</span> |
+                    📊 Total enviadas: <span id="countPalavrasTotal">0</span>
                 </div>
                 
-                <h3 style="text-align: center; color: var(--nuvem-primary); margin: 30px 0 20px;">☁️ Palavras (Tempo Real)</h3>
+                <h3 style="text-align: center; color: var(--nuvem-primary); margin: 30px 0 20px;">☁️ Nuvem de Palavras (Tempo Real)</h3>
                 
-                <div id="listaPalavras" class="grid-palavras"></div>
+                <div id="nuvemPalavras" class="nuvem-palavras"></div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 30px;">
                     <button class="btn" style="background: #9b59b6;" onclick="toggleTelaCheia()">📺 TELA CHEIA</button>
@@ -321,8 +330,8 @@
                     <button class="btn" onclick="enviarPalavra()">ENVIAR PALAVRA</button>
                     
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px;">
-                        <h3 style="color: var(--nuvem-primary); margin-bottom: 15px;">📝 Minhas Palavras:</h3>
-                        <div id="minhasPalavras"></div>
+                        <h3 style="color: var(--nuvem-primary); margin-bottom: 15px;">📝 Suas palavras enviadas: <span id="countMinhas">0</span></h3>
+                        <p style="color: #666; font-size: 14px;">Suas palavras estão sendo exibidas na nuvem</p>
                     </div>
                 </div>
             </div>
@@ -343,14 +352,14 @@
             <h1>☁️ NUVEM DE PALAVRAS</h1>
             <button class="btn-fechar-tela" onclick="toggleTelaCheia()">✕ FECHAR</button>
         </div>
-        <div id="listaPalavrasTelaCheia" class="grid-palavras"></div>
+        <div id="nuvemPalavrasTelaCheia" class="nuvem-palavras" style="min-height: 80vh;"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getDatabase, ref, set, update, onValue, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getDatabase, ref, set, update, onValue, remove, push } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
         const app = initializeApp({
             apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
@@ -369,12 +378,14 @@
         window.dbUpdate = update;
         window.dbOnValue = onValue;
         window.dbRemove = remove;
+        window.dbPush = push;
         window.firebaseReady = true;
     </script>
 
     <script>
         let codigo = null;
         let nomeUsuario = null;
+        let minhasPalavrasCount = 0;
 
         function login() {
             const senha = document.getElementById('senha').value;
@@ -435,7 +446,6 @@
                 return;
             }
 
-            // Verificar se sessão existe
             window.dbOnValue(window.dbRef(window.db, 'nuvens/' + cod), (snap) => {
                 if (snap.val()) {
                     codigo = cod;
@@ -472,7 +482,6 @@
             document.getElementById('telaFormularioRetomar').classList.add('hidden');
             document.getElementById('telaSessao').classList.remove('hidden');
             
-            // Gerar QR Code
             document.getElementById('qrcode').innerHTML = '';
             new QRCode(document.getElementById('qrcode'), {
                 text: link,
@@ -500,35 +509,61 @@
 
         function monitorarPalavras() {
             window.dbOnValue(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras'), (snap) => {
-                const palavras = snap.val();
-                atualizarLista(palavras, 'listaPalavras');
-                atualizarLista(palavras, 'listaPalavrasTelaCheia');
+                const palavrasObj = snap.val();
+                atualizarNuvem(palavrasObj, 'nuvemPalavras');
+                atualizarNuvem(palavrasObj, 'nuvemPalavrasTelaCheia');
                 
-                const count = palavras ? Object.keys(palavras).length : 0;
-                document.getElementById('countPalavras').textContent = count;
+                if (palavrasObj) {
+                    const todasPalavras = Object.values(palavrasObj);
+                    document.getElementById('countPalavrasTotal').textContent = todasPalavras.length;
+                    
+                    // Contar palavras únicas
+                    const palavrasUnicas = new Set();
+                    todasPalavras.forEach(p => palavrasUnicas.add(p.palavra.toLowerCase()));
+                    document.getElementById('countPalavrasUnicas').textContent = palavrasUnicas.size;
+                } else {
+                    document.getElementById('countPalavrasTotal').textContent = 0;
+                    document.getElementById('countPalavrasUnicas').textContent = 0;
+                }
             });
         }
 
-        function atualizarLista(palavras, elementoId) {
-            const lista = document.getElementById(elementoId);
-            if (!lista) return;
+        function atualizarNuvem(palavrasObj, elementoId) {
+            const container = document.getElementById(elementoId);
+            if (!container) return;
             
-            if (!palavras) {
-                lista.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7); padding: 50px; font-size: 20px;">Aguardando palavras...</p>';
+            if (!palavrasObj) {
+                container.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7); font-size: 24px;">Aguardando palavras...</p>';
                 return;
             }
             
-            let html = '';
-            Object.values(palavras).reverse().forEach(item => {
-                html += `
-                    <div class="palavra-card">
-                        <div class="texto">${item.palavra}</div>
-                        <div class="autor">Por: ${item.autor}</div>
-                    </div>
-                `;
+            // Contar frequência de cada palavra
+            const frequencia = {};
+            Object.values(palavrasObj).forEach(item => {
+                const palavra = item.palavra.toLowerCase();
+                frequencia[palavra] = (frequencia[palavra] || 0) + 1;
             });
             
-            lista.innerHTML = html;
+            // Ordenar por frequência
+            const palavrasOrdenadas = Object.entries(frequencia)
+                .sort((a, b) => b[1] - a[1]);
+            
+            // Calcular tamanho baseado na frequência
+            const maxFreq = Math.max(...Object.values(frequencia));
+            
+            let html = '';
+            palavrasOrdenadas.forEach(([palavra, freq]) => {
+                // Tamanho de 1 a 10 baseado na frequência
+                let tamanho = Math.ceil((freq / maxFreq) * 10);
+                tamanho = Math.max(1, Math.min(10, tamanho)); // Entre 1 e 10
+                
+                // Capitalizar primeira letra
+                const palavraDisplay = palavra.charAt(0).toUpperCase() + palavra.slice(1);
+                
+                html += `<span class="palavra-nuvem tam-${tamanho}" title="${freq}x">${palavraDisplay}</span>`;
+            });
+            
+            container.innerHTML = html;
         }
 
         function toggleTelaCheia() {
@@ -550,7 +585,7 @@
             }
         }
 
-        // FUNÇÕES DO ALUNO
+        // ALUNO
         function entrarAluno() {
             const nome = document.getElementById('nomeAluno').value.trim();
             if (!nome) {
@@ -577,7 +612,7 @@
                     document.getElementById('temaAluno').textContent = nuvem.tema;
                     document.getElementById('telaAluno').classList.add('hidden');
                     document.getElementById('telaEnviar').classList.remove('hidden');
-                    monitorarMinhasPalavras();
+                    monitorarMinhasEnvios();
                 }
             });
         }
@@ -589,8 +624,8 @@
                 return;
             }
 
-            const id = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            window.dbSet(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras/' + id), {
+            const palavraRef = window.dbPush(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras'));
+            window.dbSet(palavraRef, {
                 palavra: palavra,
                 autor: nomeUsuario,
                 timestamp: Date.now()
@@ -598,36 +633,23 @@
             
             document.getElementById('palavraInput').value = '';
             document.getElementById('palavraInput').focus();
+            minhasPalavrasCount++;
+            document.getElementById('countMinhas').textContent = minhasPalavrasCount;
         }
 
-        function monitorarMinhasPalavras() {
+        function monitorarMinhasEnvios() {
             window.dbOnValue(window.dbRef(window.db, 'nuvens/' + codigo + '/palavras'), (snap) => {
-                const palavras = snap.val();
-                const lista = document.getElementById('minhasPalavras');
-                
-                if (!palavras) {
-                    lista.innerHTML = '<p style="text-align: center; color: #999;">Você ainda não enviou palavras</p>';
-                    return;
+                if (!snap.val()) {
+                    minhasPalavrasCount = 0;
+                } else {
+                    const minhas = Object.values(snap.val()).filter(p => p.autor === nomeUsuario);
+                    minhasPalavrasCount = minhas.length;
                 }
-                
-                const minhas = Object.values(palavras).filter(p => p.autor === nomeUsuario);
-                
-                if (minhas.length === 0) {
-                    lista.innerHTML = '<p style="text-align: center; color: #999;">Você ainda não enviou palavras</p>';
-                    return;
-                }
-                
-                let html = '<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">';
-                minhas.forEach(item => {
-                    html += `<span style="background: var(--nuvem-primary); color: white; padding: 10px 20px; border-radius: 20px; font-weight: 600;">${item.palavra}</span>`;
-                });
-                html += '</div>';
-                
-                lista.innerHTML = html;
+                document.getElementById('countMinhas').textContent = minhasPalavrasCount;
             });
         }
 
-        // Detectar código na URL (modo aluno)
+        // Detectar código na URL
         window.addEventListener('load', function() {
             const params = new URLSearchParams(window.location.search);
             const cod = params.get('codigo');

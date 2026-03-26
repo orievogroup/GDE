@@ -678,15 +678,6 @@
             <div id="conteudoAluno"></div>
         </div>
 
-        <div id="modalLogin" class="modal">
-            <div class="modal-content">
-                <h2 id="modalTitulo">Acessar Módulo</h2>
-                <input type="password" id="inputSenha" placeholder="Senha">
-                <input type="text" id="inputNome" placeholder="Seu Nome">
-                <input type="email" id="inputEmail" placeholder="Seu Email">
-                <button onclick="validarLogin()">ENTRAR</button>
-            </div>
-        </div>
     </div>
 
     <footer class="footer-profissional">
@@ -725,12 +716,6 @@
     </script>
 
     <script>
-        const MODULOS = {
-            seguranca: { nome: 'Segurança no Trabalho', senha: 'Seguranca2026', mensagem: 'Módulo em desenvolvimento.' },
-            lideranca: { nome: 'Líder de Excelência', senha: 'Lider2026', mensagem: 'Módulo em desenvolvimento.' },
-            arena: { nome: 'Arena Ao Vivo', senha: 'Arena2026GDE', tipo: 'arena' }
-        };
-
         const PERGUNTAS = {
             quiz1: [
                 { pergunta: "O que significa EPI?", opcoes: ["Equipamento de Proteção Individual", "Equipamento de Produção Industrial", "Equipamento Pessoal Interno", "Equipamento de Processo Industrial"], correta: 0 },
@@ -759,34 +744,8 @@
             }
         }
 
-        function abrirModulo(id) {
-            console.log('🎯 abrirModulo chamado com:', id);
-            moduloAtual = id;
-            document.getElementById('modalTitulo').textContent = MODULOS[id].nome;
-            document.getElementById('modalLogin').classList.add('active');
-            console.log('✅ Modal aberto');
-        }
-
-        // Inicialização quando página carrega
+        // Detectar código na URL (modo aluno)
         window.addEventListener('load', function() {
-            console.log('🔍 Verificando funções...');
-            console.log('abrirModulo existe?', typeof abrirModulo);
-            console.log('MODULOS existe?', typeof MODULOS);
-            
-            // Garantir que cards sejam clicáveis via JavaScript também
-            console.log('🎯 Adicionando listeners aos cards...');
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                const modulos = ['seguranca', 'lideranca', 'arena'];
-                card.addEventListener('click', function(e) {
-                    console.log('🖱️ Card clicado:', modulos[index]);
-                    abrirModulo(modulos[index]);
-                });
-                card.style.cursor = 'pointer';
-                console.log(`✅ Listener adicionado ao card ${index + 1}`);
-            });
-            
-            // Verificar se tem código na URL (modo aluno)
             const params = new URLSearchParams(window.location.search);
             const codigo = params.get('codigo');
             
@@ -803,31 +762,6 @@
                 }, { onlyOnce: true });
             }
         });
-
-        function validarLogin() {
-            const senha = document.getElementById('inputSenha').value;
-            const nome = document.getElementById('inputNome').value;
-            const email = document.getElementById('inputEmail').value;
-
-            if (senha === MODULOS[moduloAtual].senha && nome && email) {
-                document.getElementById('modalLogin').classList.remove('active');
-                mostrarModulo();
-            } else {
-                alert('Preencha todos os campos corretamente!');
-            }
-        }
-
-        function mostrarModulo() {
-            document.getElementById('telaInicial').classList.add('hidden');
-            document.getElementById('telaModulo').classList.remove('hidden');
-            
-            const conteudo = document.getElementById('conteudoModulo');
-            if (MODULOS[moduloAtual].tipo === 'arena') {
-                mostrarArena(conteudo);
-            } else {
-                conteudo.innerHTML = `<div class="modulo-screen"><h1>${MODULOS[moduloAtual].nome}</h1><p>${MODULOS[moduloAtual].mensagem}</p></div>`;
-            }
-        }
 
         function voltarInicio() {
             document.getElementById('telaModulo').classList.add('hidden');

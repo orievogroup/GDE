@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Orievo - Grupo Dislub Equador</title>
+    <title>Arena Quiz 2 - Grupo Dislub Equador</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Script para detectar aluno ANTES de renderizar -->
@@ -645,8 +645,8 @@
             <div class="logo-orievo">
                 <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo">
                 <div class="text">
-                    <h1>🎮 ARENA QUIZ</h1>
-                    <p>Quiz Interativo em Tempo Real</p>
+                    <h1>🎮 ARENA QUIZ 2</h1>
+                    <p>Caderno do Líder - Cultura de Segurança</p>
                 </div>
             </div>
             <div class="header-info">
@@ -663,7 +663,7 @@
         <div id="telaInicial">
             <div style="max-width: 600px; margin: 50px auto;">
                 <div class="card">
-                    <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Login - Arena Quiz</h2>
+                    <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Login - Arena Quiz 2</h2>
                     
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">🔑 Senha:</label>
@@ -737,42 +737,62 @@
         const PERGUNTAS = {
             quiz1: [
                 { 
-                    pergunta: "Qual é a principal diferença de foco entre a Segurança do Trabalho (Ocupacional) e a Segurança de Processo, conforme o Caderno do Líder?", 
+                    pergunta: "Quais são os três pilares fundamentais que sustentam o Plano Integrado de Evolução da Cultura de Segurança (PIECS)?", 
                     opcoes: [
-                        "A segurança de processo lida apenas com EPIs, enquanto a ocupacional lida com válvulas de alívio.", 
-                        "A segurança ocupacional foca em grandes catástrofes, enquanto a de processo foca em ergonomia.", 
-                        "A segurança ocupacional foca no indivíduo, enquanto a de processo foca na integridade das instalações", 
-                        "Não há diferença prática, pois ambas visam apenas o cumprimento da legislação trabalhista."
+                        "Fiscalização, Punição e Regras", 
+                        "Lucro, Produtividade e Rapidez", 
+                        "Treinamento, Equipamentos e Softwares", 
+                        "Pessoas, Processos e Instalações"
                     ], 
-                    correta: 2 
+                    correta: 3 
                 },
                 { 
-                    pergunta: "No contexto da gestão de barreiras, como são classificados os 'Procedimentos Operacionais' e as 'Permissões de Trabalho'?", 
+                    pergunta: "O que define uma barreira de segurança do tipo 'Humana'?", 
                     opcoes: [
-                        "Barreiras Reativas", 
-                        "Barreiras físicas", 
-                        "Barreiras administrativas", 
-                        "Barreiras humanas"
+                        "Procedimentos operacionais escritos e normas regulamentadoras", 
+                        "Ações baseadas em treinamento específico, percepção de risco e autoridade de parada", 
+                        "Válvulas de alívio e sistemas de detecção automática", 
+                        "Instalações modernas e infraestrutura robusta"
                     ], 
-                    correta: 2 
+                    correta: 1 
                 },
                 { 
-                    pergunta: "O que significa tratar a segurança como um 'Valor' em vez de apenas uma 'Prioridade'?", 
+                    pergunta: "Qual ação prática é recomendada para o líder de excelência fortalecer a cultura de segurança antes de iniciar uma tarefa?", 
                     opcoes: [
-                        "Significa que a segurança é um princípio intrínseco que não oscila sob pressão.", 
-                        "Significa delegar toda a responsabilidade para o departamento de SSMA.", 
-                        "Significa investir o máximo de dinheiro possível em equipamentos novos.", 
-                        "Significa que a segurança muda conforme a demanda de produção."
+                        "Promover discussões rápidas sobre riscos e medidas de controle com a equipe", 
+                        "Preencher a Permissão de Trabalho (PT) apenas por formalidade documental", 
+                        "Aguardar a chegada do técnico de segurança para autorizar o início", 
+                        "Focar apenas na velocidade para bater a meta de produção do dia"
                     ], 
                     correta: 0 
                 },
                 { 
-                    pergunta: "Qual destes NÃO é um dos 10 compromissos pela vida da GDE?", 
+                    pergunta: "O que significa ter uma 'Atitude de Dono' no contexto da segurança na GDE?", 
                     opcoes: [
-                        "Atenção às mudanças", 
-                        "Isole as energias", 
-                        "Controle todas as fontes de ignição", 
-                        "Produtividade em primeiro lugar"
+                        "Ser o único responsável legal por todos os acidentes da unidade", 
+                        "Trabalhar sem precisar dar satisfações ou reportar incidentes", 
+                        "Poder ignorar regras de segurança para economizar recursos da empresa", 
+                        "Agir com responsabilidade, cuidar das pessoas e não aceitar desvios na rotina"
+                    ], 
+                    correta: 3 
+                },
+                { 
+                    pergunta: "Sobre a realização do Diálogo Diário de Segurança (DDS), qual comportamento o material aponta como essencial para o líder?", 
+                    opcoes: [
+                        "Ler o procedimento de segurança na íntegra sem abrir espaço para perguntas", 
+                        "Conectar o tema com a realidade da operação e estimular a participação da equipe", 
+                        "Realizar palestras longas e técnicas para demonstrar autoridade", 
+                        "Delegar a condução do DDS exclusivamente para o colaborador mais novo do time"
+                    ], 
+                    correta: 1 
+                },
+                { 
+                    pergunta: "Na rotina de excelência proposta pelo Caderno do Líder, qual deve ser a postura diante de um 'pequeno desvio' operacional?", 
+                    opcoes: [
+                        "Punir o colaborador imediatamente sem ouvir suas razões", 
+                        "Aguardar a auditoria mensal para relatar o problema", 
+                        "Ignorar, desde que a produção não seja afetada", 
+                        "Intervir prontamente e tratar o desvio com foco em aprendizado e correção"
                     ], 
                     correta: 3 
                 }
@@ -882,12 +902,12 @@
                         
                         <div style="margin-bottom: 25px;">
                             <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">📝 Nome da Sessão:</label>
-                            <input type="text" id="nomeSessaoQuiz" placeholder="Ex: DDS Terça-feira" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
+                            <input type="text" id="nomeSessaoQuiz" placeholder="Ex: DDS Quinta-feira" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
                         </div>
                         
                         <div style="margin-bottom: 25px;">
                             <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">🔑 Código Fixo (opcional - 6 caracteres):</label>
-                            <input type="text" id="codigoFixo" placeholder="Ex: QUIZ01 (deixe vazio para automático)" maxlength="6" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; text-transform: uppercase;">
+                            <input type="text" id="codigoFixo" placeholder="Ex: QUIZ02 (deixe vazio para automático)" maxlength="6" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; text-transform: uppercase;">
                             <small style="color: #28a745; display: block; margin-top: 8px; font-weight: 600;">💡 Use sempre o mesmo código para ter QR Code fixo!</small>
                         </div>
                         
@@ -896,7 +916,7 @@
                             <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
                                 <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
                                     <input type="checkbox" id="quiz1" checked disabled style="width: 20px; height: 20px; margin-right: 12px; opacity: 0.6;">
-                                    <span style="font-size: 16px;">📊 Quiz: EPIs e Segurança (${numPerguntas} ${numPerguntas === 1 ? 'pergunta' : 'perguntas'})</span>
+                                    <span style="font-size: 16px;">📊 Quiz: Caderno do Líder (${numPerguntas} ${numPerguntas === 1 ? 'pergunta' : 'perguntas'})</span>
                                 </label>
                                 <p style="color: #666; font-size: 14px; margin-top: 10px;">💡 Para alterar perguntas, edite o código na seção PERGUNTAS</p>
                             </div>
@@ -990,7 +1010,7 @@
                             <h3>📋 Informações</h3>
                             <p><strong>Nome:</strong> ${nome}</p>
                             <p><strong>Modo:</strong> 👤 Individual</p>
-                            <p><strong>Quiz:</strong> EPIs Básicos</p>
+                            <p><strong>Quiz:</strong> Caderno do Líder</p>
                         </div>
                         <h3 style="text-align: center; margin: 30px 0 10px 0;">Código da Sessão:</h3>
                         <div class="codigo-sessao">${codigo}</div>

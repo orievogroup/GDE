@@ -101,6 +101,8 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 40px 30px;
+            position: relative;
+            z-index: 0;
         }
 
         .cards-container {
@@ -108,6 +110,8 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .card {
@@ -119,17 +123,22 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 3px solid transparent;
+            position: relative;
+            z-index: 1;
+            pointer-events: auto;
         }
 
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.15);
             border-color: var(--orievo-primary);
+            z-index: 2;
         }
 
         .card-icon {
             font-size: 80px;
             margin-bottom: 20px;
+            pointer-events: none;
         }
 
         .card-title {
@@ -137,12 +146,14 @@
             font-weight: 700;
             margin-bottom: 10px;
             color: #1a1a1a;
+            pointer-events: none;
         }
 
         .card-desc {
             font-size: 14px;
             color: #666;
             margin-bottom: 20px;
+            pointer-events: none;
         }
 
         .card-btn {
@@ -155,6 +166,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            pointer-events: none;
         }
 
         .card-btn:hover {
@@ -714,14 +726,12 @@
         const MODULOS = {
             seguranca: { nome: 'Segurança no Trabalho', senha: 'Seguranca2026', mensagem: 'Módulo em desenvolvimento.' },
             lideranca: { nome: 'Líder de Excelência', senha: 'Lider2026', mensagem: 'Módulo em desenvolvimento.' },
-            arena: { nome: 'Arena Ao Vivo', senha: 'Arena2026', tipo: 'arena' }
+            arena: { nome: 'Arena Ao Vivo', senha: 'Arena2026GDE', tipo: 'arena' }
         };
 
         const PERGUNTAS = {
             quiz1: [
                 { pergunta: "O que significa EPI?", opcoes: ["Equipamento de Proteção Individual", "Equipamento de Produção Industrial", "Equipamento Pessoal Interno", "Equipamento de Processo Industrial"], correta: 0 },
-                { pergunta: "Qual a finalidade do capacete de segurança?", opcoes: ["Proteger contra ruídos", "Proteger contra impactos na cabeça", "Proteger contra produtos químicos", "Proteger contra quedas"], correta: 1 }
-                { pergunta: "Qual a finalidade do capacete de segurança?", opcoes: ["Proteger contra ruídos", "Proteger contra impactos na cabeça", "Proteger contra produtos químicos", "Proteger contra quedas"], correta: 1 }
                 { pergunta: "Qual a finalidade do capacete de segurança?", opcoes: ["Proteger contra ruídos", "Proteger contra impactos na cabeça", "Proteger contra produtos químicos", "Proteger contra quedas"], correta: 1 }
             ]
         };
@@ -860,8 +870,15 @@
                         <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
                         <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
                         <button class="btn-arena" id="btnProxima" style="width: 100%; background: #28a745; display: none;" onclick="proximaPergunta()">➡️ PRÓXIMA PERGUNTA</button>
+                        <button class="btn-arena" style="width: 100%; background: #3498db;" onclick="iniciarNuvem()">☁️ INICIAR NUVEM DE PALAVRAS</button>
                         <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING (Instrutor)</button>
                         <button class="btn-arena" style="width: 100%; background: #8e44ad;" onclick="exibirRankingParaAlunos()">📺 MOSTRAR RANKING PARA ALUNOS</button>
+                        
+                        <div id="painelNuvem" style="display: none; margin-top: 30px; background: #f8f9fa; padding: 20px; border-radius: 15px;">
+                            <h3 style="color: #3498db; text-align: center; margin-bottom: 20px;">☁️ Palavras Enviadas (Tempo Real)</h3>
+                            <div id="listaPalavrasNuvem"></div>
+                            <button class="btn-arena" style="width: 100%; background: #e74c3c; margin-top: 20px;" onclick="fecharNuvem()">🔒 FECHAR NUVEM</button>
+                        </div>
                         
                         <div id="rankingArea" style="display: none; margin-top: 30px;">
                             <h3 style="color: #f39c12; text-align: center; margin-bottom: 20px;">🏆 Ranking de Pontuação</h3>
@@ -964,6 +981,70 @@
                     const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
                     window.firebaseSet(sessaoRef, {status: 'quiz_ativo', perguntaAtual: 0, timestamp: Date.now(), participantes: {}, respostas: {}});
                     alert('✅ Quiz iniciado!');
+                }
+            }
+        }
+
+        function iniciarNuvem() {
+            if (window.firebaseReady && sessaoAtual) {
+                const tema = prompt('☁️ Digite o tema da nuvem de palavras:', 'O que é segurança para você?');
+                if (tema) {
+                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                    window.firebaseUpdate(sessaoRef, {
+                        status: 'nuvem_ativa',
+                        temaNuvem: tema,
+                        timestamp: Date.now()
+                    });
+                    alert('✅ Nuvem de palavras iniciada!\n\nAlunos já podem enviar suas palavras.');
+                    
+                    // Mostrar painel da nuvem
+                    const painelNuvem = document.getElementById('painelNuvem');
+                    if (painelNuvem) painelNuvem.style.display = 'block';
+                    
+                    // Começar a monitorar palavras
+                    monitorarNuvem(sessaoAtual);
+                }
+            }
+        }
+
+        function monitorarNuvem(codigo) {
+            if (window.firebaseReady) {
+                const nuvemRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/nuvem');
+                window.firebaseOnValue(nuvemRef, (snapshot) => {
+                    const palavras = snapshot.val();
+                    const listaPalavras = document.getElementById('listaPalavrasNuvem');
+                    
+                    if (!listaPalavras) return;
+                    
+                    if (!palavras) {
+                        listaPalavras.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Nenhuma palavra enviada ainda.</p>';
+                        return;
+                    }
+                    
+                    let html = '<div style="display: grid; gap: 10px;">';
+                    Object.values(palavras).forEach(item => {
+                        html += `
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <strong style="font-size: 20px;">${item.palavra}</strong>
+                                <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 14px;">Por: ${item.autor}</p>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    
+                    listaPalavras.innerHTML = html;
+                });
+            }
+        }
+
+        function fecharNuvem() {
+            if (window.firebaseReady && sessaoAtual) {
+                if (confirm('🔒 Fechar nuvem de palavras?\n\nAlunos não poderão mais enviar palavras.')) {
+                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
+                    window.firebaseUpdate(sessaoRef, {
+                        status: 'nuvem_fechada'
+                    });
+                    alert('✅ Nuvem fechada!');
                 }
             }
         }
@@ -1152,6 +1233,14 @@
                         if (sessao.mostrarRanking === true) {
                             mostrarRankingParaAluno(codigo);
                         }
+                        // Verificar se nuvem está ativa
+                        else if (sessao.status === 'nuvem_ativa') {
+                            mostrarFormularioNuvem(codigo, nomeAluno, sessao.temaNuvem || 'O que é segurança para você?');
+                        }
+                        // Verificar se nuvem foi fechada
+                        else if (sessao.status === 'nuvem_fechada') {
+                            mostrarNuvemFechada(codigo, nomeAluno);
+                        }
                         // Verificar se deve mostrar pergunta
                         else if (sessao.status === 'quiz_ativo' && sessao.perguntaAtual !== undefined) {
                             mostrarPergunta(codigo, alunoId, sessao.perguntaAtual);
@@ -1159,6 +1248,119 @@
                     }
                 });
             }
+        }
+
+        function mostrarFormularioNuvem(codigo, nome, tema) {
+            document.getElementById('conteudoAluno').innerHTML = `
+                <div style="min-height: 70vh;">
+                    <div class="aluno-screen">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px;">
+                        </div>
+                        
+                        <h1 style="color: #3498db; text-align: center;">☁️ Nuvem de Palavras</h1>
+                        <p style="font-size: 20px; margin: 20px 0; text-align: center; font-weight: 600; color: #333;">${tema}</p>
+                        
+                        <div style="margin: 30px 0;">
+                            <input type="text" id="palavraNuvem" placeholder="Digite uma palavra..." 
+                                   maxlength="30"
+                                   style="width: 100%; padding: 18px; border: 2px solid #3498db; border-radius: 10px; font-size: 18px; margin: 15px 0;">
+                            <button class="btn-arena" style="width: 100%; background: #3498db;" onclick="enviarPalavraNuvem('${codigo}', '${nome}')">
+                                ENVIAR PALAVRA
+                            </button>
+                        </div>
+                        
+                        <div id="minhasPalavras" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                            <h3 style="color: #3498db; margin-bottom: 15px;">📝 Minhas Palavras:</h3>
+                            <div id="listaPalavrasAluno"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Monitorar palavras do aluno
+            monitorarMinhasPalavras(codigo, nome);
+        }
+
+        function enviarPalavraNuvem(codigo, nome) {
+            const palavra = document.getElementById('palavraNuvem').value.trim();
+            if (!palavra) {
+                alert('⚠️ Digite uma palavra!');
+                return;
+            }
+            
+            if (palavra.length > 30) {
+                alert('⚠️ A palavra deve ter no máximo 30 caracteres!');
+                return;
+            }
+            
+            if (window.firebaseReady) {
+                const palavraId = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                const palavraRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/nuvem/' + palavraId);
+                window.firebaseSet(palavraRef, {
+                    palavra: palavra,
+                    autor: nome,
+                    timestamp: Date.now()
+                });
+                
+                document.getElementById('palavraNuvem').value = '';
+                document.getElementById('palavraNuvem').focus();
+            }
+        }
+
+        function monitorarMinhasPalavras(codigo, nome) {
+            if (window.firebaseReady) {
+                const nuvemRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/nuvem');
+                window.firebaseOnValue(nuvemRef, (snapshot) => {
+                    const palavras = snapshot.val();
+                    const lista = document.getElementById('listaPalavrasAluno');
+                    
+                    if (!lista) return;
+                    
+                    if (!palavras) {
+                        lista.innerHTML = '<p style="text-align: center; color: #999;">Você ainda não enviou nenhuma palavra.</p>';
+                        return;
+                    }
+                    
+                    const minhasPalavras = Object.values(palavras).filter(p => p.autor === nome);
+                    
+                    if (minhasPalavras.length === 0) {
+                        lista.innerHTML = '<p style="text-align: center; color: #999;">Você ainda não enviou nenhuma palavra.</p>';
+                        return;
+                    }
+                    
+                    let html = '<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">';
+                    minhasPalavras.forEach(item => {
+                        html += `
+                            <span style="background: #3498db; color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600;">
+                                ${item.palavra}
+                            </span>
+                        `;
+                    });
+                    html += '</div>';
+                    
+                    lista.innerHTML = html;
+                });
+            }
+        }
+
+        function mostrarNuvemFechada(codigo, nome) {
+            document.getElementById('conteudoAluno').innerHTML = `
+                <div style="min-height: 70vh;">
+                    <div class="aluno-screen">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px;">
+                        </div>
+                        
+                        <h1 style="color: #e74c3c;">🔒 Nuvem Fechada</h1>
+                        <p style="font-size: 18px; margin: 20px 0; text-align: center;">A nuvem de palavras foi encerrada pelo instrutor.</p>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px;">
+                            <p style="text-align: center; color: #666;">Aguardando próxima atividade...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         function mostrarRankingParaAluno(codigo) {

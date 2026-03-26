@@ -23,12 +23,85 @@
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* HEADER PROFISSIONAL */
+        .header-profissional {
+            background: linear-gradient(135deg, #4FC3DC 0%, #2A9BB8 100%);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-orievo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-orievo img {
+            height: 45px;
+            background: white;
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .logo-orievo .text h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .logo-orievo .text p {
+            font-size: 11px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .header-info {
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-info img {
+            height: 50px;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .header-info .text p {
+            color: white;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .header-info .text h2 {
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
         .logo-container {
@@ -1633,6 +1706,35 @@
             display: none !important;
         }
 
+        /* FOOTER PROFISSIONAL */
+        .footer-profissional {
+            background: #1a1a1a;
+            color: white;
+            padding: 30px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .footer-profissional p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+
+        .footer-profissional strong {
+            color: #4FC3DC;
+        }
+
+        /* RESPONSIVO HEADER */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .header-info {
+                flex-direction: column;
+            }
+        }
+
     </style>
     
     <!-- Bibliotecas para gerar PDF -->
@@ -1647,12 +1749,27 @@
     
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-           <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo Logo" style="max-width: 300px;">
-            <h2 id="nomePlataforma">GDE - Plataforma de Treinamentos</h2>
+    <!-- HEADER PROFISSIONAL -->
+    <header class="header-profissional">
+        <div class="header-content">
+            <div class="logo-orievo">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo">
+                <div class="text">
+                    <h1>ORIEVO SAFETY LEARN</h1>
+                    <p>Plataforma de Capacitação Profissional</p>
+                </div>
+            </div>
+            <div class="header-info">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Grupo Dislub Equador">
+                <div class="text">
+                    <p>Desenvolvido para</p>
+                    <h2>Grupo Dislub Equador</h2>
+                </div>
+            </div>
         </div>
+    </header>
 
+    <div class="container">
         <div id="telaSelecao">
             <div class="mundos-roadmap">
                 <div class="roadmap-header">
@@ -4497,6 +4614,14 @@
             </div>
         </div>
     </div>
+
+    <!-- FOOTER PROFISSIONAL -->
+    <footer class="footer-profissional">
+        <p>&copy; 2026 <strong>ORIEVO GROUP</strong>. Todos os direitos reservados.</p>
+        <p>Plataforma desenvolvida para <strong>Grupo Dislub Equador</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Soluções em Treinamento e Desenvolvimento</p>
+    </footer>
+
 </body>
 </html
 

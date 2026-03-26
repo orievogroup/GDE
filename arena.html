@@ -644,25 +644,25 @@
     <div class="container">
         <div id="telaInicial">
             <div class="cards-container">
-                <div class="card" onclick="abrirModulo('seguranca')">
-                    <div class="card-icon">🛡️</div>
-                    <div class="card-title">Segurança no Trabalho</div>
-                    <div class="card-desc">EPIs e Prevenção de Acidentes</div>
-                    <button class="card-btn">ACESSAR</button>
+                <div class="card" onclick="abrirModulo('seguranca')" style="cursor: pointer !important;">
+                    <div class="card-icon" style="pointer-events: none;">🛡️</div>
+                    <div class="card-title" style="pointer-events: none;">Segurança no Trabalho</div>
+                    <div class="card-desc" style="pointer-events: none;">EPIs e Prevenção de Acidentes</div>
+                    <button class="card-btn" style="pointer-events: none;">ACESSAR</button>
                 </div>
 
-                <div class="card" onclick="abrirModulo('lideranca')">
-                    <div class="card-icon">👔</div>
-                    <div class="card-title">Líder de Excelência</div>
-                    <div class="card-desc">Desenvolvimento de Habilidades</div>
-                    <button class="card-btn">ACESSAR</button>
+                <div class="card" onclick="abrirModulo('lideranca')" style="cursor: pointer !important;">
+                    <div class="card-icon" style="pointer-events: none;">👔</div>
+                    <div class="card-title" style="pointer-events: none;">Líder de Excelência</div>
+                    <div class="card-desc" style="pointer-events: none;">Desenvolvimento de Habilidades</div>
+                    <button class="card-btn" style="pointer-events: none;">ACESSAR</button>
                 </div>
 
-                <div class="card" onclick="abrirModulo('arena')">
-                    <div class="card-icon">🎮</div>
-                    <div class="card-title">Arena Ao Vivo</div>
-                    <div class="card-desc">Quiz e Nuvem em Tempo Real</div>
-                    <button class="card-btn">ACESSAR</button>
+                <div class="card" onclick="abrirModulo('arena')" style="cursor: pointer !important;">
+                    <div class="card-icon" style="pointer-events: none;">🎮</div>
+                    <div class="card-title" style="pointer-events: none;">Arena Ao Vivo</div>
+                    <div class="card-desc" style="pointer-events: none;">Quiz e Nuvem em Tempo Real</div>
+                    <button class="card-btn" style="pointer-events: none;">ACESSAR</button>
                 </div>
             </div>
         </div>
@@ -739,10 +739,49 @@
         let moduloAtual = null, sessaoAtual = null, nomeAluno = null, pontosAluno = 0;
 
         function abrirModulo(id) {
+            console.log('🎯 abrirModulo chamado com:', id);
             moduloAtual = id;
             document.getElementById('modalTitulo').textContent = MODULOS[id].nome;
             document.getElementById('modalLogin').classList.add('active');
+            console.log('✅ Modal aberto');
         }
+
+        // Inicialização quando página carrega
+        window.addEventListener('load', function() {
+            console.log('🔍 Verificando funções...');
+            console.log('abrirModulo existe?', typeof abrirModulo);
+            console.log('MODULOS existe?', typeof MODULOS);
+            
+            // Garantir que cards sejam clicáveis via JavaScript também
+            console.log('🎯 Adicionando listeners aos cards...');
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                const modulos = ['seguranca', 'lideranca', 'arena'];
+                card.addEventListener('click', function(e) {
+                    console.log('🖱️ Card clicado:', modulos[index]);
+                    abrirModulo(modulos[index]);
+                });
+                card.style.cursor = 'pointer';
+                console.log(`✅ Listener adicionado ao card ${index + 1}`);
+            });
+            
+            // Verificar se tem código na URL (modo aluno)
+            const params = new URLSearchParams(window.location.search);
+            const codigo = params.get('codigo');
+            
+            if (codigo && window.firebaseReady) {
+                console.log('🎮 Código detectado na URL:', codigo);
+                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
+                window.firebaseOnValue(sessaoRef, (snapshot) => {
+                    if (snapshot.val()) {
+                        console.log('✅ Sessão encontrada, mostrando tela aluno');
+                        mostrarTelaAluno(codigo);
+                    } else {
+                        alert('❌ Sessão não encontrada: ' + codigo);
+                    }
+                }, { onlyOnce: true });
+            }
+        });
 
         function validarLogin() {
             const senha = document.getElementById('inputSenha').value;
@@ -1535,18 +1574,6 @@
             setTimeout(() => mostrarAguardando(codigo, nomeAluno), 3000);
         }
 
-        window.addEventListener('load', function() {
-            const params = new URLSearchParams(window.location.search);
-            const codigo = params.get('codigo');
-            
-            if (codigo && window.firebaseReady) {
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseOnValue(sessaoRef, (snapshot) => {
-                    if (snapshot.val()) mostrarTelaAluno(codigo);
-                    else alert('❌ Sessão não encontrada: ' + codigo);
-                }, { onlyOnce: true });
-            }
-        });
     </script>
 </body>
 </html>

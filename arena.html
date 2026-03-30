@@ -1654,6 +1654,9 @@
         }
 
         function mostrarPergunta(codigo, alunoId, indice) {
+            // RESETAR proteção para nova pergunta
+            jaRespondeu = false;
+            
             const pergunta = PERGUNTAS.quiz1[indice];
             if (!pergunta) return;
 
@@ -1679,9 +1682,23 @@
             `;
         }
 
+        // Variável para controlar se já respondeu
+        let jaRespondeu = false;
+
         function responder(escolhida, correta, codigo, alunoId) {
+            // PROTEÇÃO: Impedir múltiplas respostas
+            if (jaRespondeu) {
+                console.log('⚠️ Já respondeu esta pergunta!');
+                return;
+            }
+            jaRespondeu = true;
+            
             const opcoes = document.querySelectorAll('.quiz-opcao');
-            opcoes.forEach(opcao => opcao.style.pointerEvents = 'none');
+            opcoes.forEach(opcao => {
+                opcao.style.pointerEvents = 'none';
+                opcao.style.cursor = 'not-allowed';
+                opcao.style.opacity = '0.7';
+            });
 
             const acertou = escolhida === correta;
             opcoes[escolhida].classList.add(acertou ? 'correta' : 'errada');

@@ -1706,9 +1706,9 @@
                     },
 
                     {
-                        nome: 'Vídeo: The Bradley Curve — Legendas em Português',
+                        nome: 'Vídeo: The Bradley Curve — Dublado em Português',
                         tipo: 'video',
-                        url: 'https://orievogroup.github.io/GDE/bradley-curve.mp4',
+                        url: 'https://orievogroup.github.io/GDE/bradley_curve_dublado.mp4',
                         legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt'
                     },
 
@@ -1860,6 +1860,9 @@
                                     Seu navegador não suporta áudio HTML5.
                                 </audio>
                                 <p style="color: #888; font-size: 13px; margin: 10px 0 0 0;">⏱️ Ouça com atenção — as próximas atividades são baseadas neste conteúdo.</p>
+                                <div style="margin-top:12px;padding:10px 14px;background:#f3e8ff;border-radius:8px;border-left:3px solid #8e44ad;">
+                                    <p style="font-size:12px;color:#6c3483;margin:0;">📚 <strong>Créditos:</strong> Este podcast foi desenvolvido pela <strong>ORIEVO GROUP</strong> com base no livro <em>"Walk the Talk"</em> da autora <strong>Carolyn Taylor</strong>.</p>
+                                </div>
                             </div>
 
                             <div style="background: white; border-left: 5px solid #8e44ad; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
@@ -1901,7 +1904,8 @@
                         nome: 'Vídeo: Brain Games — Conformidade do Grupo',
                         tipo: 'video',
                         url: 'https://orievogroup.github.io/GDE/brain_games_conformidade.mp4',
-                        legenda: 'https://orievogroup.github.io/GDE/brain_games_pt.vtt'
+                        legenda: 'https://orievogroup.github.io/GDE/brain_games_pt.vtt',
+                        fonte: '📺 Fonte: <strong>National Geographic</strong> — Brain Games'
                     },
 
                     {
@@ -2464,16 +2468,16 @@
             
             titulo.textContent = '🎓 CERTIFICADO DE CONCLUSÃO';
             
-            const logoOrievo = 'https://orievogroup.github.io/GDE/logo_gde.png';
-            const logoCliente = mundo.logo || logoOrievo;
-            
+            const logoOrievo = 'https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png';
+            const logoCliente = 'https://orievogroup.github.io/GDE/logo_gde.png';
+
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             const cargaHoraria = mundo.fases.length * 10;
-            
+
             body.innerHTML = `
                 <div class="certificate-logos">
-                    <img src="${logoOrievo}" alt="Orievo">
-                    ${logoCliente !== logoOrievo ? `<img src="${logoCliente}" alt="Cliente">` : ''}
+                    <img src="${logoOrievo}" alt="Orievo Group">
+                    <img src="${logoCliente}" alt="Grupo Dislub Equador">
                 </div>
                 
                 <div class="certificate-title">
@@ -2553,12 +2557,13 @@
             
             titulo.textContent = '🏆 CERTIFICADO DE CONCLUSÃO - JORNADA COMPLETA';
             
-            const logoOrievo = 'https://orievogroup.github.io/GDE/logo_gde.png';
+            const logoOrievo = 'https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png';
+            const logoCliente2 = 'https://orievogroup.github.io/GDE/logo_gde.png';
             const dataAtual = new Date().toLocaleDateString('pt-BR');
-            
+
             let modulosHtml = '';
             let cargaTotal = 0;
-            
+
             for (let id in MUNDOS) {
                 if (MUNDOS[id].ativo !== false) {
                     const mundo = MUNDOS[id];
@@ -2566,10 +2571,11 @@
                     cargaTotal += mundo.fases.length * 10;
                 }
             }
-            
+
             body.innerHTML = `
                 <div class="certificate-logos">
-                    <img src="${logoOrievo}" alt="Orievo">
+                    <img src="${logoOrievo}" alt="Orievo Group">
+                    <img src="${logoCliente2}" alt="Grupo Dislub Equador">
                 </div>
                 
                 <div class="certificate-title">
@@ -2611,7 +2617,7 @@
             document.getElementById('certificadoModal').classList.remove('active');
         }
         
-        function baixarCertificado() {
+        async function baixarCertificado() {
             try {
                 const { jsPDF } = window.jspdf;
 
@@ -2634,6 +2640,26 @@
                     }
                 }
 
+                // Carregar logos antes de gerar o PDF
+                const carregarImagem = (url) => new Promise((resolve) => {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        canvas.getContext('2d').drawImage(img, 0, 0);
+                        resolve(canvas.toDataURL('image/png'));
+                    };
+                    img.onerror = () => resolve(null);
+                    img.src = url;
+                });
+
+                const [imgOrievo, imgGDE] = await Promise.all([
+                    carregarImagem('https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png'),
+                    carregarImagem('https://orievogroup.github.io/GDE/logo_gde.png')
+                ]);
+
                 const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
                 const W = 297, H = 210;
 
@@ -2652,16 +2678,20 @@
                 pdf.setFillColor(79, 195, 220);
                 pdf.rect(12, 12, W - 24, 28, 'F');
 
+                // Logos no cabeçalho
+                if (imgOrievo) pdf.addImage(imgOrievo, 'PNG', 18, 14, 36, 22);
+                if (imgGDE)    pdf.addImage(imgGDE,    'PNG', W - 54, 14, 36, 22);
+
                 // Título do certificado
                 pdf.setTextColor(255, 255, 255);
-                pdf.setFontSize(22);
+                pdf.setFontSize(18);
                 pdf.setFont('helvetica', 'bold');
-                pdf.text('CERTIFICADO DE CONCLUSÃO', W / 2, 30, { align: 'center' });
+                pdf.text('CERTIFICADO DE CONCLUSÃO', W / 2, 29, { align: 'center' });
 
                 // Subtítulo
-                pdf.setFontSize(10);
+                pdf.setFontSize(9);
                 pdf.setFont('helvetica', 'normal');
-                pdf.text('Orievo Safety Learning', W / 2, 37, { align: 'center' });
+                pdf.text('Orievo Safety Learning  ·  Grupo Dislub Equador', W / 2, 36, { align: 'center' });
 
                 // Corpo do certificado
                 pdf.setTextColor(50, 50, 50);
@@ -2796,9 +2826,10 @@
                             Seu navegador não suporta vídeo HTML5.
                         </video>
                     </div>
-                    <div style="background:#f0f8ff;border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:13px;color:#555;">
+                    <div style="background:#f0f8ff;border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;margin-bottom:12px;font-size:13px;color:#555;">
                         💬 <b>Legendas em português</b> ativadas automaticamente. Se não aparecerem, clique no ícone CC (legendas) no player.
                     </div>
+                    ${fase.fonte ? `<div style="background:#f8f9fa;border-left:3px solid #aaa;padding:8px 14px;border-radius:6px;margin-bottom:16px;font-size:12px;color:#666;">${fase.fonte}</div>` : ''}
                     <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Avançar →</button>
                 `;
             } else {
@@ -2807,6 +2838,7 @@
                     <div class="video-container">
                         <iframe src="${fase.url}" allowfullscreen></iframe>
                     </div>
+                    ${fase.fonte ? `<div style="background:#f8f9fa;border-left:3px solid #aaa;padding:8px 14px;border-radius:6px;margin-top:12px;margin-bottom:16px;font-size:12px;color:#666;">${fase.fonte}</div>` : ''}
                     <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Voltar</button>
                 `;
             }
@@ -3194,6 +3226,16 @@
 
         function carregarVerdadeiroFalso(fase, conteudo) {
             vfFaseAtual = fase;
+            // Suporta tanto 'afirmacoes' quanto 'perguntas', e 'texto'/'afirmacao', 'correta'/'resposta'
+            if (!vfFaseAtual._normalizada) {
+                const lista = fase.afirmacoes || fase.perguntas || [];
+                vfFaseAtual._lista = lista.map(item => ({
+                    afirmacao: item.texto || item.afirmacao,
+                    resposta: item.correta !== undefined ? item.correta : item.resposta,
+                    explicacao: item.explicacao || ''
+                }));
+                vfFaseAtual._normalizada = true;
+            }
             vfPerguntaAtual = 0;
             vfAcertos = 0;
             mostrarPerguntaVF(conteudo);
@@ -3201,11 +3243,12 @@
 
         function mostrarPerguntaVF(conteudo) {
             if (!conteudo) conteudo = document.getElementById('faseConteudo');
-            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
+            const lista = vfFaseAtual._lista;
+            const p = lista[vfPerguntaAtual];
             conteudo.innerHTML = `
                 <h2>${vfFaseAtual.nome}</h2>
                 <div style="text-align:center;color:#666;margin-bottom:20px;">
-                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
+                    Afirmação ${vfPerguntaAtual + 1} de ${lista.length}
                 </div>
                 <div class="vf-card">
                     <div class="vf-afirmacao">${p.afirmacao}</div>
@@ -3218,7 +3261,7 @@
         }
 
         function responderVF(resposta) {
-            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
+            const p = vfFaseAtual._lista[vfPerguntaAtual];
             const acertou = resposta === p.resposta;
             if (acertou) vfAcertos++;
 
@@ -3226,12 +3269,12 @@
             const corEmoji = acertou ? '✅' : '❌';
             const cor = acertou ? '#28a745' : '#dc3545';
             const titulo = acertou ? 'Correto!' : 'Incorreto!';
-            const proxima = vfPerguntaAtual < vfFaseAtual.perguntas.length - 1;
+            const proxima = vfPerguntaAtual < vfFaseAtual._lista.length - 1;
 
             conteudo.innerHTML = `
                 <h2>${vfFaseAtual.nome}</h2>
                 <div style="text-align:center;color:#666;margin-bottom:20px;">
-                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual._lista.length}
                 </div>
                 <div style="text-align:center;font-size:70px;margin:20px 0;">${corEmoji}</div>
                 <div style="background:white;padding:30px;border-radius:15px;border-left:5px solid ${cor};margin-bottom:25px;">
@@ -3252,7 +3295,7 @@
         }
 
         function finalizarVF() {
-            const total = vfFaseAtual.perguntas.length;
+            const total = vfFaseAtual._lista.length;
             const percentual = Math.round((vfAcertos / total) * 100);
             const passou = percentual >= 70;
             const cor = passou ? '#28a745' : '#dc3545';

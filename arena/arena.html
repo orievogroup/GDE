@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arena Ao Vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #2563EB;
+  --accent-dark: #1D4ED8;
+  --accent-light: #EFF6FF;
+  --bg: #F1F5F9;
+  --surface: #FFFFFF;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --success: #10B981;
+  --success-light: #D1FAE5;
+  --error: #EF4444;
+  --error-light: #FEE2E2;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+.screen { display:none; padding:24px 16px; min-height:100vh; }
+.screen.active { display:flex; flex-direction:column; align-items:center; }
+
+/* CARDS */
+.card {
+  background:var(--surface);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:32px;
+  width:100%;
+}
+.card-sm { padding:20px; }
+
+/* BUTTONS */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 24px; border-radius:8px; font-family:'Montserrat',sans-serif;
+  font-size:15px; font-weight:600; cursor:pointer; border:none;
+  transition:all 0.2s; text-decoration:none;
+}
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:var(--accent-dark); }
+.btn-success { background:var(--success); color:#fff; }
+.btn-outline { background:transparent; border:2px solid var(--border); color:var(--text); }
+.btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+.btn-danger { background:var(--error); color:#fff; }
+.btn-block { width:100%; }
+.btn-lg { padding:16px 32px; font-size:17px; }
+
+/* INPUTS */
+.input, .select {
+  width:100%; padding:12px 14px;
+  border:2px solid var(--border); border-radius:8px;
+  font-family:'Montserrat',sans-serif; font-size:15px; color:var(--text);
+  background:#fff; outline:none; transition:border-color 0.2s;
+}
+.input:focus, .select:focus { border-color:var(--accent); }
+.input-group { margin-bottom:16px; }
+.input-group label { display:block; font-size:13px; font-weight:600; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; }
+
+/* BADGE */
+.badge {
+  display:inline-flex; align-items:center; padding:4px 10px;
+  border-radius:20px; font-size:12px; font-weight:600;
+}
+.badge-blue { background:var(--accent-light); color:var(--accent); }
+.badge-green { background:var(--success-light); color:var(--success); }
+.badge-yellow { background:var(--warning-light); color:var(--warning); }
+
+/* LOGO */
+.session-logo { max-height:60px; max-width:200px; object-fit:contain; }
+.logo-placeholder { height:40px; display:flex; align-items:center; font-size:18px; font-weight:700; color:var(--accent); }
+
+/* WAITING ROOM */
+.participant-count {
+  font-size:72px; font-weight:800; color:var(--accent);
+  line-height:1;
+}
+.qr-wrap { padding:12px; background:#fff; border-radius:var(--radius); display:inline-block; }
+
+/* PROGRESS */
+.progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+.progress-fill { height:100%; background:var(--accent); border-radius:4px; transition:width 0.4s ease; }
+
+/* NOTIFICATION */
+.notification {
+  position:fixed; top:20px; right:20px; left:20px;
+  max-width:440px; margin:0 auto;
+  background:var(--success); color:#fff;
+  padding:16px 20px; border-radius:var(--radius);
+  font-weight:600; font-size:15px;
+  display:none; z-index:999;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  animation:slideIn 0.3s ease;
+}
+.notification.show { display:block; }
+@keyframes slideIn { from { transform:translateY(-60px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+/* ACTIVITY SETUP */
+.activity-item {
+  border:2px solid var(--border); border-radius:var(--radius);
+  padding:16px; margin-bottom:12px; background:#FAFAFA;
+}
+.activity-item:hover { border-color:var(--accent); }
+.activity-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+
+/* OPTION BUTTONS (participant answer) */
+.option-btn {
+  display:block; width:100%; text-align:left;
+  padding:16px 20px; border-radius:10px; margin-bottom:10px;
+  border:2px solid var(--border); background:#fff;
+  font-family:'Montserrat',sans-serif; font-size:16px; font-weight:500;
+  cursor:pointer; transition:all 0.2s;
+}
+.option-btn:hover:not(:disabled) { border-color:var(--accent); background:var(--accent-light); }
+.option-btn.selected { border-color:var(--accent); background:var(--accent-light); color:var(--accent); }
+.option-btn.correct { border-color:var(--success); background:var(--success-light); color:#065F46; }
+.option-btn.wrong { border-color:var(--error); background:var(--error-light); color:#991B1B; }
+.option-btn:disabled { cursor:default; }
+
+/* RANKING */
+.rank-row {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; border-radius:10px; margin-bottom:8px;
+  background:#fff; border:2px solid var(--border);
+}
+.rank-row.gold { border-color:#F59E0B; background:#FFFBEB; }
+.rank-row.silver { border-color:#94A3B8; background:#F8FAFC; }
+.rank-row.bronze { border-color:#C2855B; background:#FFF7ED; }
+.rank-pos { font-size:22px; font-weight:800; min-width:36px; text-align:center; }
+.rank-name { flex:1; font-weight:600; font-size:16px; }
+.rank-score { font-size:18px; font-weight:700; color:var(--accent); }
+
+/* WORD CLOUD */
+.wordcloud-wrap {
+  display:flex; flex-wrap:wrap; gap:12px 16px;
+  justify-content:center; align-items:center;
+  min-height:300px; padding:24px;
+}
+.wc-word {
+  font-weight:700; transition:all 0.5s ease;
+  line-height:1; animation:pop 0.3s ease;
+}
+@keyframes pop { from { transform:scale(0.5); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+/* PRESENTER RESPONSE TRACKER */
+.response-tracker {
+  display:flex; align-items:center; gap:16px;
+  background:var(--accent-light); border-radius:10px;
+  padding:16px 20px; margin:16px 0;
+}
+.response-count { font-size:32px; font-weight:800; color:var(--accent); }
+.response-label { font-size:13px; color:var(--text-muted); font-weight:500; }
+
+/* HINT KEY */
+.key-hint {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:8px; padding:8px 14px;
+  font-size:13px; color:var(--text-muted);
+}
+.key { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-weight:700; font-size:12px; }
+
+/* SESSION LIST */
+.session-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px; border:2px solid var(--border);
+  border-radius:10px; margin-bottom:8px; cursor:pointer;
+  transition:border-color 0.2s;
+}
+.session-row:hover { border-color:var(--accent); }
+
+/* DIVIDER */
+.divider { width:100%; height:1px; background:var(--border); margin:24px 0; }
+
+/* HEADER BAR */
+.topbar {
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+  padding:16px 0; margin-bottom:24px;
+}
+.topbar-title { font-size:18px; font-weight:700; }
+
+/* MOBILE adjustments */
+@media(max-width:600px) {
+  .card { padding:20px; }
+  .participant-count { font-size:56px; }
+}
+
+/* THEME color override — applied via JS */
+.accent-override { color:var(--accent); }
+.bg-accent { background:var(--accent); }
+
+/* CONNECTION STATUS */
+.conn-dot {
+  width:10px; height:10px; border-radius:50%;
+  background:#94A3B8; display:inline-block; margin-right:6px;
+}
+.conn-dot.online { background:var(--success); }
+.conn-dot.offline { background:var(--error); }
+
+/* AWAITING BIG TEXT */
+.await-icon { font-size:64px; margin-bottom:16px; }
+.await-title { font-size:22px; font-weight:700; margin-bottom:8px; }
+.await-sub { font-size:15px; color:var(--text-muted); }
+
+/* SCORE PILL */
+.score-pill {
+  background:var(--accent); color:#fff;
+  border-radius:20px; padding:6px 18px;
+  font-weight:700; font-size:16px; display:inline-block;
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== PRESENTER SCREENS ===================== -->
+
+<!-- P0: Presenter Login -->
+<div id="scn-p-login" class="screen">
+  <div style="max-width:440px;width:100%;margin-top:60px;">
+    <div class="card">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div class="logo-placeholder" style="justify-content:center;">Arena Ao Vivo</div>
+        <p style="color:var(--text-muted);font-size:14px;margin-top:6px;">Acesso do Apresentador</p>
+      </div>
+      <div class="input-group">
+        <label>Senha</label>
+        <input class="input" id="p-login-pwd" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="presenterLogin()">Entrar</button>
+      <p id="p-login-err" style="color:var(--error);font-size:13px;margin-top:12px;text-align:center;display:none;">Senha incorreta.</p>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
+      <span class="conn-dot" id="conn-dot-login"></span><span id="conn-label-login">Conectando...</span>
+    </p>
+    <p style="text-align:center;margin-top:10px;">
+      <button class="btn btn-outline" style="font-size:12px;padding:6px 16px;" onclick="changePwd()">Alterar senha</button>
+    </p>
+  </div>
+</div>
+
+<!-- P1: Session Home (list + create) -->
+<div id="scn-p-home" class="screen">
+  <div style="max-width:700px;width:100%;">
+    <div class="topbar">
+      <span class="topbar-title">Minhas Sessoes</span>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline" style="font-size:13px;" onclick="changePwd()">Senha</button>
+        <button class="btn btn-primary" onclick="showScreen('scn-p-setup')">+ Nova Sessao</button>
+      </div>
+    </div>
+    <div id="p-session-list">
+      <p style="color:var(--text-muted);font-size:14px;">Nenhuma sessao ativa. Crie uma nova.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="card card-sm" style="margin-top:8px;">
+      <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Temas Salvos</p>
+      <div id="p-theme-list" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      <button class="btn btn-outline" style="margin-top:12px;font-size:13px;" onclick="showSaveThemeModal()">Salvar tema atual como padrao</button>
+    </div>
+  </div>
+</div>
+
+<!-- P2: Session Setup -->
+<div id="scn-p-setup" class="screen">
+  <div style="max-width:700px;width:100%;">
+    <div class="topbar">
+      <span class="topbar-title">Nova Sessao</span>
+      <button class="btn btn-outline" onclick="showScreen('scn-p-home')">Voltar</button>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <p style="font-weight:700;font-size:16px;margin-bottom:20px;">Configuracoes da Sessao</p>
+      <div class="input-group">
+        <label>Nome da Sessao</label>
+        <input class="input" id="setup-name" placeholder="Ex: DDS Seguranca — GDE">
+      </div>
+      <div class="input-group">
+        <label>URL da Logo do Cliente (opcional)</label>
+        <input class="input" id="setup-logo" placeholder="https://...">
+      </div>
+      <div style="display:flex;gap:16px;">
+        <div class="input-group" style="flex:1;">
+          <label>Cor Principal</label>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="color" id="setup-color" value="#2563EB" style="width:48px;height:40px;border:none;background:none;cursor:pointer;padding:0;">
+            <input class="input" id="setup-color-hex" value="#2563EB" style="font-family:monospace;">
+          </div>
+        </div>
+        <div class="input-group" style="flex:1;">
+          <label>Pontuacao</label>
+          <select class="select" id="setup-score-mode">
+            <option value="fresh">Zerar para cada atividade</option>
+            <option value="accumulate">Acumular ao longo da sessao</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:100%;margin-bottom:4px;">Temas rapidos:</p>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#2563EB')">Orievo Blue</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#059669')">Safety Green</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#1E293B')">Corporate Dark</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#EA580C')">Energy Orange</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#7C3AED')">Roxo</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <p style="font-weight:700;font-size:16px;">Atividades</p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('quiz')">+ Quiz</button>
+          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('truefalse')">+ V/F</button>
+          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('wordcloud')">+ Nuvem</button>
+        </div>
+      </div>
+      <div id="activity-list">
+        <p style="color:var(--text-muted);font-size:14px;text-align:center;padding:20px 0;">Adicione atividades acima.</p>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-block btn-lg" onclick="createSession()">Criar Sessao</button>
+  </div>
+</div>
+
+<!-- P3: Waiting Room -->
+<div id="scn-p-waiting" class="screen">
+  <div style="max-width:800px;width:100%;">
+    <div class="topbar">
+      <div id="waiting-logo-wrap"></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="conn-dot online" id="conn-dot-waiting"></span>
+        <button class="btn btn-outline" style="font-size:13px;" onclick="confirmEndSession()">Encerrar</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="card" style="text-align:center;">
+        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Participantes</p>
+        <div class="participant-count" id="waiting-count">0</div>
+        <p style="color:var(--text-muted);margin-top:8px;font-size:14px;">conectados</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">QR Code / Link</p>
+        <div class="qr-wrap" id="waiting-qr" style="margin:0 auto 12px;"></div>
+        <p style="font-size:11px;color:var(--text-muted);word-break:break-all;" id="waiting-link"></p>
+        <button class="btn btn-outline" style="margin-top:10px;font-size:12px;" onclick="copyLink()">Copiar Link</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px;text-align:center;">
+      <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">Aguardando participantes. Pressione <strong>Enter</strong> para iniciar a primeira atividade.</p>
+      <button class="btn btn-success btn-lg" onclick="startFirstActivity()">Iniciar  [Enter]</button>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;" id="waiting-session-code"></p>
+    </div>
+  </div>
+</div>
+
+<!-- P4: Activity Control (Presenter) -->
+<div id="scn-p-control" class="screen">
+  <div style="max-width:800px;width:100%;">
+    <div class="topbar">
+      <div id="control-logo-wrap"></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="badge badge-blue" id="control-activity-badge"></span>
+        <button class="btn btn-outline" style="font-size:13px;" onclick="confirmEndSession()">Encerrar</button>
+      </div>
+    </div>
+
+    <!-- Question display -->
+    <div class="card" style="margin-bottom:16px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;" id="control-type-label">QUIZ</p>
+      <p style="font-size:22px;font-weight:700;line-height:1.3;" id="control-question">-</p>
+      <div id="control-options" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;"></div>
+    </div>
+
+    <!-- Response tracker -->
+    <div class="response-tracker">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <span class="response-count" id="resp-count">0</span>
+          <span style="font-size:18px;color:var(--text-muted);">/<span id="resp-total">0</span></span>
+        </div>
+        <div class="response-label">respostas recebidas</div>
+      </div>
+      <div style="flex:1;">
+        <div class="progress-bar"><div class="progress-fill" id="resp-bar" style="width:0%"></div></div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" id="resp-pct">0%</p>
+      </div>
+    </div>
+
+    <!-- Wordcloud display (for wordcloud activities) -->
+    <div id="control-wordcloud-wrap" class="card" style="display:none;margin-bottom:16px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;">NUVEM AO VIVO</p>
+      <div class="wordcloud-wrap" id="control-wordcloud"></div>
+    </div>
+
+    <!-- Action area -->
+    <div class="card card-sm" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <span class="key-hint"><span class="key">Enter</span> <span id="enter-hint-label">Proxima atividade</span></span>
+      <button class="btn btn-primary btn-lg" id="btn-enter-action" onclick="handlePresenterEnter()">Avancar [Enter]</button>
+    </div>
+  </div>
+</div>
+
+<!-- P5: Presenter Ranking -->
+<div id="scn-p-ranking" class="screen">
+  <div style="max-width:700px;width:100%;">
+    <div class="topbar">
+      <div id="prank-logo-wrap"></div>
+      <span class="badge badge-blue">Ranking Final</span>
+    </div>
+    <div class="card">
+      <div id="p-ranking-list"></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:20px;">
+      <button class="btn btn-outline btn-block" onclick="showScreen('scn-p-home')">Nova Sessao</button>
+      <button class="btn btn-primary btn-block" onclick="exportRanking()">Exportar CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PARTICIPANT SCREENS ===================== -->
+
+<!-- A0: Participant Join -->
+<div id="scn-a-join" class="screen">
+  <div style="max-width:480px;width:100%;margin-top:40px;">
+    <div class="card" style="text-align:center;">
+      <div id="join-logo-wrap" style="margin-bottom:20px;min-height:40px;display:flex;justify-content:center;align-items:center;"></div>
+      <h1 style="font-size:24px;font-weight:800;margin-bottom:6px;" id="join-session-name">Arena Ao Vivo</h1>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px;">Digite seu nome para entrar</p>
+      <div class="input-group" style="text-align:left;">
+        <label>Seu Nome</label>
+        <input class="input" id="a-name-input" placeholder="Ex: Maria Silva" style="font-size:18px;padding:16px;">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="participantJoin()" style="margin-top:8px;">Entrar na Sessao</button>
+      <p id="join-err" style="color:var(--error);font-size:13px;margin-top:10px;display:none;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- A1: Participant Waiting -->
+<div id="scn-a-waiting" class="screen">
+  <div style="max-width:480px;width:100%;margin-top:60px;text-align:center;">
+    <div id="aw-logo-wrap" style="margin-bottom:24px;display:flex;justify-content:center;"></div>
+    <div class="await-icon">&#9200;</div>
+    <div class="await-title" id="aw-name">Olá!</div>
+    <div class="await-sub">Aguardando o apresentador iniciar...</div>
+    <div style="margin-top:32px;">
+      <span class="score-pill">Pontos: <span id="aw-score">0</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- A2: Participant Answer -->
+<div id="scn-a-answer" class="screen">
+  <div style="max-width:480px;width:100%;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span class="score-pill">Pontos: <span id="ans-score">0</span></span>
+      <span class="badge badge-blue" id="ans-activity-num"></span>
+    </div>
+    <div class="card">
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;" id="ans-type-label">QUIZ</p>
+      <p style="font-size:20px;font-weight:700;line-height:1.35;margin-bottom:24px;" id="ans-question">-</p>
+      <div id="ans-options"></div>
+    </div>
+    <div id="ans-already" style="display:none;text-align:center;margin-top:24px;">
+      <p style="color:var(--text-muted);font-size:15px;">Aguardando próxima atividade...</p>
+    </div>
+  </div>
+</div>
+
+<!-- A3: Participant Word Cloud Input -->
+<div id="scn-a-wordcloud" class="screen">
+  <div style="max-width:480px;width:100%;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span class="score-pill">Pontos: <span id="wc-score">0</span></span>
+      <span class="badge badge-yellow">NUVEM DE PALAVRAS</span>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20px;font-weight:700;margin-bottom:24px;" id="wc-question">-</p>
+      <div class="input-group" style="text-align:left;">
+        <label>Sua resposta</label>
+        <input class="input" id="wc-input" placeholder="Digite uma palavra ou frase curta" style="font-size:18px;padding:16px;" maxlength="40">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" id="wc-submit-btn" onclick="submitWordCloud()" style="margin-top:8px;">Enviar</button>
+      <p id="wc-sent" style="display:none;color:var(--success);font-weight:600;margin-top:16px;">Enviado! Aguardando o apresentador...</p>
+    </div>
+  </div>
+</div>
+
+<!-- A4: Participant Ranking -->
+<div id="scn-a-ranking" class="screen">
+  <div style="max-width:480px;width:100%;margin-top:20px;">
+    <div id="ar-logo-wrap" style="margin-bottom:20px;text-align:center;"></div>
+    <div class="card" style="text-align:center;margin-bottom:16px;">
+      <p style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Sua pontuacao final</p>
+      <div style="font-size:56px;font-weight:800;color:var(--accent);" id="ar-my-score">0</div>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:16px;margin-bottom:16px;text-align:center;">Ranking Final</p>
+      <div id="a-ranking-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification -->
+<div class="notification" id="notification"></div>
+
+<!-- Firebase -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, set, get, onValue, update, push, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+const app = initializeApp({
+  apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
+  authDomain: "dislub-equador.firebaseapp.com",
+  databaseURL: "https://dislub-equador-default-rtdb.firebaseio.com",
+  projectId: "dislub-equador",
+  storageBucket: "dislub-equador.firebasestorage.app",
+  messagingSenderId: "160052415363",
+  appId: "1:160052415363:web:f17df9700cd511122504b6"
+});
+
+const db = getDatabase(app);
+window._fb = { db, ref, set, get, onValue, update, push, remove };
+window.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════
+const DEFAULT_PASSWORD = 'Arena2026GDE';
+function getPresenterPwd() { return localStorage.getItem('arena_pwd') || DEFAULT_PASSWORD; }
+const ARENA_PATH = 'arena_v2';
+const POINTS_CORRECT = 100;
+const WC_COLORS = ['#2563EB','#7C3AED','#059669','#D97706','#DC2626','#0891B2','#9333EA','#16A34A','#C2410C'];
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let fb = null;           // Firebase API
+let presenterMode = false;
+let sessionId = null;    // current session code
+let sessionConfig = {};  // { name, logo, color, scoreMode, activities }
+let activities = [];     // array built in setup
+
+// Participant
+let participantId = null;
+let participantName = null;
+let participantScore = 0;
+
+// Presenter control state
+let currentActivityIndex = 0;
+let currentStatus = 'waiting'; // waiting | question | show_answer | wordcloud_input | wordcloud_display | ranking | ended
+let presenterUnsubscribe = null;
+let lastResponseCount = 0;
+let allAnsweredNotified = false;
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+window.addEventListener('firebase-ready', () => {
+  fb = window._fb;
+  updateConnDot(true);
+  const params = new URLSearchParams(location.search);
+  const sid = params.get('s');
+  if (sid) {
+    sessionId = sid;
+    participantInit(sid);
+  } else {
+    showScreen('scn-p-login');
+    document.getElementById('p-login-pwd').addEventListener('keydown', e => { if (e.key === 'Enter') presenterLogin(); });
+  }
+});
+
+// Keyboard control (Enter key for presenter)
+document.addEventListener('keydown', e => {
+  if (presenterMode && e.key === 'Enter' && !e.target.matches('input, textarea, select, button')) {
+    e.preventDefault();
+    handlePresenterEnter();
+  }
+});
+
+// Sync color picker <-> hex input
+document.getElementById('setup-color').addEventListener('input', e => {
+  document.getElementById('setup-color-hex').value = e.target.value;
+});
+document.getElementById('setup-color-hex').addEventListener('input', e => {
+  const v = e.target.value;
+  if (/^#[0-9A-Fa-f]{6}$/.test(v)) document.getElementById('setup-color').value = v;
+});
+
+// ═══════════════════════════════════════════════════
+// SCREEN MANAGER
+// ═══════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+window.showScreen = showScreen;
+
+function updateConnDot(online) {
+  ['conn-dot-login','conn-dot-waiting'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'conn-dot ' + (online ? 'online' : 'offline');
+  });
+  const lbl = document.getElementById('conn-label-login');
+  if (lbl) lbl.textContent = online ? 'Conectado ao Firebase' : 'Sem conexao';
+}
+
+function notify(msg, type = 'success') {
+  const el = document.getElementById('notification');
+  el.textContent = msg;
+  el.style.background = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--error)' : 'var(--warning)';
+  el.classList.add('show');
+  if (type === 'success') playBeep(880);
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 4000);
+}
+
+function playBeep(freq = 880) {
+  try {
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    osc.start(); osc.stop(ctx.currentTime + 0.5);
+  } catch(e) {}
+}
+
+function applyAccentColor(color) {
+  document.documentElement.style.setProperty('--accent', color);
+  // derive dark
+  document.documentElement.style.setProperty('--accent-dark', color);
+  document.documentElement.style.setProperty('--accent-light', color + '18');
+}
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — LOGIN
+// ═══════════════════════════════════════════════════
+function presenterLogin() {
+  const pwd = document.getElementById('p-login-pwd').value;
+  if (pwd === getPresenterPwd()) {
+    presenterMode = true;
+    loadPresenterHome();
+  } else {
+    document.getElementById('p-login-err').style.display = 'block';
+  }
+}
+window.presenterLogin = presenterLogin;
+
+function changePwd() {
+  const atual = prompt('Senha atual (ou deixe em branco se for a primeira vez):');
+  if (atual !== null && atual !== getPresenterPwd() && atual !== '') {
+    alert('Senha atual incorreta.'); return;
+  }
+  const nova = prompt('Nova senha:');
+  if (!nova || nova.trim().length < 4) { alert('Senha muito curta (minimo 4 caracteres).'); return; }
+  const confirma = prompt('Confirme a nova senha:');
+  if (nova !== confirma) { alert('As senhas nao coincidem.'); return; }
+  localStorage.setItem('arena_pwd', nova.trim());
+  alert('Senha alterada com sucesso!');
+}
+window.changePwd = changePwd;
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — HOME (session list)
+// ═══════════════════════════════════════════════════
+function loadPresenterHome() {
+  showScreen('scn-p-home');
+  loadSessionList();
+  loadThemeList();
+}
+
+function loadSessionList() {
+  if (!fb) return;
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions'), snap => {
+    const sessions = snap.val() || {};
+    const wrap = document.getElementById('p-session-list');
+    const active = Object.entries(sessions)
+      .filter(([,s]) => s.status !== 'ended')
+      .sort((a,b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+
+    if (!active.length) {
+      wrap.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">Nenhuma sessao ativa.</p>';
+      return;
+    }
+    wrap.innerHTML = active.map(([id, s]) => `
+      <div class="session-row" onclick="resumeSession('${id}')">
+        <div>
+          <div style="font-weight:700;">${s.name}</div>
+          <div style="font-size:13px;color:var(--text-muted);">Codigo: ${id} &bull; ${Object.keys(s.participants||{}).length} participantes</div>
+        </div>
+        <span class="badge badge-${s.status==='waiting'?'yellow':'blue'}">${s.status==='waiting'?'Aguardando':'Em andamento'}</span>
+      </div>
+    `).join('');
+  }, { onlyOnce: true });
+}
+
+function loadThemeList() {
+  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
+  const wrap = document.getElementById('p-theme-list');
+  if (!themes.length) { wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Nenhum tema salvo.</p>'; return; }
+  wrap.innerHTML = themes.map((t,i) => `
+    <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid ${t.color};" onclick="loadTheme(${i})">${t.name}</button>
+  `).join('');
+}
+
+function resumeSession(id) {
+  sessionId = id;
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + id), snap => {
+    const s = snap.val();
+    if (!s) return;
+    sessionConfig = s.config || {};
+    applyAccentColor(sessionConfig.color || '#2563EB');
+    if (s.status === 'waiting') {
+      showWaitingRoom();
+    } else {
+      currentActivityIndex = s.currentActivityIndex || 0;
+      currentStatus = s.status;
+      showControlScreen();
+    }
+  }, { onlyOnce: true });
+}
+window.resumeSession = resumeSession;
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — SESSION SETUP
+// ═══════════════════════════════════════════════════
+activities = [];
+
+function addActivity(type) {
+  const id = Date.now();
+  activities.push({ id, type, question: '', options: ['','','',''], correct: 0, points: POINTS_CORRECT });
+  renderActivityList();
+}
+window.addActivity = addActivity;
+
+function removeActivity(id) {
+  activities = activities.filter(a => a.id !== id);
+  renderActivityList();
+}
+window.removeActivity = removeActivity;
+
+function renderActivityList() {
+  const wrap = document.getElementById('activity-list');
+  if (!activities.length) {
+    wrap.innerHTML = '<p style="color:var(--text-muted);font-size:14px;text-align:center;padding:20px 0;">Adicione atividades acima.</p>';
+    return;
+  }
+  wrap.innerHTML = activities.map((a, idx) => {
+    const typeLabel = { quiz:'Quiz (Multipla Escolha)', truefalse:'Verdadeiro ou Falso', wordcloud:'Nuvem de Palavras' }[a.type];
+    const optionsHtml = a.type === 'wordcloud' ? '' : (a.type === 'truefalse'
+      ? `<div style="display:flex;gap:10px;margin-top:8px;">
+           <button class="btn ${a.correct===0?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},0)">Verdadeiro</button>
+           <button class="btn ${a.correct===1?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},1)">Falso</button>
+         </div>`
+      : a.options.map((opt, oi) => `
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+            <button class="btn ${a.correct===oi?'btn-success':'btn-outline'}" style="font-size:12px;padding:6px 12px;min-width:36px;" onclick="setCorrect(${a.id},${oi})" title="Marcar como correta">${String.fromCharCode(65+oi)}</button>
+            <input class="input" style="flex:1;" value="${opt}" placeholder="Opcao ${String.fromCharCode(65+oi)}" oninput="updateOption(${a.id},${oi},this.value)">
+          </div>`).join(''));
+    return `
+      <div class="activity-item">
+        <div class="activity-header">
+          <span class="badge badge-blue" style="font-size:11px;">${idx+1}. ${typeLabel}</span>
+          <button class="btn" style="padding:4px 10px;font-size:12px;background:var(--error-light);color:var(--error);" onclick="removeActivity(${a.id})">Remover</button>
+        </div>
+        <input class="input" placeholder="Pergunta / Enunciado" value="${a.question}" oninput="updateQuestion(${a.id},this.value)">
+        ${optionsHtml}
+      </div>`;
+  }).join('');
+}
+
+function updateQuestion(id, val) { const a = activities.find(x => x.id===id); if(a) a.question = val; }
+window.updateQuestion = updateQuestion;
+function updateOption(id, oi, val) { const a = activities.find(x => x.id===id); if(a) a.options[oi] = val; }
+window.updateOption = updateOption;
+function setCorrect(id, oi) { const a = activities.find(x => x.id===id); if(a) { a.correct = oi; renderActivityList(); } }
+window.setCorrect = setCorrect;
+
+function applyTheme(color) {
+  document.getElementById('setup-color').value = color;
+  document.getElementById('setup-color-hex').value = color;
+  applyAccentColor(color);
+}
+window.applyTheme = applyTheme;
+
+function loadTheme(i) {
+  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
+  const t = themes[i];
+  if (!t) return;
+  applyTheme(t.color);
+}
+window.loadTheme = loadTheme;
+
+function showSaveThemeModal() {
+  const name = prompt('Nome para este tema:');
+  if (!name) return;
+  const color = document.getElementById('setup-color').value;
+  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
+  themes.push({ name, color });
+  localStorage.setItem('arena_themes', JSON.stringify(themes));
+  notify('Tema "' + name + '" salvo!');
+  loadThemeList();
+}
+window.showSaveThemeModal = showSaveThemeModal;
+
+function createSession() {
+  const name = document.getElementById('setup-name').value.trim();
+  if (!name) { notify('Digite o nome da sessao.', 'error'); return; }
+  if (!activities.length) { notify('Adicione pelo menos uma atividade.', 'error'); return; }
+  for (const a of activities) {
+    if (!a.question.trim()) { notify('Preencha o enunciado de todas as atividades.', 'error'); return; }
+    if (a.type === 'quiz') {
+      const filled = a.options.filter(o => o.trim()).length;
+      if (filled < 2) { notify('Cada quiz precisa de pelo menos 2 opcoes.', 'error'); return; }
+    }
+  }
+
+  sessionId = genCode();
+  sessionConfig = {
+    name,
+    logo: document.getElementById('setup-logo').value.trim(),
+    color: document.getElementById('setup-color').value,
+    scoreMode: document.getElementById('setup-score-mode').value,
+    activities: activities.map(a => ({ ...a }))
+  };
+
+  applyAccentColor(sessionConfig.color);
+
+  const { db, ref, set } = fb;
+  set(ref(db, ARENA_PATH + '/sessions/' + sessionId), {
+    name,
+    config: sessionConfig,
+    status: 'waiting',
+    currentActivityIndex: 0,
+    participants: {},
+    createdAt: Date.now()
+  }).then(() => {
+    showWaitingRoom();
+  }).catch(err => {
+    notify('Erro Firebase: ' + err.message, 'error');
+  });
+}
+window.createSession = createSession;
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — WAITING ROOM
+// ═══════════════════════════════════════════════════
+function showWaitingRoom() {
+  showScreen('scn-p-waiting');
+  const link = location.origin + location.pathname + '?s=' + sessionId;
+  document.getElementById('waiting-link').textContent = link;
+  document.getElementById('waiting-session-code').textContent = 'Codigo: ' + sessionId;
+
+  const logoWrap = document.getElementById('waiting-logo-wrap');
+  if (sessionConfig.logo) {
+    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo" onerror="this.style.display='none'">`;
+  } else {
+    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
+  }
+
+  document.getElementById('waiting-qr').innerHTML = '';
+  new QRCode(document.getElementById('waiting-qr'), { text: link, width: 140, height: 140, correctLevel: QRCode.CorrectLevel.M });
+
+  // Listen to participants
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants'), snap => {
+    const count = snap.val() ? Object.keys(snap.val()).length : 0;
+    document.getElementById('waiting-count').textContent = count;
+  });
+}
+
+window.copyLink = function() {
+  const link = location.origin + location.pathname + '?s=' + sessionId;
+  navigator.clipboard.writeText(link).then(() => notify('Link copiado!'));
+};
+
+window.startFirstActivity = function() {
+  currentActivityIndex = 0;
+  pushActivity();
+};
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — ACTIVITY CONTROL
+// ═══════════════════════════════════════════════════
+function pushActivity() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act) { pushRanking(); return; }
+
+  currentStatus = act.type === 'wordcloud' ? 'wordcloud_input' : 'question';
+  allAnsweredNotified = false;
+  lastResponseCount = 0;
+
+  const { db, ref, update } = fb;
+  update(ref(db, ARENA_PATH + '/sessions/' + sessionId), {
+    status: currentStatus,
+    currentActivityIndex,
+    currentActivity: {
+      index: currentActivityIndex,
+      type: act.type,
+      question: act.question,
+      options: act.options || [],
+      correct: act.correct ?? 0,
+      points: act.points || POINTS_CORRECT,
+      startedAt: Date.now()
+    }
+  });
+
+  showControlScreen();
+}
+
+function showControlScreen() {
+  showScreen('scn-p-control');
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act) return;
+
+  // Logo
+  const logoWrap = document.getElementById('control-logo-wrap');
+  if (sessionConfig.logo) {
+    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo">`;
+  } else {
+    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
+  }
+
+  document.getElementById('control-activity-badge').textContent = `${currentActivityIndex+1} / ${sessionConfig.activities.length}`;
+
+  const typeLabels = { quiz:'QUIZ', truefalse:'VERDADEIRO OU FALSO', wordcloud:'NUVEM DE PALAVRAS' };
+  document.getElementById('control-type-label').textContent = typeLabels[act.type] || act.type;
+  document.getElementById('control-question').textContent = act.question;
+
+  // Options display (presenter reference)
+  const optsWrap = document.getElementById('control-options');
+  if (act.type === 'quiz') {
+    optsWrap.innerHTML = act.options.filter(o=>o).map((o,i) => `
+      <span style="background:${i===act.correct?'var(--success-light)':'var(--bg)'};border:2px solid ${i===act.correct?'var(--success)':'var(--border)'};
+        border-radius:8px;padding:8px 14px;font-size:14px;font-weight:${i===act.correct?700:400};">
+        ${String.fromCharCode(65+i)}) ${o}
+      </span>`).join('');
+  } else if (act.type === 'truefalse') {
+    optsWrap.innerHTML = ['Verdadeiro','Falso'].map((o,i) => `
+      <span style="background:${i===act.correct?'var(--success-light)':'var(--bg)'};border:2px solid ${i===act.correct?'var(--success)':'var(--border)'};
+        border-radius:8px;padding:8px 14px;font-size:14px;font-weight:${i===act.correct?700:400};">${o}</span>`).join('');
+  } else {
+    optsWrap.innerHTML = '';
+  }
+
+  // Wordcloud
+  document.getElementById('control-wordcloud-wrap').style.display = act.type === 'wordcloud' ? 'block' : 'none';
+  if (act.type === 'wordcloud') {
+    listenWordCloud();
+  }
+
+  updateEnterHint();
+  listenResponses();
+}
+
+function updateEnterHint() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  const isLast = currentActivityIndex >= sessionConfig.activities.length - 1;
+  let label = '';
+  if (currentStatus === 'question' || currentStatus === 'wordcloud_input') {
+    label = 'Exibir gabarito';
+  } else if (currentStatus === 'show_answer' || currentStatus === 'wordcloud_display') {
+    label = isLast ? 'Ver ranking' : 'Proxima atividade';
+  } else if (currentStatus === 'ranking') {
+    label = 'Encerrar sessao';
+  }
+  document.getElementById('enter-hint-label').textContent = label;
+  document.getElementById('btn-enter-action').textContent = label + '  [Enter]';
+}
+
+function listenResponses() {
+  if (presenterUnsubscribe) presenterUnsubscribe();
+  const { db, ref, onValue } = fb;
+  const unsubResp = onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId), snap => {
+    const s = snap.val();
+    if (!s) return;
+
+    const totalPart = Object.keys(s.participants || {}).length;
+    const responses = (s.responses || {})[currentActivityIndex] || {};
+    const wordcloud = (s.wordcloud || {})[currentActivityIndex] || {};
+    const act = sessionConfig.activities[currentActivityIndex];
+
+    let responseCount = 0;
+    if (act && act.type === 'wordcloud') {
+      responseCount = Object.keys(wordcloud).length;
+      renderWordCloud(wordcloud, 'control-wordcloud');
+    } else {
+      responseCount = Object.keys(responses).length;
+    }
+
+    document.getElementById('resp-count').textContent = responseCount;
+    document.getElementById('resp-total').textContent = totalPart;
+    const pct = totalPart > 0 ? Math.round((responseCount / totalPart) * 100) : 0;
+    document.getElementById('resp-bar').style.width = pct + '%';
+    document.getElementById('resp-pct').textContent = pct + '%';
+
+    if (totalPart > 0 && responseCount >= totalPart && !allAnsweredNotified) {
+      allAnsweredNotified = true;
+      notify('Todos responderam! Pressione Enter para continuar.', 'success');
+    }
+  });
+  presenterUnsubscribe = () => unsubResp();
+}
+
+function listenWordCloud() {
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/wordcloud/' + currentActivityIndex), snap => {
+    renderWordCloud(snap.val() || {}, 'control-wordcloud');
+  });
+}
+
+window.handlePresenterEnter = function() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act) return;
+  const isLast = currentActivityIndex >= sessionConfig.activities.length - 1;
+
+  if (currentStatus === 'question') {
+    // Show answer
+    currentStatus = 'show_answer';
+    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'show_answer' });
+    updateEnterHint();
+  } else if (currentStatus === 'wordcloud_input') {
+    // Show word cloud
+    currentStatus = 'wordcloud_display';
+    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'wordcloud_display' });
+    updateEnterHint();
+  } else if (currentStatus === 'show_answer' || currentStatus === 'wordcloud_display') {
+    if (isLast) {
+      pushRanking();
+    } else {
+      currentActivityIndex++;
+      pushActivity();
+    }
+  } else if (currentStatus === 'ranking') {
+    endSession();
+  }
+};
+
+function pushRanking() {
+  currentStatus = 'ranking';
+  fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'ranking' });
+  showPresenterRanking();
+}
+
+function showPresenterRanking() {
+  showScreen('scn-p-ranking');
+  const logoWrap = document.getElementById('prank-logo-wrap');
+  if (sessionConfig.logo) {
+    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo">`;
+  } else {
+    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
+  }
+
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants'), snap => {
+    const parts = snap.val() || {};
+    renderRanking(parts, 'p-ranking-list', null);
+  });
+}
+
+function endSession() {
+  fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'ended' });
+  showScreen('scn-p-home');
+  notify('Sessao encerrada.');
+  loadPresenterHome();
+}
+
+window.confirmEndSession = function() {
+  if (confirm('Encerrar a sessao agora?')) endSession();
+};
+
+window.exportRanking = function() {
+  const { db, ref, get } = fb;
+  get(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants')).then(snap => {
+    const parts = snap.val() || {};
+    const rows = [['Nome','Pontos']];
+    const sorted = Object.values(parts).sort((a,b) => (b.score||0)-(a.score||0));
+    sorted.forEach(p => rows.push([p.name, p.score || 0]));
+    const csv = rows.map(r => r.join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'ranking_' + sessionId + '.csv';
+    a.click();
+  });
+};
+
+// ═══════════════════════════════════════════════════
+// PARTICIPANT — INIT
+// ═══════════════════════════════════════════════════
+function participantInit(sid) {
+  // Check if already joined this session
+  participantId = localStorage.getItem('arena_pid_' + sid);
+  participantName = localStorage.getItem('arena_pname_' + sid);
+
+  const { db, ref, onValue, get } = fb;
+  get(ref(db, ARENA_PATH + '/sessions/' + sid)).then(snap => {
+    const s = snap.val();
+    if (!s || s.status === 'ended') {
+      showScreen('scn-a-join');
+      document.getElementById('join-session-name').textContent = 'Sessao nao encontrada ou encerrada.';
+      return;
+    }
+
+    // Apply session style
+    const cfg = s.config || {};
+    if (cfg.color) applyAccentColor(cfg.color);
+
+    // Join screen branding
+    const logo = cfg.logo;
+    if (logo) {
+      document.getElementById('join-logo-wrap').innerHTML = `<img src="${logo}" class="session-logo">`;
+      ['aw-logo-wrap','ar-logo-wrap'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<img src="${logo}" class="session-logo">`;
+      });
+    }
+    document.getElementById('join-session-name').textContent = s.name || 'Arena Ao Vivo';
+
+    if (participantId && participantName) {
+      // Already registered — go straight to waiting/current
+      participantScore = (s.participants?.[participantId]?.score) || 0;
+      subscribeSession(sid);
+    } else {
+      showScreen('scn-a-join');
+      document.getElementById('a-name-input').addEventListener('keydown', e => { if(e.key==='Enter') participantJoin(); });
+    }
+  }).catch(() => {
+    showScreen('scn-a-join');
+    document.getElementById('join-err').textContent = 'Erro de conexao. Verifique sua internet.';
+    document.getElementById('join-err').style.display = 'block';
+  });
+}
+
+window.participantJoin = function() {
+  const name = document.getElementById('a-name-input').value.trim();
+  if (!name) { document.getElementById('join-err').textContent='Digite seu nome.'; document.getElementById('join-err').style.display='block'; return; }
+
+  participantId = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+  participantName = name;
+  participantScore = 0;
+  localStorage.setItem('arena_pid_' + sessionId, participantId);
+  localStorage.setItem('arena_pname_' + sessionId, name);
+
+  const { db, ref, set } = fb;
+  set(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants/' + participantId), {
+    name,
+    score: 0,
+    joinedAt: Date.now()
+  }).then(() => {
+    subscribeSession(sessionId);
+  });
+};
+
+
+function showParticipantWaiting() {
+  showScreen('scn-a-waiting');
+  if (participantName) document.getElementById('aw-name').textContent = 'Olá, ' + participantName + '!';
+  document.getElementById('aw-score').textContent = participantScore;
+}
+
+function showParticipantAlreadyAnswered() {
+  showScreen('scn-a-answer');
+  document.getElementById('ans-options').innerHTML = '';
+  document.getElementById('ans-already').style.display = 'block';
+  document.getElementById('ans-score').textContent = participantScore;
+}
+
+function showParticipantAnswer(act, actIdx) {
+  showScreen('scn-a-answer');
+  document.getElementById('ans-already').style.display = 'none';
+  document.getElementById('ans-score').textContent = participantScore;
+  document.getElementById('ans-activity-num').textContent = 'Atividade ' + (actIdx + 1);
+  document.getElementById('ans-type-label').textContent = act.type === 'truefalse' ? 'VERDADEIRO OU FALSO' : 'QUIZ';
+  document.getElementById('ans-question').textContent = act.question || '-';
+
+  let options = act.options || [];
+  if (act.type === 'truefalse') options = ['Verdadeiro', 'Falso'];
+
+  document.getElementById('ans-options').innerHTML = options.filter(o=>o).map((opt, i) => `
+    <button class="option-btn" id="opt-${i}" onclick="submitAnswer(${i}, ${act.correct ?? 0}, '${sessionId}', ${actIdx}, ${act.points || POINTS_CORRECT})">
+      ${act.type !== 'truefalse' ? `<strong>${String.fromCharCode(65+i)})</strong> ` : ''}${opt}
+    </button>`).join('');
+}
+
+window.submitAnswer = function(chosen, correct, sid, actIdx, points) {
+  const alreadyKey = 'arena_ans_' + sid + '_' + actIdx;
+  if (localStorage.getItem(alreadyKey)) return;
+  localStorage.setItem(alreadyKey, chosen);
+
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  // Visual feedback will come from show_answer status change
+  // But also give immediate local feedback
+  const acertou = chosen === correct;
+  const btn = document.getElementById('opt-' + chosen);
+  if (btn) btn.classList.add(acertou ? 'correct' : 'wrong');
+
+  if (acertou) {
+    participantScore += points;
+    // Update score in Firebase
+    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sid + '/participants/' + participantId), {
+      score: participantScore
+    });
+  }
+
+  // Save response in Firebase
+  fb.set(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sid + '/responses/' + actIdx + '/' + participantId), {
+    answer: chosen,
+    correct: acertou,
+    timestamp: Date.now()
+  });
+
+  document.getElementById('ans-score').textContent = participantScore;
+};
+
+function highlightAnswer(act, actIdx) {
+  // If on answer screen, show the correct answer highlight
+  const ansScreen = document.getElementById('scn-a-answer');
+  if (!ansScreen.classList.contains('active')) return;
+  const correct = act.correct ?? 0;
+  document.querySelectorAll('.option-btn').forEach((b, i) => {
+    b.disabled = true;
+    if (i === correct) b.classList.add('correct');
+  });
+}
+
+function showParticipantWordcloud(act, actIdx) {
+  const alreadyKey = 'arena_ans_' + sessionId + '_' + actIdx;
+  if (localStorage.getItem(alreadyKey)) { showParticipantAlreadyAnswered(); return; }
+  showScreen('scn-a-wordcloud');
+  document.getElementById('wc-score').textContent = participantScore;
+  document.getElementById('wc-question').textContent = act.question || 'O que vem a sua mente?';
+  document.getElementById('wc-input').value = '';
+  document.getElementById('wc-sent').style.display = 'none';
+  document.getElementById('wc-submit-btn').disabled = false;
+  document.getElementById('wc-submit-btn').style.display = 'inline-flex';
+}
+
+window.submitWordCloud = function() {
+  const word = document.getElementById('wc-input').value.trim();
+  if (!word) return;
+  const alreadyKey = 'arena_ans_' + sessionId + '_' + currentActivityIndexForParticipant;
+  localStorage.setItem(alreadyKey, word);
+
+  document.getElementById('wc-submit-btn').disabled = true;
+  document.getElementById('wc-submit-btn').style.display = 'none';
+  document.getElementById('wc-sent').style.display = 'block';
+
+  fb.set(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId + '/wordcloud/' + currentActivityIndexForParticipant + '/' + participantId), {
+    word: word.toLowerCase().trim(),
+    timestamp: Date.now()
+  });
+};
+
+let currentActivityIndexForParticipant = 0;
+
+function subscribeSession(sid) {
+  const { db, ref, onValue } = fb;
+  let lastStatus = null;
+  let lastActIdx = null;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sid), snap => {
+    const s = snap.val();
+    if (!s) return;
+    currentActivityIndexForParticipant = s.currentActivityIndex ?? 0;
+    const status = s.status;
+    const actIdx = s.currentActivityIndex ?? 0;
+    const act = s.currentActivity || {};
+    const cfg = s.config || {};
+    if (cfg.color) applyAccentColor(cfg.color);
+    participantScore = (s.participants?.[participantId]?.score) || participantScore;
+    const statusChanged = status !== lastStatus;
+    const actChanged = actIdx !== lastActIdx;
+    lastStatus = status;
+    lastActIdx = actIdx;
+    if (status === 'waiting') {
+      showParticipantWaiting();
+    } else if (status === 'question' || status === 'wordcloud_input') {
+      if (statusChanged || actChanged) {
+        const alreadyKey = 'arena_ans_' + sid + '_' + actIdx;
+        if (localStorage.getItem(alreadyKey)) {
+          showParticipantAlreadyAnswered();
+        } else if (status === 'wordcloud_input') {
+          showParticipantWordcloud(act, actIdx);
+        } else {
+          showParticipantAnswer(act, actIdx);
+        }
+      }
+    } else if (status === 'show_answer') {
+      if (statusChanged || actChanged) highlightAnswer(act, actIdx);
+    } else if (status === 'wordcloud_display') {
+      if (statusChanged) showParticipantAlreadyAnswered();
+    } else if (status === 'ranking' || status === 'ended') {
+      if (statusChanged) showParticipantRanking(s.participants || {}, sid);
+    }
+  });
+}
+
+function showParticipantRanking(participants, sid) {
+  showScreen('scn-a-ranking');
+  document.getElementById('ar-my-score').textContent = participantScore;
+  const logoWrap = document.getElementById('ar-logo-wrap');
+  // Apply session name if logo was set
+  renderRanking(participants, 'a-ranking-list', participantId);
+}
+
+// ═══════════════════════════════════════════════════
+// RANKING RENDERER
+// ═══════════════════════════════════════════════════
+function renderRanking(participants, targetId, highlightPid) {
+  const sorted = Object.entries(participants)
+    .map(([pid, p]) => ({ pid, name: p.name, score: p.score || 0 }))
+    .sort((a,b) => b.score - a.score);
+
+  const medals = ['gold','silver','bronze'];
+  const posEmoji = ['1', '2', '3'];
+
+  document.getElementById(targetId).innerHTML = sorted.map((p, i) => `
+    <div class="rank-row ${medals[i]||''}" style="${p.pid===highlightPid?'border-color:var(--accent);background:var(--accent-light);':''}">
+      <div class="rank-pos" style="color:${i===0?'#F59E0B':i===1?'#94A3B8':i===2?'#C2855B':'var(--text-muted)'}">${i<3?posEmoji[i]:(i+1)}</div>
+      <div class="rank-name">${p.name}${p.pid===highlightPid?' (voce)':''}</div>
+      <div class="rank-score">${p.score} pts</div>
+    </div>`).join('') || '<p style="color:var(--text-muted);text-align:center;padding:20px;">Nenhum participante.</p>';
+}
+
+// ═══════════════════════════════════════════════════
+// WORD CLOUD RENDERER
+// ═══════════════════════════════════════════════════
+function renderWordCloud(wordcloudData, targetId) {
+  // Count word frequencies
+  const freq = {};
+  Object.values(wordcloudData).forEach(entry => {
+    const w = (entry.word || '').toLowerCase().trim();
+    if (w) freq[w] = (freq[w] || 0) + 1;
+  });
+
+  const maxCount = Math.max(...Object.values(freq), 1);
+  const wrap = document.getElementById(targetId);
+  if (!wrap) return;
+
+  wrap.innerHTML = Object.entries(freq)
+    .sort((a,b) => b[1]-a[1])
+    .map(([word, count]) => {
+      const size = Math.round(16 + (count / maxCount) * 56);
+      const color = WC_COLORS[hashStr(word) % WC_COLORS.length];
+      const weight = count > 1 ? 800 : 600;
+      return `<span class="wc-word" style="font-size:${size}px;color:${color};font-weight:${weight};">${word}</span>`;
+    }).join('');
+}
+
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 997;
+  return Math.abs(h);
+}
+
+// ═══════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════
+function genCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random()*chars.length)];
+  return c;
+}
+
+// Expose window functions
+window.applyTheme = applyTheme;
+window.addActivity = addActivity;
+window.removeActivity = removeActivity;
+window.updateQuestion = updateQuestion;
+window.updateOption = updateOption;
+window.setCorrect = setCorrect;
+window.showSaveThemeModal = showSaveThemeModal;
+window.loadTheme = loadTheme;
+window.createSession = createSession;
+window.resumeSession = resumeSession;
+window.startFirstActivity = startFirstActivity;
+window.handlePresenterEnter = handlePresenterEnter;
+window.confirmEndSession = confirmEndSession;
+window.exportRanking = exportRanking;
+window.participantJoin = window.participantJoin;
+window.submitAnswer = window.submitAnswer;
+window.submitWordCloud = window.submitWordCloud;
+window.copyLink = window.copyLink;
+window.presenterLogin = presenterLogin;
+</script>
+</body>
+</html>

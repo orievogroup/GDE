@@ -1,1766 +1,1411 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Orievo - Grupo Dislub Equador</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Script para detectar aluno ANTES de renderizar -->
-    <script>
-        // Executar ANTES da página carregar
-        (function() {
-            const params = new URLSearchParams(window.location.search);
-            const codigo = params.get('codigo');
-            
-            // Se tem código na URL = ALUNO
-            if (codigo) {
-                // Adicionar CSS inline para esconder tela de login
-                const style = document.createElement('style');
-                style.textContent = '#telaInicial { display: none !important; }';
-                document.head.appendChild(style);
-                console.log('🎮 Modo ALUNO detectado - código:', codigo);
-            }
-        })();
-    </script>
-    
-    <style>
-        :root {
-            --orievo-primary: #4FC3DC;
-            --orievo-secondary: #2A9BB8;
-            --orievo-dark: #1a1a1a;
-            --orievo-light: #E0F6FF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--orievo-light) 0%, #ffffff 100%);
-            min-height: 100vh;
-        }
-
-        /* HEADER PROFISSIONAL */
-        .header-profissional {
-            background: linear-gradient(135deg, var(--orievo-primary) 0%, var(--orievo-secondary) 100%);
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-orievo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-orievo img {
-            height: 45px;
-            background: white;
-            padding: 5px 12px;
-            border-radius: 8px;
-        }
-
-        .logo-orievo .text h1 {
-            font-size: 22px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 2px;
-        }
-
-        .logo-orievo .text p {
-            font-size: 11px;
-            color: white;
-            opacity: 0.9;
-        }
-
-        .header-info {
-            text-align: right;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .header-info img {
-            height: 50px;
-            background: white;
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .header-info .text p {
-            color: white;
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
-        .header-info .text h2 {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 30px;
-            position: relative;
-            z-index: 0;
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid transparent;
-            position: relative;
-            z-index: 1;
-            pointer-events: auto;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            border-color: var(--orievo-primary);
-            z-index: 2;
-        }
-
-        .card-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            pointer-events: none;
-        }
-
-        .card-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #1a1a1a;
-            pointer-events: none;
-        }
-
-        .card-desc {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-            pointer-events: none;
-        }
-
-        .card-btn {
-            background: linear-gradient(135deg, var(--orievo-primary), var(--orievo-secondary));
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            pointer-events: none;
-        }
-
-        .card-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-        }
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-            color: #1a1a1a;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-
-        .modal-content button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--orievo-primary), var(--orievo-secondary));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .modulo-screen {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-top: 20px;
-        }
-
-        .btn-voltar {
-            background: #666;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .arena-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .arena-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin: 20px 0;
-        }
-
-        .arena-card h2 {
-            color: #9b59b6;
-            margin-bottom: 20px;
-        }
-
-        .arena-card input, .arena-card select {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-
-        .arena-card label {
-            display: block;
-            margin: 15px 0 5px 0;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .btn-arena {
-            background: #9b59b6;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 20px 0;
-        }
-
-        #qrcodeArena {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .sessao-info {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .sessao-info h3 {
-            color: #9b59b6;
-            margin-bottom: 15px;
-        }
-
-        .codigo-sessao {
-            font-size: 48px;
-            font-weight: 700;
-            color: #9b59b6;
-            text-align: center;
-            margin: 20px 0;
-            letter-spacing: 8px;
-        }
-
-        .aluno-screen {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .status-aguardando {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .quiz-pergunta {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 20px 0;
-            border: 3px solid #9b59b6;
-        }
-
-        .quiz-opcao {
-            background: #f8f9fa;
-            padding: 20px;
-            margin: 10px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            font-size: 18px;
-        }
-
-        .quiz-opcao:hover {
-            background: #e9ecef;
-            border-color: #9b59b6;
-        }
-
-        .quiz-opcao.correta {
-            background: #d4edda;
-            border-color: #28a745;
-        }
-
-        .quiz-opcao.errada {
-            background: #f8d7da;
-            border-color: #dc3545;
-        }
-
-        .pontos-display {
-            background: #9b59b6;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .participantes-count {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            color: #004085;
-            font-weight: 600;
-        }
-
-        .ranking-item {
-            background: white;
-            padding: 15px 20px;
-            margin: 10px 0;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid #f39c12;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .ranking-item.primeiro {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            border-left-color: #ffd700;
-        }
-
-        .ranking-item.segundo {
-            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
-            border-left-color: #c0c0c0;
-        }
-
-        .ranking-item.terceiro {
-            background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
-            border-left-color: #cd7f32;
-        }
-
-        .ranking-posicao {
-            font-size: 24px;
-            font-weight: 900;
-            min-width: 40px;
-        }
-
-        .ranking-nome {
-            flex: 1;
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0 15px;
-        }
-
-        .ranking-pontos {
-            font-size: 20px;
-            font-weight: 700;
-            color: #9b59b6;
-        }
-
-        /* PÓDIO VISUAL */
-        .podio-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 15px;
-            margin: 40px 0;
-            padding: 20px;
-            min-height: 300px;
-        }
-
-        .podio-posicao {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        .podio-posicao:hover {
-            transform: scale(1.05);
-        }
-
-        .podio-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            margin-bottom: 10px;
-            border: 4px solid;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .podio-medalha {
-            font-size: 48px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-        }
-
-        .podio-nome {
-            font-weight: 700;
-            margin: 10px 0 5px 0;
-            text-align: center;
-            font-size: 16px;
-        }
-
-        .podio-pontos {
-            font-size: 24px;
-            font-weight: 900;
-            color: #fff;
-            background: #9b59b6;
-            padding: 8px 20px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-        }
-
-        .podio-bloco {
-            width: 150px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            border-radius: 10px 10px 0 0;
-            position: relative;
-            animation: slideUp 0.6s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .podio-bloco-primeiro {
-            height: 200px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            order: 2;
-            animation-delay: 0.2s;
-        }
-
-        .podio-bloco-segundo {
-            height: 150px;
-            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
-            order: 1;
-            animation-delay: 0.1s;
-        }
-
-        .podio-bloco-terceiro {
-            height: 120px;
-            background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
-            order: 3;
-            animation-delay: 0s;
-        }
-
-        .podio-numero {
-            font-size: 48px;
-            font-weight: 900;
-            color: rgba(0,0,0,0.1);
-            position: absolute;
-            bottom: 20px;
-        }
-
-        .ranking-lista-completa {
-            max-width: 600px;
-            margin: 30px auto;
-        }
-
-        .ranking-lista-titulo {
-            text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .tela-ranking-aluno {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .ranking-header-aluno {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-
-        .ranking-header-aluno h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        @media (max-width: 768px) {
-            .podio-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .podio-bloco {
-                width: 100%;
-                max-width: 300px;
-            }
-            .podio-bloco-primeiro,
-            .podio-bloco-segundo,
-            .podio-bloco-terceiro {
-                height: auto;
-                padding: 20px;
-                order: 0 !important;
-                margin: 10px 0;
-            }
-        }
-
-        .footer-profissional {
-            background: var(--orievo-dark);
-            color: white;
-            padding: 30px 0;
-            margin-top: 60px;
-            text-align: center;
-        }
-
-        .footer-profissional p {
-            margin: 5px 0;
-            opacity: 0.8;
-        }
-
-        .footer-profissional strong {
-            color: var(--orievo-primary);
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .header-info {
-                flex-direction: column;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arena Ao Vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #2563EB;
+  --accent-dark: #1D4ED8;
+  --accent-light: #EFF6FF;
+  --bg: #F1F5F9;
+  --surface: #FFFFFF;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --success: #10B981;
+  --success-light: #D1FAE5;
+  --error: #EF4444;
+  --error-light: #FEE2E2;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+.screen { display:none; padding:24px 16px; min-height:100vh; }
+.screen.active { display:flex; flex-direction:column; align-items:center; }
+
+/* CARDS */
+.card {
+  background:var(--surface);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:32px;
+  width:100%;
+}
+.card-sm { padding:20px; }
+
+/* BUTTONS */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 24px; border-radius:8px; font-family:'Montserrat',sans-serif;
+  font-size:15px; font-weight:600; cursor:pointer; border:none;
+  transition:all 0.2s; text-decoration:none;
+}
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:var(--accent-dark); }
+.btn-success { background:var(--success); color:#fff; }
+.btn-outline { background:transparent; border:2px solid var(--border); color:var(--text); }
+.btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+.btn-danger { background:var(--error); color:#fff; }
+.btn-block { width:100%; }
+.btn-lg { padding:16px 32px; font-size:17px; }
+
+/* INPUTS */
+.input, .select {
+  width:100%; padding:12px 14px;
+  border:2px solid var(--border); border-radius:8px;
+  font-family:'Montserrat',sans-serif; font-size:15px; color:var(--text);
+  background:#fff; outline:none; transition:border-color 0.2s;
+}
+.input:focus, .select:focus { border-color:var(--accent); }
+.input-group { margin-bottom:16px; }
+.input-group label { display:block; font-size:13px; font-weight:600; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; }
+
+/* BADGE */
+.badge {
+  display:inline-flex; align-items:center; padding:4px 10px;
+  border-radius:20px; font-size:12px; font-weight:600;
+}
+.badge-blue { background:var(--accent-light); color:var(--accent); }
+.badge-green { background:var(--success-light); color:var(--success); }
+.badge-yellow { background:var(--warning-light); color:var(--warning); }
+
+/* LOGO */
+.session-logo { max-height:60px; max-width:200px; object-fit:contain; }
+.logo-placeholder { height:40px; display:flex; align-items:center; font-size:18px; font-weight:700; color:var(--accent); }
+
+/* WAITING ROOM */
+.participant-count {
+  font-size:72px; font-weight:800; color:var(--accent);
+  line-height:1;
+}
+.qr-wrap { padding:12px; background:#fff; border-radius:var(--radius); display:inline-block; }
+
+/* PROGRESS */
+.progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+.progress-fill { height:100%; background:var(--accent); border-radius:4px; transition:width 0.4s ease; }
+
+/* NOTIFICATION */
+.notification {
+  position:fixed; top:20px; right:20px; left:20px;
+  max-width:440px; margin:0 auto;
+  background:var(--success); color:#fff;
+  padding:16px 20px; border-radius:var(--radius);
+  font-weight:600; font-size:15px;
+  display:none; z-index:999;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  animation:slideIn 0.3s ease;
+}
+.notification.show { display:block; }
+@keyframes slideIn { from { transform:translateY(-60px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+/* ACTIVITY SETUP */
+.activity-item {
+  border:2px solid var(--border); border-radius:var(--radius);
+  padding:16px; margin-bottom:12px; background:#FAFAFA;
+}
+.activity-item:hover { border-color:var(--accent); }
+.activity-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+
+/* OPTION BUTTONS (participant answer) */
+.option-btn {
+  display:block; width:100%; text-align:left;
+  padding:16px 20px; border-radius:10px; margin-bottom:10px;
+  border:2px solid var(--border); background:#fff;
+  font-family:'Montserrat',sans-serif; font-size:16px; font-weight:500;
+  cursor:pointer; transition:all 0.2s;
+}
+.option-btn:hover:not(:disabled) { border-color:var(--accent); background:var(--accent-light); }
+.option-btn.selected { border-color:var(--accent); background:var(--accent-light); color:var(--accent); }
+.option-btn.correct { border-color:var(--success); background:var(--success-light); color:#065F46; }
+.option-btn.wrong { border-color:var(--error); background:var(--error-light); color:#991B1B; }
+.option-btn:disabled { cursor:default; }
+
+/* RANKING */
+.rank-row {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; border-radius:10px; margin-bottom:8px;
+  background:#fff; border:2px solid var(--border);
+}
+.rank-row.gold { border-color:#F59E0B; background:#FFFBEB; }
+.rank-row.silver { border-color:#94A3B8; background:#F8FAFC; }
+.rank-row.bronze { border-color:#C2855B; background:#FFF7ED; }
+.rank-pos { font-size:22px; font-weight:800; min-width:36px; text-align:center; }
+.rank-name { flex:1; font-weight:600; font-size:16px; }
+.rank-score { font-size:18px; font-weight:700; color:var(--accent); }
+
+/* WORD CLOUD */
+.wordcloud-wrap {
+  display:flex; flex-wrap:wrap; gap:12px 16px;
+  justify-content:center; align-items:center;
+  min-height:300px; padding:24px;
+}
+.wc-word {
+  font-weight:700; transition:all 0.5s ease;
+  line-height:1; animation:pop 0.3s ease;
+}
+@keyframes pop { from { transform:scale(0.5); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+/* PRESENTER RESPONSE TRACKER */
+.response-tracker {
+  display:flex; align-items:center; gap:16px;
+  background:var(--accent-light); border-radius:10px;
+  padding:16px 20px; margin:16px 0;
+}
+.response-count { font-size:32px; font-weight:800; color:var(--accent); }
+.response-label { font-size:13px; color:var(--text-muted); font-weight:500; }
+
+/* HINT KEY */
+.key-hint {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:8px; padding:8px 14px;
+  font-size:13px; color:var(--text-muted);
+}
+.key { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-weight:700; font-size:12px; }
+
+/* SESSION LIST */
+.session-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px; border:2px solid var(--border);
+  border-radius:10px; margin-bottom:8px; cursor:pointer;
+  transition:border-color 0.2s;
+}
+.session-row:hover { border-color:var(--accent); }
+
+/* DIVIDER */
+.divider { width:100%; height:1px; background:var(--border); margin:24px 0; }
+
+/* HEADER BAR */
+.topbar {
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+  padding:16px 0; margin-bottom:24px;
+}
+.topbar-title { font-size:18px; font-weight:700; }
+
+/* MOBILE adjustments */
+@media(max-width:600px) {
+  .card { padding:20px; }
+  .participant-count { font-size:56px; }
+}
+
+/* THEME color override — applied via JS */
+.accent-override { color:var(--accent); }
+.bg-accent { background:var(--accent); }
+
+/* CONNECTION STATUS */
+.conn-dot {
+  width:10px; height:10px; border-radius:50%;
+  background:#94A3B8; display:inline-block; margin-right:6px;
+}
+.conn-dot.online { background:var(--success); }
+.conn-dot.offline { background:var(--error); }
+
+/* AWAITING BIG TEXT */
+.await-icon { font-size:64px; margin-bottom:16px; }
+.await-title { font-size:22px; font-weight:700; margin-bottom:8px; }
+.await-sub { font-size:15px; color:var(--text-muted); }
+
+/* SCORE PILL */
+.score-pill {
+  background:var(--accent); color:#fff;
+  border-radius:20px; padding:6px 18px;
+  font-weight:700; font-size:16px; display:inline-block;
+}
+</style>
 </head>
 <body>
-    <header class="header-profissional">
-        <div class="header-content">
-            <div class="logo-orievo">
-                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo">
-                <div class="text">
-                    <h1>🎮 ARENA QUIZ</h1>
-                    <p>Quiz Interativo em Tempo Real</p>
-                </div>
-            </div>
-            <div class="header-info">
-                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Dislub Equador">
-                <div class="text">
-                    <p>Plataforma desenvolvida para</p>
-                    <h2>Grupo Dislub Equador</h2>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <div class="container">
-        <div id="telaInicial">
-            <div style="max-width: 600px; margin: 50px auto;">
-                <div class="card">
-                    <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Login - Arena Quiz</h2>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">🔑 Senha:</label>
-                        <input type="password" id="senhaLogin" placeholder="Digite a senha" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
-                    </div>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">👤 Nome:</label>
-                        <input type="text" id="nomeLogin" placeholder="Seu nome" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
-                    </div>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">📧 Email:</label>
-                        <input type="email" id="emailLogin" placeholder="seu@email.com" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
-                    </div>
-                    
-                    <button onclick="fazerLogin()" style="width: 100%; background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; border: none; padding: 18px; border-radius: 10px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 10px;">
-                        ENTRAR
-                    </button>
-                </div>
-            </div>
-        </div>
+<!-- ===================== PRESENTER SCREENS ===================== -->
 
-        <div id="telaModulo" class="hidden">
-            <button class="btn-voltar" onclick="voltarInicio()">← Voltar</button>
-            <div id="conteudoModulo"></div>
-        </div>
+<!-- P0: Presenter Login -->
+<div id="scn-p-login" class="screen">
+  <div style="max-width:440px;width:100%;margin-top:60px;">
+    <div class="card">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div class="logo-placeholder" style="justify-content:center;">Arena Ao Vivo</div>
+        <p style="color:var(--text-muted);font-size:14px;margin-top:6px;">Acesso do Apresentador</p>
+      </div>
+      <div class="input-group">
+        <label>Senha</label>
+        <input class="input" id="p-login-pwd" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="presenterLogin()">Entrar</button>
+      <p id="p-login-err" style="color:var(--error);font-size:13px;margin-top:12px;text-align:center;display:none;">Senha incorreta.</p>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
+      <span class="conn-dot" id="conn-dot-login"></span><span id="conn-label-login">Conectando...</span>
+    </p>
+    <p style="text-align:center;margin-top:10px;">
+      <button class="btn btn-outline" style="font-size:12px;padding:6px 16px;" onclick="changePwd()">Alterar senha</button>
+    </p>
+  </div>
+</div>
 
-        <div id="telaAluno" class="hidden">
-            <div id="conteudoAluno"></div>
-        </div>
+<!-- P1: Session Home (list + create) -->
+<div id="scn-p-home" class="screen">
+  <div style="max-width:700px;width:100%;">
+    <div class="topbar">
+      <span class="topbar-title">Minhas Sessoes</span>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline" style="font-size:13px;" onclick="changePwd()">Senha</button>
+        <button class="btn btn-primary" onclick="showScreen('scn-p-setup')">+ Nova Sessao</button>
+      </div>
+    </div>
+    <div id="p-session-list">
+      <p style="color:var(--text-muted);font-size:14px;">Nenhuma sessao ativa. Crie uma nova.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="card card-sm" style="margin-top:8px;">
+      <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Temas Salvos</p>
+      <div id="p-theme-list" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      <button class="btn btn-outline" style="margin-top:12px;font-size:13px;" onclick="showSaveThemeModal()">Salvar tema atual como padrao</button>
+    </div>
+  </div>
+</div>
 
+<!-- P2: Session Setup -->
+<div id="scn-p-setup" class="screen">
+  <div style="max-width:700px;width:100%;">
+    <div class="topbar">
+      <span class="topbar-title">Nova Sessao</span>
+      <button class="btn btn-outline" onclick="showScreen('scn-p-home')">Voltar</button>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <p style="font-weight:700;font-size:16px;margin-bottom:20px;">Configuracoes da Sessao</p>
+      <div class="input-group">
+        <label>Nome da Sessao</label>
+        <input class="input" id="setup-name" placeholder="Ex: DDS Seguranca — GDE">
+      </div>
+      <div class="input-group">
+        <label>URL da Logo do Cliente (opcional)</label>
+        <input class="input" id="setup-logo" placeholder="https://...">
+      </div>
+      <div style="display:flex;gap:16px;">
+        <div class="input-group" style="flex:1;">
+          <label>Cor Principal</label>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="color" id="setup-color" value="#2563EB" style="width:48px;height:40px;border:none;background:none;cursor:pointer;padding:0;">
+            <input class="input" id="setup-color-hex" value="#2563EB" style="font-family:monospace;">
+          </div>
+        </div>
+        <div class="input-group" style="flex:1;">
+          <label>Pontuacao</label>
+          <select class="select" id="setup-score-mode">
+            <option value="fresh">Zerar para cada atividade</option>
+            <option value="accumulate">Acumular ao longo da sessao</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:100%;margin-bottom:4px;">Temas rapidos:</p>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#2563EB')">Orievo Blue</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#059669')">Safety Green</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#1E293B')">Corporate Dark</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#EA580C')">Energy Orange</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#7C3AED')">Roxo</button>
+      </div>
     </div>
 
-    <footer class="footer-profissional">
-        <p>&copy; 2026 <strong>ORIEVO GROUP</strong>. Todos os direitos reservados.</p>
-        <p>Plataforma desenvolvida para <strong>Grupo Dislub Equador</strong></p>
-        <p style="margin-top: 10px; font-size: 12px;">Soluções em Treinamento e Desenvolvimento</p>
-    </footer>
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <p style="font-weight:700;font-size:16px;">Atividades</p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('quiz')">+ Quiz</button>
+          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('truefalse')">+ V/F</button>
+          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('wordcloud')">+ Nuvem</button>
+        </div>
+      </div>
+      <div id="activity-list">
+        <p style="color:var(--text-muted);font-size:14px;text-align:center;padding:20px 0;">Adicione atividades acima.</p>
+      </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <button class="btn btn-primary btn-block btn-lg" onclick="createSession()">Criar Sessao</button>
+  </div>
+</div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getDatabase, ref, set, update, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+<!-- P3: Waiting Room -->
+<div id="scn-p-waiting" class="screen">
+  <div style="max-width:800px;width:100%;">
+    <div class="topbar">
+      <div id="waiting-logo-wrap"></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="conn-dot online" id="conn-dot-waiting"></span>
+        <button class="btn btn-outline" style="font-size:13px;" onclick="confirmEndSession()">Encerrar</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="card" style="text-align:center;">
+        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Participantes</p>
+        <div class="participant-count" id="waiting-count">0</div>
+        <p style="color:var(--text-muted);margin-top:8px;font-size:14px;">conectados</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">QR Code / Link</p>
+        <div class="qr-wrap" id="waiting-qr" style="margin:0 auto 12px;"></div>
+        <p style="font-size:11px;color:var(--text-muted);word-break:break-all;" id="waiting-link"></p>
+        <button class="btn btn-outline" style="margin-top:10px;font-size:12px;" onclick="copyLink()">Copiar Link</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px;text-align:center;">
+      <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">Aguardando participantes. Pressione <strong>Enter</strong> para iniciar a primeira atividade.</p>
+      <button class="btn btn-success btn-lg" onclick="startFirstActivity()">Iniciar  [Enter]</button>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;" id="waiting-session-code"></p>
+    </div>
+  </div>
+</div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
-            authDomain: "dislub-equador.firebaseapp.com",
-            databaseURL: "https://dislub-equador-default-rtdb.firebaseio.com",
-            projectId: "dislub-equador",
-            storageBucket: "dislub-equador.firebasestorage.app",
-            messagingSenderId: "160052415363",
-            appId: "1:160052415363:web:f17df9700cd511122504b6"
-        };
+<!-- P4: Activity Control (Presenter) -->
+<div id="scn-p-control" class="screen">
+  <div style="max-width:800px;width:100%;">
+    <div class="topbar">
+      <div id="control-logo-wrap"></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="badge badge-blue" id="control-activity-badge"></span>
+        <button class="btn btn-outline" style="font-size:13px;" onclick="confirmEndSession()">Encerrar</button>
+      </div>
+    </div>
 
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        
-        window.firebaseDB = database;
-        window.firebaseRef = ref;
-        window.firebaseSet = set;
-        window.firebaseUpdate = update;
-        window.firebaseOnValue = onValue;
-        window.firebaseReady = true;
-        
-        console.log('🔥 Firebase OK');
-    </script>
+    <!-- Question display -->
+    <div class="card" style="margin-bottom:16px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;" id="control-type-label">QUIZ</p>
+      <p style="font-size:22px;font-weight:700;line-height:1.3;" id="control-question">-</p>
+      <div id="control-options" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;"></div>
+    </div>
 
-    <script>
-        const PERGUNTAS = {
-            quiz1: [
-                { 
-                    pergunta: "Qual é a principal diferença de foco entre a Segurança do Trabalho (Ocupacional) e a Segurança de Processo, conforme o Caderno do Líder?", 
-                    opcoes: [
-                        "A segurança de processo lida apenas com EPIs, enquanto a ocupacional lida com válvulas de alívio.", 
-                        "A segurança ocupacional foca em grandes catástrofes, enquanto a de processo foca em ergonomia.", 
-                        "A segurança ocupacional foca no indivíduo, enquanto a de processo foca na integridade das instalações", 
-                        "Não há diferença prática, pois ambas visam apenas o cumprimento da legislação trabalhista."
-                    ], 
-                    correta: 2 
-                },
-                { 
-                    pergunta: "No contexto da gestão de barreiras, como são classificados os 'Procedimentos Operacionais' e as 'Permissões de Trabalho'?", 
-                    opcoes: [
-                        "Barreiras Reativas", 
-                        "Barreiras físicas", 
-                        "Barreiras administrativas", 
-                        "Barreiras humanas"
-                    ], 
-                    correta: 2 
-                },
-                { 
-                    pergunta: "O que significa tratar a segurança como um 'Valor' em vez de apenas uma 'Prioridade'?", 
-                    opcoes: [
-                        "Significa que a segurança é um princípio intrínseco que não oscila sob pressão.", 
-                        "Significa delegar toda a responsabilidade para o departamento de SSMA.", 
-                        "Significa investir o máximo de dinheiro possível em equipamentos novos.", 
-                        "Significa que a segurança muda conforme a demanda de produção."
-                    ], 
-                    correta: 0 
-                },
-                { 
-                    pergunta: "Qual destes NÃO é um dos 10 compromissos pela vida da GDE?", 
-                    opcoes: [
-                        "Atenção às mudanças", 
-                        "Isole as energias", 
-                        "Controle todas as fontes de ignição", 
-                        "Produtividade em primeiro lugar"
-                    ], 
-                    correta: 3 
-                }
-            ]
-        };
+    <!-- Response tracker -->
+    <div class="response-tracker">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <span class="response-count" id="resp-count">0</span>
+          <span style="font-size:18px;color:var(--text-muted);">/<span id="resp-total">0</span></span>
+        </div>
+        <div class="response-label">respostas recebidas</div>
+      </div>
+      <div style="flex:1;">
+        <div class="progress-bar"><div class="progress-fill" id="resp-bar" style="width:0%"></div></div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" id="resp-pct">0%</p>
+      </div>
+    </div>
 
-        let moduloAtual = null, sessaoAtual = null, nomeAluno = null, pontosAluno = 0;
+    <!-- Wordcloud display (for wordcloud activities) -->
+    <div id="control-wordcloud-wrap" class="card" style="display:none;margin-bottom:16px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;">NUVEM AO VIVO</p>
+      <div class="wordcloud-wrap" id="control-wordcloud"></div>
+    </div>
 
-        function fazerLogin() {
-            const senha = document.getElementById('senhaLogin').value;
-            const nome = document.getElementById('nomeLogin').value;
-            const email = document.getElementById('emailLogin').value;
+    <!-- Action area -->
+    <div class="card card-sm" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <span class="key-hint"><span class="key">Enter</span> <span id="enter-hint-label">Proxima atividade</span></span>
+      <button class="btn btn-primary btn-lg" id="btn-enter-action" onclick="handlePresenterEnter()">Avancar [Enter]</button>
+    </div>
+  </div>
+</div>
 
-            console.log('Login tentado:', { senha, nome, email });
+<!-- P5: Presenter Ranking -->
+<div id="scn-p-ranking" class="screen">
+  <div style="max-width:700px;width:100%;">
+    <div class="topbar">
+      <div id="prank-logo-wrap"></div>
+      <span class="badge badge-blue">Ranking Final</span>
+    </div>
+    <div class="card">
+      <div id="p-ranking-list"></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:20px;">
+      <button class="btn btn-outline btn-block" onclick="showScreen('scn-p-home')">Nova Sessao</button>
+      <button class="btn btn-primary btn-block" onclick="exportRanking()">Exportar CSV</button>
+    </div>
+  </div>
+</div>
 
-            if (senha === 'Arena2026GDE' && nome && email) {
-                console.log('✅ Login OK');
-                moduloAtual = 'arena';
-                document.getElementById('telaInicial').classList.add('hidden');
-                document.getElementById('telaModulo').classList.remove('hidden');
-                mostrarArena(document.getElementById('conteudoModulo'));
-            } else {
-                console.log('❌ Login falhou');
-                alert('⚠️ Preencha todos os campos corretamente!');
-            }
+<!-- ===================== PARTICIPANT SCREENS ===================== -->
+
+<!-- A0: Participant Join -->
+<div id="scn-a-join" class="screen">
+  <div style="max-width:480px;width:100%;margin-top:40px;">
+    <div class="card" style="text-align:center;">
+      <div id="join-logo-wrap" style="margin-bottom:20px;min-height:40px;display:flex;justify-content:center;align-items:center;"></div>
+      <h1 style="font-size:24px;font-weight:800;margin-bottom:6px;" id="join-session-name">Arena Ao Vivo</h1>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px;">Digite seu nome para entrar</p>
+      <div class="input-group" style="text-align:left;">
+        <label>Seu Nome</label>
+        <input class="input" id="a-name-input" placeholder="Ex: Maria Silva" style="font-size:18px;padding:16px;">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="participantJoin()" style="margin-top:8px;">Entrar na Sessao</button>
+      <p id="join-err" style="color:var(--error);font-size:13px;margin-top:10px;display:none;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- A1: Participant Waiting -->
+<div id="scn-a-waiting" class="screen">
+  <div style="max-width:480px;width:100%;margin-top:60px;text-align:center;">
+    <div id="aw-logo-wrap" style="margin-bottom:24px;display:flex;justify-content:center;"></div>
+    <div class="await-icon">&#9200;</div>
+    <div class="await-title" id="aw-name">Olá!</div>
+    <div class="await-sub">Aguardando o apresentador iniciar...</div>
+    <div style="margin-top:32px;">
+      <span class="score-pill">Pontos: <span id="aw-score">0</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- A2: Participant Answer -->
+<div id="scn-a-answer" class="screen">
+  <div style="max-width:480px;width:100%;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span class="score-pill">Pontos: <span id="ans-score">0</span></span>
+      <span class="badge badge-blue" id="ans-activity-num"></span>
+    </div>
+    <div class="card">
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;" id="ans-type-label">QUIZ</p>
+      <p style="font-size:20px;font-weight:700;line-height:1.35;margin-bottom:24px;" id="ans-question">-</p>
+      <div id="ans-options"></div>
+    </div>
+    <div id="ans-already" style="display:none;text-align:center;margin-top:24px;">
+      <p style="color:var(--text-muted);font-size:15px;">Aguardando próxima atividade...</p>
+    </div>
+  </div>
+</div>
+
+<!-- A3: Participant Word Cloud Input -->
+<div id="scn-a-wordcloud" class="screen">
+  <div style="max-width:480px;width:100%;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span class="score-pill">Pontos: <span id="wc-score">0</span></span>
+      <span class="badge badge-yellow">NUVEM DE PALAVRAS</span>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20px;font-weight:700;margin-bottom:24px;" id="wc-question">-</p>
+      <div class="input-group" style="text-align:left;">
+        <label>Sua resposta</label>
+        <input class="input" id="wc-input" placeholder="Digite uma palavra ou frase curta" style="font-size:18px;padding:16px;" maxlength="40">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" id="wc-submit-btn" onclick="submitWordCloud()" style="margin-top:8px;">Enviar</button>
+      <p id="wc-sent" style="display:none;color:var(--success);font-weight:600;margin-top:16px;">Enviado! Aguardando o apresentador...</p>
+    </div>
+  </div>
+</div>
+
+<!-- A4: Participant Ranking -->
+<div id="scn-a-ranking" class="screen">
+  <div style="max-width:480px;width:100%;margin-top:20px;">
+    <div id="ar-logo-wrap" style="margin-bottom:20px;text-align:center;"></div>
+    <div class="card" style="text-align:center;margin-bottom:16px;">
+      <p style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Sua pontuacao final</p>
+      <div style="font-size:56px;font-weight:800;color:var(--accent);" id="ar-my-score">0</div>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:16px;margin-bottom:16px;text-align:center;">Ranking Final</p>
+      <div id="a-ranking-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification -->
+<div class="notification" id="notification"></div>
+
+<!-- Firebase -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, set, get, onValue, update, push, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+const app = initializeApp({
+  apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
+  authDomain: "dislub-equador.firebaseapp.com",
+  databaseURL: "https://dislub-equador-default-rtdb.firebaseio.com",
+  projectId: "dislub-equador",
+  storageBucket: "dislub-equador.firebasestorage.app",
+  messagingSenderId: "160052415363",
+  appId: "1:160052415363:web:f17df9700cd511122504b6"
+});
+
+const db = getDatabase(app);
+window._fb = { db, ref, set, get, onValue, update, push, remove };
+window.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════
+const DEFAULT_PASSWORD = 'Arena2026GDE';
+function getPresenterPwd() { return localStorage.getItem('arena_pwd') || DEFAULT_PASSWORD; }
+const ARENA_PATH = 'arena_v2';
+const POINTS_CORRECT = 100;
+const WC_COLORS = ['#2563EB','#7C3AED','#059669','#D97706','#DC2626','#0891B2','#9333EA','#16A34A','#C2410C'];
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let fb = null;           // Firebase API
+let presenterMode = false;
+let sessionId = null;    // current session code
+let sessionConfig = {};  // { name, logo, color, scoreMode, activities }
+let activities = [];     // array built in setup
+
+// Participant
+let participantId = null;
+let participantName = null;
+let participantScore = 0;
+
+// Presenter control state
+let currentActivityIndex = 0;
+let currentStatus = 'waiting'; // waiting | question | show_answer | wordcloud_input | wordcloud_display | ranking | ended
+let presenterUnsubscribe = null;
+let lastResponseCount = 0;
+let allAnsweredNotified = false;
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+window.addEventListener('firebase-ready', () => {
+  fb = window._fb;
+  updateConnDot(true);
+  const params = new URLSearchParams(location.search);
+  const sid = params.get('s');
+  if (sid) {
+    sessionId = sid;
+    participantInit(sid);
+  } else {
+    showScreen('scn-p-login');
+    document.getElementById('p-login-pwd').addEventListener('keydown', e => { if (e.key === 'Enter') presenterLogin(); });
+  }
+});
+
+// Keyboard control (Enter key for presenter)
+document.addEventListener('keydown', e => {
+  if (presenterMode && e.key === 'Enter' && !e.target.matches('input, textarea, select, button')) {
+    e.preventDefault();
+    handlePresenterEnter();
+  }
+});
+
+// Sync color picker <-> hex input
+document.getElementById('setup-color').addEventListener('input', e => {
+  document.getElementById('setup-color-hex').value = e.target.value;
+});
+document.getElementById('setup-color-hex').addEventListener('input', e => {
+  const v = e.target.value;
+  if (/^#[0-9A-Fa-f]{6}$/.test(v)) document.getElementById('setup-color').value = v;
+});
+
+// ═══════════════════════════════════════════════════
+// SCREEN MANAGER
+// ═══════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+window.showScreen = showScreen;
+
+function updateConnDot(online) {
+  ['conn-dot-login','conn-dot-waiting'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'conn-dot ' + (online ? 'online' : 'offline');
+  });
+  const lbl = document.getElementById('conn-label-login');
+  if (lbl) lbl.textContent = online ? 'Conectado ao Firebase' : 'Sem conexao';
+}
+
+function notify(msg, type = 'success') {
+  const el = document.getElementById('notification');
+  el.textContent = msg;
+  el.style.background = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--error)' : 'var(--warning)';
+  el.classList.add('show');
+  if (type === 'success') playBeep(880);
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 4000);
+}
+
+function playBeep(freq = 880) {
+  try {
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    osc.start(); osc.stop(ctx.currentTime + 0.5);
+  } catch(e) {}
+}
+
+function applyAccentColor(color) {
+  document.documentElement.style.setProperty('--accent', color);
+  // derive dark
+  document.documentElement.style.setProperty('--accent-dark', color);
+  document.documentElement.style.setProperty('--accent-light', color + '18');
+}
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — LOGIN
+// ═══════════════════════════════════════════════════
+function presenterLogin() {
+  const pwd = document.getElementById('p-login-pwd').value;
+  if (pwd === getPresenterPwd()) {
+    presenterMode = true;
+    loadPresenterHome();
+  } else {
+    document.getElementById('p-login-err').style.display = 'block';
+  }
+}
+window.presenterLogin = presenterLogin;
+
+function changePwd() {
+  const atual = prompt('Senha atual (ou deixe em branco se for a primeira vez):');
+  if (atual !== null && atual !== getPresenterPwd() && atual !== '') {
+    alert('Senha atual incorreta.'); return;
+  }
+  const nova = prompt('Nova senha:');
+  if (!nova || nova.trim().length < 4) { alert('Senha muito curta (minimo 4 caracteres).'); return; }
+  const confirma = prompt('Confirme a nova senha:');
+  if (nova !== confirma) { alert('As senhas nao coincidem.'); return; }
+  localStorage.setItem('arena_pwd', nova.trim());
+  alert('Senha alterada com sucesso!');
+}
+window.changePwd = changePwd;
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — HOME (session list)
+// ═══════════════════════════════════════════════════
+function loadPresenterHome() {
+  showScreen('scn-p-home');
+  loadSessionList();
+  loadThemeList();
+}
+
+function loadSessionList() {
+  if (!fb) return;
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions'), snap => {
+    const sessions = snap.val() || {};
+    const wrap = document.getElementById('p-session-list');
+    const active = Object.entries(sessions)
+      .filter(([,s]) => s.status !== 'ended')
+      .sort((a,b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+
+    if (!active.length) {
+      wrap.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">Nenhuma sessao ativa.</p>';
+      return;
+    }
+    wrap.innerHTML = active.map(([id, s]) => `
+      <div class="session-row" onclick="resumeSession('${id}')">
+        <div>
+          <div style="font-weight:700;">${s.name}</div>
+          <div style="font-size:13px;color:var(--text-muted);">Codigo: ${id} &bull; ${Object.keys(s.participants||{}).length} participantes</div>
+        </div>
+        <span class="badge badge-${s.status==='waiting'?'yellow':'blue'}">${s.status==='waiting'?'Aguardando':'Em andamento'}</span>
+      </div>
+    `).join('');
+  }, { onlyOnce: true });
+}
+
+function loadThemeList() {
+  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
+  const wrap = document.getElementById('p-theme-list');
+  if (!themes.length) { wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Nenhum tema salvo.</p>'; return; }
+  wrap.innerHTML = themes.map((t,i) => `
+    <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid ${t.color};" onclick="loadTheme(${i})">${t.name}</button>
+  `).join('');
+}
+
+function resumeSession(id) {
+  sessionId = id;
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + id), snap => {
+    const s = snap.val();
+    if (!s) return;
+    sessionConfig = s.config || {};
+    applyAccentColor(sessionConfig.color || '#2563EB');
+    if (s.status === 'waiting') {
+      showWaitingRoom();
+    } else {
+      currentActivityIndex = s.currentActivityIndex || 0;
+      currentStatus = s.status;
+      showControlScreen();
+    }
+  }, { onlyOnce: true });
+}
+window.resumeSession = resumeSession;
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — SESSION SETUP
+// ═══════════════════════════════════════════════════
+activities = [];
+
+function addActivity(type) {
+  const id = Date.now();
+  activities.push({ id, type, question: '', options: ['','','',''], correct: 0, points: POINTS_CORRECT });
+  renderActivityList();
+}
+window.addActivity = addActivity;
+
+function removeActivity(id) {
+  activities = activities.filter(a => a.id !== id);
+  renderActivityList();
+}
+window.removeActivity = removeActivity;
+
+function renderActivityList() {
+  const wrap = document.getElementById('activity-list');
+  if (!activities.length) {
+    wrap.innerHTML = '<p style="color:var(--text-muted);font-size:14px;text-align:center;padding:20px 0;">Adicione atividades acima.</p>';
+    return;
+  }
+  wrap.innerHTML = activities.map((a, idx) => {
+    const typeLabel = { quiz:'Quiz (Multipla Escolha)', truefalse:'Verdadeiro ou Falso', wordcloud:'Nuvem de Palavras' }[a.type];
+    const optionsHtml = a.type === 'wordcloud' ? '' : (a.type === 'truefalse'
+      ? `<div style="display:flex;gap:10px;margin-top:8px;">
+           <button class="btn ${a.correct===0?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},0)">Verdadeiro</button>
+           <button class="btn ${a.correct===1?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},1)">Falso</button>
+         </div>`
+      : a.options.map((opt, oi) => `
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+            <button class="btn ${a.correct===oi?'btn-success':'btn-outline'}" style="font-size:12px;padding:6px 12px;min-width:36px;" onclick="setCorrect(${a.id},${oi})" title="Marcar como correta">${String.fromCharCode(65+oi)}</button>
+            <input class="input" style="flex:1;" value="${opt}" placeholder="Opcao ${String.fromCharCode(65+oi)}" oninput="updateOption(${a.id},${oi},this.value)">
+          </div>`).join(''));
+    return `
+      <div class="activity-item">
+        <div class="activity-header">
+          <span class="badge badge-blue" style="font-size:11px;">${idx+1}. ${typeLabel}</span>
+          <button class="btn" style="padding:4px 10px;font-size:12px;background:var(--error-light);color:var(--error);" onclick="removeActivity(${a.id})">Remover</button>
+        </div>
+        <input class="input" placeholder="Pergunta / Enunciado" value="${a.question}" oninput="updateQuestion(${a.id},this.value)">
+        ${optionsHtml}
+      </div>`;
+  }).join('');
+}
+
+function updateQuestion(id, val) { const a = activities.find(x => x.id===id); if(a) a.question = val; }
+window.updateQuestion = updateQuestion;
+function updateOption(id, oi, val) { const a = activities.find(x => x.id===id); if(a) a.options[oi] = val; }
+window.updateOption = updateOption;
+function setCorrect(id, oi) { const a = activities.find(x => x.id===id); if(a) { a.correct = oi; renderActivityList(); } }
+window.setCorrect = setCorrect;
+
+function applyTheme(color) {
+  document.getElementById('setup-color').value = color;
+  document.getElementById('setup-color-hex').value = color;
+  applyAccentColor(color);
+}
+window.applyTheme = applyTheme;
+
+function loadTheme(i) {
+  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
+  const t = themes[i];
+  if (!t) return;
+  applyTheme(t.color);
+}
+window.loadTheme = loadTheme;
+
+function showSaveThemeModal() {
+  const name = prompt('Nome para este tema:');
+  if (!name) return;
+  const color = document.getElementById('setup-color').value;
+  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
+  themes.push({ name, color });
+  localStorage.setItem('arena_themes', JSON.stringify(themes));
+  notify('Tema "' + name + '" salvo!');
+  loadThemeList();
+}
+window.showSaveThemeModal = showSaveThemeModal;
+
+function createSession() {
+  const name = document.getElementById('setup-name').value.trim();
+  if (!name) { notify('Digite o nome da sessao.', 'error'); return; }
+  if (!activities.length) { notify('Adicione pelo menos uma atividade.', 'error'); return; }
+  for (const a of activities) {
+    if (!a.question.trim()) { notify('Preencha o enunciado de todas as atividades.', 'error'); return; }
+    if (a.type === 'quiz') {
+      const filled = a.options.filter(o => o.trim()).length;
+      if (filled < 2) { notify('Cada quiz precisa de pelo menos 2 opcoes.', 'error'); return; }
+    }
+  }
+
+  sessionId = genCode();
+  sessionConfig = {
+    name,
+    logo: document.getElementById('setup-logo').value.trim(),
+    color: document.getElementById('setup-color').value,
+    scoreMode: document.getElementById('setup-score-mode').value,
+    activities: activities.map(a => ({ ...a }))
+  };
+
+  applyAccentColor(sessionConfig.color);
+
+  const { db, ref, set } = fb;
+  set(ref(db, ARENA_PATH + '/sessions/' + sessionId), {
+    name,
+    config: sessionConfig,
+    status: 'waiting',
+    currentActivityIndex: 0,
+    participants: {},
+    createdAt: Date.now()
+  }).then(() => {
+    showWaitingRoom();
+  }).catch(err => {
+    notify('Erro Firebase: ' + err.message, 'error');
+  });
+}
+window.createSession = createSession;
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — WAITING ROOM
+// ═══════════════════════════════════════════════════
+function showWaitingRoom() {
+  showScreen('scn-p-waiting');
+  const link = location.origin + location.pathname + '?s=' + sessionId;
+  document.getElementById('waiting-link').textContent = link;
+  document.getElementById('waiting-session-code').textContent = 'Codigo: ' + sessionId;
+
+  const logoWrap = document.getElementById('waiting-logo-wrap');
+  if (sessionConfig.logo) {
+    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo" onerror="this.style.display='none'">`;
+  } else {
+    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
+  }
+
+  document.getElementById('waiting-qr').innerHTML = '';
+  new QRCode(document.getElementById('waiting-qr'), { text: link, width: 140, height: 140, correctLevel: QRCode.CorrectLevel.M });
+
+  // Listen to participants
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants'), snap => {
+    const count = snap.val() ? Object.keys(snap.val()).length : 0;
+    document.getElementById('waiting-count').textContent = count;
+  });
+}
+
+window.copyLink = function() {
+  const link = location.origin + location.pathname + '?s=' + sessionId;
+  navigator.clipboard.writeText(link).then(() => notify('Link copiado!'));
+};
+
+window.startFirstActivity = function() {
+  currentActivityIndex = 0;
+  pushActivity();
+};
+
+// ═══════════════════════════════════════════════════
+// PRESENTER — ACTIVITY CONTROL
+// ═══════════════════════════════════════════════════
+function pushActivity() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act) { pushRanking(); return; }
+
+  currentStatus = act.type === 'wordcloud' ? 'wordcloud_input' : 'question';
+  allAnsweredNotified = false;
+  lastResponseCount = 0;
+
+  const { db, ref, update } = fb;
+  update(ref(db, ARENA_PATH + '/sessions/' + sessionId), {
+    status: currentStatus,
+    currentActivityIndex,
+    currentActivity: {
+      index: currentActivityIndex,
+      type: act.type,
+      question: act.question,
+      options: act.options || [],
+      correct: act.correct ?? 0,
+      points: act.points || POINTS_CORRECT,
+      startedAt: Date.now()
+    }
+  });
+
+  showControlScreen();
+}
+
+function showControlScreen() {
+  showScreen('scn-p-control');
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act) return;
+
+  // Logo
+  const logoWrap = document.getElementById('control-logo-wrap');
+  if (sessionConfig.logo) {
+    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo">`;
+  } else {
+    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
+  }
+
+  document.getElementById('control-activity-badge').textContent = `${currentActivityIndex+1} / ${sessionConfig.activities.length}`;
+
+  const typeLabels = { quiz:'QUIZ', truefalse:'VERDADEIRO OU FALSO', wordcloud:'NUVEM DE PALAVRAS' };
+  document.getElementById('control-type-label').textContent = typeLabels[act.type] || act.type;
+  document.getElementById('control-question').textContent = act.question;
+
+  // Options display (presenter reference)
+  const optsWrap = document.getElementById('control-options');
+  if (act.type === 'quiz') {
+    optsWrap.innerHTML = act.options.filter(o=>o).map((o,i) => `
+      <span style="background:${i===act.correct?'var(--success-light)':'var(--bg)'};border:2px solid ${i===act.correct?'var(--success)':'var(--border)'};
+        border-radius:8px;padding:8px 14px;font-size:14px;font-weight:${i===act.correct?700:400};">
+        ${String.fromCharCode(65+i)}) ${o}
+      </span>`).join('');
+  } else if (act.type === 'truefalse') {
+    optsWrap.innerHTML = ['Verdadeiro','Falso'].map((o,i) => `
+      <span style="background:${i===act.correct?'var(--success-light)':'var(--bg)'};border:2px solid ${i===act.correct?'var(--success)':'var(--border)'};
+        border-radius:8px;padding:8px 14px;font-size:14px;font-weight:${i===act.correct?700:400};">${o}</span>`).join('');
+  } else {
+    optsWrap.innerHTML = '';
+  }
+
+  // Wordcloud
+  document.getElementById('control-wordcloud-wrap').style.display = act.type === 'wordcloud' ? 'block' : 'none';
+  if (act.type === 'wordcloud') {
+    listenWordCloud();
+  }
+
+  updateEnterHint();
+  listenResponses();
+}
+
+function updateEnterHint() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  const isLast = currentActivityIndex >= sessionConfig.activities.length - 1;
+  let label = '';
+  if (currentStatus === 'question' || currentStatus === 'wordcloud_input') {
+    label = 'Exibir gabarito';
+  } else if (currentStatus === 'show_answer' || currentStatus === 'wordcloud_display') {
+    label = isLast ? 'Ver ranking' : 'Proxima atividade';
+  } else if (currentStatus === 'ranking') {
+    label = 'Encerrar sessao';
+  }
+  document.getElementById('enter-hint-label').textContent = label;
+  document.getElementById('btn-enter-action').textContent = label + '  [Enter]';
+}
+
+function listenResponses() {
+  if (presenterUnsubscribe) presenterUnsubscribe();
+  const { db, ref, onValue } = fb;
+  const unsubResp = onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId), snap => {
+    const s = snap.val();
+    if (!s) return;
+
+    const totalPart = Object.keys(s.participants || {}).length;
+    const responses = (s.responses || {})[currentActivityIndex] || {};
+    const wordcloud = (s.wordcloud || {})[currentActivityIndex] || {};
+    const act = sessionConfig.activities[currentActivityIndex];
+
+    let responseCount = 0;
+    if (act && act.type === 'wordcloud') {
+      responseCount = Object.keys(wordcloud).length;
+      renderWordCloud(wordcloud, 'control-wordcloud');
+    } else {
+      responseCount = Object.keys(responses).length;
+    }
+
+    document.getElementById('resp-count').textContent = responseCount;
+    document.getElementById('resp-total').textContent = totalPart;
+    const pct = totalPart > 0 ? Math.round((responseCount / totalPart) * 100) : 0;
+    document.getElementById('resp-bar').style.width = pct + '%';
+    document.getElementById('resp-pct').textContent = pct + '%';
+
+    if (totalPart > 0 && responseCount >= totalPart && !allAnsweredNotified) {
+      allAnsweredNotified = true;
+      notify('Todos responderam! Pressione Enter para continuar.', 'success');
+    }
+  });
+  presenterUnsubscribe = () => unsubResp();
+}
+
+function listenWordCloud() {
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/wordcloud/' + currentActivityIndex), snap => {
+    renderWordCloud(snap.val() || {}, 'control-wordcloud');
+  });
+}
+
+window.handlePresenterEnter = function() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act) return;
+  const isLast = currentActivityIndex >= sessionConfig.activities.length - 1;
+
+  if (currentStatus === 'question') {
+    // Show answer
+    currentStatus = 'show_answer';
+    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'show_answer' });
+    updateEnterHint();
+  } else if (currentStatus === 'wordcloud_input') {
+    // Show word cloud
+    currentStatus = 'wordcloud_display';
+    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'wordcloud_display' });
+    updateEnterHint();
+  } else if (currentStatus === 'show_answer' || currentStatus === 'wordcloud_display') {
+    if (isLast) {
+      pushRanking();
+    } else {
+      currentActivityIndex++;
+      pushActivity();
+    }
+  } else if (currentStatus === 'ranking') {
+    endSession();
+  }
+};
+
+function pushRanking() {
+  currentStatus = 'ranking';
+  fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'ranking' });
+  showPresenterRanking();
+}
+
+function showPresenterRanking() {
+  showScreen('scn-p-ranking');
+  const logoWrap = document.getElementById('prank-logo-wrap');
+  if (sessionConfig.logo) {
+    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo">`;
+  } else {
+    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
+  }
+
+  const { db, ref, onValue } = fb;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants'), snap => {
+    const parts = snap.val() || {};
+    renderRanking(parts, 'p-ranking-list', null);
+  });
+}
+
+function endSession() {
+  fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'ended' });
+  showScreen('scn-p-home');
+  notify('Sessao encerrada.');
+  loadPresenterHome();
+}
+
+window.confirmEndSession = function() {
+  if (confirm('Encerrar a sessao agora?')) endSession();
+};
+
+window.exportRanking = function() {
+  const { db, ref, get } = fb;
+  get(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants')).then(snap => {
+    const parts = snap.val() || {};
+    const rows = [['Nome','Pontos']];
+    const sorted = Object.values(parts).sort((a,b) => (b.score||0)-(a.score||0));
+    sorted.forEach(p => rows.push([p.name, p.score || 0]));
+    const csv = rows.map(r => r.join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'ranking_' + sessionId + '.csv';
+    a.click();
+  });
+};
+
+// ═══════════════════════════════════════════════════
+// PARTICIPANT — INIT
+// ═══════════════════════════════════════════════════
+function participantInit(sid) {
+  // Check if already joined this session
+  participantId = localStorage.getItem('arena_pid_' + sid);
+  participantName = localStorage.getItem('arena_pname_' + sid);
+
+  const { db, ref, onValue, get } = fb;
+  get(ref(db, ARENA_PATH + '/sessions/' + sid)).then(snap => {
+    const s = snap.val();
+    if (!s || s.status === 'ended') {
+      showScreen('scn-a-join');
+      document.getElementById('join-session-name').textContent = 'Sessao nao encontrada ou encerrada.';
+      return;
+    }
+
+    // Apply session style
+    const cfg = s.config || {};
+    if (cfg.color) applyAccentColor(cfg.color);
+
+    // Join screen branding
+    const logo = cfg.logo;
+    if (logo) {
+      document.getElementById('join-logo-wrap').innerHTML = `<img src="${logo}" class="session-logo">`;
+      ['aw-logo-wrap','ar-logo-wrap'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<img src="${logo}" class="session-logo">`;
+      });
+    }
+    document.getElementById('join-session-name').textContent = s.name || 'Arena Ao Vivo';
+
+    if (participantId && participantName) {
+      // Already registered — go straight to waiting/current
+      participantScore = (s.participants?.[participantId]?.score) || 0;
+      subscribeSession(sid);
+    } else {
+      showScreen('scn-a-join');
+      document.getElementById('a-name-input').addEventListener('keydown', e => { if(e.key==='Enter') participantJoin(); });
+    }
+  }).catch(() => {
+    showScreen('scn-a-join');
+    document.getElementById('join-err').textContent = 'Erro de conexao. Verifique sua internet.';
+    document.getElementById('join-err').style.display = 'block';
+  });
+}
+
+window.participantJoin = function() {
+  const name = document.getElementById('a-name-input').value.trim();
+  if (!name) { document.getElementById('join-err').textContent='Digite seu nome.'; document.getElementById('join-err').style.display='block'; return; }
+
+  participantId = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+  participantName = name;
+  participantScore = 0;
+  localStorage.setItem('arena_pid_' + sessionId, participantId);
+  localStorage.setItem('arena_pname_' + sessionId, name);
+
+  const { db, ref, set } = fb;
+  set(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants/' + participantId), {
+    name,
+    score: 0,
+    joinedAt: Date.now()
+  }).then(() => {
+    subscribeSession(sessionId);
+  });
+};
+
+
+function showParticipantWaiting() {
+  showScreen('scn-a-waiting');
+  if (participantName) document.getElementById('aw-name').textContent = 'Olá, ' + participantName + '!';
+  document.getElementById('aw-score').textContent = participantScore;
+}
+
+function showParticipantAlreadyAnswered() {
+  showScreen('scn-a-answer');
+  document.getElementById('ans-options').innerHTML = '';
+  document.getElementById('ans-already').style.display = 'block';
+  document.getElementById('ans-score').textContent = participantScore;
+}
+
+function showParticipantAnswer(act, actIdx) {
+  showScreen('scn-a-answer');
+  document.getElementById('ans-already').style.display = 'none';
+  document.getElementById('ans-score').textContent = participantScore;
+  document.getElementById('ans-activity-num').textContent = 'Atividade ' + (actIdx + 1);
+  document.getElementById('ans-type-label').textContent = act.type === 'truefalse' ? 'VERDADEIRO OU FALSO' : 'QUIZ';
+  document.getElementById('ans-question').textContent = act.question || '-';
+
+  let options = act.options || [];
+  if (act.type === 'truefalse') options = ['Verdadeiro', 'Falso'];
+
+  document.getElementById('ans-options').innerHTML = options.filter(o=>o).map((opt, i) => `
+    <button class="option-btn" id="opt-${i}" onclick="submitAnswer(${i}, ${act.correct ?? 0}, '${sessionId}', ${actIdx}, ${act.points || POINTS_CORRECT})">
+      ${act.type !== 'truefalse' ? `<strong>${String.fromCharCode(65+i)})</strong> ` : ''}${opt}
+    </button>`).join('');
+}
+
+window.submitAnswer = function(chosen, correct, sid, actIdx, points) {
+  const alreadyKey = 'arena_ans_' + sid + '_' + actIdx;
+  if (localStorage.getItem(alreadyKey)) return;
+  localStorage.setItem(alreadyKey, chosen);
+
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  // Visual feedback will come from show_answer status change
+  // But also give immediate local feedback
+  const acertou = chosen === correct;
+  const btn = document.getElementById('opt-' + chosen);
+  if (btn) btn.classList.add(acertou ? 'correct' : 'wrong');
+
+  if (acertou) {
+    participantScore += points;
+    // Update score in Firebase
+    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sid + '/participants/' + participantId), {
+      score: participantScore
+    });
+  }
+
+  // Save response in Firebase
+  fb.set(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sid + '/responses/' + actIdx + '/' + participantId), {
+    answer: chosen,
+    correct: acertou,
+    timestamp: Date.now()
+  });
+
+  document.getElementById('ans-score').textContent = participantScore;
+};
+
+function highlightAnswer(act, actIdx) {
+  // If on answer screen, show the correct answer highlight
+  const ansScreen = document.getElementById('scn-a-answer');
+  if (!ansScreen.classList.contains('active')) return;
+  const correct = act.correct ?? 0;
+  document.querySelectorAll('.option-btn').forEach((b, i) => {
+    b.disabled = true;
+    if (i === correct) b.classList.add('correct');
+  });
+}
+
+function showParticipantWordcloud(act, actIdx) {
+  const alreadyKey = 'arena_ans_' + sessionId + '_' + actIdx;
+  if (localStorage.getItem(alreadyKey)) { showParticipantAlreadyAnswered(); return; }
+  showScreen('scn-a-wordcloud');
+  document.getElementById('wc-score').textContent = participantScore;
+  document.getElementById('wc-question').textContent = act.question || 'O que vem a sua mente?';
+  document.getElementById('wc-input').value = '';
+  document.getElementById('wc-sent').style.display = 'none';
+  document.getElementById('wc-submit-btn').disabled = false;
+  document.getElementById('wc-submit-btn').style.display = 'inline-flex';
+}
+
+window.submitWordCloud = function() {
+  const word = document.getElementById('wc-input').value.trim();
+  if (!word) return;
+  const alreadyKey = 'arena_ans_' + sessionId + '_' + currentActivityIndexForParticipant;
+  localStorage.setItem(alreadyKey, word);
+
+  document.getElementById('wc-submit-btn').disabled = true;
+  document.getElementById('wc-submit-btn').style.display = 'none';
+  document.getElementById('wc-sent').style.display = 'block';
+
+  fb.set(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId + '/wordcloud/' + currentActivityIndexForParticipant + '/' + participantId), {
+    word: word.toLowerCase().trim(),
+    timestamp: Date.now()
+  });
+};
+
+let currentActivityIndexForParticipant = 0;
+
+function subscribeSession(sid) {
+  const { db, ref, onValue } = fb;
+  let lastStatus = null;
+  let lastActIdx = null;
+  onValue(ref(db, ARENA_PATH + '/sessions/' + sid), snap => {
+    const s = snap.val();
+    if (!s) return;
+    currentActivityIndexForParticipant = s.currentActivityIndex ?? 0;
+    const status = s.status;
+    const actIdx = s.currentActivityIndex ?? 0;
+    const act = s.currentActivity || {};
+    const cfg = s.config || {};
+    if (cfg.color) applyAccentColor(cfg.color);
+    participantScore = (s.participants?.[participantId]?.score) || participantScore;
+    const statusChanged = status !== lastStatus;
+    const actChanged = actIdx !== lastActIdx;
+    lastStatus = status;
+    lastActIdx = actIdx;
+    if (status === 'waiting') {
+      showParticipantWaiting();
+    } else if (status === 'question' || status === 'wordcloud_input') {
+      if (statusChanged || actChanged) {
+        const alreadyKey = 'arena_ans_' + sid + '_' + actIdx;
+        if (localStorage.getItem(alreadyKey)) {
+          showParticipantAlreadyAnswered();
+        } else if (status === 'wordcloud_input') {
+          showParticipantWordcloud(act, actIdx);
+        } else {
+          showParticipantAnswer(act, actIdx);
         }
+      }
+    } else if (status === 'show_answer') {
+      if (statusChanged || actChanged) highlightAnswer(act, actIdx);
+    } else if (status === 'wordcloud_display') {
+      if (statusChanged) showParticipantAlreadyAnswered();
+    } else if (status === 'ranking' || status === 'ended') {
+      if (statusChanged) showParticipantRanking(s.participants || {}, sid);
+    }
+  });
+}
 
-        // Detectar código na URL (modo aluno)
-        window.addEventListener('load', function() {
-            const params = new URLSearchParams(window.location.search);
-            const codigo = params.get('codigo');
-            
-            if (codigo) {
-                console.log('🎮 Código detectado na URL:', codigo);
-                
-                // Aguardar Firebase carregar
-                const aguardarFirebase = setInterval(() => {
-                    if (window.firebaseReady) {
-                        clearInterval(aguardarFirebase);
-                        console.log('🔥 Firebase pronto, verificando sessão...');
-                        
-                        const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                        window.firebaseOnValue(sessaoRef, (snapshot) => {
-                            if (snapshot.val()) {
-                                console.log('✅ Sessão encontrada!');
-                                mostrarTelaAluno(codigo);
-                            } else {
-                                alert('❌ Sessão não encontrada: ' + codigo);
-                            }
-                        }, { onlyOnce: true });
-                    }
-                }, 100);
-                
-                // Timeout de segurança
-                setTimeout(() => {
-                    clearInterval(aguardarFirebase);
-                    if (!window.firebaseReady) {
-                        alert('⏳ Firebase está demorando para carregar. Tente novamente.');
-                    }
-                }, 10000);
-            }
-        });
+function showParticipantRanking(participants, sid) {
+  showScreen('scn-a-ranking');
+  document.getElementById('ar-my-score').textContent = participantScore;
+  const logoWrap = document.getElementById('ar-logo-wrap');
+  // Apply session name if logo was set
+  renderRanking(participants, 'a-ranking-list', participantId);
+}
 
-        function voltarInicio() {
-            document.getElementById('telaModulo').classList.add('hidden');
-            document.getElementById('telaAluno').classList.add('hidden');
-            document.getElementById('telaInicial').classList.remove('hidden');
-            document.getElementById('inputSenha').value = '';
-            document.getElementById('inputNome').value = '';
-            document.getElementById('inputEmail').value = '';
-        }
+// ═══════════════════════════════════════════════════
+// RANKING RENDERER
+// ═══════════════════════════════════════════════════
+function renderRanking(participants, targetId, highlightPid) {
+  const sorted = Object.entries(participants)
+    .map(([pid, p]) => ({ pid, name: p.name, score: p.score || 0 }))
+    .sort((a,b) => b.score - a.score);
 
-        function mostrarArena(container) {
-            const numPerguntas = PERGUNTAS.quiz1.length;
-            
-            container.innerHTML = `
-                <div class="arena-container">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
-                        
-                        <!-- CARD QUIZ -->
-                        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #9b59b6;">
-                            <h3 style="color: #9b59b6; margin-bottom: 20px; text-align: center;">📊 Quiz Interativo</h3>
-                            <p style="text-align: center; color: #666; margin-bottom: 10px;">Perguntas e respostas em tempo real</p>
-                            <p style="text-align: center; color: #9b59b6; font-weight: 600; margin-bottom: 20px; font-size: 14px;">${numPerguntas} ${numPerguntas === 1 ? 'pergunta' : 'perguntas'} cadastradas</p>
-                            <button class="btn-arena" onclick="mostrarFormularioQuiz()" style="width: 100%; background: #9b59b6;">🎮 CRIAR QUIZ</button>
-                        </div>
-                        
-                        <!-- CARD NUVEM -->
-                        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #3498db;">
-                            <h3 style="color: #3498db; margin-bottom: 20px; text-align: center;">☁️ Nuvem de Palavras</h3>
-                            <p style="text-align: center; color: #666; margin-bottom: 20px;">Coleta de palavras do grupo</p>
-                            <button class="btn-arena" onclick="mostrarFormularioNuvem()" style="width: 100%; background: #3498db;">☁️ CRIAR NUVEM</button>
-                        </div>
-                        
-                    </div>
-                </div>
-            `;
-        }
+  const medals = ['gold','silver','bronze'];
+  const posEmoji = ['1', '2', '3'];
 
-        function mostrarFormularioQuiz() {
-            const numPerguntas = PERGUNTAS.quiz1.length;
-            
-            document.getElementById('conteudoModulo').innerHTML = `
-                <div class="arena-container">
-                    <div class="arena-card">
-                        <h2 style="text-align: center; color: #9b59b6; margin-bottom: 30px;">🎮 Criar Quiz Interativo</h2>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">📝 Nome da Sessão:</label>
-                            <input type="text" id="nomeSessaoQuiz" placeholder="Ex: DDS Terça-feira" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
-                        </div>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">🔑 Código Fixo (opcional - 6 caracteres):</label>
-                            <input type="text" id="codigoFixo" placeholder="Ex: QUIZ01 (deixe vazio para automático)" maxlength="6" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; text-transform: uppercase;">
-                            <small style="color: #28a745; display: block; margin-top: 8px; font-weight: 600;">💡 Use sempre o mesmo código para ter QR Code fixo!</small>
-                        </div>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 12px; font-weight: 600; color: #333;">✅ Quiz Disponível:</label>
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                                <label style="display: flex; align-items: center; margin: 12px 0; cursor: pointer;">
-                                    <input type="checkbox" id="quiz1" checked disabled style="width: 20px; height: 20px; margin-right: 12px; opacity: 0.6;">
-                                    <span style="font-size: 16px;">📊 Quiz: EPIs e Segurança (${numPerguntas} ${numPerguntas === 1 ? 'pergunta' : 'perguntas'})</span>
-                                </label>
-                                <p style="color: #666; font-size: 14px; margin-top: 10px;">💡 Para alterar perguntas, edite o código na seção PERGUNTAS</p>
-                            </div>
-                        </div>
-                        
-                        <button class="btn-arena" onclick="criarSessao()" style="width: 100%; margin-top: 10px; background: #9b59b6;">🚀 CRIAR SESSÃO</button>
-                        <button class="btn-voltar" onclick="voltarArena()" style="width: 100%; margin-top: 15px;">← Voltar</button>
-                    </div>
-                </div>
-            `;
-        }
+  document.getElementById(targetId).innerHTML = sorted.map((p, i) => `
+    <div class="rank-row ${medals[i]||''}" style="${p.pid===highlightPid?'border-color:var(--accent);background:var(--accent-light);':''}">
+      <div class="rank-pos" style="color:${i===0?'#F59E0B':i===1?'#94A3B8':i===2?'#C2855B':'var(--text-muted)'}">${i<3?posEmoji[i]:(i+1)}</div>
+      <div class="rank-name">${p.name}${p.pid===highlightPid?' (voce)':''}</div>
+      <div class="rank-score">${p.score} pts</div>
+    </div>`).join('') || '<p style="color:var(--text-muted);text-align:center;padding:20px;">Nenhum participante.</p>';
+}
 
-        function mostrarFormularioNuvemInstrutor() {
-            document.getElementById('conteudoModulo').innerHTML = `
-                <div class="arena-container">
-                    <div class="arena-card">
-                        <h2 style="text-align: center; color: #3498db; margin-bottom: 30px;">☁️ Criar Nuvem de Palavras</h2>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">📝 Nome da Sessão:</label>
-                            <input type="text" id="nomeSessaoNuvem" placeholder="Ex: DDS - Reflexão sobre Segurança" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
-                        </div>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">💭 Tema da Nuvem:</label>
-                            <input type="text" id="temaNuvem" placeholder="Ex: O que é segurança para você?" value="O que é segurança para você?" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px;">
-                            <small style="color: #666; display: block; margin-top: 8px;">Esta pergunta aparecerá para os alunos</small>
-                        </div>
-                        
-                        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #3498db;">
-                            <h4 style="color: #3498db; margin-bottom: 10px;">ℹ️ Como funciona:</h4>
-                            <ul style="margin-left: 20px; color: #666;">
-                                <li>Crie a sessão e compartilhe o QR Code</li>
-                                <li>Alunos acessam e enviam palavras</li>
-                                <li>Você vê todas as palavras em tempo real</li>
-                                <li>Feche quando quiser encerrar</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="btn-arena" onclick="criarSessaoNuvem()" style="width: 100%; margin-top: 10px; background: #3498db;">☁️ CRIAR NUVEM</button>
-                        <button class="btn-voltar" onclick="voltarArena()" style="width: 100%; margin-top: 15px;">← Voltar</button>
-                    </div>
-                </div>
-            `;
-        }
+// ═══════════════════════════════════════════════════
+// WORD CLOUD RENDERER
+// ═══════════════════════════════════════════════════
+function renderWordCloud(wordcloudData, targetId) {
+  // Count word frequencies
+  const freq = {};
+  Object.values(wordcloudData).forEach(entry => {
+    const w = (entry.word || '').toLowerCase().trim();
+    if (w) freq[w] = (freq[w] || 0) + 1;
+  });
 
-        function voltarArena() {
-            mostrarModulo();
-        }
+  const maxCount = Math.max(...Object.values(freq), 1);
+  const wrap = document.getElementById(targetId);
+  if (!wrap) return;
 
-        function criarSessao() {
-            console.log('🎮 criarSessao() chamada');
-            
-            const nome = document.getElementById('nomeSessaoQuiz').value;
-            console.log('Nome:', nome);
-            
-            if (!nome) { 
-                alert('⚠️ Digite o nome da sessão!'); 
-                return; 
-            }
+  wrap.innerHTML = Object.entries(freq)
+    .sort((a,b) => b[1]-a[1])
+    .map(([word, count]) => {
+      const size = Math.round(16 + (count / maxCount) * 56);
+      const color = WC_COLORS[hashStr(word) % WC_COLORS.length];
+      const weight = count > 1 ? 800 : 600;
+      return `<span class="wc-word" style="font-size:${size}px;color:${color};font-weight:${weight};">${word}</span>`;
+    }).join('');
+}
 
-            // Verificar se tem código fixo
-            const codigoFixoInput = document.getElementById('codigoFixo');
-            let codigo = codigoFixoInput ? codigoFixoInput.value.trim().toUpperCase() : '';
-            
-            if (codigo) {
-                // Validar código fixo
-                if (codigo.length !== 6) {
-                    alert('⚠️ O código fixo deve ter exatamente 6 caracteres!');
-                    return;
-                }
-                if (!/^[A-Z0-9]+$/.test(codigo)) {
-                    alert('⚠️ Use apenas letras e números no código!');
-                    return;
-                }
-                console.log('✅ Usando código FIXO:', codigo);
-            } else {
-                // Gerar código automático
-                codigo = gerarCodigo();
-                console.log('🎲 Código gerado automaticamente:', codigo);
-            }
-            
-            const linkSessao = window.location.origin + window.location.pathname + '?codigo=' + codigo;
-            sessaoAtual = codigo;
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 997;
+  return Math.abs(h);
+}
 
-            document.getElementById('conteudoModulo').innerHTML = `
-                <div class="arena-container">
-                    <div class="arena-card">
-                        <h2 style="text-align: center; color: #28a745;">✅ Sessão Criada!</h2>
-                        <div class="sessao-info">
-                            <h3>📋 Informações</h3>
-                            <p><strong>Nome:</strong> ${nome}</p>
-                            <p><strong>Modo:</strong> 👤 Individual</p>
-                            <p><strong>Quiz:</strong> EPIs Básicos</p>
-                        </div>
-                        <h3 style="text-align: center; margin: 30px 0 10px 0;">Código da Sessão:</h3>
-                        <div class="codigo-sessao">${codigo}</div>
-                        <div id="qrcodeArena"></div>
-                        <div style="text-align: center; margin: 20px 0;">
-                            <p><strong>Link:</strong></p>
-                            <p style="word-break: break-all; color: #666;">${linkSessao}</p>
-                            <button class="btn-arena" onclick="copiarLink('${linkSessao}')">📋 Copiar Link</button>
-                        </div>
-                        <div class="participantes-count">
-                            👥 Participantes: <span id="countNum">0</span>
-                        </div>
-                        
-                        <div id="statusQuiz" style="display: none; background: #fff3cd; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
-                            <p style="font-weight: 600; color: #856404; margin-bottom: 10px;">📊 Status do Quiz</p>
-                            <p id="statusTexto">Aguardando...</p>
-                            <div style="margin-top: 10px;">
-                                <span id="responderam">0</span> / <span id="totalParticipantes">0</span> responderam
-                            </div>
-                        </div>
-                        
-                        <button class="btn-arena" style="width: 100%; background: #e74c3c;" onclick="resetarSessao()">🔄 RESETAR</button>
-                        <button class="btn-arena" style="width: 100%;" onclick="iniciarQuiz()">▶ INICIAR QUIZ</button>
-                        <button class="btn-arena" id="btnProxima" style="width: 100%; background: #28a745; display: none;" onclick="proximaPergunta()">➡️ PRÓXIMA PERGUNTA</button>
-                        <button class="btn-arena" style="width: 100%; background: #f39c12;" onclick="mostrarRanking()">🏆 VER RANKING (Instrutor)</button>
-                        <button class="btn-arena" style="width: 100%; background: #8e44ad;" onclick="exibirRankingParaAlunos()">📺 MOSTRAR RANKING PARA ALUNOS</button>
-                        
-                        <div id="rankingArea" style="display: none; margin-top: 30px;">
-                            <h3 style="color: #f39c12; text-align: center; margin-bottom: 20px;">🏆 Ranking de Pontuação</h3>
-                            <div id="rankingLista"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
+// ═══════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════
+function genCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random()*chars.length)];
+  return c;
+}
 
-            console.log('HTML atualizado, gerando QR Code...');
-            setTimeout(() => {
-                try {
-                    const qrDiv = document.getElementById("qrcodeArena");
-                    if (!qrDiv) {
-                        console.error('❌ Div qrcodeArena não encontrada!');
-                        return;
-                    }
-                    
-                    // Limpar div antes
-                    qrDiv.innerHTML = '';
-                    
-                    console.log('📱 Gerando QR Code com link:', linkSessao);
-                    
-                    new QRCode(qrDiv, {
-                        text: linkSessao, 
-                        width: 256, 
-                        height: 256,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                    
-                    console.log('✅ QR Code gerado com sucesso!');
-                } catch(err) {
-                    console.error('❌ Erro ao gerar QR Code:', err);
-                    document.getElementById("qrcodeArena").innerHTML = '<p style="color: red;">Erro ao gerar QR Code. Use o link acima.</p>';
-                }
-            }, 200);
-            
-            salvarSessaoFirebase(codigo, nome);
-            monitorarParticipantes(codigo);
-            console.log('✅ Sessão criada com sucesso!');
-        }
-
-        function gerarCodigo() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let codigo = '';
-            for (let i = 0; i < 6; i++) codigo += chars.charAt(Math.floor(Math.random() * chars.length));
-            return codigo;
-        }
-
-        function copiarLink(link) {
-            navigator.clipboard.writeText(link).then(() => alert('✅ Link copiado!'));
-        }
-
-        function salvarSessaoFirebase(codigo, nome) {
-            if (window.firebaseReady) {
-                console.log('💾 Salvando no Firebase...');
-                const dbRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseSet(dbRef, {
-                    nome: nome, 
-                    status: 'aguardando', 
-                    criado: new Date().toISOString(), 
-                    participantes: {},
-                    respostas: {},
-                    perguntaAtual: 0
-                });
-                console.log('✅ Salvo no Firebase!');
-            }
-        }
-
-        function monitorarParticipantes(codigo) {
-            if (window.firebaseReady) {
-                const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes');
-                window.firebaseOnValue(participantesRef, (snapshot) => {
-                    const participantes = snapshot.val();
-                    const count = participantes ? Object.keys(participantes).length : 0;
-                    const countEl = document.getElementById('countNum');
-                    if (countEl) countEl.textContent = count;
-                    
-                    // Atualizar total de participantes no status
-                    const totalEl = document.getElementById('totalParticipantes');
-                    if (totalEl) totalEl.textContent = count;
-                });
-                
-                // Monitorar status da sessão e respostas
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseOnValue(sessaoRef, (snapshot) => {
-                    const sessao = snapshot.val();
-                    if (sessao && sessao.status === 'quiz_ativo') {
-                        // Mostrar status do quiz
-                        const statusDiv = document.getElementById('statusQuiz');
-                        if (statusDiv) statusDiv.style.display = 'block';
-                        
-                        // Contar quantos responderam
-                        const participantes = sessao.participantes || {};
-                        const respostas = sessao.respostas || {};
-                        const perguntaAtual = sessao.perguntaAtual || 0;
-                        
-                        console.log('📊 Debug respostas:', {
-                            perguntaAtual,
-                            totalRespostas: Object.keys(respostas).length,
-                            respostas: respostas
-                        });
-                        
-                        const totalParticipantes = Object.keys(participantes).length;
-                        
-                        // Contar respostas desta pergunta
-                        const totalRespostas = Object.values(respostas).filter(r => 
-                            r && r.pergunta === perguntaAtual
-                        ).length;
-                        
-                        console.log('✅ Respostas da pergunta', perguntaAtual, ':', totalRespostas, 'de', totalParticipantes);
-                        
-                        const responderamEl = document.getElementById('responderam');
-                        if (responderamEl) responderamEl.textContent = totalRespostas;
-                        
-                        const statusTexto = document.getElementById('statusTexto');
-                        if (statusTexto) {
-                            if (totalRespostas === 0) {
-                                statusTexto.textContent = '⏳ Aguardando respostas...';
-                            } else if (totalRespostas < totalParticipantes) {
-                                statusTexto.textContent = '📝 Alguns já responderam...';
-                            } else if (totalRespostas === totalParticipantes && totalParticipantes > 0) {
-                                statusTexto.innerHTML = '✅ <strong>TODOS RESPONDERAM!</strong> Pode liberar próxima pergunta.';
-                                // Mostrar botão próxima pergunta
-                                const btnProxima = document.getElementById('btnProxima');
-                                if (btnProxima) btnProxima.style.display = 'block';
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        function resetarSessao() {
-            if (confirm('🔄 Resetar sessão?\n\nTodos participantes e pontos serão removidos.')) {
-                if (window.firebaseReady && sessaoAtual) {
-                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                    window.firebaseUpdate(sessaoRef, {status: 'aguardando', participantes: {}, respostas: {}});
-                    alert('✅ Sessão resetada!');
-                }
-            }
-        }
-
-        function iniciarQuiz() {
-            if (window.firebaseReady && sessaoAtual) {
-                if (confirm('▶ Iniciar quiz?\n\nParticipantes receberão a primeira pergunta.')) {
-                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                    window.firebaseSet(sessaoRef, {status: 'quiz_ativo', perguntaAtual: 0, timestamp: Date.now(), participantes: {}, respostas: {}});
-                    alert('✅ Quiz iniciado!');
-                }
-            }
-        }
-
-        function iniciarNuvem() {
-            if (window.firebaseReady && sessaoAtual) {
-                const tema = prompt('☁️ Digite o tema da nuvem de palavras:', 'O que é segurança para você?');
-                if (tema) {
-                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                    window.firebaseUpdate(sessaoRef, {
-                        status: 'nuvem_ativa',
-                        temaNuvem: tema,
-                        timestamp: Date.now()
-                    });
-                    alert('✅ Nuvem de palavras iniciada!\n\nAlunos já podem enviar suas palavras.');
-                    
-                    // Mostrar painel da nuvem
-                    const painelNuvem = document.getElementById('painelNuvem');
-                    if (painelNuvem) painelNuvem.style.display = 'block';
-                    
-                    // Começar a monitorar palavras
-                    monitorarNuvem(sessaoAtual);
-                }
-            }
-        }
-
-        function monitorarNuvem(codigo) {
-            if (window.firebaseReady) {
-                const nuvemRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/nuvem');
-                window.firebaseOnValue(nuvemRef, (snapshot) => {
-                    const palavras = snapshot.val();
-                    const listaPalavras = document.getElementById('listaPalavrasNuvem');
-                    
-                    if (!listaPalavras) return;
-                    
-                    if (!palavras) {
-                        listaPalavras.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Nenhuma palavra enviada ainda.</p>';
-                        return;
-                    }
-                    
-                    let html = '<div style="display: grid; gap: 10px;">';
-                    Object.values(palavras).forEach(item => {
-                        html += `
-                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                <strong style="font-size: 20px;">${item.palavra}</strong>
-                                <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 14px;">Por: ${item.autor}</p>
-                            </div>
-                        `;
-                    });
-                    html += '</div>';
-                    
-                    listaPalavras.innerHTML = html;
-                });
-            }
-        }
-
-        function fecharNuvem() {
-            if (window.firebaseReady && sessaoAtual) {
-                if (confirm('🔒 Fechar nuvem de palavras?\n\nAlunos não poderão mais enviar palavras.')) {
-                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                    window.firebaseUpdate(sessaoRef, {
-                        status: 'nuvem_fechada'
-                    });
-                    alert('✅ Nuvem fechada!');
-                }
-            }
-        }
-
-        function proximaPergunta() {
-            if (window.firebaseReady && sessaoAtual) {
-                console.log('➡️ Avançando para próxima pergunta...');
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                
-                // Pegar pergunta atual
-                window.firebaseOnValue(sessaoRef, (snapshot) => {
-                    const sessao = snapshot.val();
-                    const perguntaAtualAnterior = sessao.perguntaAtual || 0;
-                    const perguntaAtual = perguntaAtualAnterior + 1;
-                    
-                    console.log('📊 Passando de pergunta', perguntaAtualAnterior, 'para', perguntaAtual);
-                    console.log('📚 Total de perguntas:', PERGUNTAS.quiz1.length);
-                    
-                    // Verificar se ainda tem perguntas
-                    if (perguntaAtual >= PERGUNTAS.quiz1.length) {
-                        console.log('🏁 Quiz finalizado!');
-                        alert('✅ Quiz finalizado!\n\nTodas as perguntas foram respondidas.');
-                        // Voltar para aguardando
-                        window.firebaseUpdate(sessaoRef, {
-                            status: 'finalizado',
-                            perguntaAtual: null
-                        });
-                        
-                        // Esconder status e botão
-                        const statusDiv = document.getElementById('statusQuiz');
-                        const btnProxima = document.getElementById('btnProxima');
-                        if (statusDiv) statusDiv.style.display = 'none';
-                        if (btnProxima) btnProxima.style.display = 'none';
-                        
-                        return;
-                    }
-                    
-                    console.log('✅ Liberando pergunta', perguntaAtual);
-                    
-                    // Liberar próxima pergunta
-                    window.firebaseUpdate(sessaoRef, {
-                        perguntaAtual: perguntaAtual,
-                        timestamp: Date.now()
-                    }).then(() => {
-                        console.log('✅ Pergunta atualizada no Firebase');
-                    });
-                    
-                    // Esconder botão até todos responderem novamente
-                    const btnProxima = document.getElementById('btnProxima');
-                    if (btnProxima) btnProxima.style.display = 'none';
-                    
-                    const statusTexto = document.getElementById('statusTexto');
-                    if (statusTexto) statusTexto.textContent = '⏳ Aguardando respostas...';
-                    
-                    const responderamEl = document.getElementById('responderam');
-                    if (responderamEl) responderamEl.textContent = '0';
-                    
-                }, { onlyOnce: true });
-            }
-        }
-
-        function exibirRankingParaAlunos() {
-            if (window.firebaseReady && sessaoAtual) {
-                const confirma = confirm('📺 MOSTRAR RANKING PARA ALUNOS?\n\nTodos os alunos verão o ranking com pódio e medalhas.');
-                if (confirma) {
-                    const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                    window.firebaseUpdate(sessaoRef, {
-                        mostrarRanking: true,
-                        timestamp: Date.now()
-                    });
-                    alert('✅ Ranking exibido para todos os alunos!');
-                }
-            }
-        }
-
-        function esconderRankingDosAlunos() {
-            if (window.firebaseReady && sessaoAtual) {
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual);
-                window.firebaseUpdate(sessaoRef, {
-                    mostrarRanking: false
-                });
-            }
-        }
-
-        function mostrarRanking() {
-            const rankingArea = document.getElementById('rankingArea');
-            const rankingLista = document.getElementById('rankingLista');
-            
-            if (rankingArea.style.display === 'none') {
-                rankingArea.style.display = 'block';
-                
-                if (window.firebaseReady && sessaoAtual) {
-                    const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + sessaoAtual + '/participantes');
-                    window.firebaseOnValue(participantesRef, (snapshot) => {
-                        const participantes = snapshot.val();
-                        
-                        if (!participantes) {
-                            rankingLista.innerHTML = '<p style="text-align: center; color: #999; padding: 30px;">Nenhum participante ainda.</p>';
-                            return;
-                        }
-                        
-                        // Converter para array e ordenar por pontos
-                        const ranking = Object.values(participantes).sort((a, b) => (b.pontos || 0) - (a.pontos || 0));
-                        
-                        let html = '';
-                        ranking.forEach((participante, index) => {
-                            const classe = index === 0 ? 'primeiro' : index === 1 ? 'segundo' : index === 2 ? 'terceiro' : '';
-                            const posicao = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}º`;
-                            
-                            html += `
-                                <div class="ranking-item ${classe}">
-                                    <div class="ranking-posicao">${posicao}</div>
-                                    <div class="ranking-nome">${participante.nome}</div>
-                                    <div class="ranking-pontos">${participante.pontos || 0} pts</div>
-                                </div>
-                            `;
-                        });
-                        
-                        rankingLista.innerHTML = html;
-                    });
-                }
-            } else {
-                rankingArea.style.display = 'none';
-            }
-        }
-
-        function mostrarTelaAluno(codigo) {
-            document.getElementById('telaInicial').classList.add('hidden');
-            document.getElementById('telaAluno').classList.remove('hidden');
-            document.getElementById('conteudoAluno').innerHTML = `
-                <div style="min-height: 70vh;">
-                    <div class="aluno-screen">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 60px; margin-bottom: 10px;">
-                            <h1 style="color: var(--orievo-primary); margin: 10px 0;">ARENA ORIEVO</h1>
-                            <p style="color: #666; font-size: 14px;">Desenvolvido para Grupo Dislub Equador</p>
-                        </div>
-                        
-                        <div style="background: var(--orievo-light); padding: 20px; border-radius: 15px; margin: 20px 0;">
-                            <p style="text-align: center; font-size: 18px;">Código da Sessão: <strong style="color: var(--orievo-primary);">${codigo}</strong></p>
-                        </div>
-                        
-                        <div style="margin: 30px 0;">
-                            <input type="text" id="nomeAlunoInput" placeholder="Digite seu nome completo" style="width: 100%; padding: 18px; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; margin: 15px 0;">
-                            <button class="btn-arena" style="width: 100%;" onclick="entrarSessao('${codigo}')">ENTRAR NA SESSÃO</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function entrarSessao(codigo) {
-            const nome = document.getElementById('nomeAlunoInput').value.trim();
-            if (!nome) { alert('Digite seu nome!'); return; }
-
-            nomeAluno = nome;
-            const alunoId = nome.toLowerCase().replace(/[^a-z0-9]/g, '_');
-
-            if (window.firebaseReady) {
-                const alunoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes/' + alunoId);
-                window.firebaseSet(alunoRef, {nome, pontos: 0, conectado: true, timestamp: Date.now()});
-                mostrarAguardando(codigo, nome);
-                escutarSessao(codigo, alunoId);
-            }
-        }
-
-        function mostrarAguardando(codigo, nome) {
-            document.getElementById('conteudoAluno').innerHTML = `
-                <div style="min-height: 70vh;">
-                    <div class="aluno-screen">
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px; margin-bottom: 10px;">
-                        </div>
-                        
-                        <h1 style="color: #28a745;">✅ Conectado!</h1>
-                        <p style="font-size: 20px; margin: 20px 0;">Olá, <strong>${nome}</strong>!</p>
-                        
-                        <div class="status-aguardando">
-                            <h3>⏳ Aguardando instrutor iniciar...</h3>
-                            <p>Fique atento! O quiz começará em breve.</p>
-                        </div>
-                        
-                        <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">0</span></div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function escutarSessao(codigo, alunoId) {
-            if (window.firebaseReady) {
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseOnValue(sessaoRef, (snapshot) => {
-                    const sessao = snapshot.val();
-                    if (sessao) {
-                        // Verificar se deve mostrar ranking
-                        if (sessao.mostrarRanking === true) {
-                            mostrarRankingParaAluno(codigo);
-                        }
-                        // Verificar se nuvem está ativa
-                        else if (sessao.status === 'nuvem_ativa') {
-                            mostrarFormularioNuvem(codigo, nomeAluno, sessao.temaNuvem || 'O que é segurança para você?');
-                        }
-                        // Verificar se nuvem foi fechada
-                        else if (sessao.status === 'nuvem_fechada') {
-                            mostrarNuvemFechada(codigo, nomeAluno);
-                        }
-                        // Verificar se deve mostrar pergunta
-                        else if (sessao.status === 'quiz_ativo' && sessao.perguntaAtual !== undefined) {
-                            mostrarPergunta(codigo, alunoId, sessao.perguntaAtual);
-                        }
-                    }
-                });
-            }
-        }
-
-        function mostrarFormularioNuvem(codigo, nome, tema) {
-            document.getElementById('conteudoAluno').innerHTML = `
-                <div style="min-height: 70vh;">
-                    <div class="aluno-screen">
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px;">
-                        </div>
-                        
-                        <h1 style="color: #3498db; text-align: center;">☁️ Nuvem de Palavras</h1>
-                        <p style="font-size: 20px; margin: 20px 0; text-align: center; font-weight: 600; color: #333;">${tema}</p>
-                        
-                        <div style="margin: 30px 0;">
-                            <input type="text" id="palavraNuvem" placeholder="Digite uma palavra..." 
-                                   maxlength="30"
-                                   style="width: 100%; padding: 18px; border: 2px solid #3498db; border-radius: 10px; font-size: 18px; margin: 15px 0;">
-                            <button class="btn-arena" style="width: 100%; background: #3498db;" onclick="enviarPalavraNuvem('${codigo}', '${nome}')">
-                                ENVIAR PALAVRA
-                            </button>
-                        </div>
-                        
-                        <div id="minhasPalavras" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                            <h3 style="color: #3498db; margin-bottom: 15px;">📝 Minhas Palavras:</h3>
-                            <div id="listaPalavrasAluno"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Monitorar palavras do aluno
-            monitorarMinhasPalavras(codigo, nome);
-        }
-
-        function enviarPalavraNuvem(codigo, nome) {
-            const palavra = document.getElementById('palavraNuvem').value.trim();
-            if (!palavra) {
-                alert('⚠️ Digite uma palavra!');
-                return;
-            }
-            
-            if (palavra.length > 30) {
-                alert('⚠️ A palavra deve ter no máximo 30 caracteres!');
-                return;
-            }
-            
-            if (window.firebaseReady) {
-                const palavraId = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                const palavraRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/nuvem/' + palavraId);
-                window.firebaseSet(palavraRef, {
-                    palavra: palavra,
-                    autor: nome,
-                    timestamp: Date.now()
-                });
-                
-                document.getElementById('palavraNuvem').value = '';
-                document.getElementById('palavraNuvem').focus();
-            }
-        }
-
-        function monitorarMinhasPalavras(codigo, nome) {
-            if (window.firebaseReady) {
-                const nuvemRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/nuvem');
-                window.firebaseOnValue(nuvemRef, (snapshot) => {
-                    const palavras = snapshot.val();
-                    const lista = document.getElementById('listaPalavrasAluno');
-                    
-                    if (!lista) return;
-                    
-                    if (!palavras) {
-                        lista.innerHTML = '<p style="text-align: center; color: #999;">Você ainda não enviou nenhuma palavra.</p>';
-                        return;
-                    }
-                    
-                    const minhasPalavras = Object.values(palavras).filter(p => p.autor === nome);
-                    
-                    if (minhasPalavras.length === 0) {
-                        lista.innerHTML = '<p style="text-align: center; color: #999;">Você ainda não enviou nenhuma palavra.</p>';
-                        return;
-                    }
-                    
-                    let html = '<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">';
-                    minhasPalavras.forEach(item => {
-                        html += `
-                            <span style="background: #3498db; color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600;">
-                                ${item.palavra}
-                            </span>
-                        `;
-                    });
-                    html += '</div>';
-                    
-                    lista.innerHTML = html;
-                });
-            }
-        }
-
-        function mostrarNuvemFechada(codigo, nome) {
-            document.getElementById('conteudoAluno').innerHTML = `
-                <div style="min-height: 70vh;">
-                    <div class="aluno-screen">
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px;">
-                        </div>
-                        
-                        <h1 style="color: #e74c3c;">🔒 Nuvem Fechada</h1>
-                        <p style="font-size: 18px; margin: 20px 0; text-align: center;">A nuvem de palavras foi encerrada pelo instrutor.</p>
-                        
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px;">
-                            <p style="text-align: center; color: #666;">Aguardando próxima atividade...</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function mostrarRankingParaAluno(codigo) {
-            if (window.firebaseReady) {
-                const participantesRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes');
-                window.firebaseOnValue(participantesRef, (snapshot) => {
-                    const participantes = snapshot.val();
-                    
-                    if (!participantes) {
-                        return;
-                    }
-                    
-                    // Ordenar por pontos
-                    const ranking = Object.values(participantes).sort((a, b) => (b.pontos || 0) - (a.pontos || 0));
-                    
-                    // Criar tela de ranking visual
-                    let html = `
-                        <div class="tela-ranking-aluno">
-                            <div style="text-align: center; margin-bottom: 20px;">
-                                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 50px;">
-                            </div>
-                            
-                            <div class="ranking-header-aluno">
-                                <h1>🏆 RANKING FINAL</h1>
-                                <p style="font-size: 18px;">Parabéns a todos os participantes!</p>
-                            </div>
-                            
-                            <div class="podio-container">
-                    `;
-                    
-                    // Top 3 no pódio
-                    for (let i = 0; i < Math.min(3, ranking.length); i++) {
-                        const participante = ranking[i];
-                        const classe = i === 0 ? 'primeiro' : i === 1 ? 'segundo' : 'terceiro';
-                        const medalha = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
-                        const cor = i === 0 ? '#ffd700' : i === 1 ? '#c0c0c0' : '#cd7f32';
-                        const numero = i + 1;
-                        
-                        html += `
-                            <div class="podio-posicao">
-                                <div class="podio-medalha">${medalha}</div>
-                                <div class="podio-nome" style="color: white;">${participante.nome}</div>
-                                <div class="podio-pontos">${participante.pontos || 0} pts</div>
-                                <div class="podio-bloco podio-bloco-${classe}">
-                                    <div class="podio-numero">${numero}</div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                    
-                    html += `</div>`;
-                    
-                    // Lista completa (a partir do 4º)
-                    if (ranking.length > 3) {
-                        html += `
-                            <div class="ranking-lista-completa">
-                                <div class="ranking-lista-titulo">Classificação Completa</div>
-                        `;
-                        
-                        for (let i = 3; i < ranking.length; i++) {
-                            const participante = ranking[i];
-                            html += `
-                                <div class="ranking-item" style="margin: 10px 0;">
-                                    <div class="ranking-posicao">${i + 1}º</div>
-                                    <div class="ranking-nome">${participante.nome}</div>
-                                    <div class="ranking-pontos">${participante.pontos || 0} pts</div>
-                                </div>
-                            `;
-                        }
-                        
-                        html += `</div>`;
-                    }
-                    
-                    // Mensagem de parabéns personalizada
-                    const minhaPosicao = ranking.findIndex(p => p.nome === nomeAluno) + 1;
-                    if (minhaPosicao > 0) {
-                        html += `
-                            <div style="text-align: center; margin: 40px 20px; padding: 30px; background: white; border-radius: 15px;">
-                                <h2 style="color: #9b59b6; margin-bottom: 10px;">Sua Posição</h2>
-                                <p style="font-size: 48px; font-weight: 900; color: #333; margin: 20px 0;">${minhaPosicao}º lugar</p>
-                                <p style="font-size: 20px; color: #666;">Você fez ${pontosAluno} pontos!</p>
-                                ${minhaPosicao === 1 ? '<p style="font-size: 24px; margin-top: 20px;">🎉 <strong>PARABÉNS, CAMPEÃO!</strong> 🎉</p>' : ''}
-                                ${minhaPosicao === 2 ? '<p style="font-size: 20px; margin-top: 20px;">🎊 Excelente resultado! 🎊</p>' : ''}
-                                ${minhaPosicao === 3 ? '<p style="font-size: 20px; margin-top: 20px;">👏 Muito bem! 👏</p>' : ''}
-                            </div>
-                        `;
-                    }
-                    
-                    html += `</div>`;
-                    
-                    document.getElementById('conteudoAluno').innerHTML = html;
-                }, { onlyOnce: true });
-            }
-        }
-
-        function mostrarPergunta(codigo, alunoId, indice) {
-            // RESETAR proteção para nova pergunta
-            jaRespondeu = false;
-            
-            const pergunta = PERGUNTAS.quiz1[indice];
-            if (!pergunta) return;
-
-            document.getElementById('conteudoAluno').innerHTML = `
-                <div style="min-height: 70vh;">
-                    <div class="aluno-screen">
-                        <div style="text-align: center; margin-bottom: 15px;">
-                            <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo" style="height: 40px;">
-                        </div>
-                        
-                        <div class="pontos-display">🏆 Seus pontos: <span id="pontosAluno">${pontosAluno}</span></div>
-                        
-                        <div class="quiz-pergunta">
-                            <h2 style="margin-bottom: 25px;">${pergunta.pergunta}</h2>
-                            <div>${pergunta.opcoes.map((opcao, i) => `
-                                <div class="quiz-opcao" onclick="responder(${i}, ${pergunta.correta}, '${codigo}', '${alunoId}')">
-                                    ${String.fromCharCode(65 + i)}) ${opcao}
-                                </div>
-                            `).join('')}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Variável para controlar se já respondeu
-        let jaRespondeu = false;
-
-        function responder(escolhida, correta, codigo, alunoId) {
-            // PROTEÇÃO: Impedir múltiplas respostas
-            if (jaRespondeu) {
-                console.log('⚠️ Já respondeu esta pergunta!');
-                return;
-            }
-            jaRespondeu = true;
-            
-            const opcoes = document.querySelectorAll('.quiz-opcao');
-            opcoes.forEach(opcao => {
-                opcao.style.pointerEvents = 'none';
-                opcao.style.cursor = 'not-allowed';
-                opcao.style.opacity = '0.7';
-            });
-
-            const acertou = escolhida === correta;
-            opcoes[escolhida].classList.add(acertou ? 'correta' : 'errada');
-            if (!acertou) opcoes[correta].classList.add('correta');
-
-            if (acertou) {
-                pontosAluno += 100;
-                
-                // Atualizar pontos localmente
-                const pontosEl = document.getElementById('pontosAluno');
-                if (pontosEl) pontosEl.textContent = pontosAluno;
-                
-                // Atualizar no Firebase
-                if (window.firebaseReady) {
-                    const alunoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/participantes/' + alunoId);
-                    window.firebaseUpdate(alunoRef, {
-                        pontos: pontosAluno,
-                        nome: nomeAluno,
-                        ultimaResposta: Date.now()
-                    }).then(() => {
-                        console.log('✅ Pontos atualizados:', pontosAluno);
-                    }).catch(err => {
-                        console.error('❌ Erro ao atualizar pontos:', err);
-                    });
-                }
-            }
-            
-            // Salvar resposta no Firebase
-            if (window.firebaseReady) {
-                const sessaoRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo);
-                window.firebaseOnValue(sessaoRef, (snapshot) => {
-                    const sessao = snapshot.val();
-                    const perguntaAtual = sessao.perguntaAtual || 0;
-                    
-                    console.log('💾 Salvando resposta:', {
-                        alunoId,
-                        pergunta: perguntaAtual,
-                        escolhida,
-                        correta,
-                        acertou
-                    });
-                    
-                    // Salvar resposta
-                    const respostaRef = window.firebaseRef(window.firebaseDB, 'sessions/' + codigo + '/respostas/' + alunoId + '_' + perguntaAtual);
-                    window.firebaseSet(respostaRef, {
-                        alunoId: alunoId,
-                        pergunta: perguntaAtual,
-                        escolhida: escolhida,
-                        correta: correta,
-                        acertou: acertou,
-                        timestamp: Date.now()
-                    }).then(() => {
-                        console.log('✅ Resposta salva no Firebase!');
-                    }).catch(err => {
-                        console.error('❌ Erro ao salvar resposta:', err);
-                    });
-                }, { onlyOnce: true });
-            }
-
-            setTimeout(() => mostrarAguardando(codigo, nomeAluno), 3000);
-        }
-
-    </script>
+// Expose window functions
+window.applyTheme = applyTheme;
+window.addActivity = addActivity;
+window.removeActivity = removeActivity;
+window.updateQuestion = updateQuestion;
+window.updateOption = updateOption;
+window.setCorrect = setCorrect;
+window.showSaveThemeModal = showSaveThemeModal;
+window.loadTheme = loadTheme;
+window.createSession = createSession;
+window.resumeSession = resumeSession;
+window.startFirstActivity = startFirstActivity;
+window.handlePresenterEnter = handlePresenterEnter;
+window.confirmEndSession = confirmEndSession;
+window.exportRanking = exportRanking;
+window.participantJoin = window.participantJoin;
+window.submitAnswer = window.submitAnswer;
+window.submitWordCloud = window.submitWordCloud;
+window.copyLink = window.copyLink;
+window.presenterLogin = presenterLogin;
+</script>
 </body>
 </html>

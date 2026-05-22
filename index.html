@@ -1709,7 +1709,14 @@
                         nome: 'Vídeo: The Bradley Curve — Dublado em Português',
                         tipo: 'video',
                         url: 'https://orievogroup.github.io/GDE/bradley_curve_dublado.mp4',
-                        legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt'
+                        legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt',
+                        fonte: '🎬 Fonte: <strong>BMW Group</strong> — The Bradley Curve'
+                    },
+
+                    {
+                        nome: 'Vídeo: Cultura de Segurança — A Evolução pelo Comportamento',
+                        tipo: 'video',
+                        url: 'https://orievogroup.github.io/GDE/cultura_seguranca.mp4'
                     },
 
                     {
@@ -2678,9 +2685,9 @@
                 pdf.setFillColor(79, 195, 220);
                 pdf.rect(12, 12, W - 24, 28, 'F');
 
-                // Logos no cabeçalho
-                if (imgOrievo) pdf.addImage(imgOrievo, 'PNG', 18, 14, 36, 22);
-                if (imgGDE)    pdf.addImage(imgGDE,    'PNG', W - 54, 14, 36, 22);
+                // Logos no cabeçalho (Orievo: proporção real 3.66:1 → h=14mm → w=52mm)
+                if (imgOrievo) pdf.addImage(imgOrievo, 'PNG', 16, 19, 52, 14);
+                if (imgGDE)    pdf.addImage(imgGDE,    'PNG', W - 52, 16, 36, 20);
 
                 // Título do certificado
                 pdf.setTextColor(255, 255, 255);

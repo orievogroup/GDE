@@ -1572,7 +1572,7 @@
             <div class="modal-content">
                 <h2 id="modalTitulo"></h2>
                 
-                <div class="form-group">
+                <div class="form-group" id="senhaGroup">
                     <label>Senha de Acesso:</label>
                     <input type="password" id="senhaInput" placeholder="Digite a senha">
                 </div>
@@ -2268,6 +2268,11 @@
             document.getElementById('modalTitulo').textContent = MUNDOS[mundoId].nome;
             document.getElementById('modalLogin').classList.add('active');
             document.getElementById('loginError').style.display = 'none';
+            // Esconde campo de senha se módulo for aberto (sem senha)
+            const senhaGroup = document.getElementById('senhaGroup');
+            if (senhaGroup) {
+                senhaGroup.style.display = MUNDOS[mundoId].senha === '' ? 'none' : 'block';
+            }
         }
 
         function fecharModal() {
@@ -2283,9 +2288,10 @@
             const email = document.getElementById('emailInput').value;
             const erro = document.getElementById('loginError');
 
-            // Verifica senha: pode ser a senha do módulo OU a senha master
-            const senhaCorreta = senha === MUNDOS[mundoSelecionado].senha || senha === SENHA_MASTER;
-            
+            // Verifica senha: módulo sem senha (aberto), OU senha correta, OU senha master
+            const senhaModulo = MUNDOS[mundoSelecionado].senha;
+            const senhaCorreta = senhaModulo === '' || senha === senhaModulo || senha === SENHA_MASTER;
+
             if (!senhaCorreta) {
                 erro.textContent = 'Senha incorreta!';
                 erro.style.display = 'block';

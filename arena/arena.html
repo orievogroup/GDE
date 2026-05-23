@@ -3,289 +3,328 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arena Ao Vivo</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Arena Ao Vivo — Orievo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --accent: #2563EB;
-  --accent-dark: #1D4ED8;
-  --accent-light: #EFF6FF;
-  --bg: #F1F5F9;
-  --surface: #FFFFFF;
-  --text: #111827;
-  --text-muted: #6B7280;
-  --border: #E5E7EB;
+  --navy: #001a4d;
+  --navy-mid: #002266;
+  --tiffany: #7FFFD4;
+  --tiffany-dark: #5BCFAA;
+  --tiffany-glow: rgba(127,255,212,0.15);
+  --white: #ffffff;
+  --off-white: #f4f7fb;
+  --text: #0d1b3e;
+  --text-muted: #6b7a99;
+  --border: #e2e8f0;
   --success: #10B981;
   --success-light: #D1FAE5;
   --error: #EF4444;
   --error-light: #FEE2E2;
   --warning: #F59E0B;
-  --warning-light: #FEF3C7;
-  --radius: 12px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --gold: #F59E0B;
+  --silver: #94A3B8;
+  --bronze: #CD7F32;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,26,77,0.10);
+  --shadow-lg: 0 8px 40px rgba(0,26,77,0.18);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:'Montserrat',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-}
+body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:var(--text); min-height:100vh; }
 .screen { display:none; padding:24px 16px; min-height:100vh; }
 .screen.active { display:flex; flex-direction:column; align-items:center; }
 
+.screen-dark { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#003399 100%); }
+
 /* CARDS */
-.card {
-  background:var(--surface);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:32px;
-  width:100%;
-}
+.card { background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px; width:100%; }
 .card-sm { padding:20px; }
+.card-dark { background:rgba(255,255,255,0.07); border:1px solid rgba(127,255,212,0.15); border-radius:var(--radius); padding:28px; width:100%; }
 
 /* BUTTONS */
 .btn {
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:12px 24px; border-radius:8px; font-family:'Montserrat',sans-serif;
-  font-size:15px; font-weight:600; cursor:pointer; border:none;
-  transition:all 0.2s; text-decoration:none;
+  padding:12px 24px; border-radius:var(--radius-sm);
+  font-family:'Montserrat',sans-serif; font-size:14px; font-weight:700;
+  cursor:pointer; border:none; transition:all 0.2s; letter-spacing:0.3px;
 }
-.btn-primary { background:var(--accent); color:#fff; }
-.btn-primary:hover { background:var(--accent-dark); }
+.btn-primary { background:var(--tiffany); color:var(--navy); }
+.btn-primary:hover { background:var(--tiffany-dark); transform:translateY(-1px); box-shadow:0 4px 16px rgba(127,255,212,0.4); }
+.btn-navy { background:var(--navy); color:var(--white); }
+.btn-navy:hover { background:var(--navy-mid); }
 .btn-success { background:var(--success); color:#fff; }
 .btn-outline { background:transparent; border:2px solid var(--border); color:var(--text); }
-.btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+.btn-outline:hover { border-color:var(--navy); color:var(--navy); }
+.btn-outline-light { background:transparent; border:2px solid rgba(255,255,255,0.25); color:var(--white); }
+.btn-outline-light:hover { border-color:var(--tiffany); color:var(--tiffany); }
 .btn-danger { background:var(--error); color:#fff; }
 .btn-block { width:100%; }
-.btn-lg { padding:16px 32px; font-size:17px; }
+.btn-lg { padding:16px 32px; font-size:16px; }
+.btn-xl { padding:20px 40px; font-size:17px; border-radius:12px; }
 
 /* INPUTS */
-.input, .select {
-  width:100%; padding:12px 14px;
-  border:2px solid var(--border); border-radius:8px;
-  font-family:'Montserrat',sans-serif; font-size:15px; color:var(--text);
-  background:#fff; outline:none; transition:border-color 0.2s;
+.input,.select {
+  width:100%; padding:13px 16px; border:2px solid var(--border);
+  border-radius:var(--radius-sm); font-family:'Montserrat',sans-serif;
+  font-size:15px; color:var(--text); background:#fff; outline:none; transition:border-color 0.2s;
 }
-.input:focus, .select:focus { border-color:var(--accent); }
+.input:focus,.select:focus { border-color:var(--navy); }
 .input-group { margin-bottom:16px; }
-.input-group label { display:block; font-size:13px; font-weight:600; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; }
+.input-group label { display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.8px; }
 
 /* BADGE */
-.badge {
-  display:inline-flex; align-items:center; padding:4px 10px;
-  border-radius:20px; font-size:12px; font-weight:600;
-}
-.badge-blue { background:var(--accent-light); color:var(--accent); }
+.badge { display:inline-flex; align-items:center; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+.badge-tiffany { background:var(--tiffany-glow); color:var(--tiffany); border:1px solid rgba(127,255,212,0.3); }
+.badge-navy { background:var(--navy); color:var(--white); }
 .badge-green { background:var(--success-light); color:var(--success); }
-.badge-yellow { background:var(--warning-light); color:var(--warning); }
+.badge-yellow { background:#FEF3C7; color:#D97706; }
+.badge-light { background:rgba(255,255,255,0.15); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
 
-/* LOGO */
-.session-logo { max-height:60px; max-width:200px; object-fit:contain; }
-.logo-placeholder { height:40px; display:flex; align-items:center; font-size:18px; font-weight:700; color:var(--accent); }
-
-/* WAITING ROOM */
-.participant-count {
-  font-size:72px; font-weight:800; color:var(--accent);
-  line-height:1;
+/* HEADER */
+.arena-header {
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+  padding:20px 0; margin-bottom:28px;
 }
+.logos-wrap { display:flex; align-items:center; gap:20px; }
+.logo-orievo { height:36px; object-fit:contain; filter:brightness(0) invert(1); opacity:0.85; }
+.logo-client { height:40px; object-fit:contain; max-width:140px; }
+.logo-divider { width:1px; height:32px; background:rgba(255,255,255,0.2); }
+.logo-placeholder-dark { font-size:16px; font-weight:800; color:var(--white); letter-spacing:1px; }
+
+/* WAITING */
+.participant-count { font-size:80px; font-weight:900; color:var(--tiffany); line-height:1; }
 .qr-wrap { padding:12px; background:#fff; border-radius:var(--radius); display:inline-block; }
 
 /* PROGRESS */
-.progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
-.progress-fill { height:100%; background:var(--accent); border-radius:4px; transition:width 0.4s ease; }
+.progress-bar { height:8px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden; }
+.progress-fill { height:100%; background:var(--tiffany); border-radius:4px; transition:width 0.5s ease; }
 
 /* NOTIFICATION */
 .notification {
-  position:fixed; top:20px; right:20px; left:20px;
-  max-width:440px; margin:0 auto;
-  background:var(--success); color:#fff;
-  padding:16px 20px; border-radius:var(--radius);
-  font-weight:600; font-size:15px;
-  display:none; z-index:999;
-  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  position:fixed; top:20px; right:20px; left:20px; max-width:480px; margin:0 auto;
+  background:var(--navy); color:var(--tiffany);
+  padding:16px 24px; border-radius:var(--radius);
+  font-weight:700; font-size:15px; display:none; z-index:9999;
+  box-shadow:var(--shadow-lg); border:1px solid var(--tiffany);
   animation:slideIn 0.3s ease;
 }
 .notification.show { display:block; }
-@keyframes slideIn { from { transform:translateY(-60px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+@keyframes slideIn { from{transform:translateY(-60px);opacity:0} to{transform:translateY(0);opacity:1} }
 
 /* ACTIVITY SETUP */
-.activity-item {
-  border:2px solid var(--border); border-radius:var(--radius);
-  padding:16px; margin-bottom:12px; background:#FAFAFA;
-}
-.activity-item:hover { border-color:var(--accent); }
-.activity-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.activity-item { border:2px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; background:#FAFAFA; }
+.activity-item:hover { border-color:var(--navy); }
+.activity-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
 
-/* OPTION BUTTONS (participant answer) */
+/* OPTION BUTTONS (participant) */
 .option-btn {
-  display:block; width:100%; text-align:left;
-  padding:16px 20px; border-radius:10px; margin-bottom:10px;
+  display:block; width:100%; text-align:left; padding:18px 22px;
+  border-radius:var(--radius-sm); margin-bottom:10px;
   border:2px solid var(--border); background:#fff;
   font-family:'Montserrat',sans-serif; font-size:16px; font-weight:500;
   cursor:pointer; transition:all 0.2s;
 }
-.option-btn:hover:not(:disabled) { border-color:var(--accent); background:var(--accent-light); }
-.option-btn.selected { border-color:var(--accent); background:var(--accent-light); color:var(--accent); }
-.option-btn.correct { border-color:var(--success); background:var(--success-light); color:#065F46; }
+.option-btn:hover:not(:disabled) { border-color:var(--navy); background:var(--off-white); }
+.option-btn.selected { border-color:var(--navy); background:var(--off-white); font-weight:700; }
+.option-btn.correct { border-color:var(--success); background:var(--success-light); color:#065F46; font-weight:700; }
 .option-btn.wrong { border-color:var(--error); background:var(--error-light); color:#991B1B; }
 .option-btn:disabled { cursor:default; }
 
-/* RANKING */
-.rank-row {
-  display:flex; align-items:center; gap:12px;
-  padding:12px 16px; border-radius:10px; margin-bottom:8px;
-  background:#fff; border:2px solid var(--border);
+/* PRESENTER QUESTION DISPLAY */
+.question-display { background:rgba(255,255,255,0.06); border:1px solid rgba(127,255,212,0.2); border-radius:var(--radius); padding:32px; margin-bottom:20px; }
+.question-text { font-size:26px; font-weight:800; color:var(--white); line-height:1.35; margin-bottom:20px; }
+.options-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.option-pill {
+  padding:14px 18px; border-radius:var(--radius-sm); font-size:15px; font-weight:600;
+  color:var(--white); background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+  display:flex; align-items:center; gap:10px; transition:all 0.4s;
 }
-.rank-row.gold { border-color:#F59E0B; background:#FFFBEB; }
-.rank-row.silver { border-color:#94A3B8; background:#F8FAFC; }
-.rank-row.bronze { border-color:#C2855B; background:#FFF7ED; }
-.rank-pos { font-size:22px; font-weight:800; min-width:36px; text-align:center; }
-.rank-name { flex:1; font-weight:600; font-size:16px; }
-.rank-score { font-size:18px; font-weight:700; color:var(--accent); }
+.option-letter { width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; }
+.option-pill.correct-reveal { background:rgba(16,185,129,0.25); border-color:var(--success); color:#6EE7B7; font-weight:800; }
+.option-pill.other-reveal { opacity:0.45; }
 
-/* WORD CLOUD */
-.wordcloud-wrap {
-  display:flex; flex-wrap:wrap; gap:12px 16px;
-  justify-content:center; align-items:center;
-  min-height:300px; padding:24px;
-}
-.wc-word {
-  font-weight:700; transition:all 0.5s ease;
-  line-height:1; animation:pop 0.3s ease;
-}
-@keyframes pop { from { transform:scale(0.5); opacity:0; } to { transform:scale(1); opacity:1; } }
-
-/* PRESENTER RESPONSE TRACKER */
+/* RESPONSE TRACKER */
 .response-tracker {
-  display:flex; align-items:center; gap:16px;
-  background:var(--accent-light); border-radius:10px;
-  padding:16px 20px; margin:16px 0;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(127,255,212,0.2);
+  border-radius:var(--radius); padding:20px 24px; margin-bottom:20px;
+  display:flex; align-items:center; gap:20px;
 }
-.response-count { font-size:32px; font-weight:800; color:var(--accent); }
-.response-label { font-size:13px; color:var(--text-muted); font-weight:500; }
+.response-count { font-size:42px; font-weight:900; color:var(--tiffany); line-height:1; }
+.response-total { font-size:24px; color:rgba(255,255,255,0.35); font-weight:600; }
+.response-label { font-size:11px; color:rgba(255,255,255,0.4); font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-top:4px; }
 
-/* HINT KEY */
-.key-hint {
-  display:inline-flex; align-items:center; gap:8px;
-  background:#fff; border:1px solid var(--border);
-  border-radius:8px; padding:8px 14px;
-  font-size:13px; color:var(--text-muted);
+/* ENTER BAR */
+.enter-bar {
+  background:rgba(127,255,212,0.08); border:1px solid rgba(127,255,212,0.2);
+  border-radius:var(--radius); padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
 }
-.key { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-weight:700; font-size:12px; }
+.key-hint { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:13px; font-weight:600; }
+.key { background:rgba(127,255,212,0.15); border:1px solid rgba(127,255,212,0.3); border-radius:6px; padding:4px 10px; font-weight:800; font-size:12px; color:var(--tiffany); }
+
+/* PHASE INDICATOR */
+.phase-bar { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
+.phase-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.15); transition:all 0.3s; }
+.phase-dot.active { background:var(--tiffany); box-shadow:0 0 8px var(--tiffany); }
+.phase-dot.done { background:rgba(127,255,212,0.4); }
+.phase-label { font-size:12px; color:rgba(255,255,255,0.4); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-left:6px; }
+
+/* ══════════════════════════════
+   RANKING — PÓDIO
+══════════════════════════════ */
+.trophy-header { text-align:center; margin-bottom:36px; }
+.trophy-icon { font-size:72px; filter:drop-shadow(0 0 24px rgba(245,158,11,0.6)); animation:trophyPulse 2s ease-in-out infinite; }
+@keyframes trophyPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+.trophy-title { font-size:32px; font-weight:900; color:var(--white); margin-top:12px; letter-spacing:-0.5px; }
+.trophy-sub { font-size:14px; color:rgba(255,255,255,0.4); font-weight:500; margin-top:6px; }
+
+.podium-wrap { display:flex; align-items:flex-end; justify-content:center; gap:12px; margin-bottom:36px; }
+.podium-item { display:flex; flex-direction:column; align-items:center; animation:podiumRise 0.6s ease backwards; }
+.podium-item:nth-child(1){animation-delay:0.25s}
+.podium-item:nth-child(2){animation-delay:0s}
+.podium-item:nth-child(3){animation-delay:0.5s}
+@keyframes podiumRise { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+.podium-avatar { width:68px; height:68px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; margin-bottom:10px; position:relative; }
+.podium-avatar.gold { background:linear-gradient(135deg,#F59E0B,#FCD34D); color:var(--navy); box-shadow:0 0 28px rgba(245,158,11,0.55); }
+.podium-avatar.silver { background:linear-gradient(135deg,#94A3B8,#CBD5E1); color:var(--navy); box-shadow:0 0 18px rgba(148,163,184,0.4); }
+.podium-avatar.bronze { background:linear-gradient(135deg,#CD7F32,#E8A96A); color:var(--navy); box-shadow:0 0 18px rgba(205,127,50,0.4); }
+.podium-crown { position:absolute; top:-20px; font-size:22px; }
+.podium-name { font-size:13px; font-weight:800; color:var(--white); text-align:center; max-width:110px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:6px; }
+.podium-score { font-size:13px; font-weight:700; margin-bottom:10px; }
+.podium-score.gold{color:var(--gold)} .podium-score.silver{color:var(--silver)} .podium-score.bronze{color:var(--bronze)}
+.podium-block { border-radius:12px 12px 0 0; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:900; color:rgba(0,0,0,0.25); }
+.podium-block.gold { background:linear-gradient(180deg,#F59E0B,#D97706); width:110px; height:100px; }
+.podium-block.silver { background:linear-gradient(180deg,#94A3B8,#64748B); width:100px; height:68px; }
+.podium-block.bronze { background:linear-gradient(180deg,#CD7F32,#A0522D); width:100px; height:48px; }
+
+.ranking-list-wrap { background:rgba(255,255,255,0.05); border:1px solid rgba(127,255,212,0.12); border-radius:var(--radius); overflow:hidden; margin-bottom:24px; }
+.rank-row { display:flex; align-items:center; gap:16px; padding:16px 24px; border-bottom:1px solid rgba(255,255,255,0.05); }
+.rank-row:last-child { border-bottom:none; }
+.rank-row.highlight { background:rgba(127,255,212,0.08); }
+.rank-pos { font-size:14px; font-weight:800; min-width:30px; text-align:center; color:rgba(255,255,255,0.35); }
+.rank-name { flex:1; font-weight:600; font-size:15px; color:var(--white); }
+.me-tag { font-size:10px; font-weight:700; color:var(--tiffany); margin-left:8px; background:var(--tiffany-glow); padding:2px 8px; border-radius:10px; }
+.rank-score { font-size:16px; font-weight:800; color:var(--tiffany); }
+
+/* PARTICIPANT DARK SCREENS */
+#scn-a-join,#scn-a-waiting,#scn-a-answer,#scn-a-wordcloud,#scn-a-ranking {
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
+}
+#scn-a-join .card,#scn-a-answer .card,#scn-a-wordcloud .card { background:var(--white); color:var(--text); }
+
+.session-logo { max-height:56px; max-width:180px; object-fit:contain; }
+.score-pill { background:var(--tiffany-glow); color:var(--tiffany); border:1px solid rgba(127,255,212,0.3); border-radius:20px; padding:8px 20px; font-weight:800; font-size:15px; display:inline-block; }
+
+/* AWAITING */
+.await-icon { font-size:64px; margin-bottom:16px; animation:pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.await-title { font-size:24px; font-weight:800; color:var(--white); margin-bottom:8px; }
+.await-sub { font-size:15px; color:rgba(255,255,255,0.45); font-weight:500; }
 
 /* SESSION LIST */
-.session-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 16px; border:2px solid var(--border);
-  border-radius:10px; margin-bottom:8px; cursor:pointer;
-  transition:border-color 0.2s;
-}
-.session-row:hover { border-color:var(--accent); }
-
-/* DIVIDER */
+.session-row { display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border:2px solid var(--border); border-radius:var(--radius-sm); margin-bottom:8px; cursor:pointer; transition:all 0.2s; }
+.session-row:hover { border-color:var(--navy); background:var(--off-white); }
 .divider { width:100%; height:1px; background:var(--border); margin:24px 0; }
-
-/* HEADER BAR */
-.topbar {
-  width:100%; display:flex; align-items:center; justify-content:space-between;
-  padding:16px 0; margin-bottom:24px;
-}
-.topbar-title { font-size:18px; font-weight:700; }
-
-/* MOBILE adjustments */
-@media(max-width:600px) {
-  .card { padding:20px; }
-  .participant-count { font-size:56px; }
-}
-
-/* THEME color override — applied via JS */
-.accent-override { color:var(--accent); }
-.bg-accent { background:var(--accent); }
-
-/* CONNECTION STATUS */
-.conn-dot {
-  width:10px; height:10px; border-radius:50%;
-  background:#94A3B8; display:inline-block; margin-right:6px;
-}
-.conn-dot.online { background:var(--success); }
+.topbar { width:100%; display:flex; align-items:center; justify-content:space-between; padding:16px 0; margin-bottom:24px; }
+.topbar-title { font-size:20px; font-weight:800; color:var(--navy); }
+.conn-dot { width:10px; height:10px; border-radius:50%; background:#94A3B8; display:inline-block; margin-right:6px; }
+.conn-dot.online { background:var(--success); box-shadow:0 0 6px rgba(16,185,129,0.5); }
 .conn-dot.offline { background:var(--error); }
 
-/* AWAITING BIG TEXT */
-.await-icon { font-size:64px; margin-bottom:16px; }
-.await-title { font-size:22px; font-weight:700; margin-bottom:8px; }
-.await-sub { font-size:15px; color:var(--text-muted); }
+/* WORD CLOUD */
+.wordcloud-wrap { display:flex; flex-wrap:wrap; gap:12px 18px; justify-content:center; align-items:center; min-height:280px; padding:24px; }
+.wc-word { font-weight:700; transition:all 0.5s ease; line-height:1; animation:pop 0.4s ease; }
+@keyframes pop { from{transform:scale(0.3);opacity:0} to{transform:scale(1);opacity:1} }
 
-/* SCORE PILL */
-.score-pill {
-  background:var(--accent); color:#fff;
-  border-radius:20px; padding:6px 18px;
-  font-weight:700; font-size:16px; display:inline-block;
+/* MOBILE */
+@media(max-width:640px){
+  .card { padding:20px; }
+  .participant-count { font-size:60px; }
+  .question-text { font-size:20px; }
+  .options-grid { grid-template-columns:1fr; }
+  .podium-wrap { gap:8px; }
+  .podium-avatar { width:56px; height:56px; font-size:18px; }
+  .podium-block.gold { width:90px; height:80px; }
+  .podium-block.silver,.podium-block.bronze { width:82px; }
+  .podium-block.silver { height:56px; }
+  .podium-block.bronze { height:40px; }
+  .podium-name { max-width:85px; font-size:12px; }
+  .trophy-title { font-size:24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ===================== PRESENTER SCREENS ===================== -->
+<!-- ═══════════════════════════════════════════
+  PRESENTER SCREENS
+═══════════════════════════════════════════ -->
 
-<!-- P0: Presenter Login -->
-<div id="scn-p-login" class="screen">
-  <div style="max-width:440px;width:100%;margin-top:60px;">
+<!-- P0: Login -->
+<div id="scn-p-login" class="screen screen-dark">
+  <div style="max-width:420px;width:100%;margin-top:60px;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <img src="https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png"
+           alt="Orievo" style="height:48px;object-fit:contain;opacity:0.9;" onerror="this.style.display='none'">
+      <p style="color:rgba(255,255,255,0.35);font-size:12px;margin-top:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Arena Ao Vivo</p>
+    </div>
     <div class="card">
-      <div style="text-align:center;margin-bottom:28px;">
-        <div class="logo-placeholder" style="justify-content:center;">Arena Ao Vivo</div>
-        <p style="color:var(--text-muted);font-size:14px;margin-top:6px;">Acesso do Apresentador</p>
-      </div>
+      <h2 style="font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px;">Acesso do Apresentador</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;">Digite sua senha para continuar</p>
       <div class="input-group">
         <label>Senha</label>
-        <input class="input" id="p-login-pwd" type="password" placeholder="••••••••">
+        <input class="input" id="p-login-pwd" type="password" placeholder="••••••••" style="font-size:16px;letter-spacing:2px;">
       </div>
-      <button class="btn btn-primary btn-block btn-lg" onclick="presenterLogin()">Entrar</button>
+      <button class="btn btn-navy btn-block btn-lg" onclick="presenterLogin()">Entrar →</button>
       <p id="p-login-err" style="color:var(--error);font-size:13px;margin-top:12px;text-align:center;display:none;">Senha incorreta.</p>
     </div>
-    <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
-      <span class="conn-dot" id="conn-dot-login"></span><span id="conn-label-login">Conectando...</span>
-    </p>
-    <p style="text-align:center;margin-top:10px;">
-      <button class="btn btn-outline" style="font-size:12px;padding:6px 16px;" onclick="changePwd()">Alterar senha</button>
-    </p>
+    <div style="text-align:center;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:16px;">
+      <p style="font-size:12px;color:rgba(255,255,255,0.35);">
+        <span class="conn-dot" id="conn-dot-login"></span><span id="conn-label-login">Conectando...</span>
+      </p>
+      <button class="btn btn-outline-light" style="font-size:12px;padding:6px 14px;" onclick="changePwd()">Alterar senha</button>
+    </div>
   </div>
 </div>
 
-<!-- P1: Session Home (list + create) -->
+<!-- P1: Home -->
 <div id="scn-p-home" class="screen">
-  <div style="max-width:700px;width:100%;">
+  <div style="max-width:720px;width:100%;">
     <div class="topbar">
-      <span class="topbar-title">Minhas Sessoes</span>
+      <div>
+        <p style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Orievo Group</p>
+        <span class="topbar-title">Arena Ao Vivo</span>
+      </div>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline" style="font-size:13px;" onclick="changePwd()">Senha</button>
-        <button class="btn btn-primary" onclick="showScreen('scn-p-setup')">+ Nova Sessao</button>
+        <button class="btn btn-outline" style="font-size:12px;" onclick="changePwd()">Senha</button>
+        <button class="btn btn-navy" onclick="showScreen('scn-p-setup')">+ Nova Sessão</button>
       </div>
     </div>
-    <div id="p-session-list">
-      <p style="color:var(--text-muted);font-size:14px;">Nenhuma sessao ativa. Crie uma nova.</p>
+    <div id="p-session-list" style="margin-bottom:20px;">
+      <p style="color:var(--text-muted);font-size:14px;">Nenhuma sessão ativa. Crie uma nova.</p>
     </div>
     <div class="divider"></div>
-    <div class="card card-sm" style="margin-top:8px;">
-      <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Temas Salvos</p>
+    <div class="card card-sm">
+      <p style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;">Temas Salvos</p>
       <div id="p-theme-list" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-      <button class="btn btn-outline" style="margin-top:12px;font-size:13px;" onclick="showSaveThemeModal()">Salvar tema atual como padrao</button>
+      <button class="btn btn-outline" style="margin-top:12px;font-size:12px;" onclick="showSaveThemeModal()">Salvar tema atual</button>
     </div>
   </div>
 </div>
 
-<!-- P2: Session Setup -->
+<!-- P2: Setup -->
 <div id="scn-p-setup" class="screen">
-  <div style="max-width:700px;width:100%;">
+  <div style="max-width:720px;width:100%;">
     <div class="topbar">
-      <span class="topbar-title">Nova Sessao</span>
-      <button class="btn btn-outline" onclick="showScreen('scn-p-home')">Voltar</button>
+      <span class="topbar-title">Nova Sessão</span>
+      <button class="btn btn-outline" onclick="showScreen('scn-p-home')">← Voltar</button>
     </div>
     <div class="card" style="margin-bottom:20px;">
-      <p style="font-weight:700;font-size:16px;margin-bottom:20px;">Configuracoes da Sessao</p>
+      <p style="font-weight:800;font-size:16px;color:var(--navy);margin-bottom:20px;">Configurações da Sessão</p>
       <div class="input-group">
-        <label>Nome da Sessao</label>
-        <input class="input" id="setup-name" placeholder="Ex: DDS Seguranca — GDE">
+        <label>Nome da Sessão</label>
+        <input class="input" id="setup-name" placeholder="Ex: DDS Segurança — GDE">
       </div>
       <div class="input-group">
         <label>URL da Logo do Cliente (opcional)</label>
@@ -295,222 +334,252 @@ body {
         <div class="input-group" style="flex:1;">
           <label>Cor Principal</label>
           <div style="display:flex;gap:8px;align-items:center;">
-            <input type="color" id="setup-color" value="#2563EB" style="width:48px;height:40px;border:none;background:none;cursor:pointer;padding:0;">
-            <input class="input" id="setup-color-hex" value="#2563EB" style="font-family:monospace;">
+            <input type="color" id="setup-color" value="#001a4d" style="width:48px;height:42px;border:none;background:none;cursor:pointer;padding:0;border-radius:6px;">
+            <input class="input" id="setup-color-hex" value="#001a4d" style="font-family:monospace;">
           </div>
         </div>
         <div class="input-group" style="flex:1;">
-          <label>Pontuacao</label>
+          <label>Pontuação</label>
           <select class="select" id="setup-score-mode">
             <option value="fresh">Zerar para cada atividade</option>
-            <option value="accumulate">Acumular ao longo da sessao</option>
+            <option value="accumulate">Acumular ao longo da sessão</option>
           </select>
         </div>
       </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
-        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:100%;margin-bottom:4px;">Temas rapidos:</p>
-        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#2563EB')">Orievo Blue</button>
-        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#059669')">Safety Green</button>
-        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#1E293B')">Corporate Dark</button>
-        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#EA580C')">Energy Orange</button>
-        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="applyTheme('#7C3AED')">Roxo</button>
+      <p style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Temas rápidos</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #001a4d;" onclick="applyTheme('#001a4d')">Orievo Navy</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #059669;" onclick="applyTheme('#059669')">Safety Green</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #2563EB;" onclick="applyTheme('#2563EB')">Corporate Blue</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #7C3AED;" onclick="applyTheme('#7C3AED')">Roxo</button>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #DC2626;" onclick="applyTheme('#DC2626')">Vermelho</button>
       </div>
     </div>
 
     <div class="card" style="margin-bottom:20px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <p style="font-weight:700;font-size:16px;">Atividades</p>
+        <p style="font-weight:800;font-size:16px;color:var(--navy);">Atividades</p>
         <div style="display:flex;gap:8px;">
-          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('quiz')">+ Quiz</button>
-          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('truefalse')">+ V/F</button>
-          <button class="btn btn-outline" style="font-size:13px;" onclick="addActivity('wordcloud')">+ Nuvem</button>
+          <button class="btn btn-outline" style="font-size:12px;" onclick="addActivity('quiz')">+ Quiz</button>
+          <button class="btn btn-outline" style="font-size:12px;" onclick="addActivity('truefalse')">+ V/F</button>
+          <button class="btn btn-outline" style="font-size:12px;" onclick="addActivity('wordcloud')">+ Nuvem</button>
         </div>
       </div>
       <div id="activity-list">
-        <p style="color:var(--text-muted);font-size:14px;text-align:center;padding:20px 0;">Adicione atividades acima.</p>
+        <p style="color:var(--text-muted);font-size:14px;text-align:center;padding:24px 0;">Adicione atividades acima.</p>
       </div>
     </div>
-
-    <button class="btn btn-primary btn-block btn-lg" onclick="createSession()">Criar Sessao</button>
+    <button class="btn btn-navy btn-block btn-xl" onclick="createSession()">🚀 Criar Sessão</button>
   </div>
 </div>
 
 <!-- P3: Waiting Room -->
-<div id="scn-p-waiting" class="screen">
-  <div style="max-width:800px;width:100%;">
-    <div class="topbar">
-      <div id="waiting-logo-wrap"></div>
+<div id="scn-p-waiting" class="screen screen-dark">
+  <div style="max-width:860px;width:100%;">
+    <div class="arena-header">
+      <div class="logos-wrap" id="waiting-logos"></div>
       <div style="display:flex;align-items:center;gap:12px;">
         <span class="conn-dot online" id="conn-dot-waiting"></span>
-        <button class="btn btn-outline" style="font-size:13px;" onclick="confirmEndSession()">Encerrar</button>
+        <button class="btn btn-outline-light" style="font-size:12px;" onclick="confirmEndSession()">Encerrar</button>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-      <div class="card" style="text-align:center;">
-        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Participantes</p>
+      <div class="card-dark" style="text-align:center;">
+        <p style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:16px;">Participantes</p>
         <div class="participant-count" id="waiting-count">0</div>
-        <p style="color:var(--text-muted);margin-top:8px;font-size:14px;">conectados</p>
+        <p style="color:rgba(255,255,255,0.35);margin-top:8px;font-size:14px;font-weight:500;">conectados</p>
       </div>
-      <div class="card" style="text-align:center;">
-        <p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">QR Code / Link</p>
+      <div class="card-dark" style="text-align:center;">
+        <p style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;">QR Code</p>
         <div class="qr-wrap" id="waiting-qr" style="margin:0 auto 12px;"></div>
-        <p style="font-size:11px;color:var(--text-muted);word-break:break-all;" id="waiting-link"></p>
-        <button class="btn btn-outline" style="margin-top:10px;font-size:12px;" onclick="copyLink()">Copiar Link</button>
+        <p style="font-size:11px;color:rgba(255,255,255,0.35);word-break:break-all;" id="waiting-link"></p>
+        <button class="btn btn-outline-light" style="margin-top:10px;font-size:12px;" onclick="copyLink()">Copiar Link</button>
       </div>
     </div>
-    <div class="card" style="margin-top:20px;text-align:center;">
-      <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">Aguardando participantes. Pressione <strong>Enter</strong> para iniciar a primeira atividade.</p>
-      <button class="btn btn-success btn-lg" onclick="startFirstActivity()">Iniciar  [Enter]</button>
-      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;" id="waiting-session-code"></p>
+    <div class="card-dark" style="margin-top:20px;text-align:center;">
+      <p style="font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:20px;">
+        Aguardando participantes. Pressione <strong style="color:var(--tiffany);">Enter</strong> para iniciar.
+      </p>
+      <button class="btn btn-primary btn-xl" onclick="startFirstActivity()">▶ Iniciar Sessão &nbsp;[Enter]</button>
+      <p style="font-size:12px;color:rgba(255,255,255,0.25);margin-top:12px;" id="waiting-session-code"></p>
     </div>
   </div>
 </div>
 
 <!-- P4: Activity Control (Presenter) -->
-<div id="scn-p-control" class="screen">
-  <div style="max-width:800px;width:100%;">
-    <div class="topbar">
-      <div id="control-logo-wrap"></div>
+<div id="scn-p-control" class="screen screen-dark">
+  <div style="max-width:860px;width:100%;">
+    <div class="arena-header">
+      <div class="logos-wrap" id="control-logos"></div>
       <div style="display:flex;align-items:center;gap:12px;">
-        <span class="badge badge-blue" id="control-activity-badge"></span>
-        <button class="btn btn-outline" style="font-size:13px;" onclick="confirmEndSession()">Encerrar</button>
+        <span class="badge badge-tiffany" id="control-activity-badge">1/1</span>
+        <button class="btn btn-outline-light" style="font-size:12px;" onclick="confirmEndSession()">Encerrar</button>
       </div>
     </div>
 
-    <!-- Question display -->
-    <div class="card" style="margin-bottom:16px;">
-      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;" id="control-type-label">QUIZ</p>
-      <p style="font-size:22px;font-weight:700;line-height:1.3;" id="control-question">-</p>
-      <div id="control-options" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;"></div>
+    <!-- Phase indicator -->
+    <div class="phase-bar" id="phase-bar">
+      <div class="phase-dot" id="phase-dot-1"></div>
+      <div class="phase-dot" id="phase-dot-2"></div>
+      <span class="phase-label" id="phase-label">Coletando respostas</span>
+    </div>
+
+    <!-- Question -->
+    <div class="question-display">
+      <p style="font-size:11px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;" id="control-type-label">QUIZ</p>
+      <p class="question-text" id="control-question">-</p>
+      <div id="control-options" class="options-grid"></div>
+    </div>
+
+    <!-- Wordcloud -->
+    <div id="control-wordcloud-wrap" style="display:none;margin-bottom:20px;">
+      <div class="question-display">
+        <p style="font-size:11px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;">NUVEM AO VIVO</p>
+        <div class="wordcloud-wrap" id="control-wordcloud"></div>
+      </div>
     </div>
 
     <!-- Response tracker -->
     <div class="response-tracker">
       <div>
-        <div style="display:flex;align-items:baseline;gap:6px;">
+        <div style="display:flex;align-items:baseline;gap:4px;">
           <span class="response-count" id="resp-count">0</span>
-          <span style="font-size:18px;color:var(--text-muted);">/<span id="resp-total">0</span></span>
+          <span class="response-total">/<span id="resp-total">0</span></span>
         </div>
-        <div class="response-label">respostas recebidas</div>
+        <div class="response-label">respostas</div>
       </div>
       <div style="flex:1;">
-        <div class="progress-bar"><div class="progress-fill" id="resp-bar" style="width:0%"></div></div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" id="resp-pct">0%</p>
+        <div class="progress-bar" style="height:10px;"><div class="progress-fill" id="resp-bar" style="width:0%"></div></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px;font-weight:600;" id="resp-pct">0%</p>
+      </div>
+      <div id="all-answered-badge" style="display:none;">
+        <span class="badge badge-tiffany">✓ Todos responderam!</span>
       </div>
     </div>
 
-    <!-- Wordcloud display (for wordcloud activities) -->
-    <div id="control-wordcloud-wrap" class="card" style="display:none;margin-bottom:16px;">
-      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;">NUVEM AO VIVO</p>
-      <div class="wordcloud-wrap" id="control-wordcloud"></div>
-    </div>
-
-    <!-- Action area -->
-    <div class="card card-sm" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
-      <span class="key-hint"><span class="key">Enter</span> <span id="enter-hint-label">Proxima atividade</span></span>
-      <button class="btn btn-primary btn-lg" id="btn-enter-action" onclick="handlePresenterEnter()">Avancar [Enter]</button>
+    <!-- Enter bar -->
+    <div class="enter-bar">
+      <div class="key-hint"><span class="key">Enter</span> <span id="enter-hint-label">Revelar resposta</span></div>
+      <button class="btn btn-primary btn-lg" id="btn-enter-action" onclick="handlePresenterEnter()">Revelar resposta &nbsp;[↵]</button>
     </div>
   </div>
 </div>
 
 <!-- P5: Presenter Ranking -->
-<div id="scn-p-ranking" class="screen">
-  <div style="max-width:700px;width:100%;">
-    <div class="topbar">
-      <div id="prank-logo-wrap"></div>
-      <span class="badge badge-blue">Ranking Final</span>
+<div id="scn-p-ranking" class="screen screen-dark">
+  <div style="max-width:800px;width:100%;">
+    <div class="arena-header">
+      <div class="logos-wrap" id="prank-logos"></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline-light" style="font-size:12px;" onclick="exportRanking()">⬇ CSV</button>
+        <button class="btn btn-outline-light" style="font-size:12px;" onclick="showScreen('scn-p-home')">Nova Sessão</button>
+      </div>
     </div>
-    <div class="card">
-      <div id="p-ranking-list"></div>
+    <div class="trophy-header">
+      <div class="trophy-icon">🏆</div>
+      <div class="trophy-title">Ranking Final</div>
+      <div class="trophy-sub" id="prank-session-name"></div>
     </div>
+    <div class="podium-wrap" id="p-podium-wrap"></div>
+    <div class="ranking-list-wrap" id="p-ranking-rest" style="display:none;"></div>
     <div style="display:flex;gap:12px;margin-top:20px;">
-      <button class="btn btn-outline btn-block" onclick="showScreen('scn-p-home')">Nova Sessao</button>
+      <button class="btn btn-outline-light btn-block" onclick="showScreen('scn-p-home')">Nova Sessão</button>
       <button class="btn btn-primary btn-block" onclick="exportRanking()">Exportar CSV</button>
     </div>
   </div>
 </div>
 
-<!-- ===================== PARTICIPANT SCREENS ===================== -->
 
-<!-- A0: Participant Join -->
+<!-- ═══════════════════════════════════════════
+  PARTICIPANT SCREENS
+═══════════════════════════════════════════ -->
+
+<!-- A0: Join -->
 <div id="scn-a-join" class="screen">
   <div style="max-width:480px;width:100%;margin-top:40px;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <img src="https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png"
+           alt="Orievo" style="height:34px;object-fit:contain;opacity:0.65;" onerror="this.style.display='none'">
+    </div>
     <div class="card" style="text-align:center;">
       <div id="join-logo-wrap" style="margin-bottom:20px;min-height:40px;display:flex;justify-content:center;align-items:center;"></div>
-      <h1 style="font-size:24px;font-weight:800;margin-bottom:6px;" id="join-session-name">Arena Ao Vivo</h1>
+      <h1 style="font-size:26px;font-weight:900;color:var(--navy);margin-bottom:6px;" id="join-session-name">Arena Ao Vivo</h1>
       <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px;">Digite seu nome para entrar</p>
       <div class="input-group" style="text-align:left;">
         <label>Seu Nome</label>
         <input class="input" id="a-name-input" placeholder="Ex: Maria Silva" style="font-size:18px;padding:16px;">
       </div>
-      <button class="btn btn-primary btn-block btn-lg" onclick="participantJoin()" style="margin-top:8px;">Entrar na Sessao</button>
+      <button class="btn btn-navy btn-block btn-lg" onclick="participantJoin()" style="margin-top:8px;">Entrar →</button>
       <p id="join-err" style="color:var(--error);font-size:13px;margin-top:10px;display:none;"></p>
     </div>
   </div>
 </div>
 
-<!-- A1: Participant Waiting -->
+<!-- A1: Waiting -->
 <div id="scn-a-waiting" class="screen">
   <div style="max-width:480px;width:100%;margin-top:60px;text-align:center;">
     <div id="aw-logo-wrap" style="margin-bottom:24px;display:flex;justify-content:center;"></div>
-    <div class="await-icon">&#9200;</div>
+    <div class="await-icon">⏳</div>
     <div class="await-title" id="aw-name">Olá!</div>
     <div class="await-sub">Aguardando o apresentador iniciar...</div>
     <div style="margin-top:32px;">
-      <span class="score-pill">Pontos: <span id="aw-score">0</span></span>
+      <span class="score-pill">⭐ Pontos: <span id="aw-score">0</span></span>
     </div>
   </div>
 </div>
 
-<!-- A2: Participant Answer -->
+<!-- A2: Answer -->
 <div id="scn-a-answer" class="screen">
-  <div style="max-width:480px;width:100%;">
+  <div style="max-width:520px;width:100%;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-      <span class="score-pill">Pontos: <span id="ans-score">0</span></span>
-      <span class="badge badge-blue" id="ans-activity-num"></span>
+      <span class="score-pill">⭐ <span id="ans-score">0</span> pts</span>
+      <span class="badge badge-light" id="ans-activity-num">Atividade 1</span>
     </div>
     <div class="card">
-      <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px;" id="ans-type-label">QUIZ</p>
-      <p style="font-size:20px;font-weight:700;line-height:1.35;margin-bottom:24px;" id="ans-question">-</p>
+      <p style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;" id="ans-type-label">QUIZ</p>
+      <p style="font-size:20px;font-weight:800;line-height:1.4;margin-bottom:24px;color:var(--navy);" id="ans-question">-</p>
       <div id="ans-options"></div>
     </div>
-    <div id="ans-already" style="display:none;text-align:center;margin-top:24px;">
-      <p style="color:var(--text-muted);font-size:15px;">Aguardando próxima atividade...</p>
+    <div id="ans-already" style="display:none;text-align:center;margin-top:28px;">
+      <p style="color:rgba(255,255,255,0.45);font-size:15px;font-weight:500;">✓ Aguardando próxima atividade...</p>
     </div>
   </div>
 </div>
 
-<!-- A3: Participant Word Cloud Input -->
+<!-- A3: Word Cloud Input -->
 <div id="scn-a-wordcloud" class="screen">
   <div style="max-width:480px;width:100%;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-      <span class="score-pill">Pontos: <span id="wc-score">0</span></span>
-      <span class="badge badge-yellow">NUVEM DE PALAVRAS</span>
+      <span class="score-pill">⭐ <span id="wc-score">0</span> pts</span>
+      <span class="badge badge-light">NUVEM DE PALAVRAS</span>
     </div>
     <div class="card" style="text-align:center;">
-      <p style="font-size:20px;font-weight:700;margin-bottom:24px;" id="wc-question">-</p>
+      <p style="font-size:20px;font-weight:800;color:var(--navy);margin-bottom:24px;line-height:1.4;" id="wc-question">-</p>
       <div class="input-group" style="text-align:left;">
         <label>Sua resposta</label>
         <input class="input" id="wc-input" placeholder="Digite uma palavra ou frase curta" style="font-size:18px;padding:16px;" maxlength="40">
       </div>
-      <button class="btn btn-primary btn-block btn-lg" id="wc-submit-btn" onclick="submitWordCloud()" style="margin-top:8px;">Enviar</button>
-      <p id="wc-sent" style="display:none;color:var(--success);font-weight:600;margin-top:16px;">Enviado! Aguardando o apresentador...</p>
+      <button class="btn btn-navy btn-block btn-lg" id="wc-submit-btn" onclick="submitWordCloud()" style="margin-top:8px;">Enviar →</button>
+      <p id="wc-sent" style="display:none;color:var(--success);font-weight:700;margin-top:16px;">✓ Enviado! Aguardando o apresentador...</p>
     </div>
   </div>
 </div>
 
-<!-- A4: Participant Ranking -->
-<div id="scn-a-ranking" class="screen">
-  <div style="max-width:480px;width:100%;margin-top:20px;">
+<!-- A4: Ranking (Participant) -->
+<div id="scn-a-ranking" class="screen screen-dark">
+  <div style="max-width:520px;width:100%;margin-top:20px;">
     <div id="ar-logo-wrap" style="margin-bottom:20px;text-align:center;"></div>
-    <div class="card" style="text-align:center;margin-bottom:16px;">
-      <p style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Sua pontuacao final</p>
-      <div style="font-size:56px;font-weight:800;color:var(--accent);" id="ar-my-score">0</div>
+    <div class="trophy-header" style="margin-bottom:20px;">
+      <div class="trophy-icon" style="font-size:56px;">🏆</div>
+      <div class="trophy-title" style="font-size:24px;">Ranking Final</div>
     </div>
-    <div class="card">
-      <p style="font-weight:700;font-size:16px;margin-bottom:16px;text-align:center;">Ranking Final</p>
-      <div id="a-ranking-list"></div>
+    <div style="background:rgba(127,255,212,0.1);border:1px solid rgba(127,255,212,0.25);border-radius:var(--radius);padding:24px;text-align:center;margin-bottom:24px;">
+      <p style="font-size:11px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Sua pontuação final</p>
+      <div style="font-size:60px;font-weight:900;color:var(--tiffany);line-height:1;" id="ar-my-score">0</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:6px;font-weight:600;">pontos</p>
     </div>
+    <div class="podium-wrap" id="a-podium-wrap" style="transform:scale(0.85);transform-origin:top center;"></div>
+    <div class="ranking-list-wrap" id="a-ranking-rest" style="display:none;margin-top:8px;"></div>
   </div>
 </div>
 
@@ -522,7 +591,6 @@ body {
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getDatabase, ref, set, get, onValue, update, push, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-
 const app = initializeApp({
   apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
   authDomain: "dislub-equador.firebaseapp.com",
@@ -532,135 +600,99 @@ const app = initializeApp({
   messagingSenderId: "160052415363",
   appId: "1:160052415363:web:f17df9700cd511122504b6"
 });
-
 const db = getDatabase(app);
 window._fb = { db, ref, set, get, onValue, update, push, remove };
 window.dispatchEvent(new Event('firebase-ready'));
 </script>
 
 <script>
-// ═══════════════════════════════════════════════════
-// CONSTANTS
-// ═══════════════════════════════════════════════════
 const DEFAULT_PASSWORD = 'Arena2026GDE';
 function getPresenterPwd() { return localStorage.getItem('arena_pwd') || DEFAULT_PASSWORD; }
 const ARENA_PATH = 'arena_v2';
 const POINTS_CORRECT = 100;
-const WC_COLORS = ['#2563EB','#7C3AED','#059669','#D97706','#DC2626','#0891B2','#9333EA','#16A34A','#C2410C'];
+const ORIEVO_LOGO = 'https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png';
+const WC_COLORS = ['#7FFFD4','#60D9F0','#A78BFA','#34D399','#F472B6','#FCD34D','#6EE7B7','#93C5FD','#FCA5A5'];
 
-// ═══════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════
-let fb = null;           // Firebase API
-let presenterMode = false;
-let sessionId = null;    // current session code
-let sessionConfig = {};  // { name, logo, color, scoreMode, activities }
-let activities = [];     // array built in setup
+let fb = null, presenterMode = false, sessionId = null, sessionConfig = {}, activities = [];
+let participantId = null, participantName = null, participantScore = 0;
+let currentActivityIndex = 0, currentActivityIndexForParticipant = 0;
+let currentStatus = 'waiting', presenterUnsubscribe = null, allAnsweredNotified = false;
 
-// Participant
-let participantId = null;
-let participantName = null;
-let participantScore = 0;
-
-// Presenter control state
-let currentActivityIndex = 0;
-let currentStatus = 'waiting'; // waiting | question | show_answer | wordcloud_input | wordcloud_display | ranking | ended
-let presenterUnsubscribe = null;
-let lastResponseCount = 0;
-let allAnsweredNotified = false;
-
-// ═══════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════
 window.addEventListener('firebase-ready', () => {
   fb = window._fb;
   updateConnDot(true);
   const params = new URLSearchParams(location.search);
   const sid = params.get('s');
-  if (sid) {
-    sessionId = sid;
-    participantInit(sid);
-  } else {
+  if (sid) { sessionId = sid; participantInit(sid); }
+  else {
     showScreen('scn-p-login');
-    document.getElementById('p-login-pwd').addEventListener('keydown', e => { if (e.key === 'Enter') presenterLogin(); });
+    document.getElementById('p-login-pwd').addEventListener('keydown', e => { if(e.key==='Enter') presenterLogin(); });
   }
 });
 
-// Keyboard control (Enter key for presenter)
 document.addEventListener('keydown', e => {
-  if (presenterMode && e.key === 'Enter' && !e.target.matches('input, textarea, select, button')) {
-    e.preventDefault();
-    handlePresenterEnter();
+  if (presenterMode && e.key==='Enter' && !e.target.matches('input,textarea,select,button')) {
+    e.preventDefault(); handlePresenterEnter();
   }
 });
-
-// Sync color picker <-> hex input
-document.getElementById('setup-color').addEventListener('input', e => {
-  document.getElementById('setup-color-hex').value = e.target.value;
-});
+document.getElementById('setup-color').addEventListener('input', e => { document.getElementById('setup-color-hex').value = e.target.value; });
 document.getElementById('setup-color-hex').addEventListener('input', e => {
-  const v = e.target.value;
-  if (/^#[0-9A-Fa-f]{6}$/.test(v)) document.getElementById('setup-color').value = v;
+  if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) document.getElementById('setup-color').value = e.target.value;
 });
 
-// ═══════════════════════════════════════════════════
-// SCREEN MANAGER
-// ═══════════════════════════════════════════════════
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
 window.showScreen = showScreen;
 
 function updateConnDot(online) {
   ['conn-dot-login','conn-dot-waiting'].forEach(id => {
     const el = document.getElementById(id);
-    if (!el) return;
-    el.className = 'conn-dot ' + (online ? 'online' : 'offline');
+    if (el) el.className = 'conn-dot ' + (online?'online':'offline');
   });
   const lbl = document.getElementById('conn-label-login');
-  if (lbl) lbl.textContent = online ? 'Conectado ao Firebase' : 'Sem conexao';
+  if (lbl) lbl.textContent = online ? 'Conectado' : 'Sem conexão';
 }
 
-function notify(msg, type = 'success') {
+function notify(msg, type='success') {
   const el = document.getElementById('notification');
   el.textContent = msg;
-  el.style.background = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--error)' : 'var(--warning)';
+  if (type==='success') { el.style.background='var(--navy)'; el.style.color='var(--tiffany)'; el.style.borderColor='var(--tiffany)'; }
+  else if (type==='error') { el.style.background='#1a0000'; el.style.color='#ff6b6b'; el.style.borderColor='#ff6b6b'; }
+  else { el.style.background='#1a1200'; el.style.color='#FCD34D'; el.style.borderColor='#FCD34D'; }
   el.classList.add('show');
-  if (type === 'success') playBeep(880);
+  if (type==='success') playBeep(880);
   clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 4000);
+  el._t = setTimeout(()=>el.classList.remove('show'), 4500);
 }
 
-function playBeep(freq = 880) {
+function playBeep(freq=880) {
   try {
-    const ctx = new AudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const ctx = new AudioContext(), osc = ctx.createOscillator(), gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = 'sine'; osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.25, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-    osc.start(); osc.stop(ctx.currentTime + 0.5);
-  } catch(e) {}
+    osc.type='sine'; osc.frequency.value=freq;
+    gain.gain.setValueAtTime(0.2,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);
+    osc.start(); osc.stop(ctx.currentTime+0.5);
+  } catch(e){}
 }
 
-function applyAccentColor(color) {
-  document.documentElement.style.setProperty('--accent', color);
-  // derive dark
-  document.documentElement.style.setProperty('--accent-dark', color);
-  document.documentElement.style.setProperty('--accent-light', color + '18');
+function buildLogosHtml(clientLogoUrl, sessionName) {
+  let html = `<img src="${ORIEVO_LOGO}" class="logo-orievo" alt="Orievo" onerror="this.style.display='none'">`;
+  if (clientLogoUrl) {
+    html += `<div class="logo-divider"></div><img src="${clientLogoUrl}" class="logo-client" alt="Logo" onerror="this.style.display='none'">`;
+  } else if (sessionName) {
+    html += `<div class="logo-divider"></div><span class="logo-placeholder-dark">${sessionName}</span>`;
+  }
+  return html;
 }
 
-// ═══════════════════════════════════════════════════
-// PRESENTER — LOGIN
-// ═══════════════════════════════════════════════════
+// ── LOGIN ──
 function presenterLogin() {
-  const pwd = document.getElementById('p-login-pwd').value;
-  if (pwd === getPresenterPwd()) {
-    presenterMode = true;
-    loadPresenterHome();
+  if (document.getElementById('p-login-pwd').value === getPresenterPwd()) {
+    presenterMode = true; loadPresenterHome();
   } else {
     document.getElementById('p-login-err').style.display = 'block';
   }
@@ -668,266 +700,128 @@ function presenterLogin() {
 window.presenterLogin = presenterLogin;
 
 function changePwd() {
-  const atual = prompt('Senha atual (ou deixe em branco se for a primeira vez):');
-  if (atual !== null && atual !== getPresenterPwd() && atual !== '') {
-    alert('Senha atual incorreta.'); return;
-  }
+  const atual = prompt('Senha atual:');
+  if (atual !== null && atual !== getPresenterPwd() && atual !== '') { alert('Senha incorreta.'); return; }
   const nova = prompt('Nova senha:');
-  if (!nova || nova.trim().length < 4) { alert('Senha muito curta (minimo 4 caracteres).'); return; }
-  const confirma = prompt('Confirme a nova senha:');
-  if (nova !== confirma) { alert('As senhas nao coincidem.'); return; }
+  if (!nova || nova.trim().length<4) { alert('Mínimo 4 caracteres.'); return; }
+  if (nova !== prompt('Confirme:')) { alert('Não coincidem.'); return; }
   localStorage.setItem('arena_pwd', nova.trim());
-  alert('Senha alterada com sucesso!');
+  alert('Senha alterada!');
 }
 window.changePwd = changePwd;
 
-// ═══════════════════════════════════════════════════
-// PRESENTER — HOME (session list)
-// ═══════════════════════════════════════════════════
+// ── HOME ──
 function loadPresenterHome() {
   showScreen('scn-p-home');
-  loadSessionList();
-  loadThemeList();
-}
-
-function loadSessionList() {
   if (!fb) return;
   const { db, ref, onValue } = fb;
-  onValue(ref(db, ARENA_PATH + '/sessions'), snap => {
+  onValue(ref(db, ARENA_PATH+'/sessions'), snap => {
     const sessions = snap.val() || {};
     const wrap = document.getElementById('p-session-list');
-    const active = Object.entries(sessions)
-      .filter(([,s]) => s.status !== 'ended')
-      .sort((a,b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
-
-    if (!active.length) {
-      wrap.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">Nenhuma sessao ativa.</p>';
-      return;
-    }
-    wrap.innerHTML = active.map(([id, s]) => `
+    const active = Object.entries(sessions).filter(([,s])=>s.status!=='ended').sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+    if (!active.length) { wrap.innerHTML='<p style="color:var(--text-muted);font-size:14px;">Nenhuma sessão ativa.</p>'; return; }
+    wrap.innerHTML = active.map(([id,s]) => `
       <div class="session-row" onclick="resumeSession('${id}')">
-        <div>
-          <div style="font-weight:700;">${s.name}</div>
-          <div style="font-size:13px;color:var(--text-muted);">Codigo: ${id} &bull; ${Object.keys(s.participants||{}).length} participantes</div>
-        </div>
-        <span class="badge badge-${s.status==='waiting'?'yellow':'blue'}">${s.status==='waiting'?'Aguardando':'Em andamento'}</span>
-      </div>
-    `).join('');
-  }, { onlyOnce: true });
-}
-
-function loadThemeList() {
-  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
-  const wrap = document.getElementById('p-theme-list');
-  if (!themes.length) { wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Nenhum tema salvo.</p>'; return; }
-  wrap.innerHTML = themes.map((t,i) => `
-    <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid ${t.color};" onclick="loadTheme(${i})">${t.name}</button>
-  `).join('');
+        <div><div style="font-weight:800;color:var(--navy);">${s.name}</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:3px;">Código: ${id} &bull; ${Object.keys(s.participants||{}).length} participantes</div></div>
+        <span class="badge ${s.status==='waiting'?'badge-yellow':'badge-navy'}">${s.status==='waiting'?'Aguardando':'Em andamento'}</span>
+      </div>`).join('');
+  }, {onlyOnce:true});
+  const themes = JSON.parse(localStorage.getItem('arena_themes')||'[]');
+  const tw = document.getElementById('p-theme-list');
+  tw.innerHTML = themes.length ? themes.map((t,i)=>`<button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid ${t.color};" onclick="loadTheme(${i})">${t.name}</button>`).join('') : '<p style="font-size:13px;color:var(--text-muted);">Nenhum tema salvo.</p>';
 }
 
 function resumeSession(id) {
   sessionId = id;
-  const { db, ref, onValue } = fb;
-  onValue(ref(db, ARENA_PATH + '/sessions/' + id), snap => {
-    const s = snap.val();
-    if (!s) return;
+  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+id), snap => {
+    const s = snap.val(); if (!s) return;
     sessionConfig = s.config || {};
-    applyAccentColor(sessionConfig.color || '#2563EB');
-    if (s.status === 'waiting') {
-      showWaitingRoom();
-    } else {
-      currentActivityIndex = s.currentActivityIndex || 0;
-      currentStatus = s.status;
-      showControlScreen();
-    }
-  }, { onlyOnce: true });
+    if (s.status==='waiting') showWaitingRoom();
+    else { currentActivityIndex = s.currentActivityIndex||0; currentStatus = s.status; showControlScreen(); }
+  }, {onlyOnce:true});
 }
 window.resumeSession = resumeSession;
 
-// ═══════════════════════════════════════════════════
-// PRESENTER — SESSION SETUP
-// ═══════════════════════════════════════════════════
+// ── SETUP ──
 activities = [];
-
-function addActivity(type) {
-  const id = Date.now();
-  activities.push({ id, type, question: '', options: ['','','',''], correct: 0, points: POINTS_CORRECT });
-  renderActivityList();
-}
+function addActivity(type) { activities.push({id:Date.now(),type,question:'',options:['','','',''],correct:0,points:POINTS_CORRECT}); renderActivityList(); }
 window.addActivity = addActivity;
-
-function removeActivity(id) {
-  activities = activities.filter(a => a.id !== id);
-  renderActivityList();
-}
+function removeActivity(id) { activities=activities.filter(a=>a.id!==id); renderActivityList(); }
 window.removeActivity = removeActivity;
 
 function renderActivityList() {
   const wrap = document.getElementById('activity-list');
-  if (!activities.length) {
-    wrap.innerHTML = '<p style="color:var(--text-muted);font-size:14px;text-align:center;padding:20px 0;">Adicione atividades acima.</p>';
-    return;
-  }
-  wrap.innerHTML = activities.map((a, idx) => {
-    const typeLabel = { quiz:'Quiz (Multipla Escolha)', truefalse:'Verdadeiro ou Falso', wordcloud:'Nuvem de Palavras' }[a.type];
-    const optionsHtml = a.type === 'wordcloud' ? '' : (a.type === 'truefalse'
-      ? `<div style="display:flex;gap:10px;margin-top:8px;">
-           <button class="btn ${a.correct===0?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},0)">Verdadeiro</button>
-           <button class="btn ${a.correct===1?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},1)">Falso</button>
-         </div>`
-      : a.options.map((opt, oi) => `
+  if (!activities.length) { wrap.innerHTML='<p style="color:var(--text-muted);font-size:14px;text-align:center;padding:24px 0;">Adicione atividades acima.</p>'; return; }
+  wrap.innerHTML = activities.map((a,idx) => {
+    const typeLabel = {quiz:'Quiz (Múltipla Escolha)',truefalse:'Verdadeiro ou Falso',wordcloud:'Nuvem de Palavras'}[a.type];
+    const optionsHtml = a.type==='wordcloud' ? '' : (a.type==='truefalse'
+      ? `<div style="display:flex;gap:10px;margin-top:10px;">
+           <button class="btn ${a.correct===0?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},0)">✓ Verdadeiro</button>
+           <button class="btn ${a.correct===1?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},1)">✗ Falso</button></div>`
+      : a.options.map((opt,oi)=>`
           <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
-            <button class="btn ${a.correct===oi?'btn-success':'btn-outline'}" style="font-size:12px;padding:6px 12px;min-width:36px;" onclick="setCorrect(${a.id},${oi})" title="Marcar como correta">${String.fromCharCode(65+oi)}</button>
-            <input class="input" style="flex:1;" value="${opt}" placeholder="Opcao ${String.fromCharCode(65+oi)}" oninput="updateOption(${a.id},${oi},this.value)">
+            <button class="btn ${a.correct===oi?'btn-success':'btn-outline'}" style="font-size:12px;padding:6px 12px;min-width:36px;" onclick="setCorrect(${a.id},${oi})">${String.fromCharCode(65+oi)}</button>
+            <input class="input" style="flex:1;" value="${opt}" placeholder="Opção ${String.fromCharCode(65+oi)}" oninput="updateOption(${a.id},${oi},this.value)">
           </div>`).join(''));
-    return `
-      <div class="activity-item">
-        <div class="activity-header">
-          <span class="badge badge-blue" style="font-size:11px;">${idx+1}. ${typeLabel}</span>
-          <button class="btn" style="padding:4px 10px;font-size:12px;background:var(--error-light);color:var(--error);" onclick="removeActivity(${a.id})">Remover</button>
-        </div>
-        <input class="input" placeholder="Pergunta / Enunciado" value="${a.question}" oninput="updateQuestion(${a.id},this.value)">
-        ${optionsHtml}
-      </div>`;
+    return `<div class="activity-item">
+      <div class="activity-header">
+        <span class="badge badge-navy">${idx+1}. ${typeLabel}</span>
+        <button class="btn" style="padding:4px 10px;font-size:12px;background:var(--error-light);color:var(--error);border-radius:6px;" onclick="removeActivity(${a.id})">Remover</button>
+      </div>
+      <input class="input" placeholder="Pergunta / Enunciado" value="${a.question}" oninput="updateQuestion(${a.id},this.value)">
+      ${optionsHtml}</div>`;
   }).join('');
 }
-
-function updateQuestion(id, val) { const a = activities.find(x => x.id===id); if(a) a.question = val; }
-window.updateQuestion = updateQuestion;
-function updateOption(id, oi, val) { const a = activities.find(x => x.id===id); if(a) a.options[oi] = val; }
-window.updateOption = updateOption;
-function setCorrect(id, oi) { const a = activities.find(x => x.id===id); if(a) { a.correct = oi; renderActivityList(); } }
-window.setCorrect = setCorrect;
-
-function applyTheme(color) {
-  document.getElementById('setup-color').value = color;
-  document.getElementById('setup-color-hex').value = color;
-  applyAccentColor(color);
-}
-window.applyTheme = applyTheme;
-
-function loadTheme(i) {
-  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
-  const t = themes[i];
-  if (!t) return;
-  applyTheme(t.color);
-}
-window.loadTheme = loadTheme;
-
-function showSaveThemeModal() {
-  const name = prompt('Nome para este tema:');
-  if (!name) return;
-  const color = document.getElementById('setup-color').value;
-  const themes = JSON.parse(localStorage.getItem('arena_themes') || '[]');
-  themes.push({ name, color });
-  localStorage.setItem('arena_themes', JSON.stringify(themes));
-  notify('Tema "' + name + '" salvo!');
-  loadThemeList();
-}
-window.showSaveThemeModal = showSaveThemeModal;
+function updateQuestion(id,val){const a=activities.find(x=>x.id===id);if(a)a.question=val;} window.updateQuestion=updateQuestion;
+function updateOption(id,oi,val){const a=activities.find(x=>x.id===id);if(a)a.options[oi]=val;} window.updateOption=updateOption;
+function setCorrect(id,oi){const a=activities.find(x=>x.id===id);if(a){a.correct=oi;renderActivityList();}} window.setCorrect=setCorrect;
+function applyTheme(color){document.getElementById('setup-color').value=color;document.getElementById('setup-color-hex').value=color;} window.applyTheme=applyTheme;
+function loadTheme(i){const t=JSON.parse(localStorage.getItem('arena_themes')||'[]')[i];if(t)applyTheme(t.color);} window.loadTheme=loadTheme;
+function showSaveThemeModal(){const name=prompt('Nome para este tema:');if(!name)return;const color=document.getElementById('setup-color').value;const themes=JSON.parse(localStorage.getItem('arena_themes')||'[]');themes.push({name,color});localStorage.setItem('arena_themes',JSON.stringify(themes));notify('Tema "'+name+'" salvo!');loadPresenterHome();} window.showSaveThemeModal=showSaveThemeModal;
 
 function createSession() {
   const name = document.getElementById('setup-name').value.trim();
-  if (!name) { notify('Digite o nome da sessao.', 'error'); return; }
-  if (!activities.length) { notify('Adicione pelo menos uma atividade.', 'error'); return; }
+  if (!name) { notify('Digite o nome da sessão.','error'); return; }
+  if (!activities.length) { notify('Adicione pelo menos uma atividade.','error'); return; }
   for (const a of activities) {
-    if (!a.question.trim()) { notify('Preencha o enunciado de todas as atividades.', 'error'); return; }
-    if (a.type === 'quiz') {
-      const filled = a.options.filter(o => o.trim()).length;
-      if (filled < 2) { notify('Cada quiz precisa de pelo menos 2 opcoes.', 'error'); return; }
-    }
+    if (!a.question.trim()) { notify('Preencha o enunciado de todas as atividades.','error'); return; }
+    if (a.type==='quiz' && a.options.filter(o=>o.trim()).length<2) { notify('Cada quiz precisa de 2+ opções.','error'); return; }
   }
-
   sessionId = genCode();
-  sessionConfig = {
-    name,
-    logo: document.getElementById('setup-logo').value.trim(),
-    color: document.getElementById('setup-color').value,
-    scoreMode: document.getElementById('setup-score-mode').value,
-    activities: activities.map(a => ({ ...a }))
-  };
-
-  applyAccentColor(sessionConfig.color);
-
-  const { db, ref, set } = fb;
-  set(ref(db, ARENA_PATH + '/sessions/' + sessionId), {
-    name,
-    config: sessionConfig,
-    status: 'waiting',
-    currentActivityIndex: 0,
-    participants: {},
-    createdAt: Date.now()
-  }).then(() => {
-    showWaitingRoom();
-  }).catch(err => {
-    notify('Erro Firebase: ' + err.message, 'error');
-  });
+  sessionConfig = { name, logo:document.getElementById('setup-logo').value.trim(), color:document.getElementById('setup-color').value, scoreMode:document.getElementById('setup-score-mode').value, activities:activities.map(a=>({...a})) };
+  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId), { name, config:sessionConfig, status:'waiting', currentActivityIndex:0, participants:{}, createdAt:Date.now() })
+    .then(()=>showWaitingRoom())
+    .catch(err=>notify('Erro Firebase: '+err.message,'error'));
 }
 window.createSession = createSession;
 
-// ═══════════════════════════════════════════════════
-// PRESENTER — WAITING ROOM
-// ═══════════════════════════════════════════════════
+// ── WAITING ROOM ──
 function showWaitingRoom() {
   showScreen('scn-p-waiting');
-  const link = location.origin + location.pathname + '?s=' + sessionId;
+  const link = location.origin+location.pathname+'?s='+sessionId;
   document.getElementById('waiting-link').textContent = link;
-  document.getElementById('waiting-session-code').textContent = 'Codigo: ' + sessionId;
-
-  const logoWrap = document.getElementById('waiting-logo-wrap');
-  if (sessionConfig.logo) {
-    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo" onerror="this.style.display='none'">`;
-  } else {
-    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
-  }
-
+  document.getElementById('waiting-session-code').textContent = 'Código: '+sessionId;
+  document.getElementById('waiting-logos').innerHTML = buildLogosHtml(sessionConfig.logo, sessionConfig.name);
   document.getElementById('waiting-qr').innerHTML = '';
-  new QRCode(document.getElementById('waiting-qr'), { text: link, width: 140, height: 140, correctLevel: QRCode.CorrectLevel.M });
-
-  // Listen to participants
-  const { db, ref, onValue } = fb;
-  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants'), snap => {
-    const count = snap.val() ? Object.keys(snap.val()).length : 0;
-    document.getElementById('waiting-count').textContent = count;
+  new QRCode(document.getElementById('waiting-qr'),{text:link,width:150,height:150,correctLevel:QRCode.CorrectLevel.M});
+  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants'), snap => {
+    document.getElementById('waiting-count').textContent = snap.val() ? Object.keys(snap.val()).length : 0;
   });
 }
+window.copyLink = function() { navigator.clipboard.writeText(location.origin+location.pathname+'?s='+sessionId).then(()=>notify('Link copiado!')); };
+window.startFirstActivity = function() { currentActivityIndex=0; pushActivity(); };
 
-window.copyLink = function() {
-  const link = location.origin + location.pathname + '?s=' + sessionId;
-  navigator.clipboard.writeText(link).then(() => notify('Link copiado!'));
-};
-
-window.startFirstActivity = function() {
-  currentActivityIndex = 0;
-  pushActivity();
-};
-
-// ═══════════════════════════════════════════════════
-// PRESENTER — ACTIVITY CONTROL
-// ═══════════════════════════════════════════════════
+// ── ACTIVITY CONTROL ──
 function pushActivity() {
   const act = sessionConfig.activities[currentActivityIndex];
   if (!act) { pushRanking(); return; }
-
-  currentStatus = act.type === 'wordcloud' ? 'wordcloud_input' : 'question';
+  currentStatus = act.type==='wordcloud' ? 'wordcloud_input' : 'question';
   allAnsweredNotified = false;
-  lastResponseCount = 0;
-
-  const { db, ref, update } = fb;
-  update(ref(db, ARENA_PATH + '/sessions/' + sessionId), {
-    status: currentStatus,
-    currentActivityIndex,
-    currentActivity: {
-      index: currentActivityIndex,
-      type: act.type,
-      question: act.question,
-      options: act.options || [],
-      correct: act.correct ?? 0,
-      points: act.points || POINTS_CORRECT,
-      startedAt: Date.now()
-    }
+  fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId), {
+    status:currentStatus, currentActivityIndex,
+    currentActivity:{ index:currentActivityIndex, type:act.type, question:act.question, options:act.options||[], correct:act.correct??0, points:act.points||POINTS_CORRECT, startedAt:Date.now() }
   });
-
   showControlScreen();
 }
 
@@ -935,477 +829,344 @@ function showControlScreen() {
   showScreen('scn-p-control');
   const act = sessionConfig.activities[currentActivityIndex];
   if (!act) return;
-
-  // Logo
-  const logoWrap = document.getElementById('control-logo-wrap');
-  if (sessionConfig.logo) {
-    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo">`;
-  } else {
-    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
-  }
-
+  document.getElementById('control-logos').innerHTML = buildLogosHtml(sessionConfig.logo, sessionConfig.name);
   document.getElementById('control-activity-badge').textContent = `${currentActivityIndex+1} / ${sessionConfig.activities.length}`;
-
-  const typeLabels = { quiz:'QUIZ', truefalse:'VERDADEIRO OU FALSO', wordcloud:'NUVEM DE PALAVRAS' };
-  document.getElementById('control-type-label').textContent = typeLabels[act.type] || act.type;
+  document.getElementById('control-type-label').textContent = {quiz:'Quiz',truefalse:'Verdadeiro ou Falso',wordcloud:'Nuvem de Palavras'}[act.type]||act.type;
   document.getElementById('control-question').textContent = act.question;
 
-  // Options display (presenter reference)
   const optsWrap = document.getElementById('control-options');
-  if (act.type === 'quiz') {
-    optsWrap.innerHTML = act.options.filter(o=>o).map((o,i) => `
-      <span style="background:${i===act.correct?'var(--success-light)':'var(--bg)'};border:2px solid ${i===act.correct?'var(--success)':'var(--border)'};
-        border-radius:8px;padding:8px 14px;font-size:14px;font-weight:${i===act.correct?700:400};">
-        ${String.fromCharCode(65+i)}) ${o}
-      </span>`).join('');
-  } else if (act.type === 'truefalse') {
-    optsWrap.innerHTML = ['Verdadeiro','Falso'].map((o,i) => `
-      <span style="background:${i===act.correct?'var(--success-light)':'var(--bg)'};border:2px solid ${i===act.correct?'var(--success)':'var(--border)'};
-        border-radius:8px;padding:8px 14px;font-size:14px;font-weight:${i===act.correct?700:400};">${o}</span>`).join('');
-  } else {
-    optsWrap.innerHTML = '';
-  }
+  if (act.type==='quiz') {
+    optsWrap.innerHTML = act.options.filter(o=>o).map((o,i)=>`
+      <div class="option-pill" id="ctrl-opt-${i}">
+        <div class="option-letter">${String.fromCharCode(65+i)}</div><span>${o}</span>
+      </div>`).join('');
+    optsWrap.style.display='grid';
+  } else if (act.type==='truefalse') {
+    optsWrap.innerHTML = ['Verdadeiro','Falso'].map((o,i)=>`
+      <div class="option-pill" id="ctrl-opt-${i}">
+        <div class="option-letter">${i===0?'V':'F'}</div><span>${o}</span>
+      </div>`).join('');
+    optsWrap.style.display='grid';
+  } else { optsWrap.innerHTML=''; optsWrap.style.display='none'; }
 
-  // Wordcloud
-  document.getElementById('control-wordcloud-wrap').style.display = act.type === 'wordcloud' ? 'block' : 'none';
-  if (act.type === 'wordcloud') {
-    listenWordCloud();
-  }
-
+  const isWC = act.type==='wordcloud';
+  document.getElementById('control-wordcloud-wrap').style.display = isWC?'block':'none';
+  if (isWC) listenWordCloud();
+  updatePhaseIndicator();
   updateEnterHint();
   listenResponses();
 }
 
-function updateEnterHint() {
+function updatePhaseIndicator() {
   const act = sessionConfig.activities[currentActivityIndex];
-  const isLast = currentActivityIndex >= sessionConfig.activities.length - 1;
+  const bar = document.getElementById('phase-bar');
+  if (!act || act.type==='wordcloud') { bar.style.display='none'; return; }
+  bar.style.display='flex';
+  const d1=document.getElementById('phase-dot-1'), d2=document.getElementById('phase-dot-2'), lbl=document.getElementById('phase-label');
+  if (currentStatus==='question') { d1.className='phase-dot active'; d2.className='phase-dot'; lbl.textContent='Fase 1 — Coletando respostas'; }
+  else if (currentStatus==='show_answer') { d1.className='phase-dot done'; d2.className='phase-dot active'; lbl.textContent='Fase 2 — Resposta revelada'; }
+}
+
+function revealAnswer() {
+  const act = sessionConfig.activities[currentActivityIndex];
+  if (!act || act.type==='wordcloud') return;
+  const correct = act.correct??0;
+  const options = act.type==='truefalse' ? ['Verdadeiro','Falso'] : act.options.filter(o=>o);
+  options.forEach((_,i) => {
+    const pill = document.getElementById('ctrl-opt-'+i);
+    if (!pill) return;
+    if (i===correct) {
+      pill.classList.add('correct-reveal');
+      const letter = act.type==='truefalse' ? (i===0?'V':'F') : String.fromCharCode(65+i);
+      const text = act.type==='truefalse' ? options[i] : act.options.filter(o=>o)[i];
+      pill.innerHTML = `<div class="option-letter" style="background:rgba(16,185,129,0.3);">✓</div><span>${text}</span>`;
+    } else {
+      pill.classList.add('other-reveal');
+    }
+  });
+}
+
+function updateEnterHint() {
+  const isLast = currentActivityIndex >= sessionConfig.activities.length-1;
   let label = '';
-  if (currentStatus === 'question' || currentStatus === 'wordcloud_input') {
-    label = 'Exibir gabarito';
-  } else if (currentStatus === 'show_answer' || currentStatus === 'wordcloud_display') {
-    label = isLast ? 'Ver ranking' : 'Proxima atividade';
-  } else if (currentStatus === 'ranking') {
-    label = 'Encerrar sessao';
-  }
+  if (currentStatus==='question') label='Revelar resposta';
+  else if (currentStatus==='show_answer') label = isLast?'Ver ranking final':'Próxima atividade';
+  else if (currentStatus==='wordcloud_input') label='Exibir nuvem';
+  else if (currentStatus==='wordcloud_display') label = isLast?'Ver ranking final':'Próxima atividade';
+  else if (currentStatus==='ranking') label='Encerrar sessão';
   document.getElementById('enter-hint-label').textContent = label;
-  document.getElementById('btn-enter-action').textContent = label + '  [Enter]';
+  const btn = document.getElementById('btn-enter-action');
+  btn.textContent = label+'  [↵]';
+  if (currentStatus==='question'||currentStatus==='wordcloud_input') {
+    btn.className='btn btn-primary btn-lg';
+  } else {
+    btn.className='btn btn-lg';
+    btn.style.cssText='background:rgba(255,255,255,0.1);color:var(--white);border:2px solid rgba(127,255,212,0.3);';
+  }
 }
 
 function listenResponses() {
   if (presenterUnsubscribe) presenterUnsubscribe();
-  const { db, ref, onValue } = fb;
-  const unsubResp = onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId), snap => {
-    const s = snap.val();
-    if (!s) return;
-
-    const totalPart = Object.keys(s.participants || {}).length;
-    const responses = (s.responses || {})[currentActivityIndex] || {};
-    const wordcloud = (s.wordcloud || {})[currentActivityIndex] || {};
+  const unsub = fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId), snap => {
+    const s = snap.val(); if (!s) return;
+    const totalPart = Object.keys(s.participants||{}).length;
     const act = sessionConfig.activities[currentActivityIndex];
-
     let responseCount = 0;
-    if (act && act.type === 'wordcloud') {
-      responseCount = Object.keys(wordcloud).length;
-      renderWordCloud(wordcloud, 'control-wordcloud');
+    if (act&&act.type==='wordcloud') {
+      const wc = (s.wordcloud||{})[currentActivityIndex]||{};
+      responseCount = Object.keys(wc).length;
+      renderWordCloud(wc,'control-wordcloud');
     } else {
-      responseCount = Object.keys(responses).length;
+      responseCount = Object.keys((s.responses||{})[currentActivityIndex]||{}).length;
     }
-
     document.getElementById('resp-count').textContent = responseCount;
     document.getElementById('resp-total').textContent = totalPart;
-    const pct = totalPart > 0 ? Math.round((responseCount / totalPart) * 100) : 0;
-    document.getElementById('resp-bar').style.width = pct + '%';
-    document.getElementById('resp-pct').textContent = pct + '%';
-
-    if (totalPart > 0 && responseCount >= totalPart && !allAnsweredNotified) {
-      allAnsweredNotified = true;
-      notify('Todos responderam! Pressione Enter para continuar.', 'success');
-    }
+    const pct = totalPart>0 ? Math.round(responseCount/totalPart*100) : 0;
+    document.getElementById('resp-bar').style.width = pct+'%';
+    document.getElementById('resp-pct').textContent = pct+'%';
+    const badge = document.getElementById('all-answered-badge');
+    if (totalPart>0 && responseCount>=totalPart) {
+      badge.style.display='block';
+      if (!allAnsweredNotified) { allAnsweredNotified=true; notify('✓ Todos responderam! Pressione Enter para revelar.'); playBeep(1047); }
+    } else { badge.style.display='none'; }
   });
-  presenterUnsubscribe = () => unsubResp();
+  presenterUnsubscribe = ()=>unsub();
 }
 
 function listenWordCloud() {
-  const { db, ref, onValue } = fb;
-  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/wordcloud/' + currentActivityIndex), snap => {
-    renderWordCloud(snap.val() || {}, 'control-wordcloud');
+  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+currentActivityIndex), snap => {
+    renderWordCloud(snap.val()||{}, 'control-wordcloud');
   });
 }
 
 window.handlePresenterEnter = function() {
   const act = sessionConfig.activities[currentActivityIndex];
   if (!act) return;
-  const isLast = currentActivityIndex >= sessionConfig.activities.length - 1;
+  const isLast = currentActivityIndex>=sessionConfig.activities.length-1;
 
-  if (currentStatus === 'question') {
-    // Show answer
-    currentStatus = 'show_answer';
-    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'show_answer' });
+  if (currentStatus==='question') {
+    // FASE 1 → FASE 2: só revela, não avança
+    currentStatus='show_answer';
+    fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'show_answer'});
+    revealAnswer();
+    updatePhaseIndicator();
     updateEnterHint();
-  } else if (currentStatus === 'wordcloud_input') {
-    // Show word cloud
-    currentStatus = 'wordcloud_display';
-    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'wordcloud_display' });
+  } else if (currentStatus==='show_answer') {
+    // FASE 2 → Próxima ou Ranking
+    if (isLast) pushRanking();
+    else { currentActivityIndex++; pushActivity(); }
+  } else if (currentStatus==='wordcloud_input') {
+    currentStatus='wordcloud_display';
+    fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'wordcloud_display'});
     updateEnterHint();
-  } else if (currentStatus === 'show_answer' || currentStatus === 'wordcloud_display') {
-    if (isLast) {
-      pushRanking();
-    } else {
-      currentActivityIndex++;
-      pushActivity();
-    }
-  } else if (currentStatus === 'ranking') {
+  } else if (currentStatus==='wordcloud_display') {
+    if (isLast) pushRanking(); else { currentActivityIndex++; pushActivity(); }
+  } else if (currentStatus==='ranking') {
     endSession();
   }
 };
 
 function pushRanking() {
-  currentStatus = 'ranking';
-  fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'ranking' });
-  showPresenterRanking();
-}
-
-function showPresenterRanking() {
+  currentStatus='ranking';
+  fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'ranking'});
   showScreen('scn-p-ranking');
-  const logoWrap = document.getElementById('prank-logo-wrap');
-  if (sessionConfig.logo) {
-    logoWrap.innerHTML = `<img src="${sessionConfig.logo}" class="session-logo">`;
-  } else {
-    logoWrap.innerHTML = `<div class="logo-placeholder">${sessionConfig.name}</div>`;
-  }
-
-  const { db, ref, onValue } = fb;
-  onValue(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants'), snap => {
-    const parts = snap.val() || {};
-    renderRanking(parts, 'p-ranking-list', null);
+  document.getElementById('prank-logos').innerHTML = buildLogosHtml(sessionConfig.logo, sessionConfig.name);
+  document.getElementById('prank-session-name').textContent = sessionConfig.name||'';
+  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants'), snap => {
+    renderRankingFull(snap.val()||{}, 'p-podium-wrap', 'p-ranking-rest', null);
   });
 }
 
 function endSession() {
-  fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId), { status: 'ended' });
-  showScreen('scn-p-home');
-  notify('Sessao encerrada.');
-  loadPresenterHome();
+  fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'ended'});
+  notify('Sessão encerrada.'); loadPresenterHome();
 }
-
-window.confirmEndSession = function() {
-  if (confirm('Encerrar a sessao agora?')) endSession();
-};
-
+window.confirmEndSession = function(){ if(confirm('Encerrar a sessão agora?')) endSession(); };
 window.exportRanking = function() {
-  const { db, ref, get } = fb;
-  get(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants')).then(snap => {
-    const parts = snap.val() || {};
-    const rows = [['Nome','Pontos']];
-    const sorted = Object.values(parts).sort((a,b) => (b.score||0)-(a.score||0));
-    sorted.forEach(p => rows.push([p.name, p.score || 0]));
-    const csv = rows.map(r => r.join(',')).join('\n');
-    const a = document.createElement('a');
-    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-    a.download = 'ranking_' + sessionId + '.csv';
+  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants')).then(snap=>{
+    const parts=snap.val()||{};
+    const sorted=Object.values(parts).sort((a,b)=>(b.score||0)-(a.score||0));
+    const csv=[['Posição','Nome','Pontos'],...sorted.map((p,i)=>[i+1,p.name,p.score||0])].map(r=>r.join(',')).join('\n');
+    const a=document.createElement('a');
+    a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+    a.download='ranking_'+(sessionConfig.name||sessionId)+'.csv';
     a.click();
   });
 };
 
-// ═══════════════════════════════════════════════════
-// PARTICIPANT — INIT
-// ═══════════════════════════════════════════════════
+// ── PARTICIPANT ──
 function participantInit(sid) {
-  // Check if already joined this session
-  participantId = localStorage.getItem('arena_pid_' + sid);
-  participantName = localStorage.getItem('arena_pname_' + sid);
-
-  const { db, ref, onValue, get } = fb;
-  get(ref(db, ARENA_PATH + '/sessions/' + sid)).then(snap => {
-    const s = snap.val();
-    if (!s || s.status === 'ended') {
-      showScreen('scn-a-join');
-      document.getElementById('join-session-name').textContent = 'Sessao nao encontrada ou encerrada.';
-      return;
+  participantId = localStorage.getItem('arena_pid_'+sid);
+  participantName = localStorage.getItem('arena_pname_'+sid);
+  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid)).then(snap=>{
+    const s=snap.val();
+    if (!s||s.status==='ended') { showScreen('scn-a-join'); document.getElementById('join-session-name').textContent='Sessão não encontrada.'; return; }
+    const cfg=s.config||{};
+    if (cfg.logo) {
+      document.getElementById('join-logo-wrap').innerHTML=`<img src="${cfg.logo}" class="session-logo">`;
+      ['aw-logo-wrap','ar-logo-wrap'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=`<img src="${cfg.logo}" class="session-logo">`;});
     }
-
-    // Apply session style
-    const cfg = s.config || {};
-    if (cfg.color) applyAccentColor(cfg.color);
-
-    // Join screen branding
-    const logo = cfg.logo;
-    if (logo) {
-      document.getElementById('join-logo-wrap').innerHTML = `<img src="${logo}" class="session-logo">`;
-      ['aw-logo-wrap','ar-logo-wrap'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = `<img src="${logo}" class="session-logo">`;
-      });
-    }
-    document.getElementById('join-session-name').textContent = s.name || 'Arena Ao Vivo';
-
-    if (participantId && participantName) {
-      // Already registered — go straight to waiting/current
-      participantScore = (s.participants?.[participantId]?.score) || 0;
-      subscribeSession(sid);
-    } else {
-      showScreen('scn-a-join');
-      document.getElementById('a-name-input').addEventListener('keydown', e => { if(e.key==='Enter') participantJoin(); });
-    }
-  }).catch(() => {
-    showScreen('scn-a-join');
-    document.getElementById('join-err').textContent = 'Erro de conexao. Verifique sua internet.';
-    document.getElementById('join-err').style.display = 'block';
-  });
+    document.getElementById('join-session-name').textContent=s.name||'Arena Ao Vivo';
+    if (participantId&&participantName) { participantScore=(s.participants?.[participantId]?.score)||0; subscribeSession(sid); }
+    else { showScreen('scn-a-join'); document.getElementById('a-name-input').addEventListener('keydown',e=>{if(e.key==='Enter')participantJoin();}); }
+  }).catch(()=>{ showScreen('scn-a-join'); document.getElementById('join-err').textContent='Erro de conexão.'; document.getElementById('join-err').style.display='block'; });
 }
 
 window.participantJoin = function() {
-  const name = document.getElementById('a-name-input').value.trim();
+  const name=document.getElementById('a-name-input').value.trim();
   if (!name) { document.getElementById('join-err').textContent='Digite seu nome.'; document.getElementById('join-err').style.display='block'; return; }
-
-  participantId = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
-  participantName = name;
-  participantScore = 0;
-  localStorage.setItem('arena_pid_' + sessionId, participantId);
-  localStorage.setItem('arena_pname_' + sessionId, name);
-
-  const { db, ref, set } = fb;
-  set(ref(db, ARENA_PATH + '/sessions/' + sessionId + '/participants/' + participantId), {
-    name,
-    score: 0,
-    joinedAt: Date.now()
-  }).then(() => {
-    subscribeSession(sessionId);
-  });
+  participantId='p_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  participantName=name; participantScore=0;
+  localStorage.setItem('arena_pid_'+sessionId,participantId);
+  localStorage.setItem('arena_pname_'+sessionId,name);
+  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants/'+participantId),{name,score:0,joinedAt:Date.now()}).then(()=>subscribeSession(sessionId));
 };
 
-
-function showParticipantWaiting() {
-  showScreen('scn-a-waiting');
-  if (participantName) document.getElementById('aw-name').textContent = 'Olá, ' + participantName + '!';
-  document.getElementById('aw-score').textContent = participantScore;
+function subscribeSession(sid) {
+  let lastStatus=null, lastActIdx=null;
+  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid), snap=>{
+    const s=snap.val(); if (!s) return;
+    currentActivityIndexForParticipant=s.currentActivityIndex??0;
+    const status=s.status, actIdx=s.currentActivityIndex??0, act=s.currentActivity||{};
+    participantScore=(s.participants?.[participantId]?.score)||participantScore;
+    const statusChanged=status!==lastStatus, actChanged=actIdx!==lastActIdx;
+    lastStatus=status; lastActIdx=actIdx;
+    if (status==='waiting') { showScreen('scn-a-waiting'); if(participantName)document.getElementById('aw-name').textContent='Olá, '+participantName+'!'; document.getElementById('aw-score').textContent=participantScore; }
+    else if (status==='question'||status==='wordcloud_input') {
+      if (statusChanged||actChanged) {
+        const alreadyKey='arena_ans_'+sid+'_'+actIdx;
+        if (localStorage.getItem(alreadyKey)) showParticipantAlreadyAnswered();
+        else if (status==='wordcloud_input') showParticipantWordcloud(act,actIdx);
+        else showParticipantAnswer(act,actIdx);
+      }
+    } else if (status==='show_answer') {
+      if (statusChanged||actChanged) highlightAnswer(act);
+    } else if (status==='wordcloud_display') {
+      if (statusChanged) showParticipantAlreadyAnswered();
+    } else if (status==='ranking'||status==='ended') {
+      if (statusChanged) { showScreen('scn-a-ranking'); document.getElementById('ar-my-score').textContent=participantScore; renderRankingFull(s.participants||{},'a-podium-wrap','a-ranking-rest',participantId); }
+    }
+  });
 }
 
 function showParticipantAlreadyAnswered() {
   showScreen('scn-a-answer');
-  document.getElementById('ans-options').innerHTML = '';
-  document.getElementById('ans-already').style.display = 'block';
-  document.getElementById('ans-score').textContent = participantScore;
+  document.getElementById('ans-options').innerHTML='';
+  document.getElementById('ans-already').style.display='block';
+  document.getElementById('ans-score').textContent=participantScore;
 }
 
-function showParticipantAnswer(act, actIdx) {
+function showParticipantAnswer(act,actIdx) {
   showScreen('scn-a-answer');
-  document.getElementById('ans-already').style.display = 'none';
-  document.getElementById('ans-score').textContent = participantScore;
-  document.getElementById('ans-activity-num').textContent = 'Atividade ' + (actIdx + 1);
-  document.getElementById('ans-type-label').textContent = act.type === 'truefalse' ? 'VERDADEIRO OU FALSO' : 'QUIZ';
-  document.getElementById('ans-question').textContent = act.question || '-';
-
-  let options = act.options || [];
-  if (act.type === 'truefalse') options = ['Verdadeiro', 'Falso'];
-
-  document.getElementById('ans-options').innerHTML = options.filter(o=>o).map((opt, i) => `
-    <button class="option-btn" id="opt-${i}" onclick="submitAnswer(${i}, ${act.correct ?? 0}, '${sessionId}', ${actIdx}, ${act.points || POINTS_CORRECT})">
-      ${act.type !== 'truefalse' ? `<strong>${String.fromCharCode(65+i)})</strong> ` : ''}${opt}
+  document.getElementById('ans-already').style.display='none';
+  document.getElementById('ans-score').textContent=participantScore;
+  document.getElementById('ans-activity-num').textContent='Atividade '+(actIdx+1);
+  document.getElementById('ans-type-label').textContent=act.type==='truefalse'?'VERDADEIRO OU FALSO':'QUIZ';
+  document.getElementById('ans-question').textContent=act.question||'-';
+  let options=act.options||[]; if(act.type==='truefalse') options=['Verdadeiro','Falso'];
+  document.getElementById('ans-options').innerHTML=options.filter(o=>o).map((opt,i)=>`
+    <button class="option-btn" id="opt-${i}" onclick="submitAnswer(${i},${act.correct??0},'${sessionId}',${actIdx},${act.points||POINTS_CORRECT})">
+      ${act.type!=='truefalse'?`<strong>${String.fromCharCode(65+i)})</strong> `:''}${opt}
     </button>`).join('');
 }
 
-window.submitAnswer = function(chosen, correct, sid, actIdx, points) {
-  const alreadyKey = 'arena_ans_' + sid + '_' + actIdx;
-  if (localStorage.getItem(alreadyKey)) return;
-  localStorage.setItem(alreadyKey, chosen);
-
-  // Disable all buttons
-  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-  // Visual feedback will come from show_answer status change
-  // But also give immediate local feedback
-  const acertou = chosen === correct;
-  const btn = document.getElementById('opt-' + chosen);
-  if (btn) btn.classList.add(acertou ? 'correct' : 'wrong');
-
-  if (acertou) {
-    participantScore += points;
-    // Update score in Firebase
-    fb.update(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sid + '/participants/' + participantId), {
-      score: participantScore
-    });
-  }
-
-  // Save response in Firebase
-  fb.set(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sid + '/responses/' + actIdx + '/' + participantId), {
-    answer: chosen,
-    correct: acertou,
-    timestamp: Date.now()
-  });
-
-  document.getElementById('ans-score').textContent = participantScore;
+window.submitAnswer = function(chosen,correct,sid,actIdx,points) {
+  const key='arena_ans_'+sid+'_'+actIdx;
+  if (localStorage.getItem(key)) return;
+  localStorage.setItem(key,chosen);
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const acertou=chosen===correct;
+  const btn=document.getElementById('opt-'+chosen);
+  if (btn) btn.classList.add(acertou?'correct':'wrong');
+  if (acertou) { participantScore+=points; fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid+'/participants/'+participantId),{score:participantScore}); }
+  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid+'/responses/'+actIdx+'/'+participantId),{answer:chosen,correct:acertou,timestamp:Date.now()});
+  document.getElementById('ans-score').textContent=participantScore;
 };
 
-function highlightAnswer(act, actIdx) {
-  // If on answer screen, show the correct answer highlight
-  const ansScreen = document.getElementById('scn-a-answer');
-  if (!ansScreen.classList.contains('active')) return;
-  const correct = act.correct ?? 0;
-  document.querySelectorAll('.option-btn').forEach((b, i) => {
-    b.disabled = true;
-    if (i === correct) b.classList.add('correct');
-  });
+function highlightAnswer(act) {
+  const scr=document.getElementById('scn-a-answer');
+  if (!scr.classList.contains('active')) return;
+  document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true; if(i===(act.correct??0))b.classList.add('correct');});
 }
 
-function showParticipantWordcloud(act, actIdx) {
-  const alreadyKey = 'arena_ans_' + sessionId + '_' + actIdx;
-  if (localStorage.getItem(alreadyKey)) { showParticipantAlreadyAnswered(); return; }
+function showParticipantWordcloud(act,actIdx) {
+  const key='arena_ans_'+sessionId+'_'+actIdx;
+  if (localStorage.getItem(key)) { showParticipantAlreadyAnswered(); return; }
   showScreen('scn-a-wordcloud');
-  document.getElementById('wc-score').textContent = participantScore;
-  document.getElementById('wc-question').textContent = act.question || 'O que vem a sua mente?';
-  document.getElementById('wc-input').value = '';
-  document.getElementById('wc-sent').style.display = 'none';
-  document.getElementById('wc-submit-btn').disabled = false;
-  document.getElementById('wc-submit-btn').style.display = 'inline-flex';
+  document.getElementById('wc-score').textContent=participantScore;
+  document.getElementById('wc-question').textContent=act.question||'O que vem à sua mente?';
+  document.getElementById('wc-input').value='';
+  document.getElementById('wc-sent').style.display='none';
+  document.getElementById('wc-submit-btn').disabled=false;
+  document.getElementById('wc-submit-btn').style.display='inline-flex';
 }
 
 window.submitWordCloud = function() {
-  const word = document.getElementById('wc-input').value.trim();
-  if (!word) return;
-  const alreadyKey = 'arena_ans_' + sessionId + '_' + currentActivityIndexForParticipant;
-  localStorage.setItem(alreadyKey, word);
-
-  document.getElementById('wc-submit-btn').disabled = true;
-  document.getElementById('wc-submit-btn').style.display = 'none';
-  document.getElementById('wc-sent').style.display = 'block';
-
-  fb.set(fb.ref(fb.db, ARENA_PATH + '/sessions/' + sessionId + '/wordcloud/' + currentActivityIndexForParticipant + '/' + participantId), {
-    word: word.toLowerCase().trim(),
-    timestamp: Date.now()
-  });
+  const word=document.getElementById('wc-input').value.trim(); if(!word) return;
+  const key='arena_ans_'+sessionId+'_'+currentActivityIndexForParticipant;
+  localStorage.setItem(key,word);
+  document.getElementById('wc-submit-btn').disabled=true;
+  document.getElementById('wc-submit-btn').style.display='none';
+  document.getElementById('wc-sent').style.display='block';
+  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+currentActivityIndexForParticipant+'/'+participantId),{word:word.toLowerCase().trim(),timestamp:Date.now()});
 };
 
-let currentActivityIndexForParticipant = 0;
+// ── RANKING PÓDIO ──
+function renderRankingFull(participants, podiumId, restId, highlightPid) {
+  const sorted = Object.entries(participants).map(([pid,p])=>({pid,name:p.name,score:p.score||0})).sort((a,b)=>b.score-a.score);
+  const podiumEl = document.getElementById(podiumId);
 
-function subscribeSession(sid) {
-  const { db, ref, onValue } = fb;
-  let lastStatus = null;
-  let lastActIdx = null;
-  onValue(ref(db, ARENA_PATH + '/sessions/' + sid), snap => {
-    const s = snap.val();
-    if (!s) return;
-    currentActivityIndexForParticipant = s.currentActivityIndex ?? 0;
-    const status = s.status;
-    const actIdx = s.currentActivityIndex ?? 0;
-    const act = s.currentActivity || {};
-    const cfg = s.config || {};
-    if (cfg.color) applyAccentColor(cfg.color);
-    participantScore = (s.participants?.[participantId]?.score) || participantScore;
-    const statusChanged = status !== lastStatus;
-    const actChanged = actIdx !== lastActIdx;
-    lastStatus = status;
-    lastActIdx = actIdx;
-    if (status === 'waiting') {
-      showParticipantWaiting();
-    } else if (status === 'question' || status === 'wordcloud_input') {
-      if (statusChanged || actChanged) {
-        const alreadyKey = 'arena_ans_' + sid + '_' + actIdx;
-        if (localStorage.getItem(alreadyKey)) {
-          showParticipantAlreadyAnswered();
-        } else if (status === 'wordcloud_input') {
-          showParticipantWordcloud(act, actIdx);
-        } else {
-          showParticipantAnswer(act, actIdx);
-        }
-      }
-    } else if (status === 'show_answer') {
-      if (statusChanged || actChanged) highlightAnswer(act, actIdx);
-    } else if (status === 'wordcloud_display') {
-      if (statusChanged) showParticipantAlreadyAnswered();
-    } else if (status === 'ranking' || status === 'ended') {
-      if (statusChanged) showParticipantRanking(s.participants || {}, sid);
-    }
-  });
-}
-
-function showParticipantRanking(participants, sid) {
-  showScreen('scn-a-ranking');
-  document.getElementById('ar-my-score').textContent = participantScore;
-  const logoWrap = document.getElementById('ar-logo-wrap');
-  // Apply session name if logo was set
-  renderRanking(participants, 'a-ranking-list', participantId);
-}
-
-// ═══════════════════════════════════════════════════
-// RANKING RENDERER
-// ═══════════════════════════════════════════════════
-function renderRanking(participants, targetId, highlightPid) {
-  const sorted = Object.entries(participants)
-    .map(([pid, p]) => ({ pid, name: p.name, score: p.score || 0 }))
-    .sort((a,b) => b.score - a.score);
-
-  const medals = ['gold','silver','bronze'];
-  const posEmoji = ['1', '2', '3'];
-
-  document.getElementById(targetId).innerHTML = sorted.map((p, i) => `
-    <div class="rank-row ${medals[i]||''}" style="${p.pid===highlightPid?'border-color:var(--accent);background:var(--accent-light);':''}">
-      <div class="rank-pos" style="color:${i===0?'#F59E0B':i===1?'#94A3B8':i===2?'#C2855B':'var(--text-muted)'}">${i<3?posEmoji[i]:(i+1)}</div>
-      <div class="rank-name">${p.name}${p.pid===highlightPid?' (voce)':''}</div>
-      <div class="rank-score">${p.score} pts</div>
-    </div>`).join('') || '<p style="color:var(--text-muted);text-align:center;padding:20px;">Nenhum participante.</p>';
-}
-
-// ═══════════════════════════════════════════════════
-// WORD CLOUD RENDERER
-// ═══════════════════════════════════════════════════
-function renderWordCloud(wordcloudData, targetId) {
-  // Count word frequencies
-  const freq = {};
-  Object.values(wordcloudData).forEach(entry => {
-    const w = (entry.word || '').toLowerCase().trim();
-    if (w) freq[w] = (freq[w] || 0) + 1;
-  });
-
-  const maxCount = Math.max(...Object.values(freq), 1);
-  const wrap = document.getElementById(targetId);
-  if (!wrap) return;
-
-  wrap.innerHTML = Object.entries(freq)
-    .sort((a,b) => b[1]-a[1])
-    .map(([word, count]) => {
-      const size = Math.round(16 + (count / maxCount) * 56);
-      const color = WC_COLORS[hashStr(word) % WC_COLORS.length];
-      const weight = count > 1 ? 800 : 600;
-      return `<span class="wc-word" style="font-size:${size}px;color:${color};font-weight:${weight};">${word}</span>`;
+  if (podiumEl && sorted.length>0) {
+    // Order: 2nd(left), 1st(center), 3rd(right) — classic podium layout
+    const order = [sorted[1],sorted[0],sorted[2]].filter(Boolean);
+    const clsMap = p => {
+      const i=sorted.indexOf(p); return i===0?'gold':i===1?'silver':'bronze';
+    };
+    podiumEl.innerHTML = order.map(p=>{
+      const cls=clsMap(p);
+      const pos=sorted.indexOf(p)+1;
+      const initials=p.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+      const isMe=p.pid===highlightPid;
+      return `<div class="podium-item">
+        <div class="podium-avatar ${cls}">${cls==='gold'?'<span class="podium-crown">👑</span>':''}${initials}</div>
+        <div class="podium-name">${p.name}${isMe?' (você)':''}</div>
+        <div class="podium-score ${cls}">${p.score} pts</div>
+        <div class="podium-block ${cls}">${pos}°</div>
+      </div>`;
     }).join('');
+  }
+
+  const restEl = document.getElementById(restId);
+  if (restEl) {
+    const rest = sorted.slice(3);
+    if (rest.length) {
+      restEl.style.display='block';
+      restEl.innerHTML = rest.map((p,i)=>{
+        const isMe=p.pid===highlightPid;
+        return `<div class="rank-row ${isMe?'highlight':''}">
+          <div class="rank-pos">${i+4}</div>
+          <div class="rank-name">${p.name}${isMe?'<span class="me-tag">você</span>':''}</div>
+          <div class="rank-score">${p.score} pts</div>
+        </div>`;
+      }).join('');
+    } else { restEl.style.display='none'; }
+  }
 }
 
-function hashStr(s) {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 997;
-  return Math.abs(h);
+// ── WORD CLOUD ──
+function renderWordCloud(data, targetId) {
+  const freq={};
+  Object.values(data).forEach(e=>{const w=(e.word||'').toLowerCase().trim();if(w)freq[w]=(freq[w]||0)+1;});
+  const max=Math.max(...Object.values(freq),1);
+  const wrap=document.getElementById(targetId); if(!wrap) return;
+  wrap.innerHTML=Object.entries(freq).sort((a,b)=>b[1]-a[1]).map(([word,count])=>{
+    const size=Math.round(16+(count/max)*56);
+    const color=WC_COLORS[hashStr(word)%WC_COLORS.length];
+    return `<span class="wc-word" style="font-size:${size}px;color:${color};font-weight:${count>1?800:600};">${word}</span>`;
+  }).join('');
 }
-
-// ═══════════════════════════════════════════════════
-// UTILITIES
-// ═══════════════════════════════════════════════════
-function genCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let c = '';
-  for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random()*chars.length)];
-  return c;
-}
-
-// Expose window functions
-window.applyTheme = applyTheme;
-window.addActivity = addActivity;
-window.removeActivity = removeActivity;
-window.updateQuestion = updateQuestion;
-window.updateOption = updateOption;
-window.setCorrect = setCorrect;
-window.showSaveThemeModal = showSaveThemeModal;
-window.loadTheme = loadTheme;
-window.createSession = createSession;
-window.resumeSession = resumeSession;
-window.startFirstActivity = startFirstActivity;
-window.handlePresenterEnter = handlePresenterEnter;
-window.confirmEndSession = confirmEndSession;
-window.exportRanking = exportRanking;
-window.participantJoin = window.participantJoin;
-window.submitAnswer = window.submitAnswer;
-window.submitWordCloud = window.submitWordCloud;
-window.copyLink = window.copyLink;
-window.presenterLogin = presenterLogin;
+function hashStr(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%997;return Math.abs(h);}
+function genCode(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r='';for(let i=0;i<6;i++)r+=c[Math.floor(Math.random()*c.length)];return r;}
 </script>
 </body>
 </html>

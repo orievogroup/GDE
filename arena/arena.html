@@ -87,7 +87,7 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   padding:20px 0; margin-bottom:28px;
 }
 .logos-wrap { display:flex; align-items:center; gap:20px; }
-.logo-orievo { height:36px; object-fit:contain; filter:brightness(0) invert(1); opacity:0.85; }
+.logo-orievo { height:36px; object-fit:contain; background:rgba(255,255,255,0.12); border-radius:6px; padding:4px 8px; }
 .logo-client { height:40px; object-fit:contain; max-width:140px; }
 .logo-divider { width:1px; height:32px; background:rgba(255,255,255,0.2); }
 .logo-placeholder-dark { font-size:16px; font-weight:800; color:var(--white); letter-spacing:1px; }
@@ -209,7 +209,7 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
 .rank-score { font-size:16px; font-weight:800; color:var(--tiffany); }
 
 /* PARTICIPANT DARK SCREENS */
-#scn-a-join,#scn-a-waiting,#scn-a-answer,#scn-a-wordcloud,#scn-a-ranking {
+#scn-a-join,#scn-a-waiting,#scn-a-answer,#scn-a-wordcloud,#scn-a-wc-display,#scn-a-ranking {
   background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
 }
 #scn-a-join .card,#scn-a-answer .card,#scn-a-wordcloud .card { background:var(--white); color:var(--text); }
@@ -519,9 +519,9 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
 <div id="scn-a-waiting" class="screen">
   <div style="max-width:480px;width:100%;margin-top:60px;text-align:center;">
     <div id="aw-logo-wrap" style="margin-bottom:24px;display:flex;justify-content:center;"></div>
-    <div class="await-icon">⏳</div>
+    <div class="await-icon" id="await-icon-el">⏳</div>
     <div class="await-title" id="aw-name">Olá!</div>
-    <div class="await-sub">Aguardando o apresentador iniciar...</div>
+    <div class="await-sub" id="await-sub-text">Aguardando o apresentador iniciar...</div>
     <div style="margin-top:32px;">
       <span class="score-pill">⭐ Pontos: <span id="aw-score">0</span></span>
     </div>
@@ -561,6 +561,21 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
       </div>
       <button class="btn btn-navy btn-block btn-lg" id="wc-submit-btn" onclick="submitWordCloud()" style="margin-top:8px;">Enviar →</button>
       <p id="wc-sent" style="display:none;color:var(--success);font-weight:700;margin-top:16px;">✓ Enviado! Aguardando o apresentador...</p>
+    </div>
+  </div>
+</div>
+
+<!-- A3b: Word Cloud Display (participant view) -->
+<div id="scn-a-wc-display" class="screen screen-dark">
+  <div style="max-width:640px;width:100%;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div id="aw-wc-logo" style="margin-bottom:16px;display:flex;justify-content:center;"></div>
+      <span class="badge badge-tiffany" style="margin-bottom:12px;">☁️ NUVEM AO VIVO</span>
+      <p style="font-size:18px;font-weight:800;color:var(--white);margin-top:12px;line-height:1.4;" id="participant-wc-question"></p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:6px;font-weight:500;">✓ Sua palavra foi enviada!</p>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(127,255,212,0.2);border-radius:var(--radius);padding:24px;min-height:260px;">
+      <div class="wordcloud-wrap" id="participant-wordcloud"></div>
     </div>
   </div>
 </div>
@@ -1031,7 +1046,15 @@ function subscribeSession(sid) {
     participantScore=(s.participants?.[participantId]?.score)||participantScore;
     const statusChanged=status!==lastStatus, actChanged=actIdx!==lastActIdx;
     lastStatus=status; lastActIdx=actIdx;
-    if (status==='waiting') { showScreen('scn-a-waiting'); if(participantName)document.getElementById('aw-name').textContent='Olá, '+participantName+'!'; document.getElementById('aw-score').textContent=participantScore; }
+    if (status==='waiting') {
+      showScreen('scn-a-waiting');
+      const nameEl=document.getElementById('aw-name');
+      nameEl.textContent=participantName?'Olá, '+participantName+'!':'Olá!';
+      nameEl.style.color='var(--white)';
+      document.getElementById('await-icon-el').textContent='⏳';
+      document.getElementById('await-sub-text').textContent='Aguardando o apresentador iniciar...';
+      document.getElementById('aw-score').textContent=participantScore;
+    }
     else if (status==='question'||status==='wordcloud_input') {
       if (statusChanged||actChanged) {
         const alreadyKey='arena_ans_'+sid+'_'+actIdx;
@@ -1042,7 +1065,7 @@ function subscribeSession(sid) {
     } else if (status==='show_answer') {
       if (statusChanged||actChanged) highlightAnswer(act);
     } else if (status==='wordcloud_display') {
-      if (statusChanged) showParticipantAlreadyAnswered();
+      if (statusChanged) showParticipantWordcloudDisplay(actIdx);
     } else if (status==='ranking'||status==='ended') {
       if (statusChanged) { showScreen('scn-a-ranking'); document.getElementById('ar-my-score').textContent=participantScore; renderRankingFull(s.participants||{},'a-podium-wrap','a-ranking-rest',participantId); }
     }
@@ -1087,6 +1110,35 @@ function highlightAnswer(act) {
   const scr=document.getElementById('scn-a-answer');
   if (!scr.classList.contains('active')) return;
   document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true; if(i===(act.correct??0))b.classList.add('correct');});
+}
+
+function showParticipantWordcloudDisplay(actIdx) {
+  showScreen('scn-a-wc-display');
+  // Mostra a pergunta
+  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/currentActivity')).then(snap => {
+    const act = snap.val();
+    if (act) document.getElementById('participant-wc-question').textContent = act.question || '';
+  });
+  // Logo do cliente
+  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/config/logo')).then(snap => {
+    const logo = snap.val();
+    const wrap = document.getElementById('aw-wc-logo');
+    if (logo) wrap.innerHTML = `<img src="${logo}" class="session-logo">`;
+    else wrap.innerHTML = '';
+  });
+  // Atualiza nuvem em tempo real
+  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+actIdx), snap => {
+    renderWordCloud(snap.val()||{}, 'participant-wordcloud');
+  });
+}
+
+function showParticipantWordcloudWaiting() {
+  showScreen('scn-a-waiting');
+  document.getElementById('aw-name').textContent = '✓ Palavra enviada!';
+  document.getElementById('aw-name').style.color = 'var(--tiffany)';
+  document.getElementById('await-sub-text').textContent = 'A nuvem está sendo exibida pelo apresentador...';
+  document.getElementById('await-icon-el').textContent = '☁️';
+  document.getElementById('aw-score').textContent = participantScore;
 }
 
 function showParticipantWordcloud(act,actIdx) {

@@ -87,7 +87,8 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   padding:20px 0; margin-bottom:28px;
 }
 .logos-wrap { display:flex; align-items:center; gap:20px; }
-.logo-orievo { height:36px; object-fit:contain; background:rgba(255,255,255,0.12); border-radius:6px; padding:4px 8px; }
+.logo-orievo-wrap { background:rgba(255,255,255,0.95); border-radius:8px; padding:6px 14px; display:flex; align-items:center; }
+.logo-orievo { height:28px; object-fit:contain; display:block; }
 .logo-client { height:40px; object-fit:contain; max-width:140px; }
 .logo-divider { width:1px; height:32px; background:rgba(255,255,255,0.2); }
 .logo-placeholder-dark { font-size:16px; font-weight:800; color:var(--white); letter-spacing:1px; }
@@ -265,8 +266,10 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
 <div id="scn-p-login" class="screen screen-dark">
   <div style="max-width:420px;width:100%;margin-top:60px;">
     <div style="text-align:center;margin-bottom:36px;">
-      <img src="https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png"
-           alt="Orievo" style="height:48px;object-fit:contain;opacity:0.9;" onerror="this.style.display='none'">
+      <div style="display:inline-block;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 20px;">
+        <img src="https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png"
+             alt="Orievo" style="height:36px;object-fit:contain;display:block;" onerror="this.parentElement.style.display='none'">
+      </div>
       <p style="color:rgba(255,255,255,0.35);font-size:12px;margin-top:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Arena Ao Vivo</p>
     </div>
     <div class="card">
@@ -695,7 +698,7 @@ function playBeep(freq=880) {
 }
 
 function buildLogosHtml(clientLogoUrl, sessionName) {
-  let html = `<img src="${ORIEVO_LOGO}" class="logo-orievo" alt="Orievo" onerror="this.style.display='none'">`;
+  let html = `<div class="logo-orievo-wrap"><img src="${ORIEVO_LOGO}" class="logo-orievo" alt="Orievo" onerror="this.parentElement.style.display='none'"></div>`;
   if (clientLogoUrl) {
     html += `<div class="logo-divider"></div><img src="${clientLogoUrl}" class="logo-client" alt="Logo" onerror="this.style.display='none'">`;
   } else if (sessionName) {

@@ -1496,7 +1496,10 @@
                 <h1>Plataforma de Treinamentos<sup style="font-size:11px;font-weight:700;">®</sup></h1>
                 <p>Programa Integrado de Evolução da Cultura de Segurança</p>
             </div>
-
+            <div class="header-divider"></div>
+            <div class="header-logo-gde">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Grupo Dislub Equador">
+            </div>
         </div>
     </header>
 
@@ -2451,7 +2454,7 @@
             titulo.textContent = '🎓 CERTIFICADO DE CONCLUSÃO';
             
             const logoOrievo = 'https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png';
-            const logoCliente = 'https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png';
+            const logoCliente = 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png';
 
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             const cargaHoraria = mundo.fases.length * 10;
@@ -2540,7 +2543,7 @@
             titulo.textContent = '🏆 CERTIFICADO DE CONCLUSÃO - JORNADA COMPLETA';
             
             const logoOrievo = 'https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png';
-            const logoCliente2 = 'https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png';
+            const logoCliente2 = 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png';
             const dataAtual = new Date().toLocaleDateString('pt-BR');
 
             let modulosHtml = '';
@@ -2639,7 +2642,7 @@
 
                 const [imgOrievo, imgGDE] = await Promise.all([
                     carregarImagem('https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png'),
-                    carregarImagem('https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png')
+                    carregarImagem('https://orievogroup.github.io/orievosafetylearning/logo_gde.png')
                 ]);
 
                 const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
@@ -2662,7 +2665,7 @@
 
                 // Logos no cabeçalho (Orievo: proporção real 3.66:1 → h=14mm → w=52mm)
                 if (imgOrievo) pdf.addImage(imgOrievo, 'PNG', 16, 19, 52, 14);
-                // logo cliente removido
+                if (imgGDE)    pdf.addImage(imgGDE,    'PNG', W - 52, 16, 36, 20);
 
                 // Título do certificado
                 pdf.setTextColor(255, 255, 255);

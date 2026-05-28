@@ -7,260 +7,219 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #001a4d;
-  --navy-mid: #002266;
-  --tiffany: #7FFFD4;
-  --tiffany-dark: #5BCFAA;
-  --tiffany-glow: rgba(127,255,212,0.15);
-  --white: #ffffff;
-  --off-white: #f4f7fb;
-  --text: #0d1b3e;
-  --text-muted: #6b7a99;
-  --border: #e2e8f0;
-  --success: #10B981;
-  --success-light: #D1FAE5;
-  --error: #EF4444;
-  --error-light: #FEE2E2;
-  --warning: #F59E0B;
-  --gold: #F59E0B;
-  --silver: #94A3B8;
-  --bronze: #CD7F32;
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 4px 24px rgba(0,26,77,0.10);
-  --shadow-lg: 0 8px 40px rgba(0,26,77,0.18);
+  --navy:#001a4d; --navy-mid:#002266; --navy-light:#0a3080;
+  --tiffany:#7FFFD4; --tiffany-dark:#5BCFAA; --tiffany-glow:rgba(127,255,212,0.15);
+  --white:#ffffff; --off-white:#f4f7fb;
+  --text:#0d1b3e; --text-muted:#6b7a99; --border:#e2e8f0;
+  --success:#10B981; --success-light:#D1FAE5;
+  --error:#EF4444; --error-light:#FEE2E2;
+  --gold:#F59E0B; --silver:#94A3B8; --bronze:#CD7F32;
+  --radius:14px; --radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,26,77,0.10);
+  --shadow-lg:0 8px 40px rgba(0,26,77,0.18);
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:var(--text); min-height:100vh; }
-.screen { display:none; padding:24px 16px; min-height:100vh; }
-.screen.active { display:flex; flex-direction:column; align-items:center; }
-
-.screen-dark { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#003399 100%); }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--off-white);color:var(--text);min-height:100vh;}
+.screen{display:none;padding:24px 16px;min-height:100vh;}
+.screen.active{display:flex;flex-direction:column;align-items:center;}
+.screen-dark{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#003399 100%);}
 
 /* CARDS */
-.card { background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px; width:100%; }
-.card-sm { padding:20px; }
-.card-dark { background:rgba(255,255,255,0.07); border:1px solid rgba(127,255,212,0.15); border-radius:var(--radius); padding:28px; width:100%; }
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;width:100%;}
+.card-sm{padding:20px;}
+.card-dark{background:rgba(255,255,255,0.07);border:1px solid rgba(127,255,212,0.15);border-radius:var(--radius);padding:28px;width:100%;}
 
 /* BUTTONS */
-.btn {
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:12px 24px; border-radius:var(--radius-sm);
-  font-family:'Montserrat',sans-serif; font-size:14px; font-weight:700;
-  cursor:pointer; border:none; transition:all 0.2s; letter-spacing:0.3px;
-}
-.btn-primary { background:var(--tiffany); color:var(--navy); }
-.btn-primary:hover { background:var(--tiffany-dark); transform:translateY(-1px); box-shadow:0 4px 16px rgba(127,255,212,0.4); }
-.btn-navy { background:var(--navy); color:var(--white); }
-.btn-navy:hover { background:var(--navy-mid); }
-.btn-success { background:var(--success); color:#fff; }
-.btn-outline { background:transparent; border:2px solid var(--border); color:var(--text); }
-.btn-outline:hover { border-color:var(--navy); color:var(--navy); }
-.btn-outline-light { background:transparent; border:2px solid rgba(255,255,255,0.25); color:var(--white); }
-.btn-outline-light:hover { border-color:var(--tiffany); color:var(--tiffany); }
-.btn-danger { background:var(--error); color:#fff; }
-.btn-block { width:100%; }
-.btn-lg { padding:16px 32px; font-size:16px; }
-.btn-xl { padding:20px 40px; font-size:17px; border-radius:12px; }
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--radius-sm);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;letter-spacing:0.3px;}
+.btn-primary{background:var(--tiffany);color:var(--navy);}
+.btn-primary:hover{background:var(--tiffany-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(127,255,212,0.4);}
+.btn-navy{background:var(--navy);color:var(--white);}
+.btn-navy:hover{background:var(--navy-mid);}
+.btn-outline{background:transparent;border:2px solid var(--border);color:var(--text);}
+.btn-outline:hover{border-color:var(--navy);color:var(--navy);}
+.btn-outline-light{background:transparent;border:2px solid rgba(255,255,255,0.25);color:var(--white);}
+.btn-outline-light:hover{border-color:var(--tiffany);color:var(--tiffany);}
+.btn-block{width:100%;}
+.btn-lg{padding:16px 32px;font-size:16px;}
+.btn-xl{padding:20px 40px;font-size:17px;border-radius:12px;}
 
 /* INPUTS */
-.input,.select {
-  width:100%; padding:13px 16px; border:2px solid var(--border);
-  border-radius:var(--radius-sm); font-family:'Montserrat',sans-serif;
-  font-size:15px; color:var(--text); background:#fff; outline:none; transition:border-color 0.2s;
-}
-.input:focus,.select:focus { border-color:var(--navy); }
-.input-group { margin-bottom:16px; }
-.input-group label { display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.8px; }
+.input,.select{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:'Montserrat',sans-serif;font-size:15px;color:var(--text);background:#fff;outline:none;transition:border-color 0.2s;}
+.input:focus,.select:focus{border-color:var(--navy);}
+.input-group{margin-bottom:16px;}
+.input-group label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;}
 
 /* BADGE */
-.badge { display:inline-flex; align-items:center; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
-.badge-tiffany { background:var(--tiffany-glow); color:var(--tiffany); border:1px solid rgba(127,255,212,0.3); }
-.badge-navy { background:var(--navy); color:var(--white); }
-.badge-green { background:var(--success-light); color:var(--success); }
-.badge-yellow { background:#FEF3C7; color:#D97706; }
-.badge-light { background:rgba(255,255,255,0.15); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+.badge{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;}
+.badge-tiffany{background:var(--tiffany-glow);color:var(--tiffany);border:1px solid rgba(127,255,212,0.3);}
+.badge-navy{background:var(--navy);color:var(--white);}
+.badge-yellow{background:#FEF3C7;color:#D97706;}
+.badge-light{background:rgba(255,255,255,0.15);color:var(--white);border:1px solid rgba(255,255,255,0.2);}
 
-/* HEADER */
-.arena-header {
-  width:100%; display:flex; align-items:center; justify-content:space-between;
-  padding:20px 0; margin-bottom:28px;
-}
-.logos-wrap { display:flex; align-items:center; gap:20px; }
-.logo-orievo-wrap { background:rgba(255,255,255,0.95); border-radius:8px; padding:6px 14px; display:flex; align-items:center; }
-.logo-orievo { height:28px; object-fit:contain; display:block; }
-.logo-client { height:40px; object-fit:contain; max-width:140px; }
-.logo-divider { width:1px; height:32px; background:rgba(255,255,255,0.2); }
-.logo-placeholder-dark { font-size:16px; font-weight:800; color:var(--white); letter-spacing:1px; }
+/* LOGOS */
+.arena-header{width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 0;margin-bottom:28px;}
+.logos-wrap{display:flex;align-items:center;gap:16px;}
+.logo-orievo-wrap{background:rgba(255,255,255,0.95);border-radius:8px;padding:5px 12px;display:flex;align-items:center;}
+.logo-orievo{height:28px;object-fit:contain;display:block;}
+.logo-client{height:40px;object-fit:contain;max-width:140px;}
+.logo-divider{width:1px;height:32px;background:rgba(255,255,255,0.2);}
+.logo-placeholder-dark{font-size:15px;font-weight:800;color:var(--white);}
+.session-logo{max-height:56px;max-width:180px;object-fit:contain;}
 
 /* WAITING */
-.participant-count { font-size:80px; font-weight:900; color:var(--tiffany); line-height:1; }
-.qr-wrap { padding:12px; background:#fff; border-radius:var(--radius); display:inline-block; }
-
-/* PROGRESS */
-.progress-bar { height:8px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden; }
-.progress-fill { height:100%; background:var(--tiffany); border-radius:4px; transition:width 0.5s ease; }
+.participant-count{font-size:80px;font-weight:900;color:var(--tiffany);line-height:1;}
+.qr-wrap{padding:12px;background:#fff;border-radius:var(--radius);display:inline-block;}
+.progress-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--tiffany);border-radius:4px;transition:width 0.5s ease;}
 
 /* NOTIFICATION */
-.notification {
-  position:fixed; top:20px; right:20px; left:20px; max-width:480px; margin:0 auto;
-  background:var(--navy); color:var(--tiffany);
-  padding:16px 24px; border-radius:var(--radius);
-  font-weight:700; font-size:15px; display:none; z-index:9999;
-  box-shadow:var(--shadow-lg); border:1px solid var(--tiffany);
-  animation:slideIn 0.3s ease;
-}
-.notification.show { display:block; }
-@keyframes slideIn { from{transform:translateY(-60px);opacity:0} to{transform:translateY(0);opacity:1} }
+.notification{position:fixed;top:20px;right:20px;left:20px;max-width:480px;margin:0 auto;background:var(--navy);color:var(--tiffany);padding:16px 24px;border-radius:var(--radius);font-weight:700;font-size:15px;display:none;z-index:9999;box-shadow:var(--shadow-lg);border:1px solid var(--tiffany);animation:slideIn 0.3s ease;}
+.notification.show{display:block;}
+@keyframes slideIn{from{transform:translateY(-60px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-/* ACTIVITY SETUP */
-.activity-item { border:2px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; background:#FAFAFA; }
-.activity-item:hover { border-color:var(--navy); }
-.activity-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+/* ACTIVITY ITEMS */
+.activity-item{border:2px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;background:#FAFAFA;}
+.activity-item:hover{border-color:var(--navy);}
+.activity-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 
 /* OPTION BUTTONS (participant) */
-.option-btn {
-  display:block; width:100%; text-align:left; padding:18px 22px;
-  border-radius:var(--radius-sm); margin-bottom:10px;
-  border:2px solid var(--border); background:#fff;
-  font-family:'Montserrat',sans-serif; font-size:16px; font-weight:500;
-  cursor:pointer; transition:all 0.2s;
-}
-.option-btn:hover:not(:disabled) { border-color:var(--navy); background:var(--off-white); }
-.option-btn.selected { border-color:var(--navy); background:var(--off-white); font-weight:700; }
-.option-btn.correct { border-color:var(--success); background:var(--success-light); color:#065F46; font-weight:700; }
-.option-btn.wrong { border-color:var(--error); background:var(--error-light); color:#991B1B; }
-.option-btn:disabled { cursor:default; }
+.option-btn{display:block;width:100%;text-align:left;padding:18px 22px;border-radius:var(--radius-sm);margin-bottom:10px;border:2px solid var(--border);background:#fff;font-family:'Montserrat',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.option-btn:hover:not(:disabled){border-color:var(--navy);background:var(--off-white);}
+.option-btn.selected{border-color:var(--navy);background:var(--off-white);font-weight:700;}
+.option-btn.correct{border-color:var(--success);background:var(--success-light);color:#065F46;font-weight:700;}
+.option-btn.wrong{border-color:var(--error);background:var(--error-light);color:#991B1B;}
+.option-btn:disabled{cursor:default;}
 
-/* PRESENTER QUESTION DISPLAY */
-.question-display { background:rgba(255,255,255,0.06); border:1px solid rgba(127,255,212,0.2); border-radius:var(--radius); padding:32px; margin-bottom:20px; }
-.question-text { font-size:26px; font-weight:800; color:var(--white); line-height:1.35; margin-bottom:20px; }
-.options-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.option-pill {
-  padding:14px 18px; border-radius:var(--radius-sm); font-size:15px; font-weight:600;
-  color:var(--white); background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-  display:flex; align-items:center; gap:10px; transition:all 0.4s;
-}
-.option-letter { width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; }
-.option-pill.correct-reveal { background:rgba(16,185,129,0.25); border-color:var(--success); color:#6EE7B7; font-weight:800; }
-.option-pill.other-reveal { opacity:0.45; }
+/* PRESENTER CONTROL */
+.question-display{background:rgba(255,255,255,0.06);border:1px solid rgba(127,255,212,0.2);border-radius:var(--radius);padding:32px;margin-bottom:20px;}
+.question-text{font-size:24px;font-weight:800;color:var(--white);line-height:1.35;margin-bottom:20px;}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.option-pill{padding:14px 18px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;color:var(--white);background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;gap:10px;transition:all 0.4s;}
+.option-letter{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+.option-pill.correct-reveal{background:rgba(16,185,129,0.25);border-color:var(--success);color:#6EE7B7;font-weight:800;}
+.option-pill.other-reveal{opacity:0.4;border-color:rgba(255,255,255,0.08);}
 
 /* RESPONSE TRACKER */
-.response-tracker {
-  background:rgba(255,255,255,0.06); border:1px solid rgba(127,255,212,0.2);
-  border-radius:var(--radius); padding:20px 24px; margin-bottom:20px;
-  display:flex; align-items:center; gap:20px;
-}
-.response-count { font-size:42px; font-weight:900; color:var(--tiffany); line-height:1; }
-.response-total { font-size:24px; color:rgba(255,255,255,0.35); font-weight:600; }
-.response-label { font-size:11px; color:rgba(255,255,255,0.4); font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-top:4px; }
+.response-tracker{background:rgba(255,255,255,0.06);border:1px solid rgba(127,255,212,0.2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:20px;}
+.response-count{font-size:42px;font-weight:900;color:var(--tiffany);line-height:1;}
+.response-total{font-size:22px;color:rgba(255,255,255,0.3);font-weight:600;}
+.response-label{font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-top:4px;}
 
 /* ENTER BAR */
-.enter-bar {
-  background:rgba(127,255,212,0.08); border:1px solid rgba(127,255,212,0.2);
-  border-radius:var(--radius); padding:16px 24px;
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-}
-.key-hint { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:13px; font-weight:600; }
-.key { background:rgba(127,255,212,0.15); border:1px solid rgba(127,255,212,0.3); border-radius:6px; padding:4px 10px; font-weight:800; font-size:12px; color:var(--tiffany); }
+.enter-bar{background:rgba(127,255,212,0.08);border:1px solid rgba(127,255,212,0.2);border-radius:var(--radius);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.key-hint{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.5);font-size:13px;font-weight:600;}
+.key{background:rgba(127,255,212,0.15);border:1px solid rgba(127,255,212,0.3);border-radius:6px;padding:4px 10px;font-weight:800;font-size:12px;color:var(--tiffany);}
 
 /* PHASE INDICATOR */
-.phase-bar { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
-.phase-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.15); transition:all 0.3s; }
-.phase-dot.active { background:var(--tiffany); box-shadow:0 0 8px var(--tiffany); }
-.phase-dot.done { background:rgba(127,255,212,0.4); }
-.phase-label { font-size:12px; color:rgba(255,255,255,0.4); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-left:6px; }
+.phase-bar{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.phase-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s;}
+.phase-dot.active{background:var(--tiffany);box-shadow:0 0 8px var(--tiffany);}
+.phase-dot.done{background:rgba(127,255,212,0.4);}
+.phase-label{font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-left:6px;}
 
-/* ══════════════════════════════
-   RANKING — PÓDIO
-══════════════════════════════ */
-.trophy-header { text-align:center; margin-bottom:36px; }
-.trophy-icon { font-size:72px; filter:drop-shadow(0 0 24px rgba(245,158,11,0.6)); animation:trophyPulse 2s ease-in-out infinite; }
-@keyframes trophyPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
-.trophy-title { font-size:32px; font-weight:900; color:var(--white); margin-top:12px; letter-spacing:-0.5px; }
-.trophy-sub { font-size:14px; color:rgba(255,255,255,0.4); font-weight:500; margin-top:6px; }
+/* ══ RANKING PÓDIO ══ */
+.trophy-header{text-align:center;margin-bottom:36px;padding-top:10px;}
+.trophy-icon{font-size:72px;filter:drop-shadow(0 0 24px rgba(245,158,11,0.6));animation:trophyPulse 2s ease-in-out infinite;}
+@keyframes trophyPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.trophy-title{font-size:32px;font-weight:900;color:var(--white);margin-top:12px;letter-spacing:-0.5px;}
+.trophy-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-top:6px;}
 
-.podium-wrap { display:flex; align-items:flex-end; justify-content:center; gap:12px; margin-bottom:36px; }
-.podium-item { display:flex; flex-direction:column; align-items:center; animation:podiumRise 0.6s ease backwards; }
-.podium-item:nth-child(1){animation-delay:0.25s}
-.podium-item:nth-child(2){animation-delay:0s}
-.podium-item:nth-child(3){animation-delay:0.5s}
-@keyframes podiumRise { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
+.podium-wrap{display:flex;align-items:flex-end;justify-content:center;gap:16px;margin-bottom:36px;}
+.podium-item{display:flex;flex-direction:column;align-items:center;animation:podiumRise 0.7s ease backwards;}
+.podium-item:nth-child(1){animation-delay:0.2s;}
+.podium-item:nth-child(2){animation-delay:0s;}
+.podium-item:nth-child(3){animation-delay:0.4s;}
+@keyframes podiumRise{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+.podium-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;margin-bottom:10px;position:relative;}
+.podium-avatar.gold{background:linear-gradient(135deg,#F59E0B,#FCD34D);color:var(--navy);box-shadow:0 0 30px rgba(245,158,11,0.6);}
+.podium-avatar.silver{background:linear-gradient(135deg,#94A3B8,#CBD5E1);color:var(--navy);box-shadow:0 0 20px rgba(148,163,184,0.4);}
+.podium-avatar.bronze{background:linear-gradient(135deg,#CD7F32,#E8A96A);color:var(--navy);box-shadow:0 0 20px rgba(205,127,50,0.4);}
+.podium-crown{position:absolute;top:-22px;font-size:22px;}
+.podium-name{font-size:13px;font-weight:800;color:var(--white);text-align:center;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px;}
+.podium-score{font-size:13px;font-weight:700;margin-bottom:10px;}
+.podium-score.gold{color:var(--gold);}
+.podium-score.silver{color:var(--silver);}
+.podium-score.bronze{color:var(--bronze);}
+.podium-block{border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:rgba(0,0,0,0.2);}
+.podium-block.gold{background:linear-gradient(180deg,#F59E0B,#D97706);width:120px;height:110px;}
+.podium-block.silver{background:linear-gradient(180deg,#94A3B8,#64748B);width:108px;height:74px;}
+.podium-block.bronze{background:linear-gradient(180deg,#CD7F32,#A0522D);width:108px;height:52px;}
 
-.podium-avatar { width:68px; height:68px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; margin-bottom:10px; position:relative; }
-.podium-avatar.gold { background:linear-gradient(135deg,#F59E0B,#FCD34D); color:var(--navy); box-shadow:0 0 28px rgba(245,158,11,0.55); }
-.podium-avatar.silver { background:linear-gradient(135deg,#94A3B8,#CBD5E1); color:var(--navy); box-shadow:0 0 18px rgba(148,163,184,0.4); }
-.podium-avatar.bronze { background:linear-gradient(135deg,#CD7F32,#E8A96A); color:var(--navy); box-shadow:0 0 18px rgba(205,127,50,0.4); }
-.podium-crown { position:absolute; top:-20px; font-size:22px; }
-.podium-name { font-size:13px; font-weight:800; color:var(--white); text-align:center; max-width:110px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:6px; }
-.podium-score { font-size:13px; font-weight:700; margin-bottom:10px; }
-.podium-score.gold{color:var(--gold)} .podium-score.silver{color:var(--silver)} .podium-score.bronze{color:var(--bronze)}
-.podium-block { border-radius:12px 12px 0 0; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:900; color:rgba(0,0,0,0.25); }
-.podium-block.gold { background:linear-gradient(180deg,#F59E0B,#D97706); width:110px; height:100px; }
-.podium-block.silver { background:linear-gradient(180deg,#94A3B8,#64748B); width:100px; height:68px; }
-.podium-block.bronze { background:linear-gradient(180deg,#CD7F32,#A0522D); width:100px; height:48px; }
+.ranking-list-wrap{background:rgba(255,255,255,0.05);border:1px solid rgba(127,255,212,0.12);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;}
+.rank-row{display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.rank-row:last-child{border-bottom:none;}
+.rank-row.highlight{background:rgba(127,255,212,0.08);}
+.rank-pos{font-size:14px;font-weight:800;min-width:30px;text-align:center;color:rgba(255,255,255,0.3);}
+.rank-name{flex:1;font-weight:600;font-size:15px;color:var(--white);}
+.me-tag{font-size:10px;font-weight:700;color:var(--tiffany);margin-left:8px;background:var(--tiffany-glow);padding:2px 8px;border-radius:10px;}
+.rank-score{font-size:16px;font-weight:800;color:var(--tiffany);}
 
-.ranking-list-wrap { background:rgba(255,255,255,0.05); border:1px solid rgba(127,255,212,0.12); border-radius:var(--radius); overflow:hidden; margin-bottom:24px; }
-.rank-row { display:flex; align-items:center; gap:16px; padding:16px 24px; border-bottom:1px solid rgba(255,255,255,0.05); }
-.rank-row:last-child { border-bottom:none; }
-.rank-row.highlight { background:rgba(127,255,212,0.08); }
-.rank-pos { font-size:14px; font-weight:800; min-width:30px; text-align:center; color:rgba(255,255,255,0.35); }
-.rank-name { flex:1; font-weight:600; font-size:15px; color:var(--white); }
-.me-tag { font-size:10px; font-weight:700; color:var(--tiffany); margin-left:8px; background:var(--tiffany-glow); padding:2px 8px; border-radius:10px; }
-.rank-score { font-size:16px; font-weight:800; color:var(--tiffany); }
+/* ══ TELA DE PROJEÇÃO ══ */
+#scn-p-projection{background:linear-gradient(135deg,#000d2e 0%,var(--navy) 50%,#001a4d 100%);}
+.proj-header{width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 32px;margin-bottom:0;}
+.proj-question-wrap{width:100%;max-width:1000px;margin:0 auto;padding:20px 32px;}
+.proj-question{font-size:36px;font-weight:900;color:var(--white);line-height:1.3;margin-bottom:36px;text-align:center;}
+.proj-options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.proj-option{padding:20px 24px;border-radius:var(--radius);font-size:20px;font-weight:700;color:var(--white);background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;gap:14px;transition:all 0.5s;}
+.proj-option-letter{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.proj-option.correct-reveal{background:rgba(16,185,129,0.3);border-color:var(--success);color:#6EE7B7;}
+.proj-option.other-reveal{opacity:0.35;}
+.proj-counter{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px;background:rgba(255,255,255,0.05);border-radius:var(--radius);border:1px solid rgba(127,255,212,0.15);}
+.proj-count-num{font-size:48px;font-weight:900;color:var(--tiffany);}
+.proj-count-label{font-size:13px;color:rgba(255,255,255,0.4);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-top:4px;}
+.proj-bar-wrap{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-top:12px;}
+.proj-bar-fill{height:100%;background:var(--tiffany);border-radius:6px;transition:width 0.5s ease;}
+.proj-type-label{font-size:12px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center;}
+.proj-waiting{text-align:center;padding:60px 20px;}
+.proj-waiting-title{font-size:28px;font-weight:900;color:var(--white);margin-bottom:12px;}
+.proj-waiting-sub{font-size:16px;color:rgba(255,255,255,0.4);}
+.proj-session-name{font-size:18px;font-weight:700;color:var(--tiffany);margin-bottom:8px;}
 
-/* PARTICIPANT DARK SCREENS */
-#scn-a-join,#scn-a-waiting,#scn-a-answer,#scn-a-wordcloud,#scn-a-wc-display,#scn-a-ranking {
-  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
-}
-#scn-a-join .card,#scn-a-answer .card,#scn-a-wordcloud .card { background:var(--white); color:var(--text); }
+/* WORDCLOUD */
+.wordcloud-wrap{display:flex;flex-wrap:wrap;gap:12px 18px;justify-content:center;align-items:center;min-height:280px;padding:24px;}
+.wc-word{font-weight:700;transition:all 0.5s ease;line-height:1;animation:pop 0.4s ease;}
+@keyframes pop{from{transform:scale(0.3);opacity:0}to{transform:scale(1);opacity:1}}
 
-.session-logo { max-height:56px; max-width:180px; object-fit:contain; }
-.score-pill { background:var(--tiffany-glow); color:var(--tiffany); border:1px solid rgba(127,255,212,0.3); border-radius:20px; padding:8px 20px; font-weight:800; font-size:15px; display:inline-block; }
+/* PARTICIPANT DARK */
+#scn-a-join,#scn-a-waiting,#scn-a-answer,#scn-a-wordcloud,#scn-a-wc-display,#scn-a-ranking{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);}
+#scn-a-join .card,#scn-a-answer .card,#scn-a-wordcloud .card{background:var(--white);color:var(--text);}
 
-/* AWAITING */
-.await-icon { font-size:64px; margin-bottom:16px; animation:pulse 1.5s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-.await-title { font-size:24px; font-weight:800; color:var(--white); margin-bottom:8px; }
-.await-sub { font-size:15px; color:rgba(255,255,255,0.45); font-weight:500; }
+.score-pill{background:var(--tiffany-glow);color:var(--tiffany);border:1px solid rgba(127,255,212,0.3);border-radius:20px;padding:8px 20px;font-weight:800;font-size:15px;display:inline-block;}
+.await-icon{font-size:64px;margin-bottom:16px;animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.await-title{font-size:24px;font-weight:800;color:var(--white);margin-bottom:8px;}
+.await-sub{font-size:15px;color:rgba(255,255,255,0.45);font-weight:500;}
 
-/* SESSION LIST */
-.session-row { display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border:2px solid var(--border); border-radius:var(--radius-sm); margin-bottom:8px; cursor:pointer; transition:all 0.2s; }
-.session-row:hover { border-color:var(--navy); background:var(--off-white); }
-.divider { width:100%; height:1px; background:var(--border); margin:24px 0; }
-.topbar { width:100%; display:flex; align-items:center; justify-content:space-between; padding:16px 0; margin-bottom:24px; }
-.topbar-title { font-size:20px; font-weight:800; color:var(--navy); }
-.conn-dot { width:10px; height:10px; border-radius:50%; background:#94A3B8; display:inline-block; margin-right:6px; }
-.conn-dot.online { background:var(--success); box-shadow:0 0 6px rgba(16,185,129,0.5); }
-.conn-dot.offline { background:var(--error); }
+.session-row{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border:2px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;cursor:pointer;transition:all 0.2s;}
+.session-row:hover{border-color:var(--navy);background:var(--off-white);}
+.divider{width:100%;height:1px;background:var(--border);margin:24px 0;}
+.topbar{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 0;margin-bottom:24px;}
+.topbar-title{font-size:20px;font-weight:800;color:var(--navy);}
+.conn-dot{width:10px;height:10px;border-radius:50%;background:#94A3B8;display:inline-block;margin-right:6px;}
+.conn-dot.online{background:var(--success);box-shadow:0 0 6px rgba(16,185,129,0.5);}
+.conn-dot.offline{background:var(--error);}
 
-/* WORD CLOUD */
-.wordcloud-wrap { display:flex; flex-wrap:wrap; gap:12px 18px; justify-content:center; align-items:center; min-height:280px; padding:24px; }
-.wc-word { font-weight:700; transition:all 0.5s ease; line-height:1; animation:pop 0.4s ease; }
-@keyframes pop { from{transform:scale(0.3);opacity:0} to{transform:scale(1);opacity:1} }
-
-/* MOBILE */
 @media(max-width:640px){
-  .card { padding:20px; }
-  .participant-count { font-size:60px; }
-  .question-text { font-size:20px; }
-  .options-grid { grid-template-columns:1fr; }
-  .podium-wrap { gap:8px; }
-  .podium-avatar { width:56px; height:56px; font-size:18px; }
-  .podium-block.gold { width:90px; height:80px; }
-  .podium-block.silver,.podium-block.bronze { width:82px; }
-  .podium-block.silver { height:56px; }
-  .podium-block.bronze { height:40px; }
-  .podium-name { max-width:85px; font-size:12px; }
-  .trophy-title { font-size:24px; }
+  .card{padding:20px;}
+  .participant-count{font-size:60px;}
+  .question-text,.proj-question{font-size:20px;}
+  .options-grid,.proj-options{grid-template-columns:1fr;}
+  .podium-wrap{gap:8px;}
+  .podium-avatar{width:56px;height:56px;font-size:18px;}
+  .podium-block.gold{width:96px;height:90px;}
+  .podium-block.silver{width:88px;height:62px;}
+  .podium-block.bronze{width:88px;height:44px;}
+  .podium-name{max-width:88px;font-size:12px;}
+  .trophy-title{font-size:24px;}
+  .proj-option{font-size:16px;padding:14px 16px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
+<!-- ════════════════════════════════════
   PRESENTER SCREENS
-═══════════════════════════════════════════ -->
+════════════════════════════════════ -->
 
 <!-- P0: Login -->
 <div id="scn-p-login" class="screen screen-dark">
@@ -331,7 +290,8 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
       </div>
       <div class="input-group">
         <label>URL da Logo do Cliente (opcional)</label>
-        <input class="input" id="setup-logo" placeholder="https://...">
+        <input class="input" id="setup-logo" placeholder="https://raw.githubusercontent.com/...">
+        <p style="font-size:11px;color:var(--text-muted);margin-top:4px;">Use links do GitHub com raw.githubusercontent.com</p>
       </div>
       <div style="display:flex;gap:16px;">
         <div class="input-group" style="flex:1;">
@@ -355,10 +315,8 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
         <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #059669;" onclick="applyTheme('#059669')">Safety Green</button>
         <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #2563EB;" onclick="applyTheme('#2563EB')">Corporate Blue</button>
         <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #7C3AED;" onclick="applyTheme('#7C3AED')">Roxo</button>
-        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid #DC2626;" onclick="applyTheme('#DC2626')">Vermelho</button>
       </div>
     </div>
-
     <div class="card" style="margin-bottom:20px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
         <p style="font-weight:800;font-size:16px;color:var(--navy);">Atividades</p>
@@ -368,9 +326,7 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
           <button class="btn btn-outline" style="font-size:12px;" onclick="addActivity('wordcloud')">+ Nuvem</button>
         </div>
       </div>
-      <div id="activity-list">
-        <p style="color:var(--text-muted);font-size:14px;text-align:center;padding:24px 0;">Adicione atividades acima.</p>
-      </div>
+      <div id="activity-list"><p style="color:var(--text-muted);font-size:14px;text-align:center;padding:24px 0;">Adicione atividades acima.</p></div>
     </div>
     <button class="btn btn-navy btn-block btn-xl" onclick="createSession()">🚀 Criar Sessão</button>
   </div>
@@ -383,6 +339,7 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
       <div class="logos-wrap" id="waiting-logos"></div>
       <div style="display:flex;align-items:center;gap:12px;">
         <span class="conn-dot online" id="conn-dot-waiting"></span>
+        <button class="btn btn-outline-light" style="font-size:12px;" onclick="openProjectionMode()">📺 Projeção</button>
         <button class="btn btn-outline-light" style="font-size:12px;" onclick="confirmEndSession()">Encerrar</button>
       </div>
     </div>
@@ -409,32 +366,31 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   </div>
 </div>
 
-<!-- P4: Activity Control (Presenter) -->
+<!-- P4: Activity Control -->
 <div id="scn-p-control" class="screen screen-dark">
   <div style="max-width:860px;width:100%;">
     <div class="arena-header">
       <div class="logos-wrap" id="control-logos"></div>
-      <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
         <span class="badge badge-tiffany" id="control-activity-badge">1/1</span>
+        <button class="btn btn-outline-light" style="font-size:12px;" onclick="openProjectionMode()">📺 Projeção</button>
         <button class="btn btn-outline-light" style="font-size:12px;" onclick="confirmEndSession()">Encerrar</button>
       </div>
     </div>
 
-    <!-- Phase indicator -->
     <div class="phase-bar" id="phase-bar">
       <div class="phase-dot" id="phase-dot-1"></div>
       <div class="phase-dot" id="phase-dot-2"></div>
       <span class="phase-label" id="phase-label">Coletando respostas</span>
     </div>
 
-    <!-- Question -->
     <div class="question-display">
-      <p style="font-size:11px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;" id="control-type-label">QUIZ</p>
+      <p style="font-size:11px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;" id="control-type-label">QUIZ</p>
       <p class="question-text" id="control-question">-</p>
+      <!-- opções SEM gabarito até Enter -->
       <div id="control-options" class="options-grid"></div>
     </div>
 
-    <!-- Wordcloud -->
     <div id="control-wordcloud-wrap" style="display:none;margin-bottom:20px;">
       <div class="question-display">
         <p style="font-size:11px;font-weight:700;color:rgba(127,255,212,0.6);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;">NUVEM AO VIVO</p>
@@ -442,7 +398,6 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
       </div>
     </div>
 
-    <!-- Response tracker -->
     <div class="response-tracker">
       <div>
         <div style="display:flex;align-items:baseline;gap:4px;">
@@ -460,7 +415,6 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
       </div>
     </div>
 
-    <!-- Enter bar -->
     <div class="enter-bar">
       <div class="key-hint"><span class="key">Enter</span> <span id="enter-hint-label">Revelar resposta</span></div>
       <button class="btn btn-primary btn-lg" id="btn-enter-action" onclick="handlePresenterEnter()">Revelar resposta &nbsp;[↵]</button>
@@ -468,9 +422,9 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   </div>
 </div>
 
-<!-- P5: Presenter Ranking -->
+<!-- P5: Ranking -->
 <div id="scn-p-ranking" class="screen screen-dark">
-  <div style="max-width:800px;width:100%;">
+  <div style="max-width:820px;width:100%;">
     <div class="arena-header">
       <div class="logos-wrap" id="prank-logos"></div>
       <div style="display:flex;gap:8px;">
@@ -485,24 +439,108 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
     </div>
     <div class="podium-wrap" id="p-podium-wrap"></div>
     <div class="ranking-list-wrap" id="p-ranking-rest" style="display:none;"></div>
-    <div style="display:flex;gap:12px;margin-top:20px;">
+    <div style="display:flex;gap:12px;margin-top:24px;">
       <button class="btn btn-outline-light btn-block" onclick="showScreen('scn-p-home')">Nova Sessão</button>
       <button class="btn btn-primary btn-block" onclick="exportRanking()">Exportar CSV</button>
     </div>
   </div>
 </div>
 
+<!-- P6: TELA DE PROJEÇÃO (para projetar no telão) -->
+<div id="scn-p-projection" class="screen screen-dark" style="padding:0;">
+  <div style="width:100%;min-height:100vh;display:flex;flex-direction:column;">
 
-<!-- ═══════════════════════════════════════════
+    <!-- Header da projeção -->
+    <div class="proj-header">
+      <div class="logos-wrap" id="proj-logos"></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="badge badge-tiffany" id="proj-activity-badge" style="display:none;"></span>
+        <span class="conn-dot online"></span>
+      </div>
+    </div>
+
+    <!-- Conteúdo dinâmico -->
+    <div class="proj-question-wrap" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+
+      <!-- Aguardando -->
+      <div id="proj-waiting" class="proj-waiting">
+        <p class="proj-session-name" id="proj-session-name-display"></p>
+        <p class="proj-waiting-title">Aguardando início...</p>
+        <p class="proj-waiting-sub">Escaneie o QR Code ou acesse o link para participar</p>
+        <div style="margin-top:24px;display:flex;justify-content:center;">
+          <div class="qr-wrap" id="proj-qr"></div>
+        </div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.3);margin-top:16px;" id="proj-link-display"></p>
+        <div style="margin-top:20px;">
+          <span class="badge badge-tiffany" style="font-size:14px;padding:8px 20px;">
+            <span id="proj-count">0</span> participantes conectados
+          </span>
+        </div>
+      </div>
+
+      <!-- Pergunta ativa -->
+      <div id="proj-question-section" style="display:none;">
+        <p class="proj-type-label" id="proj-type-label">QUIZ</p>
+        <p class="proj-question" id="proj-question-text"></p>
+        <div id="proj-options" class="proj-options"></div>
+        <div class="proj-counter">
+          <div style="text-align:center;">
+            <div class="proj-count-num" id="proj-resp-count">0</div>
+            <div class="proj-count-label">responderam</div>
+          </div>
+          <div style="flex:1;">
+            <div class="proj-bar-wrap"><div class="proj-bar-fill" id="proj-resp-bar" style="width:0%"></div></div>
+            <p style="text-align:right;font-size:13px;color:rgba(255,255,255,0.35);margin-top:6px;font-weight:600;" id="proj-resp-pct">0%</p>
+          </div>
+          <div style="text-align:center;">
+            <div class="proj-count-num" style="font-size:32px;" id="proj-total-count">0</div>
+            <div class="proj-count-label">total</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nuvem de palavras -->
+      <div id="proj-wordcloud-section" style="display:none;">
+        <p class="proj-type-label">NUVEM DE PALAVRAS</p>
+        <p class="proj-question" id="proj-wc-question"></p>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(127,255,212,0.15);border-radius:var(--radius);padding:24px;min-height:300px;">
+          <div class="wordcloud-wrap" id="proj-wordcloud"></div>
+        </div>
+      </div>
+
+      <!-- Ranking -->
+      <div id="proj-ranking-section" style="display:none;">
+        <div class="trophy-header" style="margin-bottom:24px;">
+          <div class="trophy-icon" style="font-size:60px;">🏆</div>
+          <div class="trophy-title">Ranking Final</div>
+        </div>
+        <div class="podium-wrap" id="proj-podium-wrap"></div>
+        <div class="ranking-list-wrap" id="proj-ranking-rest" style="display:none;"></div>
+      </div>
+
+    </div>
+
+    <!-- Rodapé -->
+    <div style="padding:12px 32px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05);">
+      <p style="font-size:12px;color:rgba(255,255,255,0.2);font-weight:600;">Arena Ao Vivo · Orievo Group</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.2);" id="proj-code-display"></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
   PARTICIPANT SCREENS
-═══════════════════════════════════════════ -->
+════════════════════════════════════ -->
 
 <!-- A0: Join -->
 <div id="scn-a-join" class="screen">
   <div style="max-width:480px;width:100%;margin-top:40px;">
     <div style="text-align:center;margin-bottom:24px;">
-      <img src="https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png"
-           alt="Orievo" style="height:34px;object-fit:contain;opacity:0.65;" onerror="this.style.display='none'">
+      <div style="display:inline-block;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 20px;">
+        <img src="https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png"
+             alt="Orievo" style="height:34px;object-fit:contain;display:block;" onerror="this.parentElement.style.display='none'">
+      </div>
     </div>
     <div class="card" style="text-align:center;">
       <div id="join-logo-wrap" style="margin-bottom:20px;min-height:40px;display:flex;justify-content:center;align-items:center;"></div>
@@ -568,14 +606,14 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   </div>
 </div>
 
-<!-- A3b: Word Cloud Display (participant view) -->
+<!-- A3b: Word Cloud Display -->
 <div id="scn-a-wc-display" class="screen screen-dark">
   <div style="max-width:640px;width:100%;">
     <div style="text-align:center;margin-bottom:24px;">
       <div id="aw-wc-logo" style="margin-bottom:16px;display:flex;justify-content:center;"></div>
       <span class="badge badge-tiffany" style="margin-bottom:12px;">☁️ NUVEM AO VIVO</span>
       <p style="font-size:18px;font-weight:800;color:var(--white);margin-top:12px;line-height:1.4;" id="participant-wc-question"></p>
-      <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:6px;font-weight:500;">✓ Sua palavra foi enviada!</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:6px;">✓ Sua palavra foi enviada!</p>
     </div>
     <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(127,255,212,0.2);border-radius:var(--radius);padding:24px;min-height:260px;">
       <div class="wordcloud-wrap" id="participant-wordcloud"></div>
@@ -583,7 +621,7 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   </div>
 </div>
 
-<!-- A4: Ranking (Participant) -->
+<!-- A4: Ranking -->
 <div id="scn-a-ranking" class="screen screen-dark">
   <div style="max-width:520px;width:100%;margin-top:20px;">
     <div id="ar-logo-wrap" style="margin-bottom:20px;text-align:center;"></div>
@@ -601,194 +639,178 @@ body { font-family:'Montserrat',sans-serif; background:var(--off-white); color:v
   </div>
 </div>
 
-<!-- Notification -->
 <div class="notification" id="notification"></div>
 
-<!-- Firebase -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getDatabase, ref, set, get, onValue, update, push, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getDatabase, ref, set, get, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 const app = initializeApp({
-  apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
-  authDomain: "dislub-equador.firebaseapp.com",
-  databaseURL: "https://dislub-equador-default-rtdb.firebaseio.com",
-  projectId: "dislub-equador",
-  storageBucket: "dislub-equador.firebasestorage.app",
-  messagingSenderId: "160052415363",
-  appId: "1:160052415363:web:f17df9700cd511122504b6"
+  apiKey:"AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
+  authDomain:"dislub-equador.firebaseapp.com",
+  databaseURL:"https://dislub-equador-default-rtdb.firebaseio.com",
+  projectId:"dislub-equador",
+  storageBucket:"dislub-equador.firebasestorage.app",
+  messagingSenderId:"160052415363",
+  appId:"1:160052415363:web:f17df9700cd511122504b6"
 });
 const db = getDatabase(app);
-window._fb = { db, ref, set, get, onValue, update, push, remove };
+window._fb = { db, ref, set, get, onValue, update };
 window.dispatchEvent(new Event('firebase-ready'));
 </script>
 
 <script>
-const DEFAULT_PASSWORD = 'Arena2026GDE';
-function getPresenterPwd() { return localStorage.getItem('arena_pwd') || DEFAULT_PASSWORD; }
-const ARENA_PATH = 'arena_v2';
-const POINTS_CORRECT = 100;
-const ORIEVO_LOGO = 'https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png';
-const WC_COLORS = ['#7FFFD4','#60D9F0','#A78BFA','#34D399','#F472B6','#FCD34D','#6EE7B7','#93C5FD','#FCA5A5'];
+const DEFAULT_PASSWORD='Arena2026GDE';
+function getPresenterPwd(){return localStorage.getItem('arena_pwd')||DEFAULT_PASSWORD;}
+const ARENA_PATH='arena_v2';
+const POINTS_CORRECT=100;
+const ORIEVO_LOGO='https://raw.githubusercontent.com/orievogroup/GDE/main/logo_orievo_fundo_branco.png';
+const WC_COLORS=['#7FFFD4','#60D9F0','#A78BFA','#34D399','#F472B6','#FCD34D','#6EE7B7','#93C5FD','#FCA5A5'];
 
-let fb = null, presenterMode = false, sessionId = null, sessionConfig = {}, activities = [];
-let participantId = null, participantName = null, participantScore = 0;
-let currentActivityIndex = 0, currentActivityIndexForParticipant = 0;
-let currentStatus = 'waiting', presenterUnsubscribe = null, allAnsweredNotified = false;
+let fb=null, presenterMode=false, sessionId=null, sessionConfig={}, activities=[];
+let participantId=null, participantName=null, participantScore=0;
+let currentActivityIndex=0, currentActivityIndexForParticipant=0;
+let currentStatus='waiting', presenterUnsubscribe=null, allAnsweredNotified=false;
+let isProjectionMode=false;
 
-window.addEventListener('firebase-ready', () => {
-  fb = window._fb;
+window.addEventListener('firebase-ready',()=>{
+  fb=window._fb;
   updateConnDot(true);
-  const params = new URLSearchParams(location.search);
-  const sid = params.get('s');
-  if (sid) { sessionId = sid; participantInit(sid); }
-  else {
+  const params=new URLSearchParams(location.search);
+  const sid=params.get('s');
+  const proj=params.get('proj');
+  if(proj){ sessionId=proj; isProjectionMode=true; startProjectionMode(proj); }
+  else if(sid){ sessionId=sid; participantInit(sid); }
+  else{
     showScreen('scn-p-login');
-    document.getElementById('p-login-pwd').addEventListener('keydown', e => { if(e.key==='Enter') presenterLogin(); });
+    document.getElementById('p-login-pwd').addEventListener('keydown',e=>{if(e.key==='Enter')presenterLogin();});
   }
 });
 
-document.addEventListener('keydown', e => {
-  if (presenterMode && e.key==='Enter' && !e.target.matches('input,textarea,select,button')) {
+document.addEventListener('keydown',e=>{
+  if(presenterMode && e.key==='Enter' && !e.target.matches('input,textarea,select,button')){
     e.preventDefault(); handlePresenterEnter();
   }
 });
-document.getElementById('setup-color').addEventListener('input', e => { document.getElementById('setup-color-hex').value = e.target.value; });
-document.getElementById('setup-color-hex').addEventListener('input', e => {
-  if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) document.getElementById('setup-color').value = e.target.value;
-});
+document.getElementById('setup-color').addEventListener('input',e=>{document.getElementById('setup-color-hex').value=e.target.value;});
+document.getElementById('setup-color-hex').addEventListener('input',e=>{if(/^#[0-9A-Fa-f]{6}$/.test(e.target.value))document.getElementById('setup-color').value=e.target.value;});
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
-window.showScreen = showScreen;
+window.showScreen=showScreen;
 
-function updateConnDot(online) {
-  ['conn-dot-login','conn-dot-waiting'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.className = 'conn-dot ' + (online?'online':'offline');
+function updateConnDot(online){
+  ['conn-dot-login','conn-dot-waiting'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.className='conn-dot '+(online?'online':'offline');
   });
-  const lbl = document.getElementById('conn-label-login');
-  if (lbl) lbl.textContent = online ? 'Conectado' : 'Sem conexão';
+  const lbl=document.getElementById('conn-label-login');
+  if(lbl)lbl.textContent=online?'Conectado':'Sem conexão';
 }
 
-function notify(msg, type='success') {
-  const el = document.getElementById('notification');
-  el.textContent = msg;
-  if (type==='success') { el.style.background='var(--navy)'; el.style.color='var(--tiffany)'; el.style.borderColor='var(--tiffany)'; }
-  else if (type==='error') { el.style.background='#1a0000'; el.style.color='#ff6b6b'; el.style.borderColor='#ff6b6b'; }
-  else { el.style.background='#1a1200'; el.style.color='#FCD34D'; el.style.borderColor='#FCD34D'; }
+function notify(msg,type='success'){
+  const el=document.getElementById('notification');
+  el.textContent=msg;
+  if(type==='success'){el.style.background='var(--navy)';el.style.color='var(--tiffany)';el.style.borderColor='var(--tiffany)';}
+  else if(type==='error'){el.style.background='#1a0000';el.style.color='#ff6b6b';el.style.borderColor='#ff6b6b';}
+  else{el.style.background='#1a1200';el.style.color='#FCD34D';el.style.borderColor='#FCD34D';}
   el.classList.add('show');
-  if (type==='success') playBeep(880);
+  if(type==='success')playBeep(880);
   clearTimeout(el._t);
-  el._t = setTimeout(()=>el.classList.remove('show'), 4500);
+  el._t=setTimeout(()=>el.classList.remove('show'),4500);
 }
 
-function playBeep(freq=880) {
-  try {
-    const ctx = new AudioContext(), osc = ctx.createOscillator(), gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type='sine'; osc.frequency.value=freq;
-    gain.gain.setValueAtTime(0.2,ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);
-    osc.start(); osc.stop(ctx.currentTime+0.5);
-  } catch(e){}
+function playBeep(freq=880){
+  try{const ctx=new AudioContext(),osc=ctx.createOscillator(),gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(0.2,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);osc.start();osc.stop(ctx.currentTime+0.5);}catch(e){}
 }
 
-function buildLogosHtml(clientLogoUrl, sessionName) {
-  let html = `<div class="logo-orievo-wrap"><img src="${ORIEVO_LOGO}" class="logo-orievo" alt="Orievo" onerror="this.parentElement.style.display='none'"></div>`;
-  if (clientLogoUrl) {
-    html += `<div class="logo-divider"></div><img src="${clientLogoUrl}" class="logo-client" alt="Logo" onerror="this.style.display='none'">`;
-  } else if (sessionName) {
-    html += `<div class="logo-divider"></div><span class="logo-placeholder-dark">${sessionName}</span>`;
-  }
-  return html;
+function buildLogosHtml(clientLogo,sessionName){
+  let h=`<div class="logo-orievo-wrap"><img src="${ORIEVO_LOGO}" class="logo-orievo" alt="Orievo" onerror="this.parentElement.style.display='none'"></div>`;
+  if(clientLogo)h+=`<div class="logo-divider"></div><img src="${clientLogo}" class="logo-client" alt="Logo" onerror="this.style.display='none'">`;
+  else if(sessionName)h+=`<div class="logo-divider"></div><span class="logo-placeholder-dark">${sessionName}</span>`;
+  return h;
 }
 
 // ── LOGIN ──
-function presenterLogin() {
-  if (document.getElementById('p-login-pwd').value === getPresenterPwd()) {
-    presenterMode = true; loadPresenterHome();
-  } else {
-    document.getElementById('p-login-err').style.display = 'block';
-  }
+function presenterLogin(){
+  if(document.getElementById('p-login-pwd').value===getPresenterPwd()){presenterMode=true;loadPresenterHome();}
+  else document.getElementById('p-login-err').style.display='block';
 }
-window.presenterLogin = presenterLogin;
+window.presenterLogin=presenterLogin;
 
-function changePwd() {
-  const atual = prompt('Senha atual:');
-  if (atual !== null && atual !== getPresenterPwd() && atual !== '') { alert('Senha incorreta.'); return; }
-  const nova = prompt('Nova senha:');
-  if (!nova || nova.trim().length<4) { alert('Mínimo 4 caracteres.'); return; }
-  if (nova !== prompt('Confirme:')) { alert('Não coincidem.'); return; }
-  localStorage.setItem('arena_pwd', nova.trim());
-  alert('Senha alterada!');
+function changePwd(){
+  const atual=prompt('Senha atual:');
+  if(atual!==null&&atual!==getPresenterPwd()&&atual!==''){alert('Senha incorreta.');return;}
+  const nova=prompt('Nova senha:');
+  if(!nova||nova.trim().length<4){alert('Mínimo 4 caracteres.');return;}
+  if(nova!==prompt('Confirme:')){ alert('Não coincidem.');return;}
+  localStorage.setItem('arena_pwd',nova.trim());alert('Senha alterada!');
 }
-window.changePwd = changePwd;
+window.changePwd=changePwd;
 
 // ── HOME ──
-function loadPresenterHome() {
+function loadPresenterHome(){
   showScreen('scn-p-home');
-  if (!fb) return;
-  const { db, ref, onValue } = fb;
-  onValue(ref(db, ARENA_PATH+'/sessions'), snap => {
-    const sessions = snap.val() || {};
-    const wrap = document.getElementById('p-session-list');
-    const active = Object.entries(sessions).filter(([,s])=>s.status!=='ended').sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
-    if (!active.length) { wrap.innerHTML='<p style="color:var(--text-muted);font-size:14px;">Nenhuma sessão ativa.</p>'; return; }
-    wrap.innerHTML = active.map(([id,s]) => `
+  if(!fb)return;
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions'),snap=>{
+    const sessions=snap.val()||{};
+    const wrap=document.getElementById('p-session-list');
+    const active=Object.entries(sessions).filter(([,s])=>s.status!=='ended').sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+    if(!active.length){wrap.innerHTML='<p style="color:var(--text-muted);font-size:14px;">Nenhuma sessão ativa.</p>';return;}
+    wrap.innerHTML=active.map(([id,s])=>`
       <div class="session-row" onclick="resumeSession('${id}')">
         <div><div style="font-weight:800;color:var(--navy);">${s.name}</div>
-        <div style="font-size:13px;color:var(--text-muted);margin-top:3px;">Código: ${id} &bull; ${Object.keys(s.participants||{}).length} participantes</div></div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:3px;">Código: ${id} &bull; ${Object.keys(s.participants||{}).length} part.</div></div>
         <span class="badge ${s.status==='waiting'?'badge-yellow':'badge-navy'}">${s.status==='waiting'?'Aguardando':'Em andamento'}</span>
       </div>`).join('');
-  }, {onlyOnce:true});
-  const themes = JSON.parse(localStorage.getItem('arena_themes')||'[]');
-  const tw = document.getElementById('p-theme-list');
-  tw.innerHTML = themes.length ? themes.map((t,i)=>`<button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid ${t.color};" onclick="loadTheme(${i})">${t.name}</button>`).join('') : '<p style="font-size:13px;color:var(--text-muted);">Nenhum tema salvo.</p>';
+  },{onlyOnce:true});
+  const themes=JSON.parse(localStorage.getItem('arena_themes')||'[]');
+  const tw=document.getElementById('p-theme-list');
+  tw.innerHTML=themes.length?themes.map((t,i)=>`<button class="btn btn-outline" style="font-size:12px;padding:6px 14px;border-left:4px solid ${t.color};" onclick="loadTheme(${i})">${t.name}</button>`).join(''):'<p style="font-size:13px;color:var(--text-muted);">Nenhum tema salvo.</p>';
 }
 
-function resumeSession(id) {
-  sessionId = id;
-  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+id), snap => {
-    const s = snap.val(); if (!s) return;
-    sessionConfig = s.config || {};
-    if (s.status==='waiting') showWaitingRoom();
-    else { currentActivityIndex = s.currentActivityIndex||0; currentStatus = s.status; showControlScreen(); }
-  }, {onlyOnce:true});
+function resumeSession(id){
+  sessionId=id;
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+id),snap=>{
+    const s=snap.val();if(!s)return;
+    sessionConfig=s.config||{};
+    if(s.status==='waiting')showWaitingRoom();
+    else{currentActivityIndex=s.currentActivityIndex||0;currentStatus=s.status;showControlScreen();}
+  },{onlyOnce:true});
 }
-window.resumeSession = resumeSession;
+window.resumeSession=resumeSession;
 
 // ── SETUP ──
-activities = [];
-function addActivity(type) { activities.push({id:Date.now(),type,question:'',options:['','','',''],correct:0,points:POINTS_CORRECT}); renderActivityList(); }
-window.addActivity = addActivity;
-function removeActivity(id) { activities=activities.filter(a=>a.id!==id); renderActivityList(); }
-window.removeActivity = removeActivity;
+activities=[];
+function addActivity(type){activities.push({id:Date.now(),type,question:'',options:['','','',''],correct:0,points:POINTS_CORRECT});renderActivityList();}
+window.addActivity=addActivity;
+function removeActivity(id){activities=activities.filter(a=>a.id!==id);renderActivityList();}
+window.removeActivity=removeActivity;
 
-function renderActivityList() {
-  const wrap = document.getElementById('activity-list');
-  if (!activities.length) { wrap.innerHTML='<p style="color:var(--text-muted);font-size:14px;text-align:center;padding:24px 0;">Adicione atividades acima.</p>'; return; }
-  wrap.innerHTML = activities.map((a,idx) => {
-    const typeLabel = {quiz:'Quiz (Múltipla Escolha)',truefalse:'Verdadeiro ou Falso',wordcloud:'Nuvem de Palavras'}[a.type];
-    const optionsHtml = a.type==='wordcloud' ? '' : (a.type==='truefalse'
-      ? `<div style="display:flex;gap:10px;margin-top:10px;">
-           <button class="btn ${a.correct===0?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},0)">✓ Verdadeiro</button>
-           <button class="btn ${a.correct===1?'btn-success':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},1)">✗ Falso</button></div>`
-      : a.options.map((opt,oi)=>`
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
-            <button class="btn ${a.correct===oi?'btn-success':'btn-outline'}" style="font-size:12px;padding:6px 12px;min-width:36px;" onclick="setCorrect(${a.id},${oi})">${String.fromCharCode(65+oi)}</button>
-            <input class="input" style="flex:1;" value="${opt}" placeholder="Opção ${String.fromCharCode(65+oi)}" oninput="updateOption(${a.id},${oi},this.value)">
-          </div>`).join(''));
+function renderActivityList(){
+  const wrap=document.getElementById('activity-list');
+  if(!activities.length){wrap.innerHTML='<p style="color:var(--text-muted);font-size:14px;text-align:center;padding:24px 0;">Adicione atividades acima.</p>';return;}
+  wrap.innerHTML=activities.map((a,idx)=>{
+    const typeLabel={quiz:'Quiz (Múltipla Escolha)',truefalse:'Verdadeiro ou Falso',wordcloud:'Nuvem de Palavras'}[a.type];
+    const optHtml=a.type==='wordcloud'?'':(a.type==='truefalse'
+      ?`<div style="display:flex;gap:10px;margin-top:10px;">
+          <button class="btn ${a.correct===0?'btn-navy':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},0)">✓ Verdadeiro</button>
+          <button class="btn ${a.correct===1?'btn-navy':'btn-outline'}" style="font-size:13px;padding:8px 20px;" onclick="setCorrect(${a.id},1)">✗ Falso</button></div>`
+      :a.options.map((opt,oi)=>`
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+          <button class="btn ${a.correct===oi?'btn-navy':'btn-outline'}" style="font-size:12px;padding:6px 12px;min-width:36px;" onclick="setCorrect(${a.id},${oi})">${String.fromCharCode(65+oi)}</button>
+          <input class="input" style="flex:1;" value="${opt}" placeholder="Opção ${String.fromCharCode(65+oi)}" oninput="updateOption(${a.id},${oi},this.value)">
+        </div>`).join(''));
     return `<div class="activity-item">
       <div class="activity-header">
         <span class="badge badge-navy">${idx+1}. ${typeLabel}</span>
         <button class="btn" style="padding:4px 10px;font-size:12px;background:var(--error-light);color:var(--error);border-radius:6px;" onclick="removeActivity(${a.id})">Remover</button>
       </div>
       <input class="input" placeholder="Pergunta / Enunciado" value="${a.question}" oninput="updateQuestion(${a.id},this.value)">
-      ${optionsHtml}</div>`;
+      ${optHtml}</div>`;
   }).join('');
 }
 function updateQuestion(id,val){const a=activities.find(x=>x.id===id);if(a)a.question=val;} window.updateQuestion=updateQuestion;
@@ -798,355 +820,411 @@ function applyTheme(color){document.getElementById('setup-color').value=color;do
 function loadTheme(i){const t=JSON.parse(localStorage.getItem('arena_themes')||'[]')[i];if(t)applyTheme(t.color);} window.loadTheme=loadTheme;
 function showSaveThemeModal(){const name=prompt('Nome para este tema:');if(!name)return;const color=document.getElementById('setup-color').value;const themes=JSON.parse(localStorage.getItem('arena_themes')||'[]');themes.push({name,color});localStorage.setItem('arena_themes',JSON.stringify(themes));notify('Tema "'+name+'" salvo!');loadPresenterHome();} window.showSaveThemeModal=showSaveThemeModal;
 
-function createSession() {
-  const name = document.getElementById('setup-name').value.trim();
-  if (!name) { notify('Digite o nome da sessão.','error'); return; }
-  if (!activities.length) { notify('Adicione pelo menos uma atividade.','error'); return; }
-  for (const a of activities) {
-    if (!a.question.trim()) { notify('Preencha o enunciado de todas as atividades.','error'); return; }
-    if (a.type==='quiz' && a.options.filter(o=>o.trim()).length<2) { notify('Cada quiz precisa de 2+ opções.','error'); return; }
+function createSession(){
+  const name=document.getElementById('setup-name').value.trim();
+  if(!name){notify('Digite o nome da sessão.','error');return;}
+  if(!activities.length){notify('Adicione pelo menos uma atividade.','error');return;}
+  for(const a of activities){
+    if(!a.question.trim()){notify('Preencha o enunciado de todas as atividades.','error');return;}
+    if(a.type==='quiz'&&a.options.filter(o=>o.trim()).length<2){notify('Cada quiz precisa de 2+ opções.','error');return;}
   }
-  sessionId = genCode();
-  sessionConfig = { name, logo:document.getElementById('setup-logo').value.trim(), color:document.getElementById('setup-color').value, scoreMode:document.getElementById('setup-score-mode').value, activities:activities.map(a=>({...a})) };
-  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId), { name, config:sessionConfig, status:'waiting', currentActivityIndex:0, participants:{}, createdAt:Date.now() })
+  sessionId=genCode();
+  sessionConfig={name,logo:document.getElementById('setup-logo').value.trim(),color:document.getElementById('setup-color').value,scoreMode:document.getElementById('setup-score-mode').value,activities:activities.map(a=>({...a}))};
+  fb.set(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),{name,config:sessionConfig,status:'waiting',currentActivityIndex:0,participants:{},createdAt:Date.now()})
     .then(()=>showWaitingRoom())
     .catch(err=>notify('Erro Firebase: '+err.message,'error'));
 }
-window.createSession = createSession;
+window.createSession=createSession;
 
 // ── WAITING ROOM ──
-function showWaitingRoom() {
+function showWaitingRoom(){
   showScreen('scn-p-waiting');
-  const link = location.origin+location.pathname+'?s='+sessionId;
-  document.getElementById('waiting-link').textContent = link;
-  document.getElementById('waiting-session-code').textContent = 'Código: '+sessionId;
-  document.getElementById('waiting-logos').innerHTML = buildLogosHtml(sessionConfig.logo, sessionConfig.name);
-  document.getElementById('waiting-qr').innerHTML = '';
+  const link=location.origin+location.pathname+'?s='+sessionId;
+  document.getElementById('waiting-link').textContent=link;
+  document.getElementById('waiting-session-code').textContent='Código: '+sessionId;
+  document.getElementById('waiting-logos').innerHTML=buildLogosHtml(sessionConfig.logo,sessionConfig.name);
+  document.getElementById('waiting-qr').innerHTML='';
   new QRCode(document.getElementById('waiting-qr'),{text:link,width:150,height:150,correctLevel:QRCode.CorrectLevel.M});
-  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants'), snap => {
-    document.getElementById('waiting-count').textContent = snap.val() ? Object.keys(snap.val()).length : 0;
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/participants'),snap=>{
+    document.getElementById('waiting-count').textContent=snap.val()?Object.keys(snap.val()).length:0;
   });
 }
-window.copyLink = function() { navigator.clipboard.writeText(location.origin+location.pathname+'?s='+sessionId).then(()=>notify('Link copiado!')); };
-window.startFirstActivity = function() { currentActivityIndex=0; pushActivity(); };
+window.copyLink=function(){navigator.clipboard.writeText(location.origin+location.pathname+'?s='+sessionId).then(()=>notify('Link copiado!'));};
+window.startFirstActivity=function(){currentActivityIndex=0;pushActivity();};
+
+window.openProjectionMode=function(){
+  const projUrl=location.origin+location.pathname+'?proj='+sessionId;
+  window.open(projUrl,'_blank','width=1280,height=720');
+};
 
 // ── ACTIVITY CONTROL ──
-function pushActivity() {
-  const act = sessionConfig.activities[currentActivityIndex];
-  if (!act) { pushRanking(); return; }
-  currentStatus = act.type==='wordcloud' ? 'wordcloud_input' : 'question';
-  allAnsweredNotified = false;
-  fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId), {
-    status:currentStatus, currentActivityIndex,
-    currentActivity:{ index:currentActivityIndex, type:act.type, question:act.question, options:act.options||[], correct:act.correct??0, points:act.points||POINTS_CORRECT, startedAt:Date.now() }
+function pushActivity(){
+  const act=sessionConfig.activities[currentActivityIndex];
+  if(!act){pushRanking();return;}
+  currentStatus=act.type==='wordcloud'?'wordcloud_input':'question';
+  allAnsweredNotified=false;
+  fb.update(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),{
+    status:currentStatus,currentActivityIndex,
+    currentActivity:{index:currentActivityIndex,type:act.type,question:act.question,options:act.options||[],correct:act.correct??0,points:act.points||POINTS_CORRECT,startedAt:Date.now()}
   });
   showControlScreen();
 }
 
-function showControlScreen() {
+function showControlScreen(){
   showScreen('scn-p-control');
-  const act = sessionConfig.activities[currentActivityIndex];
-  if (!act) return;
-  document.getElementById('control-logos').innerHTML = buildLogosHtml(sessionConfig.logo, sessionConfig.name);
-  document.getElementById('control-activity-badge').textContent = `${currentActivityIndex+1} / ${sessionConfig.activities.length}`;
-  document.getElementById('control-type-label').textContent = {quiz:'Quiz',truefalse:'Verdadeiro ou Falso',wordcloud:'Nuvem de Palavras'}[act.type]||act.type;
-  document.getElementById('control-question').textContent = act.question;
+  const act=sessionConfig.activities[currentActivityIndex];
+  if(!act)return;
+  document.getElementById('control-logos').innerHTML=buildLogosHtml(sessionConfig.logo,sessionConfig.name);
+  document.getElementById('control-activity-badge').textContent=`${currentActivityIndex+1} / ${sessionConfig.activities.length}`;
+  document.getElementById('control-type-label').textContent={quiz:'Quiz',truefalse:'Verdadeiro ou Falso',wordcloud:'Nuvem de Palavras'}[act.type]||act.type;
+  document.getElementById('control-question').textContent=act.question;
 
-  const optsWrap = document.getElementById('control-options');
-  if (act.type==='quiz') {
-    optsWrap.innerHTML = act.options.filter(o=>o).map((o,i)=>`
+  // Renderiza opções SEM destacar a correta
+  const optsWrap=document.getElementById('control-options');
+  if(act.type==='quiz'){
+    optsWrap.innerHTML=act.options.filter(o=>o).map((o,i)=>`
       <div class="option-pill" id="ctrl-opt-${i}">
         <div class="option-letter">${String.fromCharCode(65+i)}</div><span>${o}</span>
       </div>`).join('');
     optsWrap.style.display='grid';
-  } else if (act.type==='truefalse') {
-    optsWrap.innerHTML = ['Verdadeiro','Falso'].map((o,i)=>`
+  } else if(act.type==='truefalse'){
+    optsWrap.innerHTML=['Verdadeiro','Falso'].map((o,i)=>`
       <div class="option-pill" id="ctrl-opt-${i}">
         <div class="option-letter">${i===0?'V':'F'}</div><span>${o}</span>
       </div>`).join('');
     optsWrap.style.display='grid';
-  } else { optsWrap.innerHTML=''; optsWrap.style.display='none'; }
+  } else {optsWrap.innerHTML='';optsWrap.style.display='none';}
 
-  const isWC = act.type==='wordcloud';
-  document.getElementById('control-wordcloud-wrap').style.display = isWC?'block':'none';
-  if (isWC) listenWordCloud();
+  // Se retomando sessão em show_answer, revela imediatamente
+  if(currentStatus==='show_answer') revealAnswer();
+
+  document.getElementById('control-wordcloud-wrap').style.display=act.type==='wordcloud'?'block':'none';
+  if(act.type==='wordcloud')listenWordCloud();
   updatePhaseIndicator();
   updateEnterHint();
   listenResponses();
 }
 
-function updatePhaseIndicator() {
-  const act = sessionConfig.activities[currentActivityIndex];
-  const bar = document.getElementById('phase-bar');
-  if (!act || act.type==='wordcloud') { bar.style.display='none'; return; }
+function updatePhaseIndicator(){
+  const act=sessionConfig.activities[currentActivityIndex];
+  const bar=document.getElementById('phase-bar');
+  if(!act||act.type==='wordcloud'){bar.style.display='none';return;}
   bar.style.display='flex';
-  const d1=document.getElementById('phase-dot-1'), d2=document.getElementById('phase-dot-2'), lbl=document.getElementById('phase-label');
-  if (currentStatus==='question') { d1.className='phase-dot active'; d2.className='phase-dot'; lbl.textContent='Fase 1 — Coletando respostas'; }
-  else if (currentStatus==='show_answer') { d1.className='phase-dot done'; d2.className='phase-dot active'; lbl.textContent='Fase 2 — Resposta revelada'; }
+  const d1=document.getElementById('phase-dot-1'),d2=document.getElementById('phase-dot-2'),lbl=document.getElementById('phase-label');
+  if(currentStatus==='question'){d1.className='phase-dot active';d2.className='phase-dot';lbl.textContent='Fase 1 — Coletando respostas';}
+  else if(currentStatus==='show_answer'){d1.className='phase-dot done';d2.className='phase-dot active';lbl.textContent='Fase 2 — Resposta revelada';}
 }
 
-function revealAnswer() {
-  const act = sessionConfig.activities[currentActivityIndex];
-  if (!act || act.type==='wordcloud') return;
-  const correct = act.correct??0;
-  const options = act.type==='truefalse' ? ['Verdadeiro','Falso'] : act.options.filter(o=>o);
-  options.forEach((_,i) => {
-    const pill = document.getElementById('ctrl-opt-'+i);
-    if (!pill) return;
-    if (i===correct) {
+function revealAnswer(){
+  const act=sessionConfig.activities[currentActivityIndex];
+  if(!act||act.type==='wordcloud')return;
+  const correct=act.correct??0;
+  const options=act.type==='truefalse'?['Verdadeiro','Falso']:act.options.filter(o=>o);
+  options.forEach((_,i)=>{
+    const pill=document.getElementById('ctrl-opt-'+i);
+    if(!pill)return;
+    pill.classList.remove('hidden-answer');
+    if(i===correct){
       pill.classList.add('correct-reveal');
-      const letter = act.type==='truefalse' ? (i===0?'V':'F') : String.fromCharCode(65+i);
-      const text = act.type==='truefalse' ? options[i] : act.options.filter(o=>o)[i];
-      pill.innerHTML = `<div class="option-letter" style="background:rgba(16,185,129,0.3);">✓</div><span>${text}</span>`;
+      const text=act.type==='truefalse'?options[i]:act.options.filter(o=>o)[i];
+      pill.innerHTML=`<div class="option-letter" style="background:rgba(16,185,129,0.3);">✓</div><span>${text}</span>`;
     } else {
       pill.classList.add('other-reveal');
     }
   });
 }
 
-function updateEnterHint() {
-  const isLast = currentActivityIndex >= sessionConfig.activities.length-1;
-  let label = '';
-  if (currentStatus==='question') label='Revelar resposta';
-  else if (currentStatus==='show_answer') label = isLast?'Ver ranking final':'Próxima atividade';
-  else if (currentStatus==='wordcloud_input') label='Exibir nuvem';
-  else if (currentStatus==='wordcloud_display') label = isLast?'Ver ranking final':'Próxima atividade';
-  else if (currentStatus==='ranking') label='Encerrar sessão';
-  document.getElementById('enter-hint-label').textContent = label;
-  const btn = document.getElementById('btn-enter-action');
-  btn.textContent = label+'  [↵]';
-  if (currentStatus==='question'||currentStatus==='wordcloud_input') {
-    btn.className='btn btn-primary btn-lg';
+function updateEnterHint(){
+  const isLast=currentActivityIndex>=sessionConfig.activities.length-1;
+  let label='';
+  if(currentStatus==='question')label='Revelar resposta';
+  else if(currentStatus==='show_answer')label=isLast?'Ver ranking final':'Próxima atividade';
+  else if(currentStatus==='wordcloud_input')label='Exibir nuvem';
+  else if(currentStatus==='wordcloud_display')label=isLast?'Ver ranking final':'Próxima atividade';
+  else if(currentStatus==='ranking')label='Encerrar sessão';
+  document.getElementById('enter-hint-label').textContent=label;
+  const btn=document.getElementById('btn-enter-action');
+  btn.textContent=label+'  [↵]';
+  if(currentStatus==='question'||currentStatus==='wordcloud_input'){
+    btn.style.cssText='';btn.className='btn btn-primary btn-lg';
   } else {
     btn.className='btn btn-lg';
-    btn.style.cssText='background:rgba(255,255,255,0.1);color:var(--white);border:2px solid rgba(127,255,212,0.3);';
+    btn.style.cssText='background:rgba(255,255,255,0.12);color:var(--white);border:2px solid rgba(127,255,212,0.3);';
   }
 }
 
-function listenResponses() {
-  if (presenterUnsubscribe) presenterUnsubscribe();
-  const unsub = fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId), snap => {
-    const s = snap.val(); if (!s) return;
-    const totalPart = Object.keys(s.participants||{}).length;
-    const act = sessionConfig.activities[currentActivityIndex];
-    let responseCount = 0;
-    if (act&&act.type==='wordcloud') {
-      const wc = (s.wordcloud||{})[currentActivityIndex]||{};
-      responseCount = Object.keys(wc).length;
+function listenResponses(){
+  if(presenterUnsubscribe)presenterUnsubscribe();
+  const unsub=fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),snap=>{
+    const s=snap.val();if(!s)return;
+    const totalPart=Object.keys(s.participants||{}).length;
+    const act=sessionConfig.activities[currentActivityIndex];
+    let responseCount=0;
+    if(act&&act.type==='wordcloud'){
+      const wc=(s.wordcloud||{})[currentActivityIndex]||{};
+      responseCount=Object.keys(wc).length;
       renderWordCloud(wc,'control-wordcloud');
     } else {
-      responseCount = Object.keys((s.responses||{})[currentActivityIndex]||{}).length;
+      responseCount=Object.keys((s.responses||{})[currentActivityIndex]||{}).length;
     }
-    document.getElementById('resp-count').textContent = responseCount;
-    document.getElementById('resp-total').textContent = totalPart;
-    const pct = totalPart>0 ? Math.round(responseCount/totalPart*100) : 0;
-    document.getElementById('resp-bar').style.width = pct+'%';
-    document.getElementById('resp-pct').textContent = pct+'%';
-    const badge = document.getElementById('all-answered-badge');
-    if (totalPart>0 && responseCount>=totalPart) {
+    document.getElementById('resp-count').textContent=responseCount;
+    document.getElementById('resp-total').textContent=totalPart;
+    const pct=totalPart>0?Math.round(responseCount/totalPart*100):0;
+    document.getElementById('resp-bar').style.width=pct+'%';
+    document.getElementById('resp-pct').textContent=pct+'%';
+    const badge=document.getElementById('all-answered-badge');
+    if(totalPart>0&&responseCount>=totalPart){
       badge.style.display='block';
-      if (!allAnsweredNotified) { allAnsweredNotified=true; notify('✓ Todos responderam! Pressione Enter para revelar.'); playBeep(1047); }
-    } else { badge.style.display='none'; }
+      if(!allAnsweredNotified){allAnsweredNotified=true;notify('✓ Todos responderam! Pressione Enter para revelar.');playBeep(1047);}
+    } else badge.style.display='none';
   });
-  presenterUnsubscribe = ()=>unsub();
+  presenterUnsubscribe=()=>unsub();
 }
 
-function listenWordCloud() {
-  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+currentActivityIndex), snap => {
-    renderWordCloud(snap.val()||{}, 'control-wordcloud');
+function listenWordCloud(){
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+currentActivityIndex),snap=>{
+    renderWordCloud(snap.val()||{},'control-wordcloud');
   });
 }
 
-window.handlePresenterEnter = function() {
-  const act = sessionConfig.activities[currentActivityIndex];
-  if (!act) return;
-  const isLast = currentActivityIndex>=sessionConfig.activities.length-1;
-
-  if (currentStatus==='question') {
-    // FASE 1 → FASE 2: só revela, não avança
+window.handlePresenterEnter=function(){
+  const act=sessionConfig.activities[currentActivityIndex];
+  if(!act)return;
+  const isLast=currentActivityIndex>=sessionConfig.activities.length-1;
+  if(currentStatus==='question'){
+    // 1º Enter: só revela, não avança
     currentStatus='show_answer';
-    fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'show_answer'});
+    fb.update(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),{status:'show_answer'});
     revealAnswer();
     updatePhaseIndicator();
     updateEnterHint();
-  } else if (currentStatus==='show_answer') {
-    // FASE 2 → Próxima ou Ranking
-    if (isLast) pushRanking();
-    else { currentActivityIndex++; pushActivity(); }
-  } else if (currentStatus==='wordcloud_input') {
+  } else if(currentStatus==='show_answer'){
+    // 2º Enter: próxima ou ranking
+    if(isLast)pushRanking();
+    else{currentActivityIndex++;pushActivity();}
+  } else if(currentStatus==='wordcloud_input'){
     currentStatus='wordcloud_display';
-    fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'wordcloud_display'});
+    fb.update(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),{status:'wordcloud_display'});
     updateEnterHint();
-  } else if (currentStatus==='wordcloud_display') {
-    if (isLast) pushRanking(); else { currentActivityIndex++; pushActivity(); }
-  } else if (currentStatus==='ranking') {
+  } else if(currentStatus==='wordcloud_display'){
+    if(isLast)pushRanking();
+    else{currentActivityIndex++;pushActivity();}
+  } else if(currentStatus==='ranking'){
     endSession();
   }
 };
 
-function pushRanking() {
+function pushRanking(){
   currentStatus='ranking';
-  fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'ranking'});
+  fb.update(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),{status:'ranking'});
   showScreen('scn-p-ranking');
-  document.getElementById('prank-logos').innerHTML = buildLogosHtml(sessionConfig.logo, sessionConfig.name);
-  document.getElementById('prank-session-name').textContent = sessionConfig.name||'';
-  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants'), snap => {
-    renderRankingFull(snap.val()||{}, 'p-podium-wrap', 'p-ranking-rest', null);
+  document.getElementById('prank-logos').innerHTML=buildLogosHtml(sessionConfig.logo,sessionConfig.name);
+  document.getElementById('prank-session-name').textContent=sessionConfig.name||'';
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/participants'),snap=>{
+    renderRankingFull(snap.val()||{},'p-podium-wrap','p-ranking-rest',null);
   });
 }
 
-function endSession() {
-  fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId),{status:'ended'});
-  notify('Sessão encerrada.'); loadPresenterHome();
+function endSession(){
+  fb.update(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId),{status:'ended'});
+  notify('Sessão encerrada.');loadPresenterHome();
 }
-window.confirmEndSession = function(){ if(confirm('Encerrar a sessão agora?')) endSession(); };
-window.exportRanking = function() {
-  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants')).then(snap=>{
+window.confirmEndSession=function(){if(confirm('Encerrar a sessão agora?'))endSession();};
+window.exportRanking=function(){
+  fb.get(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/participants')).then(snap=>{
     const parts=snap.val()||{};
     const sorted=Object.values(parts).sort((a,b)=>(b.score||0)-(a.score||0));
     const csv=[['Posição','Nome','Pontos'],...sorted.map((p,i)=>[i+1,p.name,p.score||0])].map(r=>r.join(',')).join('\n');
-    const a=document.createElement('a');
-    a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-    a.download='ranking_'+(sessionConfig.name||sessionId)+'.csv';
-    a.click();
+    const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='ranking_'+(sessionConfig.name||sessionId)+'.csv';a.click();
   });
 };
 
-// ── PARTICIPANT ──
-function participantInit(sid) {
-  participantId = localStorage.getItem('arena_pid_'+sid);
-  participantName = localStorage.getItem('arena_pname_'+sid);
-  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid)).then(snap=>{
-    const s=snap.val();
-    if (!s||s.status==='ended') { showScreen('scn-a-join'); document.getElementById('join-session-name').textContent='Sessão não encontrada.'; return; }
+// ── MODO PROJEÇÃO ──
+function startProjectionMode(sid){
+  showScreen('scn-p-projection');
+  let projQrDone=false;
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sid),snap=>{
+    const s=snap.val();if(!s)return;
     const cfg=s.config||{};
-    if (cfg.logo) {
+    const status=s.status;
+    const act=s.currentActivity||{};
+    const actIdx=s.currentActivityIndex??0;
+
+    // Logos
+    document.getElementById('proj-logos').innerHTML=buildLogosHtml(cfg.logo,cfg.name);
+    document.getElementById('proj-code-display').textContent='Código: '+sid;
+    document.getElementById('proj-session-name-display').textContent=cfg.name||'';
+
+    // Sections
+    const secWait=document.getElementById('proj-waiting');
+    const secQ=document.getElementById('proj-question-section');
+    const secWC=document.getElementById('proj-wordcloud-section');
+    const secRank=document.getElementById('proj-ranking-section');
+    const badge=document.getElementById('proj-activity-badge');
+
+    [secWait,secQ,secWC,secRank].forEach(el=>el.style.display='none');
+
+    if(status==='waiting'){
+      secWait.style.display='block';
+      badge.style.display='none';
+      // QR
+      if(!projQrDone){
+        projQrDone=true;
+        const link=location.origin+location.pathname+'?s='+sid;
+        document.getElementById('proj-link-display').textContent=link;
+        new QRCode(document.getElementById('proj-qr'),{text:link,width:160,height:160,correctLevel:QRCode.CorrectLevel.M});
+      }
+      const parts=Object.keys(s.participants||{}).length;
+      document.getElementById('proj-count').textContent=parts;
+    } else if(status==='question'||status==='show_answer'){
+      secQ.style.display='block';
+      badge.style.display='flex';
+      badge.textContent=`${actIdx+1} / ${(cfg.activities||[]).length}`;
+      document.getElementById('proj-type-label').textContent={quiz:'Quiz',truefalse:'Verdadeiro ou Falso'}[act.type]||act.type;
+      document.getElementById('proj-question-text').textContent=act.question||'';
+
+      // Opções
+      const optsEl=document.getElementById('proj-options');
+      const opts=act.type==='truefalse'?['Verdadeiro','Falso']:(act.options||[]).filter(o=>o);
+      if(opts.length){
+        optsEl.style.display='grid';
+        optsEl.innerHTML=opts.map((o,i)=>{
+          const isCorrect=status==='show_answer'&&i===(act.correct??0);
+          const isOther=status==='show_answer'&&i!==(act.correct??0);
+          const letter=act.type==='truefalse'?(i===0?'V':'F'):String.fromCharCode(65+i);
+          return `<div class="proj-option ${isCorrect?'correct-reveal':''} ${isOther?'other-reveal':''}">
+            <div class="proj-option-letter">${isCorrect?'✓':letter}</div><span>${o}</span>
+          </div>`;
+        }).join('');
+      } else {optsEl.style.display='none';}
+
+      // Contador
+      const parts=Object.keys(s.participants||{}).length;
+      const resps=Object.keys((s.responses||{})[actIdx]||{}).length;
+      const pct=parts>0?Math.round(resps/parts*100):0;
+      document.getElementById('proj-resp-count').textContent=resps;
+      document.getElementById('proj-total-count').textContent=parts;
+      document.getElementById('proj-resp-bar').style.width=pct+'%';
+      document.getElementById('proj-resp-pct').textContent=pct+'%';
+    } else if(status==='wordcloud_input'||status==='wordcloud_display'){
+      secWC.style.display='block';
+      badge.style.display='flex';
+      badge.textContent=`${actIdx+1} / ${(cfg.activities||[]).length}`;
+      document.getElementById('proj-wc-question').textContent=act.question||'';
+      renderWordCloud((s.wordcloud||{})[actIdx]||{},'proj-wordcloud');
+    } else if(status==='ranking'||status==='ended'){
+      secRank.style.display='block';
+      badge.style.display='none';
+      renderRankingFull(s.participants||{},'proj-podium-wrap','proj-ranking-rest',null);
+    }
+  });
+}
+
+// ── PARTICIPANT ──
+function participantInit(sid){
+  participantId=localStorage.getItem('arena_pid_'+sid);
+  participantName=localStorage.getItem('arena_pname_'+sid);
+  fb.get(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sid)).then(snap=>{
+    const s=snap.val();
+    if(!s||s.status==='ended'){showScreen('scn-a-join');document.getElementById('join-session-name').textContent='Sessão não encontrada.';return;}
+    const cfg=s.config||{};
+    if(cfg.logo){
       document.getElementById('join-logo-wrap').innerHTML=`<img src="${cfg.logo}" class="session-logo">`;
       ['aw-logo-wrap','ar-logo-wrap'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=`<img src="${cfg.logo}" class="session-logo">`;});
     }
     document.getElementById('join-session-name').textContent=s.name||'Arena Ao Vivo';
-    if (participantId&&participantName) { participantScore=(s.participants?.[participantId]?.score)||0; subscribeSession(sid); }
-    else { showScreen('scn-a-join'); document.getElementById('a-name-input').addEventListener('keydown',e=>{if(e.key==='Enter')participantJoin();}); }
-  }).catch(()=>{ showScreen('scn-a-join'); document.getElementById('join-err').textContent='Erro de conexão.'; document.getElementById('join-err').style.display='block'; });
+    if(participantId&&participantName){participantScore=(s.participants?.[participantId]?.score)||0;subscribeSession(sid);}
+    else{showScreen('scn-a-join');document.getElementById('a-name-input').addEventListener('keydown',e=>{if(e.key==='Enter')participantJoin();});}
+  }).catch(()=>{showScreen('scn-a-join');document.getElementById('join-err').textContent='Erro de conexão.';document.getElementById('join-err').style.display='block';});
 }
 
-window.participantJoin = function() {
+window.participantJoin=function(){
   const name=document.getElementById('a-name-input').value.trim();
-  if (!name) { document.getElementById('join-err').textContent='Digite seu nome.'; document.getElementById('join-err').style.display='block'; return; }
+  if(!name){document.getElementById('join-err').textContent='Digite seu nome.';document.getElementById('join-err').style.display='block';return;}
   participantId='p_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
-  participantName=name; participantScore=0;
+  participantName=name;participantScore=0;
   localStorage.setItem('arena_pid_'+sessionId,participantId);
   localStorage.setItem('arena_pname_'+sessionId,name);
-  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/participants/'+participantId),{name,score:0,joinedAt:Date.now()}).then(()=>subscribeSession(sessionId));
+  fb.set(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/participants/'+participantId),{name,score:0,joinedAt:Date.now()}).then(()=>subscribeSession(sessionId));
 };
 
-function subscribeSession(sid) {
-  let lastStatus=null, lastActIdx=null;
-  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid), snap=>{
-    const s=snap.val(); if (!s) return;
+function subscribeSession(sid){
+  let lastStatus=null,lastActIdx=null;
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sid),snap=>{
+    const s=snap.val();if(!s)return;
     currentActivityIndexForParticipant=s.currentActivityIndex??0;
-    const status=s.status, actIdx=s.currentActivityIndex??0, act=s.currentActivity||{};
+    const status=s.status,actIdx=s.currentActivityIndex??0,act=s.currentActivity||{};
     participantScore=(s.participants?.[participantId]?.score)||participantScore;
-    const statusChanged=status!==lastStatus, actChanged=actIdx!==lastActIdx;
-    lastStatus=status; lastActIdx=actIdx;
-    if (status==='waiting') {
+    const statusChanged=status!==lastStatus,actChanged=actIdx!==lastActIdx;
+    lastStatus=status;lastActIdx=actIdx;
+    if(status==='waiting'){
       showScreen('scn-a-waiting');
-      const nameEl=document.getElementById('aw-name');
-      nameEl.textContent=participantName?'Olá, '+participantName+'!':'Olá!';
-      nameEl.style.color='var(--white)';
+      const ne=document.getElementById('aw-name');
+      ne.textContent=participantName?'Olá, '+participantName+'!':'Olá!';
+      ne.style.color='var(--white)';
       document.getElementById('await-icon-el').textContent='⏳';
       document.getElementById('await-sub-text').textContent='Aguardando o apresentador iniciar...';
       document.getElementById('aw-score').textContent=participantScore;
-    }
-    else if (status==='question'||status==='wordcloud_input') {
-      if (statusChanged||actChanged) {
-        const alreadyKey='arena_ans_'+sid+'_'+actIdx;
-        if (localStorage.getItem(alreadyKey)) showParticipantAlreadyAnswered();
-        else if (status==='wordcloud_input') showParticipantWordcloud(act,actIdx);
+    } else if(status==='question'||status==='wordcloud_input'){
+      if(statusChanged||actChanged){
+        const key='arena_ans_'+sid+'_'+actIdx;
+        if(localStorage.getItem(key))showParticipantAlreadyAnswered();
+        else if(status==='wordcloud_input')showParticipantWordcloud(act,actIdx);
         else showParticipantAnswer(act,actIdx);
       }
-    } else if (status==='show_answer') {
-      if (statusChanged||actChanged) highlightAnswer(act);
-    } else if (status==='wordcloud_display') {
-      if (statusChanged) showParticipantWordcloudDisplay(actIdx);
-    } else if (status==='ranking'||status==='ended') {
-      if (statusChanged) { showScreen('scn-a-ranking'); document.getElementById('ar-my-score').textContent=participantScore; renderRankingFull(s.participants||{},'a-podium-wrap','a-ranking-rest',participantId); }
+    } else if(status==='show_answer'){
+      if(statusChanged||actChanged)highlightAnswer(act);
+    } else if(status==='wordcloud_display'){
+      if(statusChanged)showParticipantWordcloudDisplay(actIdx,act);
+    } else if(status==='ranking'||status==='ended'){
+      if(statusChanged){showScreen('scn-a-ranking');document.getElementById('ar-my-score').textContent=participantScore;renderRankingFull(s.participants||{},'a-podium-wrap','a-ranking-rest',participantId);}
     }
   });
 }
 
-function showParticipantAlreadyAnswered() {
+function showParticipantAlreadyAnswered(){
   showScreen('scn-a-answer');
   document.getElementById('ans-options').innerHTML='';
   document.getElementById('ans-already').style.display='block';
   document.getElementById('ans-score').textContent=participantScore;
 }
 
-function showParticipantAnswer(act,actIdx) {
+function showParticipantAnswer(act,actIdx){
   showScreen('scn-a-answer');
   document.getElementById('ans-already').style.display='none';
   document.getElementById('ans-score').textContent=participantScore;
   document.getElementById('ans-activity-num').textContent='Atividade '+(actIdx+1);
   document.getElementById('ans-type-label').textContent=act.type==='truefalse'?'VERDADEIRO OU FALSO':'QUIZ';
   document.getElementById('ans-question').textContent=act.question||'-';
-  let options=act.options||[]; if(act.type==='truefalse') options=['Verdadeiro','Falso'];
+  let options=act.options||[];if(act.type==='truefalse')options=['Verdadeiro','Falso'];
   document.getElementById('ans-options').innerHTML=options.filter(o=>o).map((opt,i)=>`
     <button class="option-btn" id="opt-${i}" onclick="submitAnswer(${i},${act.correct??0},'${sessionId}',${actIdx},${act.points||POINTS_CORRECT})">
       ${act.type!=='truefalse'?`<strong>${String.fromCharCode(65+i)})</strong> `:''}${opt}
     </button>`).join('');
 }
 
-window.submitAnswer = function(chosen,correct,sid,actIdx,points) {
+window.submitAnswer=function(chosen,correct,sid,actIdx,points){
   const key='arena_ans_'+sid+'_'+actIdx;
-  if (localStorage.getItem(key)) return;
+  if(localStorage.getItem(key))return;
   localStorage.setItem(key,chosen);
   document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
   const acertou=chosen===correct;
   const btn=document.getElementById('opt-'+chosen);
-  if (btn) btn.classList.add(acertou?'correct':'wrong');
-  if (acertou) { participantScore+=points; fb.update(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid+'/participants/'+participantId),{score:participantScore}); }
-  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sid+'/responses/'+actIdx+'/'+participantId),{answer:chosen,correct:acertou,timestamp:Date.now()});
+  if(btn)btn.classList.add(acertou?'correct':'wrong');
+  if(acertou){participantScore+=points;fb.update(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sid+'/participants/'+participantId),{score:participantScore});}
+  fb.set(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sid+'/responses/'+actIdx+'/'+participantId),{answer:chosen,correct:acertou,timestamp:Date.now()});
   document.getElementById('ans-score').textContent=participantScore;
 };
 
-function highlightAnswer(act) {
+function highlightAnswer(act){
   const scr=document.getElementById('scn-a-answer');
-  if (!scr.classList.contains('active')) return;
-  document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true; if(i===(act.correct??0))b.classList.add('correct');});
+  if(!scr.classList.contains('active'))return;
+  document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true;if(i===(act.correct??0))b.classList.add('correct');});
 }
 
-function showParticipantWordcloudDisplay(actIdx) {
-  showScreen('scn-a-wc-display');
-  // Mostra a pergunta
-  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/currentActivity')).then(snap => {
-    const act = snap.val();
-    if (act) document.getElementById('participant-wc-question').textContent = act.question || '';
-  });
-  // Logo do cliente
-  fb.get(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/config/logo')).then(snap => {
-    const logo = snap.val();
-    const wrap = document.getElementById('aw-wc-logo');
-    if (logo) wrap.innerHTML = `<img src="${logo}" class="session-logo">`;
-    else wrap.innerHTML = '';
-  });
-  // Atualiza nuvem em tempo real
-  fb.onValue(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+actIdx), snap => {
-    renderWordCloud(snap.val()||{}, 'participant-wordcloud');
-  });
-}
-
-function showParticipantWordcloudWaiting() {
-  showScreen('scn-a-waiting');
-  document.getElementById('aw-name').textContent = '✓ Palavra enviada!';
-  document.getElementById('aw-name').style.color = 'var(--tiffany)';
-  document.getElementById('await-sub-text').textContent = 'A nuvem está sendo exibida pelo apresentador...';
-  document.getElementById('await-icon-el').textContent = '☁️';
-  document.getElementById('aw-score').textContent = participantScore;
-}
-
-function showParticipantWordcloud(act,actIdx) {
+function showParticipantWordcloud(act,actIdx){
   const key='arena_ans_'+sessionId+'_'+actIdx;
-  if (localStorage.getItem(key)) { showParticipantAlreadyAnswered(); return; }
+  if(localStorage.getItem(key)){showParticipantAlreadyAnswered();return;}
   showScreen('scn-a-wordcloud');
   document.getElementById('wc-score').textContent=participantScore;
   document.getElementById('wc-question').textContent=act.question||'O que vem à sua mente?';
@@ -1156,47 +1234,55 @@ function showParticipantWordcloud(act,actIdx) {
   document.getElementById('wc-submit-btn').style.display='inline-flex';
 }
 
-window.submitWordCloud = function() {
-  const word=document.getElementById('wc-input').value.trim(); if(!word) return;
+window.submitWordCloud=function(){
+  const word=document.getElementById('wc-input').value.trim();if(!word)return;
   const key='arena_ans_'+sessionId+'_'+currentActivityIndexForParticipant;
   localStorage.setItem(key,word);
   document.getElementById('wc-submit-btn').disabled=true;
   document.getElementById('wc-submit-btn').style.display='none';
   document.getElementById('wc-sent').style.display='block';
-  fb.set(fb.ref(fb.db, ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+currentActivityIndexForParticipant+'/'+participantId),{word:word.toLowerCase().trim(),timestamp:Date.now()});
+  fb.set(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+currentActivityIndexForParticipant+'/'+participantId),{word:word.toLowerCase().trim(),timestamp:Date.now()});
 };
 
-// ── RANKING PÓDIO ──
-function renderRankingFull(participants, podiumId, restId, highlightPid) {
-  const sorted = Object.entries(participants).map(([pid,p])=>({pid,name:p.name,score:p.score||0})).sort((a,b)=>b.score-a.score);
-  const podiumEl = document.getElementById(podiumId);
+function showParticipantWordcloudDisplay(actIdx,act){
+  showScreen('scn-a-wc-display');
+  if(act&&act.question)document.getElementById('participant-wc-question').textContent=act.question;
+  fb.onValue(fb.ref(fb.db,ARENA_PATH+'/sessions/'+sessionId+'/wordcloud/'+actIdx),snap=>{
+    renderWordCloud(snap.val()||{},'participant-wordcloud');
+  });
+}
 
-  if (podiumEl && sorted.length>0) {
-    // Order: 2nd(left), 1st(center), 3rd(right) — classic podium layout
-    const order = [sorted[1],sorted[0],sorted[2]].filter(Boolean);
-    const clsMap = p => {
-      const i=sorted.indexOf(p); return i===0?'gold':i===1?'silver':'bronze';
-    };
-    podiumEl.innerHTML = order.map(p=>{
-      const cls=clsMap(p);
-      const pos=sorted.indexOf(p)+1;
+// ── RANKING PÓDIO ──
+function renderRankingFull(participants,podiumId,restId,highlightPid){
+  const sorted=Object.entries(participants).map(([pid,p])=>({pid,name:p.name,score:p.score||0})).sort((a,b)=>b.score-a.score);
+  const podiumEl=document.getElementById(podiumId);
+
+  if(podiumEl){
+    if(sorted.length===0){podiumEl.innerHTML='<p style="color:rgba(255,255,255,0.4);text-align:center;padding:20px;">Nenhum participante.</p>';return;}
+    // Ordem visual do pódio: 2º esq | 1º centro | 3º dir
+    const podiumOrder=[];
+    if(sorted[1])podiumOrder.push({...sorted[1],cls:'silver',pos:2});
+    if(sorted[0])podiumOrder.push({...sorted[0],cls:'gold',pos:1});
+    if(sorted[2])podiumOrder.push({...sorted[2],cls:'bronze',pos:3});
+
+    podiumEl.innerHTML=podiumOrder.map(p=>{
       const initials=p.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
       const isMe=p.pid===highlightPid;
       return `<div class="podium-item">
-        <div class="podium-avatar ${cls}">${cls==='gold'?'<span class="podium-crown">👑</span>':''}${initials}</div>
+        <div class="podium-avatar ${p.cls}">${p.cls==='gold'?'<span class="podium-crown">👑</span>':''}${initials}</div>
         <div class="podium-name">${p.name}${isMe?' (você)':''}</div>
-        <div class="podium-score ${cls}">${p.score} pts</div>
-        <div class="podium-block ${cls}">${pos}°</div>
+        <div class="podium-score ${p.cls}">${p.score} pts</div>
+        <div class="podium-block ${p.cls}">${p.pos}°</div>
       </div>`;
     }).join('');
   }
 
-  const restEl = document.getElementById(restId);
-  if (restEl) {
-    const rest = sorted.slice(3);
-    if (rest.length) {
+  const restEl=document.getElementById(restId);
+  if(restEl){
+    const rest=sorted.slice(3);
+    if(rest.length){
       restEl.style.display='block';
-      restEl.innerHTML = rest.map((p,i)=>{
+      restEl.innerHTML=rest.map((p,i)=>{
         const isMe=p.pid===highlightPid;
         return `<div class="rank-row ${isMe?'highlight':''}">
           <div class="rank-pos">${i+4}</div>
@@ -1204,18 +1290,18 @@ function renderRankingFull(participants, podiumId, restId, highlightPid) {
           <div class="rank-score">${p.score} pts</div>
         </div>`;
       }).join('');
-    } else { restEl.style.display='none'; }
+    } else restEl.style.display='none';
   }
 }
 
 // ── WORD CLOUD ──
-function renderWordCloud(data, targetId) {
+function renderWordCloud(data,targetId){
   const freq={};
   Object.values(data).forEach(e=>{const w=(e.word||'').toLowerCase().trim();if(w)freq[w]=(freq[w]||0)+1;});
   const max=Math.max(...Object.values(freq),1);
-  const wrap=document.getElementById(targetId); if(!wrap) return;
+  const wrap=document.getElementById(targetId);if(!wrap)return;
   wrap.innerHTML=Object.entries(freq).sort((a,b)=>b[1]-a[1]).map(([word,count])=>{
-    const size=Math.round(16+(count/max)*56);
+    const size=Math.round(18+(count/max)*60);
     const color=WC_COLORS[hashStr(word)%WC_COLORS.length];
     return `<span class="wc-word" style="font-size:${size}px;color:${color};font-weight:${count>1?800:600};">${word}</span>`;
   }).join('');

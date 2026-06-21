@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Treinamentos® | Orievo Group</title>
+    <title>Orievo Safety Learn | Grupo Dislub Equador</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -64,21 +64,20 @@
         }
 
         .header-center h1 {
-            font-size: 20px;
-            font-weight: 800;
+            font-size: 14px;
+            font-weight: 700;
             color: #1a1a1a;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .header-center p {
-            font-size: 12px;
-            color: #555;
-            margin: 4px 0 0 0;
-            font-weight: 500;
-            letter-spacing: 0.3px;
+            font-size: 11px;
+            color: #888;
+            margin: 2px 0 0 0;
+            font-weight: 400;
         }
 
         .header-divider {
@@ -1490,23 +1489,21 @@
     <header class="site-header">
         <div class="header-inner">
             <div class="header-logo-orievo">
-                <img src="https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png" alt="Orievo Group">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo Group">
             </div>
             <div class="header-center">
-                <h1>Plataforma de Treinamentos<sup style="font-size:11px;font-weight:700;">®</sup></h1>
-                <p>Programa Integrado de Evolução da Cultura de Segurança</p>
+                <h1>Safety Learn — Plataforma de Treinamentos</h1>
+                <p>Plataforma de Aprendizagem Corporativa</p>
             </div>
-            <div class="header-divider"></div>
-            <div class="header-logo-gde">
-                <img src="https://orievogroup.github.io/GDE/logo_gde.png" alt="Grupo Dislub Equador">
-            </div>
+
         </div>
     </header>
 
     <!-- FOOTER PROFISSIONAL -->
     <footer class="site-footer">
         <p class="footer-text">
-            Desenvolvido por <strong>ORIEVO GROUP</strong> &nbsp;·&nbsp; © 2026 · Todos os direitos reservados
+            Desenvolvido por <strong>ORIEVO GROUP</strong>
+            &nbsp;·&nbsp; © 2026 · Todos os direitos reservados
         </p>
     </footer>
 
@@ -1572,7 +1569,7 @@
             <div class="modal-content">
                 <h2 id="modalTitulo"></h2>
                 
-                <div class="form-group" id="senhaGroup">
+                <div class="form-group">
                     <label>Senha de Acesso:</label>
                     <input type="password" id="senhaInput" placeholder="Digite a senha">
                 </div>
@@ -1648,164 +1645,229 @@
         // ============================================
 
         const MUNDOS = {
-            'bradley_curve': {
-                nome: 'Curva de Bradley — Evolução da Cultura de Segurança',
-                descricao: 'Os 4 estágios de maturidade em segurança segundo o modelo DuPont',
-                icone: '📈',
-                cor: '#16a085',
-                senha: 'GDE',
-                bloqueadoPorSenha: false,
+            'seguranca': {
+                nome: 'Segurança no Trabalho',
+                descricao: 'EPIs e Prevenção de Acidentes',
+                icone: '🛡️',
+                cor: '#e74c3c',
+                senha: 'Seguranca2026',
+                bloqueadoPorSenha: false,  // false = liberado, true = só senha master
                 ativo: true,
+                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
                 
-
                 fases: [
                     {
-                        nome: 'Introdução: A Curva de Bradley',
-                        tipo: 'artigo',
-                        conteudo: `
-                            <div style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
-                                <div style="font-size: 56px; margin-bottom: 12px;">📈</div>
-                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">A Curva de Bradley</h2>
-                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Modelo DuPont de Maturidade em Cultura de Segurança</p>
-                            </div>
-
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A <strong>Curva de Bradley</strong> é um modelo desenvolvido pela DuPont em 1995 que mapeia a evolução da maturidade da cultura de segurança do trabalho em uma organização. Ela demonstra como as empresas reduzem progressivamente o número de acidentes ao transitar de uma postura reativa para o cuidado mútuo e interdependente entre os funcionários.</p>
-
-                            <div style="background: #f0f8ff; border-left: 4px solid #1abc9c; padding: 20px; border-radius: 10px; margin-top: 10px;">
-                                <p style="font-size: 15px; color: #444; margin: 0; line-height: 1.8;">▶️ A seguir você assistirá <strong>dois vídeos explicativos</strong> sobre o assunto.</p>
-                            </div>
-                        `
-                    },
-
-                    {
-                        nome: 'Vídeo: The Bradley Curve — Dublado em Português',
+                        nome: 'Vídeo: Introdução à Segurança',
                         tipo: 'video',
-                        url: 'https://orievogroup.github.io/GDE/bradley_curve_dublado.mp4',
-                        legenda: 'https://orievogroup.github.io/GDE/bradley_curve_pt.vtt',
-                        fonte: '🎬 Fonte: <strong>BMW Group</strong> — The Bradley Curve'
+                        url: 'https://orievogroup.github.io/orievosafetylearning/dds_video.mp4'
                     },
-
                     {
-                        nome: 'Vídeo: Cultura de Segurança — A Evolução pelo Comportamento',
-                        tipo: 'video',
-                        url: 'https://orievogroup.github.io/GDE/cultura_seguranca.mp4'
-                    },
-
-                    {
-                        nome: 'Quiz: Os 4 Estágios da Curva de Bradley',
+                        nome: 'Quiz: Diálogo Diário de Segurança',
                         tipo: 'quiz',
                         perguntas: [
                             {
-                                pergunta: 'No Estágio 1 da Curva de Bradley, como os colaboradores encaram o risco de acidente?',
+                                pergunta: 'O DDS não é importante, portanto vou pular essa etapa para fazer minha atividade mais rápido',
                                 opcoes: [
-                                    'Como algo que pode ser eliminado com treinamento',
-                                    'Como um fenômeno natural inevitável, fora do seu controle',
-                                    'Como responsabilidade exclusiva do setor de segurança',
-                                    'Como resultado de falhas na liderança'
+                                    'Verdadeiro',
+                                    'Falso'
                                 ],
                                 correta: 1,
-                                explicacao: 'No Estágio 1 (Instinto Natural), acidentes são aceitos como algo que simplesmente acontece — inevitável e incontrolável. Não há vontade de mudança. Os especialistas em segurança são vistos como inconvenientes. O risco de acidentes é extremamente alto.'
+                                explicacao: 'O DDS é muito importante e deve ser realizado diariamente. Nunca economize tempo quando se trata de segurança!'
                             },
                             {
-                                pergunta: 'Qual é a principal característica do Estágio 2 da Curva de Bradley?',
+                                pergunta: 'Quando se trata de DDS, quanto mais longo, melhor',
                                 opcoes: [
-                                    'Colaboradores se protegem por convicção própria',
-                                    'A segurança depende de regras, monitoramento e medo de punição',
-                                    'Toda a equipe cuida da segurança uns dos outros',
-                                    'Zero acidentes é visto como meta alcançável e coletiva'
+                                    'Verdadeiro',
+                                    'Falso'
                                 ],
                                 correta: 1,
-                                explicacao: 'No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está observando. A empresa usa regras rígidas e punições. O problema: quando ninguém está olhando, as normas são ignoradas. É semelhante a uma criação muito severa — a obediência vem do medo, não da convicção.'
+                                explicacao: 'O DDS deve ser dinâmico e participativo, durando no máximo 10 minutos, para que os colaboradores não percam atenção.'
                             },
                             {
-                                pergunta: 'O que diferencia o Estágio 3 do Estágio 2 na Curva de Bradley?',
+                                pergunta: 'Qual a principal função do DDS?',
                                 opcoes: [
-                                    'O número de regras escritas é maior',
-                                    'A punição por desvios é mais rígida',
-                                    'A segurança passa a ser uma convicção pessoal, não uma obrigação imposta',
-                                    'Os líderes fiscalizam com mais frequência'
+                                    'Reduzir custos da empresa',
+                                    'Substituir treinamentos formais',
+                                    'Conscientização diária sobre segurança',
+                                    'Apenas burocracia legal'
                                 ],
                                 correta: 2,
-                                explicacao: 'No Estágio 3 (Convicção Pessoal), cada colaborador quer se proteger — não porque é obrigado, mas porque acredita na importância da segurança. As normas são construídas em conjunto. Os especialistas em segurança são vistos como parceiros, não como policiais. A taxa de acidentes cai drasticamente.'
+                                explicacao: 'O DDS (Diálogo Diário de Segurança) tem como principal função conscientizar diariamente a equipe sobre riscos específicos das atividades do dia, reforçar boas práticas e manter a segurança sempre em pauta. Não substitui treinamentos formais, mas complementa a cultura de segurança.'
                             },
                             {
-                                pergunta: 'No Estágio 4 da Curva de Bradley, o que motiva os colaboradores a seguir as normas de segurança?',
+                                pergunta: 'Somente os líderes podem realizar DDS',
                                 opcoes: [
-                                    'O receio de punições e advertências',
-                                    'A presença constante do supervisor',
-                                    'O cuidado com a própria vida e com a segurança dos colegas',
-                                    'Metas de bônus atreladas a indicadores de acidentes'
+                                    'Falso',
+                                    'Verdadeiro'
                                 ],
-                                correta: 2,
-                                explicacao: 'No Estágio 4 (Interdependência), a motivação vai além da própria segurança: as pessoas cuidam umas das outras. Zero acidentes é um compromisso coletivo — não uma meta imposta. Até os líderes se recusam a colocar produtividade acima do bem-estar das pessoas.'
-                            },
-                            {
-                                pergunta: 'Segundo o vídeo, qual afirmação descreve melhor o Estágio 4?',
-                                opcoes: [
-                                    '"Acidentes acontecem — é da natureza do trabalho."',
-                                    '"Seguimos as regras porque somos monitorados."',
-                                    '"Cuido da minha segurança porque acredito nela."',
-                                    '"Zero acidentes não é uma meta — é uma escolha coletiva e inegociável."'
-                                ],
-                                correta: 3,
-                                explicacao: 'O Estágio 4 representa o mais alto nível de maturidade em segurança. Zero acidentes deixa de ser uma meta imposta e torna-se uma escolha — um compromisso pessoal e coletivo. Um único acidente é percebido como falha de toda a organização, incluindo a liderança.'
-                            },
-                            {
-                                pergunta: 'De acordo com a Curva de Bradley, o que está associado ao menor risco de acidentes?',
-                                opcoes: [
-                                    'Mais fiscalizações e auditorias',
-                                    'Punições mais severas para desvios',
-                                    'Uma cultura de respeito mútuo, motivação e espírito de equipe',
-                                    'Mais treinamentos obrigatórios por ano'
-                                ],
-                                correta: 2,
-                                explicacao: 'A Curva de Bradley demonstra que o menor risco de acidentes não vem de mais regras ou mais punições, mas de uma cultura interna de respeito mútuo, motivação genuína e espírito de equipe. Quando as pessoas se importam umas com as outras, o risco cai para próximo de zero.'
+                                correta: 0,
+                                explicacao: 'Qualquer pessoa pode - e deve - realizar DDS!'
                             }
                         ]
                     },
-
                     {
-                        nome: 'V/F: Verdadeiro ou Falso — Curva de Bradley',
-                        tipo: 'verdadeirofalso',
-                        afirmacoes: [
+                        nome: 'Artigo: Normas de Segurança',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <h2>Normas de Segurança no Trabalho</h2>
+                            
+                            <p>A segurança no trabalho é um conjunto de medidas que são adotadas visando minimizar os acidentes de trabalho, doenças ocupacionais, bem como proteger a integridade e a capacidade de trabalho do colaborador.</p>
+                            
+                            <h3>1. Equipamentos de Proteção Individual (EPIs)</h3>
+                            <p>Os EPIs são dispositivos de uso individual destinados a proteger a saúde e a integridade física do trabalhador.</p>
+                            
+                            <ul>
+                                <li><strong>Capacete:</strong> Proteção contra impactos, perfurações e choques elétricos</li>
+                                <li><strong>Luvas:</strong> Proteção das mãos contra agentes químicos, biológicos e mecânicos</li>
+                                <li><strong>Óculos:</strong> Proteção dos olhos contra partículas e respingos</li>
+                                <li><strong>Botas:</strong> Proteção dos pés contra perfurações e impactos</li>
+                            </ul>
+                            
+                            <h3>2. Responsabilidades do Trabalhador</h3>
+                            <ol>
+                                <li>Usar os EPIs fornecidos pela empresa</li>
+                                <li>Comunicar ao supervisor qualquer equipamento danificado</li>
+                                <li>Seguir rigorosamente as normas de segurança</li>
+                                <li>Participar dos treinamentos oferecidos</li>
+                            </ol>
+                            
+                            <p><strong>⚠️ Lembre-se:</strong> Não usar EPIs pode resultar em acidentes graves e até fatais.</p>
+                        `
+                    },
+                    {
+                        nome: 'Quiz: Avaliação de Segurança',
+                        tipo: 'quiz',
+                        perguntas: [
                             {
-                                texto: 'No Estágio 1, os especialistas em segurança são vistos como parceiros fundamentais da operação.',
-                                correta: false,
-                                explicacao: 'FALSO. No Estágio 1 (Instinto Natural), os especialistas em segurança são vistos como inconvenientes e raramente levados a sério. A segurança não é prioridade — acidentes são tratados como algo natural e inevitável.'
+                                pergunta: 'O que significa EPI?',
+                                opcoes: [
+                                    'Equipamento de Proteção Individual',
+                                    'Equipamento de Produção Industrial',
+                                    'Equipamento Pessoal Interno',
+                                    'Equipamento de Processo'
+                                ],
+                                correta: 0,
+                                explicacao: 'EPI significa Equipamento de Proteção Individual. São dispositivos de uso pessoal destinados a proteger a saúde e integridade física do trabalhador, como capacetes, luvas, óculos e protetores auriculares.'
                             },
                             {
-                                texto: 'Uma empresa no Estágio 2 depende de monitoramento constante para manter os comportamentos seguros.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está olhando. Quando não há fiscalização, as regras tendem a ser ignoradas. O comportamento seguro é resultado do medo de punição, não de convicção.'
+                                pergunta: 'Quando devemos usar capacete?',
+                                opcoes: [
+                                    'Quando o supervisor está presente',
+                                    'Em áreas sinalizadas como obrigatório',
+                                    'Somente em dias de chuva',
+                                    'Apenas em obras'
+                                ],
+                                correta: 1,
+                                explicacao: 'O capacete deve ser usado em todas as áreas onde houver sinalização indicando sua obrigatoriedade, independente da presença do supervisor ou condições climáticas. A sinalização existe para proteger contra riscos reais de impactos na cabeça.'
                             },
                             {
-                                texto: 'No Estágio 3, as normas de segurança são impostas exclusivamente pela liderança, sem participação dos colaboradores.',
-                                correta: false,
-                                explicacao: 'FALSO. Uma das características do Estágio 3 é exatamente o oposto: as medidas e padrões de segurança são construídos em conjunto com os colaboradores. Isso gera maior comprometimento e convicção, pois as pessoas participam ativamente da criação das normas.'
+                                pergunta: 'Qual a principal função do DDS?',
+                                opcoes: [
+                                    'Reduzir custos da empresa',
+                                    'Substituir treinamentos formais',
+                                    'Conscientização diária sobre segurança',
+                                    'Apenas burocracia legal'
+                                ],
+                                correta: 2,
+                                explicacao: 'O DDS (Diálogo Diário de Segurança) tem como principal função conscientizar diariamente a equipe sobre riscos específicos das atividades do dia, reforçar boas práticas e manter a segurança sempre em pauta. Não substitui treinamentos formais, mas complementa a cultura de segurança.'
                             },
                             {
-                                texto: 'No Estágio 4, mesmo os líderes se recusam a colocar produtividade acima da segurança dos colaboradores.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. O Estágio 4 (Interdependência) representa a maturidade máxima: líderes se veem pessoalmente responsáveis por nunca colocar lucro ou produtividade acima do bem-estar das pessoas. O bem-estar do colaborador é o objetivo final.'
-                            },
-                            {
-                                texto: 'A Curva de Bradley mostra que mais regras e mais punições são sempre a solução para chegar ao zero acidentes.',
-                                correta: false,
-                                explicacao: 'FALSO. A Curva de Bradley demonstra o oposto: os estágios mais elevados (3 e 4) abandonam a abordagem de coerção e medo. O verdadeiro zero acidentes vem de convicção pessoal, cuidado mútuo e cultura compartilhada — não de mais regras e punições.'
+                                pergunta: 'EPI danificado, o que fazer?',
+                                opcoes: [
+                                    'Continuar usando',
+                                    'Reportar e solicitar substituição',
+                                    'Tentar consertar',
+                                    'Emprestar de um colega'
+                                ],
+                                correta: 1,
+                                explicacao: 'Ao identificar um EPI danificado, o trabalhador deve imediatamente reportar ao supervisor e solicitar a substituição. Usar EPI danificado compromete a proteção e pode causar acidentes graves. Nunca tente consertar ou emprestar de colegas, pois cada EPI é individual e deve estar em perfeitas condições.'
                             }
                         ]
                     },
-
                     {
-                        nome: 'Jogo: Associar os Estágios da Curva de Bradley',
+                        nome: 'Jogo: Memória dos EPIs',
+                        tipo: 'memoria',
+                        simbolos: ['⛑️', '🥽', '🦺', '👷', '🧤', '👟', '😷', '🎧']
+                    },
+                    {
+                        nome: 'Jogo: Associar Termos de Segurança',
                         tipo: 'associar',
                         pares: [
-                            { termo: 'Estágio 1 — Instinto', definicao: 'Acidentes são inevitáveis. Nenhuma vontade de controle.' },
-                            { termo: 'Estágio 2 — Controle', definicao: 'Regras e punições. Segurança só quando observado.' },
-                            { termo: 'Estágio 3 — Convicção', definicao: 'Cada um cuida de si por vontade própria.' },
-                            { termo: 'Estágio 4 — Interdependência', definicao: 'Todos cuidam uns dos outros. Zero acidentes é escolha.' },
-                            { termo: 'Curva de Bradley', definicao: 'Modelo DuPont de maturidade em cultura de segurança.' }
+                            {
+                                termo: 'EPI',
+                                definicao: 'Equipamento de Proteção Individual'
+                            },
+                            {
+                                termo: 'DDS',
+                                definicao: 'Diálogo Diário de Segurança'
+                            },
+                            {
+                                termo: 'CIPA',
+                                definicao: 'Comissão Interna de Prevenção de Acidentes'
+                            },
+                            {
+                                termo: 'NR-6',
+                                definicao: 'Norma Regulamentadora sobre EPIs'
+                            },
+                            {
+                                termo: 'SESMT',
+                                definicao: 'Serviço Especializado em Engenharia de Segurança'
+                            }
                         ]
+                    }
+                ]
+            },
+
+            'lideranca': {
+                nome: 'Líder de Excelência',
+                descricao: 'Desenvolvimento de Habilidades de Liderança',
+                icone: '👔',
+                cor: '#3498db',
+                senha: 'Lider2026',
+                bloqueadoPorSenha: false,  // false = liberado, true = só senha master
+                ativo: true,
+                logo: 'https://via.placeholder.com/300x100/3498db/ffffff?text=LIDERANCA',
+                
+                fases: [
+                    {
+                        nome: 'Vídeo: O que é Liderança',
+                        tipo: 'video',
+                        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                    },
+                    {
+                        nome: 'Quiz: Fundamentos de Liderança',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'Qual característica essencial em um líder?',
+                                opcoes: ['Autoritarismo', 'Empatia e comunicação', 'Rigidez', 'Distanciamento'],
+                                correta: 1,
+                                explicacao: 'Empatia e comunicação são essenciais porque um líder precisa entender as necessidades da equipe, ouvir ativamente e transmitir informações de forma clara. O autoritarismo e a rigidez criam distanciamento e desmotivam a equipe.'
+                            },
+                            {
+                                pergunta: 'Liderar pelo exemplo significa?',
+                                opcoes: ['Delegar tudo', 'Demonstrar comportamentos esperados', 'Só dar ordens', 'Evitar envolvimento'],
+                                correta: 1,
+                                explicacao: 'Liderar pelo exemplo significa que o líder deve demonstrar na prática os comportamentos, valores e atitudes que espera de sua equipe. As pessoas tendem a seguir ações, não apenas palavras.'
+                            },
+                            {
+                                pergunta: 'Qual o papel do feedback?',
+                                opcoes: ['Criticar erros', 'Evitar confrontos', 'Desenvolver e orientar equipe', 'Punir comportamentos'],
+                                correta: 2,
+                                explicacao: 'O feedback tem papel fundamental no desenvolvimento da equipe. Deve ser construtivo, específico e orientado para o crescimento profissional, não para punição. Um bom feedback ajuda a pessoa a melhorar e crescer.'
+                            },
+                            {
+                                pergunta: 'Como lidar com conflitos?',
+                                opcoes: ['Ignorar', 'Tomar partido', 'Mediar e buscar soluções', 'Transferir responsabilidade'],
+                                correta: 2,
+                                explicacao: 'O líder deve atuar como mediador em conflitos, ouvindo todas as partes envolvidas e buscando soluções que beneficiem o time como um todo. Ignorar conflitos ou tomar partido apenas agrava a situação.'
+                            }
+                        ]
+                    },
+                    {
+                        nome: 'Jogo: Memória de Competências',
+                        tipo: 'memoria',
+                        simbolos: ['👔', '💼', '📊', '🎯', '💡', '🤝', '📈', '⭐']
                     }
                 ]
             },
@@ -1815,10 +1877,10 @@
                 descricao: 'O que você tolera define quem você é como líder',
                 icone: '🎯',
                 cor: '#8e44ad',
-                senha: 'GDE',
+                senha: 'CulturaLider2026',
                 bloqueadoPorSenha: false,
                 ativo: true,
-                
+                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
 
                 fases: [
                     {
@@ -1834,14 +1896,11 @@
                             <div style="background: #f8f9fa; border-radius: 12px; padding: 25px; margin-bottom: 25px;">
                                 <h3 style="color: #333; margin: 0 0 15px 0;">🎧 Ouça o podcast completo:</h3>
                                 <audio controls style="width: 100%; border-radius: 8px;" controlsList="nodownload">
-                                    <source src="https://orievogroup.github.io/GDE/podcast_cultura_tolerancia.m4a.mp4" type="audio/mp4">
-                                    <source src="https://orievogroup.github.io/GDE/podcast_cultura_tolerancia.mp3" type="audio/mpeg">
+                                    <source src="https://orievogroup.github.io/orievosafetylearning/podcast_cultura_tolerancia.m4a.mp4" type="audio/mp4">
+                                    <source src="https://orievogroup.github.io/orievosafetylearning/podcast_cultura_tolerancia.mp3" type="audio/mpeg">
                                     Seu navegador não suporta áudio HTML5.
                                 </audio>
                                 <p style="color: #888; font-size: 13px; margin: 10px 0 0 0;">⏱️ Ouça com atenção — as próximas atividades são baseadas neste conteúdo.</p>
-                                <div style="margin-top:12px;padding:10px 14px;background:#f3e8ff;border-radius:8px;border-left:3px solid #8e44ad;">
-                                    <p style="font-size:12px;color:#6c3483;margin:0;">📚 <strong>Créditos:</strong> Este podcast foi desenvolvido pela <strong>ORIEVO GROUP</strong> com base no livro <em>"Walk the Talk"</em> da autora <strong>Carolyn Taylor</strong>.</p>
-                                </div>
                             </div>
 
                             <div style="background: white; border-left: 5px solid #8e44ad; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
@@ -1882,9 +1941,7 @@
                     {
                         nome: 'Vídeo: Brain Games — Conformidade do Grupo',
                         tipo: 'video',
-                        url: 'https://orievogroup.github.io/GDE/brain_games_conformidade.mp4',
-                        legenda: 'https://orievogroup.github.io/GDE/brain_games_pt.vtt',
-                        fonte: '📺 Fonte: <strong>National Geographic</strong> — Brain Games'
+                        url: 'https://orievogroup.github.io/orievosafetylearning/brain_games_conformidade.mp4'
                     },
 
                     {
@@ -2026,6 +2083,624 @@
                 ]
             },
 
+            'bradley_curve': {
+                nome: 'Curva de Bradley — Evolução da Cultura de Segurança',
+                descricao: 'Os 4 estágios de maturidade em segurança segundo o modelo DuPont',
+                icone: '📈',
+                cor: '#16a085',
+                senha: 'BradleyCurve2026',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
+
+                fases: [
+                    {
+                        nome: 'Leitura: O que é a Curva de Bradley?',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">📈</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">A Curva de Bradley</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Modelo DuPont de Maturidade em Cultura de Segurança</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A <strong>Curva de Bradley</strong> é um modelo desenvolvido pela DuPont que descreve a evolução da cultura de segurança de uma organização ao longo do tempo. O modelo mostra que à medida que a cultura madura, o número de acidentes cai significativamente.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0;">
+                                <div style="background: #fff5f5; border-radius: 12px; padding: 20px; border-top: 4px solid #e74c3c;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
+                                    <h3 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 1 — Instinto Natural</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Acidentes são aceitos como inevitáveis. Ninguém sente responsabilidade. Segurança não é prioridade. <em>Risco: extremamente alto.</em></p>
+                                </div>
+                                <div style="background: #fff8f0; border-radius: 12px; padding: 20px; border-top: 4px solid #f39c12;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">📋</div>
+                                    <h3 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 2 — Controle e Supervisão</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Segurança por regras e punição. Funciona apenas quando alguém está olhando. Compliance sem convicção. <em>Risco: alto.</em></p>
+                                </div>
+                                <div style="background: #f0fff8; border-radius: 12px; padding: 20px; border-top: 4px solid #27ae60;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">💚</div>
+                                    <h3 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 3 — Convicção Pessoal</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Cada pessoa cuida da própria segurança por vontade própria. Normas são construídas coletivamente. <em>Risco: baixo.</em></p>
+                                </div>
+                                <div style="background: #f0f8ff; border-radius: 12px; padding: 20px; border-top: 4px solid #2980b9;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">🤝</div>
+                                    <h3 style="color: #2980b9; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 4 — Interdependência</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Todos cuidam uns dos outros. Zero acidentes é um compromisso coletivo. Segurança acima de produtividade. <em>Risco: próximo de zero.</em></p>
+                                </div>
+                            </div>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-top: 20px;">
+                                <h3 style="color: #333; margin: 0 0 12px 0;">🔑 A pergunta central do modelo:</h3>
+                                <p style="font-size: 18px; font-weight: 600; color: #16a085; text-align: center; margin: 0; padding: 10px;">"Em que estágio você está — e em que estágio você quer estar?"</p>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                                <strong>📌 Prepare-se:</strong> O próximo passo é assistir ao vídeo original da Curva de Bradley com legendas em português. Preste atenção nos exemplos de cada estágio!
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Vídeo: The Bradley Curve — Legendas em Português',
+                        tipo: 'video',
+                        url: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve.mp4',
+                        legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt'
+                    },
+
+                    {
+                        nome: 'Quiz: Os 4 Estágios da Curva de Bradley',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'No Estágio 1 da Curva de Bradley, como os colaboradores encaram o risco de acidente?',
+                                opcoes: [
+                                    'Como algo que pode ser eliminado com treinamento',
+                                    'Como um fenômeno natural inevitável, fora do seu controle',
+                                    'Como responsabilidade exclusiva do setor de segurança',
+                                    'Como resultado de falhas na liderança'
+                                ],
+                                correta: 1,
+                                explicacao: 'No Estágio 1 (Instinto Natural), acidentes são aceitos como algo que simplesmente acontece — inevitável e incontrolável. Não há vontade de mudança. Os especialistas em segurança são vistos como inconvenientes. O risco de acidentes é extremamente alto.'
+                            },
+                            {
+                                pergunta: 'Qual é a principal característica do Estágio 2 da Curva de Bradley?',
+                                opcoes: [
+                                    'Colaboradores se protegem por convicção própria',
+                                    'A segurança depende de regras, monitoramento e medo de punição',
+                                    'Toda a equipe cuida da segurança uns dos outros',
+                                    'Zero acidentes é visto como meta alcançável e coletiva'
+                                ],
+                                correta: 1,
+                                explicacao: 'No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está observando. A empresa usa regras rígidas e punições. O problema: quando ninguém está olhando, as normas são ignoradas. É semelhante a uma criação muito severa — a obediência vem do medo, não da convicção.'
+                            },
+                            {
+                                pergunta: 'O que diferencia o Estágio 3 do Estágio 2 na Curva de Bradley?',
+                                opcoes: [
+                                    'O número de regras escritas é maior',
+                                    'A punição por desvios é mais rígida',
+                                    'A segurança passa a ser uma convicção pessoal, não uma obrigação imposta',
+                                    'Os líderes fiscalizam com mais frequência'
+                                ],
+                                correta: 2,
+                                explicacao: 'No Estágio 3 (Convicção Pessoal), cada colaborador quer se proteger — não porque é obrigado, mas porque acredita na importância da segurança. As normas são construídas em conjunto. Os especialistas em segurança são vistos como parceiros, não como policiais. A taxa de acidentes cai drasticamente.'
+                            },
+                            {
+                                pergunta: 'No Estágio 4 da Curva de Bradley, o que motiva os colaboradores a seguir as normas de segurança?',
+                                opcoes: [
+                                    'O receio de punições e advertências',
+                                    'A presença constante do supervisor',
+                                    'O cuidado com a própria vida e com a segurança dos colegas',
+                                    'Metas de bônus atreladas a indicadores de acidentes'
+                                ],
+                                correta: 2,
+                                explicacao: 'No Estágio 4 (Interdependência), a motivação vai além da própria segurança: as pessoas cuidam umas das outras. Zero acidentes é um compromisso coletivo — não uma meta imposta. Até os líderes se recusam a colocar produtividade acima do bem-estar das pessoas.'
+                            },
+                            {
+                                pergunta: 'Segundo o vídeo, qual afirmação descreve melhor o Estágio 4?',
+                                opcoes: [
+                                    '"Acidentes acontecem — é da natureza do trabalho."',
+                                    '"Seguimos as regras porque somos monitorados."',
+                                    '"Cuido da minha segurança porque acredito nela."',
+                                    '"Zero acidentes não é uma meta — é uma escolha coletiva e inegociável."'
+                                ],
+                                correta: 3,
+                                explicacao: 'O Estágio 4 representa o mais alto nível de maturidade em segurança. Zero acidentes deixa de ser uma meta imposta e torna-se uma escolha — um compromisso pessoal e coletivo. Um único acidente é percebido como falha de toda a organização, incluindo a liderança.'
+                            },
+                            {
+                                pergunta: 'De acordo com a Curva de Bradley, o que está associado ao menor risco de acidentes?',
+                                opcoes: [
+                                    'Mais fiscalizações e auditorias',
+                                    'Punições mais severas para desvios',
+                                    'Uma cultura de respeito mútuo, motivação e espírito de equipe',
+                                    'Mais treinamentos obrigatórios por ano'
+                                ],
+                                correta: 2,
+                                explicacao: 'A Curva de Bradley demonstra que o menor risco de acidentes não vem de mais regras ou mais punições, mas de uma cultura interna de respeito mútuo, motivação genuína e espírito de equipe. Quando as pessoas se importam umas com as outras, o risco cai para próximo de zero.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'V/F: Verdadeiro ou Falso — Curva de Bradley',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'No Estágio 1, os especialistas em segurança são vistos como parceiros fundamentais da operação.',
+                                correta: false,
+                                explicacao: 'FALSO. No Estágio 1 (Instinto Natural), os especialistas em segurança são vistos como inconvenientes e raramente levados a sério. A segurança não é prioridade — acidentes são tratados como algo natural e inevitável.'
+                            },
+                            {
+                                texto: 'Uma empresa no Estágio 2 depende de monitoramento constante para manter os comportamentos seguros.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está olhando. Quando não há fiscalização, as regras tendem a ser ignoradas. O comportamento seguro é resultado do medo de punição, não de convicção.'
+                            },
+                            {
+                                texto: 'No Estágio 3, as normas de segurança são impostas exclusivamente pela liderança, sem participação dos colaboradores.',
+                                correta: false,
+                                explicacao: 'FALSO. Uma das características do Estágio 3 é exatamente o oposto: as medidas e padrões de segurança são construídos em conjunto com os colaboradores. Isso gera maior comprometimento e convicção, pois as pessoas participam ativamente da criação das normas.'
+                            },
+                            {
+                                texto: 'No Estágio 4, mesmo os líderes se recusam a colocar produtividade acima da segurança dos colaboradores.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O Estágio 4 (Interdependência) representa a maturidade máxima: líderes se veem pessoalmente responsáveis por nunca colocar lucro ou produtividade acima do bem-estar das pessoas. O bem-estar do colaborador é o objetivo final.'
+                            },
+                            {
+                                texto: 'A Curva de Bradley mostra que mais regras e mais punições são sempre a solução para chegar ao zero acidentes.',
+                                correta: false,
+                                explicacao: 'FALSO. A Curva de Bradley demonstra o oposto: os estágios mais elevados (3 e 4) abandonam a abordagem de coerção e medo. O verdadeiro zero acidentes vem de convicção pessoal, cuidado mútuo e cultura compartilhada — não de mais regras e punições.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Associar os Estágios da Curva de Bradley',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Estágio 1 — Instinto', definicao: 'Acidentes são inevitáveis. Nenhuma vontade de controle.' },
+                            { termo: 'Estágio 2 — Controle', definicao: 'Regras e punições. Segurança só quando observado.' },
+                            { termo: 'Estágio 3 — Convicção', definicao: 'Cada um cuida de si por vontade própria.' },
+                            { termo: 'Estágio 4 — Interdependência', definicao: 'Todos cuidam uns dos outros. Zero acidentes é escolha.' },
+                            { termo: 'Curva de Bradley', definicao: 'Modelo DuPont de maturidade em cultura de segurança.' }
+                        ]
+                    }
+                ]
+            },
+
+            'piecs_modulo2': {
+                nome: 'Tomada de Decisão e Responsabilidade',
+                descricao: 'Quando liderança transforma segurança em realidade',
+                icone: '⚖️',
+                cor: '#1E2761',
+                senha: 'PIECS2026',
+                bloqueadoPorSenha: true,
+                ativo: true,
+
+                fases: [
+
+                    // ─── BLOCO 1: RESPONSABILIDADE ───────────────────────────
+                    {
+                        nome: 'Artigo: Responsabilidade ou Culpa?',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #1E2761, #2d3a8c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">⚖️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">Responsabilidade ou Culpa?</h2>
+                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">A diferença que muda tudo depois de um incidente</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Toda vez que algo dá errado em uma operação, uma pergunta surge quase automaticamente: <strong>"Quem foi o culpado?"</strong></p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">É uma reação humana. Natural. Mas é exatamente aí que a maioria das organizações comete o primeiro erro depois de um incidente.</p>
+
+                            <div style="background: #f0f4ff; border-left: 5px solid #1E2761; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+                                <p style="font-size: 17px; font-weight: 700; color: #1E2761; margin: 0;">Culpa olha para trás. Responsabilidade olha para frente.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando uma base de combustível tem um acidente no carregamento, investigar quem errou resolve o sintoma imediato. Mas não responde à pergunta que realmente importa: <em>o que no sistema permitiu que esse erro acontecesse?</em></p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 24px;">Um operador que pula uma etapa de validação de aterramento raramente está sendo irresponsável. Na maioria dos casos, ele está respondendo a uma pressão real: meta atrasada, supervisor apressado, protocolo longo demais para o tempo disponível. O sistema criou as condições. A pessoa foi o último elo.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 24px;">
+                                <div style="background: #fff0f0; border-radius: 10px; padding: 20px; border: 2px solid #C41E3A;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">❌</div>
+                                    <h4 style="color: #C41E3A; margin: 0 0 10px 0; font-size: 15px;">Busca de CULPA</h4>
+                                    <ul style="color: #555; padding-left: 16px; margin: 0; font-size: 14px; line-height: 1.8;">
+                                        <li>Pergunta: "Quem errou?"</li>
+                                        <li>Emoção: medo de falar</li>
+                                        <li>Resultado: equipe silencia</li>
+                                        <li>Próximo incidente: provável</li>
+                                    </ul>
+                                </div>
+                                <div style="background: #f0fff4; border-radius: 10px; padding: 20px; border: 2px solid #2C5F2D;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">✅</div>
+                                    <h4 style="color: #2C5F2D; margin: 0 0 10px 0; font-size: 15px;">Busca de RESPONSABILIDADE</h4>
+                                    <ul style="color: #555; padding-left: 16px; margin: 0; font-size: 14px; line-height: 1.8;">
+                                        <li>Pergunta: "O que falhou no sistema?"</li>
+                                        <li>Emoção: coragem de mudar</li>
+                                        <li>Resultado: equipe reporta riscos</li>
+                                        <li>Próximo incidente: prevenido</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Isso não significa que não há responsabilidade individual. Significa que há quatro camadas que precisam ser endereçadas: quem projeta e conhece o sistema (técnica), quem garante que funciona do jeito certo (operacional), quem criou as condições para o certo acontecer (organizacional) e cada pessoa que toma uma decisão (pessoal).</p>
+
+                            <div style="background: #1E2761; color: white; padding: 20px; border-radius: 10px; margin-bottom: 24px;">
+                                <p style="margin: 0; font-size: 15px; line-height: 1.7;">A diferença entre as duas culturas não está no treinamento. Está na reação do líder nos primeiros dez minutos depois de um desvio. <strong>O que você faz nesse momento define o que sua equipe aprende.</strong></p>
+                            </div>
+
+                            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                <strong>💬 Reflita:</strong> Pense em uma situação recente onde algo deu errado na sua base. A primeira reação foi buscar culpa ou causa? Como isso afetou a equipe nos dias seguintes?
+                            </div>
+
+                            <div style="padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <p style="font-size: 12px; color: #888; margin: 0;">📚 <strong>Referência:</strong> DEKKER, Sidney. <em>Just Culture: Balancing Safety and Accountability.</em> Ashgate, 2007. REASON, James. <em>Managing the Risks of Organizational Accidents.</em> Ashgate, 1997.</p>
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'V/F: Decisão e Responsabilidade',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Buscar o culpado depois de um incidente é a forma mais eficaz de evitar que ele se repita.',
+                                correta: false,
+                                explicacao: 'FALSO. Buscar culpa gera medo e silêncio. A equipe aprende a esconder problemas. Investigar a causa sistêmica é o que previne reincidência.'
+                            },
+                            {
+                                texto: 'Na tomada de decisão sob pressão, o líder pode abrir mão da segurança se o risco for considerado baixo pelo supervisor.',
+                                correta: false,
+                                explicacao: 'FALSO. Segurança é premissa, não uma variável que se negocia com base em percepção de momento. A avaliação de risco exige informação técnica. "Parece OK" não é análise.'
+                            },
+                            {
+                                texto: 'No Triângulo da Decisão, Custo e Tempo podem se adaptar, mas Segurança tem um piso que não cede.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. A inteligência do líder está em encontrar onde Custo e Tempo se adaptam, não em negociar segurança para baixo.'
+                            },
+                            {
+                                texto: 'Se um supervisor experiente pede para pular uma etapa, o histórico dele justifica a aprovação sem análise.',
+                                correta: false,
+                                explicacao: 'FALSO. Confiança excessiva é uma das três armadilhas clássicas. Sistemas humanos falham. Barreiras técnicas existem justamente para não depender de confiança individual.'
+                            },
+                            {
+                                texto: 'Antes de aprovar qualquer desvio, o líder deve conseguir responder: "Se isso der errado, eu posso responder por essa decisão".',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Responsabilidade pessoal significa assumir conscientemente. Se você não pode responder por uma decisão, você não deveria estar aprovando ela.'
+                            },
+                            {
+                                texto: 'A Fase 1 do ciclo decisório é a Análise, onde você processa o significado do risco.',
+                                correta: false,
+                                explicacao: 'FALSO. A Fase 1 é a Detecção. A Análise vem depois, na Fase 3. Pular fases é onde as decisões ruins acontecem.'
+                            },
+                            {
+                                texto: '"Posso reverter essa decisão se errar?" é uma pergunta válida e importante antes de decidir.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Se a decisão é irreversível, você precisa de mais informação e tempo antes de agir. Se é reversível, pode seguir com mais confiança.'
+                            },
+                            {
+                                texto: 'Quando você não consegue responder 4 das 5 perguntas da Matriz de Decisão, ainda assim pode aprovar se confiar na equipe.',
+                                correta: false,
+                                explicacao: 'FALSO. Se você não consegue responder 4 de 5, não decida ainda. Confiança na equipe não substitui informação completa.'
+                            }
+                        ]
+                    },
+
+                    // ─── BLOCO 2: DRIFT ───────────────────────────────────────
+                    {
+                        nome: 'Artigo: Drift — Quando o Normal Vira Risco',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #C41E3A, #8b0000); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">⚠️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">Drift Operacional</h2>
+                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">Quando o seguro vira arriscado sem ninguém perceber</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Uma base pode se tornar perigosa em 60 dias sem que ninguém tome uma única decisão de colocar alguém em risco.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Isso tem nome: <strong>Drift Operacional</strong>. E começa sempre com pressão real.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Cliente quer prazo mais curto. Meta atrasada. O supervisor experiente adapta o processo. Só dessa vez. Ninguém morre. "Deu certo mesmo." Aí está o problema: o desvio que funciona uma vez cria uma percepção falsa de segurança. Na segunda vez é mais fácil. Na terceira já é "o jeito que a gente faz aqui".</p>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h3 style="color: #333; margin: 0 0 15px 0; font-size: 16px;">📅 Como o drift acontece na prática:</h3>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #1E2761;"><span style="font-weight: 700; color: #1E2761; min-width: 50px;">Dia 1</span><span style="color: #555; font-size: 14px;">Validação de aterramento = 5 min (protocolo)</span></div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #f39c12;"><span style="font-weight: 700; color: #f39c12; min-width: 50px;">Dia 3</span><span style="color: #555; font-size: 14px;">"Fazemos em 3 minutos, não muda nada"</span></div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #e67e22;"><span style="font-weight: 700; color: #e67e22; min-width: 50px;">Dia 14</span><span style="color: #555; font-size: 14px;">"Fazemos visualmente, nem usa equipamento"</span></div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #C41E3A;"><span style="font-weight: 700; color: #C41E3A; min-width: 50px;">Dia 60</span><span style="color: #555; font-size: 14px;">Risco incorporado. Essa é a "norma" agora.</span></div>
+                                </div>
+                            </div>
+
+                            <div style="background: #fff0f0; border-left: 5px solid #C41E3A; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
+                                <p style="font-size: 15px; font-weight: 700; color: #C41E3A; margin: 0 0 8px 0;">O ponto crítico de intervenção é o primeiro desvio.</p>
+                                <p style="font-size: 14px; color: #555; margin: 0;">Não o quinto. Não quando já virou padrão. No primeiro. A socióloga Diane Vaughan estudou o desastre do Challenger e chamou isso de <em>normalização do desvio</em>: equipes experientes que racionalizam anomalias repetidas até que o risco se torna invisível.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A boa notícia é que drift pode ser revertido. A ferramenta é simples: curiosidade genuína antes de qualquer julgamento. <strong>"Vi que vocês estão fazendo diferente. Me explica?"</strong></p>
+
+                            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                <strong>💬 Reflita:</strong> Na sua operação, há algum processo que você sabe que não está sendo feito exatamente como o protocolo define? O que impediu a conversa até agora?
+                            </div>
+
+                            <div style="padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <p style="font-size: 12px; color: #888; margin: 0;">📚 <strong>Referências:</strong> VAUGHAN, Diane. <em>The Challenger Launch Decision.</em> University of Chicago Press, 1996. HOPKINS, Andrew. <em>Failure to Learn: The BP Texas City Refinery Disaster.</em> CCH Australia, 2008.</p>
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Lacunas: Anatomia da Decisão',
+                        tipo: 'lacunas',
+                        frases: [
+                            {
+                                texto: 'Na Fase 1 do ciclo decisório, o líder coleta ___ antes de decidir — não opinião, mas fatos verificáveis.',
+                                resposta: 'informação'
+                            },
+                            {
+                                texto: 'Na Fase 2, o líder faz a ___ do que aquela informação significa para a segurança da operação.',
+                                resposta: 'análise'
+                            },
+                            {
+                                texto: 'Na Fase 3, vem o ___ — a escolha baseada em valores não-negociáveis quando há conflito entre meta e segurança.',
+                                resposta: 'julgamento'
+                            },
+                            {
+                                texto: 'Na Fase 4, o líder ___ a decisão com clareza, explicando não só o que foi decidido, mas por quê.',
+                                resposta: 'comunica'
+                            },
+                            {
+                                texto: 'A maioria das decisões ruins acontece porque o líder ___ uma ou mais fases do ciclo.',
+                                resposta: 'pula'
+                            },
+                            {
+                                texto: 'Buscar ___ depois de um incidente gera medo e silêncio — a equipe aprende a esconder problemas.',
+                                resposta: 'culpa'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Armadilhas x Como Evitar',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Pressão Imediata vs Visão Sistêmica', definicao: 'Pausar antes de decidir e buscar terceira alternativa (rápido + seguro)' },
+                            { termo: 'Normalização do Desvio', definicao: 'Bloquear no primeiro desvio, não abrir exceções' },
+                            { termo: 'Confiança Excessiva', definicao: 'Seguir procedimentos integralmente independente do histórico do profissional' }
+                        ]
+                    },
+
+                    // ─── QUIZ ─────────────────────────────────────────────────
+                    {
+                        nome: 'Quiz: Cases Reais — Decisão em Campo',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'É segunda-feira, 10h. Um cliente pede 2 carregamentos adiantados. A meta da semana já está em risco. Seu supervisor espera uma resposta. O que você faz PRIMEIRO?',
+                                opcoes: [
+                                    'Autoriza imediatamente para não perder o cliente',
+                                    'Recusa sem explicação para preservar o protocolo',
+                                    'Pergunta: "Qual protocolo seria impactado? Temos técnico disponível agora?"',
+                                    'Transfere a decisão para o supervisor'
+                                ],
+                                correta: 2,
+                                explicacao: 'A resposta correta aplica a Fase 1 do ciclo decisório: coletar informação antes de decidir. Autorizar sem verificar é decidir às cegas. Recusar sem análise desperdiça uma oportunidade real.'
+                            },
+                            {
+                                pergunta: 'Um supervisor diz: "Podemos pular a inspeção pré-carregamento? Fizemos 100 vezes, conhecemos o processo." Qual é a resposta correta do líder?',
+                                opcoes: [
+                                    '"Tudo bem, você é experiente."',
+                                    '"Não pode. Ponto final."',
+                                    '"Anota pra gente rever o protocolo depois."',
+                                    '"Por quê? Qual etapa especificamente? Qual é o risco que você está assumindo?"'
+                                ],
+                                correta: 3,
+                                explicacao: 'A resposta correta aplica o método estruturado: pausar, perguntar, analisar antes de decidir. "Tudo bem" é confiança excessiva. "Não pode, ponto final" pode estar certo, mas sem análise não ensina.'
+                            },
+                            {
+                                pergunta: 'Você descobre que a validação de aterramento está sendo feita visualmente, sem equipamento, por 3 dias seguidos. O supervisor diz "já testamos, tá OK." O que isso caracteriza?',
+                                opcoes: [
+                                    'Uma melhoria de processo identificada pela equipe',
+                                    'Um desvio pontual que pode ser ignorado se não houve acidente',
+                                    'Drift operacional no Estágio 3: desvio em repetição, ponto crítico de intervenção',
+                                    'Um problema de treinamento individual do técnico'
+                                ],
+                                correta: 2,
+                                explicacao: 'Quando o desvio já se repete e virou "padrão local", estamos no Estágio 3 do drift. Intervenção agora ainda evita incorporação permanente (Estágio 4) e acidente (Estágio 5).'
+                            },
+                            {
+                                pergunta: 'Você aborda o supervisor sobre o desvio. Ele diz: "Não sabia que era tão importante. A gente estava tentando ganhar tempo." O que essa resposta revela?',
+                                opcoes: [
+                                    'Desvio intencional e malicioso',
+                                    'Falta de clareza no processo: o risco não estava comunicado adequadamente',
+                                    'Incompetência técnica do supervisor',
+                                    'Problema disciplinar que exige advertência'
+                                ],
+                                correta: 1,
+                                explicacao: 'Quando o desvio vem de "não sabia que era importante", a causa é de design e comunicação, não de caráter. A solução é clareza sobre o risco, não punição.'
+                            },
+                            {
+                                pergunta: 'Você tem 2h para fechar a meta. Um técnico propõe: "Paraleliza a inspeção e a preparação — a gente recupera 8 minutos sem abrir mão de nada." Como classificar essa proposta?',
+                                opcoes: [
+                                    'Risco oculto: paralelizar sempre aumenta a probabilidade de erro',
+                                    'Solução parcial: segurança mantida, mas custo aumenta',
+                                    'Não é papel do técnico propor mudanças de processo',
+                                    'Solução inteligente: segurança mantida, tempo recuperado, custo neutro'
+                                ],
+                                correta: 3,
+                                explicacao: 'No Triângulo da Decisão, a inteligência operacional está em encontrar onde Custo e Tempo se adaptam sem ceder segurança. Paralelização bem executada é exatamente isso.'
+                            },
+                            {
+                                pergunta: 'Um operador chega até você e diz: "Vi que a válvula X está com comportamento estranho. Não sei se é grave, mas achei melhor avisar." Qual é a resposta certa?',
+                                opcoes: [
+                                    '"Obrigado, mas se não é grave, pode continuar a operação."',
+                                    '"Por que você demorou para avisar?"',
+                                    '"Anota no sistema. Vou ver quando tiver tempo."',
+                                    '"Obrigado. Vamos parar e validar antes de continuar."'
+                                ],
+                                correta: 3,
+                                explicacao: 'Segurança psicológica se constrói nesse momento. Quando um operador reporta e a resposta é ação imediata mais agradecimento, ele aprende que reportar tem valor.'
+                            },
+                            {
+                                pergunta: 'Após um quase-acidente, o gerente diz: "O erro foi do supervisor que estava de plantão." O que está errado nessa análise?',
+                                opcoes: [
+                                    'Nada: o supervisor estava no comando e deve responder',
+                                    'O gerente deveria ter punido também o operador',
+                                    'O gerente está culpando para baixo sem investigar o que no sistema permitiu o erro',
+                                    'A análise está correta, mas deveria ser feita em privado'
+                                ],
+                                correta: 2,
+                                explicacao: 'Responsabilidade vertical significa que o líder assume o resultado, inclusive verificar se o sistema criou condições para o erro. "Culpa do supervisor" sem investigação sistêmica é o início do próximo incidente.'
+                            },
+                            {
+                                pergunta: 'O tempo médio de carregamento aumentou de 2h para 3h nos últimos 45 dias, sem nenhuma mudança técnica registrada. O que isso provavelmente sinaliza?',
+                                opcoes: [
+                                    'Melhoria de qualidade: a equipe está sendo mais cuidadosa',
+                                    'Problema de equipamento que a manutenção não identificou',
+                                    'Drift estrutural: desvios acumulados degradaram o sistema original',
+                                    'Falta de motivação da equipe: problema de RH'
+                                ],
+                                correta: 2,
+                                explicacao: 'Crescimento de prazo sem causa técnica clara é um sinal fraco de drift estrutural. O sistema original foi adaptado por melhorias informais que, juntas, criaram ineficiência e riscos não documentados.'
+                            },
+                            {
+                                pergunta: 'Você implementou uma mudança de processo há 3 semanas. A equipe executa do jeito antigo quando você não está. O que isso significa?',
+                                opcoes: [
+                                    'A mudança foi mal treinada: refaça o treinamento',
+                                    'A equipe está com má vontade: problema disciplinar',
+                                    'A mudança não faz sentido operacional: reverta',
+                                    'A mudança não foi compreendida ou aceita: é preciso investigar por que o jeito antigo parece melhor para eles'
+                                ],
+                                correta: 3,
+                                explicacao: 'Quando a equipe adota o comportamento novo só quando você está presente, o problema não é disciplina, é compreensão e adesão. A Auditoria Positiva revelaria a causa real.'
+                            },
+                            {
+                                pergunta: 'Após 60 dias de presença genuína e decisões coerentes, um operador te procura espontaneamente para reportar um risco. Isso nunca havia acontecido antes. O que indica?',
+                                opcoes: [
+                                    'O operador está buscando atenção ou promoção',
+                                    'Coincidência: não há relação com as mudanças de liderança',
+                                    'O operador tem medo de ser punido se não reportar',
+                                    'Segurança psicológica estabelecida: a equipe aprendeu que reportar riscos é seguro e tem valor'
+                                ],
+                                correta: 3,
+                                explicacao: 'Esse é o indicador mais importante de maturidade em cultura de segurança. Quando pessoas reportam espontaneamente, sem obrigação, sem medo, a liderança criou o ambiente certo.'
+                            }
+                        ]
+                    },
+
+                    // ─── BLOCO 3: MODELAGEM ───────────────────────────────────
+                    {
+                        nome: 'Artigo: O Líder como Espelho',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #2C5F2D, #1a3d1b); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🪞</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">O Líder como Espelho</h2>
+                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">Sua equipe aprende o que você faz, não o que você diz</p>
+                            </div>
+
+                            <div style="background: #f0fff4; border-left: 5px solid #2C5F2D; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+                                <p style="font-size: 17px; font-weight: 700; color: #2C5F2D; margin: 0 0 8px 0;">"A cultura de uma organização é definida pelo pior comportamento que a liderança tolera."</p>
+                                <p style="font-size: 14px; color: #555; margin: 0;">Não pelo treinamento mais recente. Não pelo manual de segurança. Pelo que o líder tolera, especialmente sob pressão.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando um supervisor pula uma etapa e o gerente vê mas não comenta, a equipe inteira recebe uma mensagem silenciosa: aqui, isso é aceitável. Sem uma palavra dita. Sem uma decisão explícita. A cultura foi modelada.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;"><strong>Modelagem não é o que você anuncia. É o que você faz quando o custo de fazer certo é real.</strong></p>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h3 style="color: #333; margin: 0 0 15px 0; font-size: 16px;">Os 3 momentos críticos onde a modelagem acontece:</h3>
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #1E2761;">
+                                        <strong style="color: #1E2761;">1. Sob pressão</strong>
+                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Quando meta e segurança colidem, o que você escolhe? A equipe observa e aprende.</p>
+                                    </div>
+                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #2C5F2D;">
+                                        <strong style="color: #2C5F2D;">2. Na visibilidade</strong>
+                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Como você reage quando te veem decidindo? Você conversa ou ordena? Isso ensina como decisões devem ser tomadas.</p>
+                                    </div>
+                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #C41E3A;">
+                                        <strong style="color: #C41E3A;">3. Na consequência</strong>
+                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Quando algo dá certo com segurança, você reconhece? Quando há desvio, você redesenha ou pune?</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Edgar Schein, pesquisador de cultura organizacional em MIT, chama isso de <strong>Liderança Humilde</strong>: humildade genuína (reconhecer que você não tem toda a informação sobre o trabalho real no chão), inquérito genuíno (perguntar com intenção de entender, não de provar que já sabe) e presença real (estar no chão de verdade, não para auditar, mas para aprender).</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Amy Edmondson, professora de Harvard, mostrou em anos de pesquisa que equipes com alta segurança psicológica não cometem menos erros. Elas reportam mais. E por isso previnem mais.</p>
+
+                            <div style="background: #1E2761; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="margin: 0; font-size: 15px; line-height: 1.7;"><strong>A mudança de cultura começa com uma mudança de comportamento. Do líder. Hoje.</strong></p>
+                            </div>
+
+                            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                <strong>💬 Reflita:</strong> Na última semana, em que momento sua equipe observou você tomar uma decisão difícil? O que eles aprenderam com isso?
+                            </div>
+
+                            <div style="padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <p style="font-size: 12px; color: #888; margin: 0;">📚 <strong>Referências:</strong> SCHEIN, Edgar H. <em>Humble Inquiry.</em> Berrett-Koehler, 2013. EDMONDSON, Amy C. <em>The Fearless Organization.</em> Wiley, 2018.</p>
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'V/F: Modelagem e Cultura',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Um líder que diz que segurança é premissa mas tolera desvios em momentos de pressão está modelando que segurança não é premissa.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. A equipe acredita no comportamento, não nas palavras. Coerência entre discurso e ação é o que define o real padrão de uma liderança.'
+                            },
+                            {
+                                texto: 'Humildade de liderança significa não tomar decisões para não errar.',
+                                correta: false,
+                                explicacao: 'FALSO. Ausência de decisão não é humildade, é vácuo de autoridade. Humildade genuína é ouvir antes de decidir, admitir o que não sabe e ainda assim ser responsável pela decisão final.'
+                            },
+                            {
+                                texto: 'Se um operador relata um problema de segurança e nada muda, ele vai parar de reportar.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Escuta sem ação destrói a segurança psicológica. Quando a equipe percebe que reportar não leva a mudança, aprende que o silêncio é mais seguro para ela.'
+                            },
+                            {
+                                texto: 'Punir um desvio é sempre mais eficaz do que investigar sua causa.',
+                                correta: false,
+                                explicacao: 'FALSO. Punição sem investigação ensina a equipe a esconder desvios, não a eliminá-los. Investigar com curiosidade revela a causa real e possibilita redesenho.'
+                            },
+                            {
+                                texto: 'A mudança de cultura de uma base começa quando o líder muda seu comportamento de forma consistente por semanas.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Cultura muda por repetição de comportamento, não por decreto. Semanas de presença genuína e decisões coerentes criam um novo padrão.'
+                            },
+                            {
+                                texto: 'Atribuir o erro ao supervisor ou operador quando há pressão da diretoria é uma forma válida de gestão.',
+                                correta: false,
+                                explicacao: 'FALSO. Responsabilidade vertical significa o oposto: o líder assume o resultado, mesmo que o erro tenha sido executado por alguém da equipe.'
+                            },
+                            {
+                                texto: 'Presença genuína de liderança significa estar no chão para aprender como o trabalho realmente acontece, não apenas para auditar.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Um líder que vai ao chão para auditar com checklist cria defensividade. Um líder que vai para aprender e perguntar com curiosidade cria confiança e revela a operação real.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Conceitos-Chave do Módulo 2',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Drift Operacional', definicao: 'Processo gradual onde um sistema seguro vira arriscado por adaptações informais do dia a dia' },
+                            { termo: 'Auditoria Positiva', definicao: 'Investigar um desvio com curiosidade genuína, sem punição, para encontrar a causa real' },
+                            { termo: 'Segurança Psicológica', definicao: 'Convicção do operador de que reportar um risco não resultará em punição' },
+                            { termo: 'Normalização do Desvio', definicao: 'Quando um desvio se repete tanto que vira o jeito normal de fazer' },
+                            { termo: 'Liderança Humilde', definicao: 'Combinação de humildade genuína, inquérito genuíno e presença real no chão' }
+                        ]
+                    }
+
+                ]
+            }
         };
 
         // ============================================
@@ -2268,11 +2943,6 @@
             document.getElementById('modalTitulo').textContent = MUNDOS[mundoId].nome;
             document.getElementById('modalLogin').classList.add('active');
             document.getElementById('loginError').style.display = 'none';
-            // Esconde campo de senha se módulo for aberto (sem senha)
-            const senhaGroup = document.getElementById('senhaGroup');
-            if (senhaGroup) {
-                senhaGroup.style.display = MUNDOS[mundoId].senha === '' ? 'none' : 'block';
-            }
         }
 
         function fecharModal() {
@@ -2288,10 +2958,9 @@
             const email = document.getElementById('emailInput').value;
             const erro = document.getElementById('loginError');
 
-            // Verifica senha: módulo sem senha (aberto), OU senha correta, OU senha master
-            const senhaModulo = MUNDOS[mundoSelecionado].senha;
-            const senhaCorreta = senhaModulo === '' || senha === senhaModulo || senha === SENHA_MASTER;
-
+            // Verifica senha: pode ser a senha do módulo OU a senha master
+            const senhaCorreta = senha === MUNDOS[mundoSelecionado].senha || senha === SENHA_MASTER;
+            
             if (!senhaCorreta) {
                 erro.textContent = 'Senha incorreta!';
                 erro.style.display = 'block';
@@ -2452,17 +3121,17 @@
             const titulo = document.getElementById('certTitulo');
             
             titulo.textContent = '🎓 CERTIFICADO DE CONCLUSÃO';
-
-            const logoOrievo = 'https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png';
-            const logoCliente = 'https://orievogroup.github.io/GDE/logo_gde.png';
-
+            
+            const logoOrievo = 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png';
+            const logoCliente = mundo.logo || logoOrievo;
+            
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             const cargaHoraria = mundo.fases.length * 10;
-
+            
             body.innerHTML = `
                 <div class="certificate-logos">
-                    <img src="${logoOrievo}" alt="Orievo Group">
-                    <img src="${logoCliente}" alt="Grupo Dislub Equador">
+                    <img src="${logoOrievo}" alt="Orievo">
+                    ${logoCliente !== logoOrievo ? `<img src="${logoCliente}" alt="Cliente">` : ''}
                 </div>
                 
                 <div class="certificate-title">
@@ -2542,13 +3211,12 @@
             
             titulo.textContent = '🏆 CERTIFICADO DE CONCLUSÃO - JORNADA COMPLETA';
             
-            const logoOrievo = 'https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png';
-            const logoCliente2 = 'https://orievogroup.github.io/GDE/logo_gde.png';
+            const logoOrievo = 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png';
             const dataAtual = new Date().toLocaleDateString('pt-BR');
-
+            
             let modulosHtml = '';
             let cargaTotal = 0;
-
+            
             for (let id in MUNDOS) {
                 if (MUNDOS[id].ativo !== false) {
                     const mundo = MUNDOS[id];
@@ -2556,13 +3224,12 @@
                     cargaTotal += mundo.fases.length * 10;
                 }
             }
-
+            
             body.innerHTML = `
                 <div class="certificate-logos">
-                    <img src="${logoOrievo}" alt="Orievo Group">
-                    <img src="${logoCliente2}" alt="Grupo Dislub Equador">
+                    <img src="${logoOrievo}" alt="Orievo">
                 </div>
-
+                
                 <div class="certificate-title">
                     🏆 Jornada Completa 🏆
                 </div>
@@ -2602,7 +3269,7 @@
             document.getElementById('certificadoModal').classList.remove('active');
         }
         
-        async function baixarCertificado() {
+        function baixarCertificado() {
             try {
                 const { jsPDF } = window.jspdf;
 
@@ -2625,26 +3292,6 @@
                     }
                 }
 
-                // Carregar logos antes de gerar o PDF
-                const carregarImagem = (url) => new Promise((resolve) => {
-                    const img = new Image();
-                    img.crossOrigin = 'anonymous';
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        canvas.getContext('2d').drawImage(img, 0, 0);
-                        resolve(canvas.toDataURL('image/png'));
-                    };
-                    img.onerror = () => resolve(null);
-                    img.src = url;
-                });
-
-                const [imgOrievo, imgGDE] = await Promise.all([
-                    carregarImagem('https://orievogroup.github.io/GDE/logo_orievo_fundo_branco.png'),
-                    carregarImagem('https://orievogroup.github.io/GDE/logo_gde.png')
-                ]);
-
                 const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
                 const W = 297, H = 210;
 
@@ -2663,20 +3310,16 @@
                 pdf.setFillColor(79, 195, 220);
                 pdf.rect(12, 12, W - 24, 28, 'F');
 
-                // Logos no cabeçalho (Orievo: proporção real 3.66:1 → h=14mm → w=52mm)
-                if (imgOrievo) pdf.addImage(imgOrievo, 'PNG', 16, 19, 52, 14);
-                if (imgGDE)    pdf.addImage(imgGDE,    'PNG', W - 52, 16, 36, 20);
-
                 // Título do certificado
                 pdf.setTextColor(255, 255, 255);
-                pdf.setFontSize(18);
+                pdf.setFontSize(22);
                 pdf.setFont('helvetica', 'bold');
-                pdf.text('CERTIFICADO DE CONCLUSÃO', W / 2, 29, { align: 'center' });
+                pdf.text('CERTIFICADO DE CONCLUSÃO', W / 2, 30, { align: 'center' });
 
                 // Subtítulo
-                pdf.setFontSize(9);
+                pdf.setFontSize(10);
                 pdf.setFont('helvetica', 'normal');
-                pdf.text('Plataforma de Treinamentos®  ·  Orievo Group', W / 2, 36, { align: 'center' });
+                pdf.text('Orievo Safety Learning', W / 2, 37, { align: 'center' });
 
                 // Corpo do certificado
                 pdf.setTextColor(50, 50, 50);
@@ -2736,7 +3379,7 @@
                 pdf.setFontSize(10);
                 pdf.setFont('helvetica', 'bold');
                 pdf.setTextColor(255, 255, 255);
-                pdf.text('Plataforma de Treinamentos®  ·  Orievo Group  ·  www.orievo.com.br', W / 2, H - 18, { align: 'center' });
+                pdf.text('Orievo Safety Learning  —  www.orievogroup.com', W / 2, H - 18, { align: 'center' });
 
                 // Nome do arquivo
                 const nomeArquivoAluno = (dadosUsuario.nome || 'Aluno').replace(/\s+/g, '_');
@@ -2811,10 +3454,9 @@
                             Seu navegador não suporta vídeo HTML5.
                         </video>
                     </div>
-                    <div style="background:#f0f8ff;border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;margin-bottom:12px;font-size:13px;color:#555;">
+                    <div style="background:#f0f8ff;border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:13px;color:#555;">
                         💬 <b>Legendas em português</b> ativadas automaticamente. Se não aparecerem, clique no ícone CC (legendas) no player.
                     </div>
-                    ${fase.fonte ? `<div style="background:#f8f9fa;border-left:3px solid #aaa;padding:8px 14px;border-radius:6px;margin-bottom:16px;font-size:12px;color:#666;">${fase.fonte}</div>` : ''}
                     <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Avançar →</button>
                 `;
             } else {
@@ -2823,7 +3465,6 @@
                     <div class="video-container">
                         <iframe src="${fase.url}" allowfullscreen></iframe>
                     </div>
-                    ${fase.fonte ? `<div style="background:#f8f9fa;border-left:3px solid #aaa;padding:8px 14px;border-radius:6px;margin-top:12px;margin-bottom:16px;font-size:12px;color:#666;">${fase.fonte}</div>` : ''}
                     <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Voltar</button>
                 `;
             }
@@ -3014,7 +3655,7 @@
             memoriaFlipped = [];
             
             let html = `<h2>${fase.nome}</h2>`;
-            html += `<div class="score">Pares encontrados: <span id="pares">0</span>/${fase.simbolos.length}</div>`;
+            html += '<div class="score">Pares encontrados: <span id="pares">0</span>/8</div>';
             html += '<div class="memory-grid">';
             
             memoriaCards.forEach((card, i) => {
@@ -3211,16 +3852,6 @@
 
         function carregarVerdadeiroFalso(fase, conteudo) {
             vfFaseAtual = fase;
-            // Suporta tanto 'afirmacoes' quanto 'perguntas', e 'texto'/'afirmacao', 'correta'/'resposta'
-            if (!vfFaseAtual._normalizada) {
-                const lista = fase.afirmacoes || fase.perguntas || [];
-                vfFaseAtual._lista = lista.map(item => ({
-                    afirmacao: item.texto || item.afirmacao,
-                    resposta: item.correta !== undefined ? item.correta : item.resposta,
-                    explicacao: item.explicacao || ''
-                }));
-                vfFaseAtual._normalizada = true;
-            }
             vfPerguntaAtual = 0;
             vfAcertos = 0;
             mostrarPerguntaVF(conteudo);
@@ -3228,12 +3859,11 @@
 
         function mostrarPerguntaVF(conteudo) {
             if (!conteudo) conteudo = document.getElementById('faseConteudo');
-            const lista = vfFaseAtual._lista;
-            const p = lista[vfPerguntaAtual];
+            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
             conteudo.innerHTML = `
                 <h2>${vfFaseAtual.nome}</h2>
                 <div style="text-align:center;color:#666;margin-bottom:20px;">
-                    Afirmação ${vfPerguntaAtual + 1} de ${lista.length}
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
                 </div>
                 <div class="vf-card">
                     <div class="vf-afirmacao">${p.afirmacao}</div>
@@ -3246,7 +3876,7 @@
         }
 
         function responderVF(resposta) {
-            const p = vfFaseAtual._lista[vfPerguntaAtual];
+            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
             const acertou = resposta === p.resposta;
             if (acertou) vfAcertos++;
 
@@ -3254,12 +3884,12 @@
             const corEmoji = acertou ? '✅' : '❌';
             const cor = acertou ? '#28a745' : '#dc3545';
             const titulo = acertou ? 'Correto!' : 'Incorreto!';
-            const proxima = vfPerguntaAtual < vfFaseAtual._lista.length - 1;
+            const proxima = vfPerguntaAtual < vfFaseAtual.perguntas.length - 1;
 
             conteudo.innerHTML = `
                 <h2>${vfFaseAtual.nome}</h2>
                 <div style="text-align:center;color:#666;margin-bottom:20px;">
-                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual._lista.length}
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
                 </div>
                 <div style="text-align:center;font-size:70px;margin:20px 0;">${corEmoji}</div>
                 <div style="background:white;padding:30px;border-radius:15px;border-left:5px solid ${cor};margin-bottom:25px;">
@@ -3280,7 +3910,7 @@
         }
 
         function finalizarVF() {
-            const total = vfFaseAtual._lista.length;
+            const total = vfFaseAtual.perguntas.length;
             const percentual = Math.round((vfAcertos / total) * 100);
             const passou = percentual >= 70;
             const cor = passou ? '#28a745' : '#dc3545';
@@ -3411,22 +4041,11 @@
 
         function carregarLacunas(fase, conteudo) {
             lacunasFaseAtual = fase;
-            // Coleta todas as respostas e embaralha para o banco de palavras
-            const todasRespostas = fase.frases.map(f => f.resposta);
-            const bancoPalavras = [...todasRespostas].sort(() => Math.random() - 0.5);
-
-            let html = `<h2>${fase.nome}</h2>
-                <p style="color:#666;margin-bottom:12px;">Complete as frases usando as palavras do banco abaixo:</p>
-                <div style="background:#e8f4fd;border:2px solid #4FC3DC;border-radius:12px;padding:14px 18px;margin-bottom:24px;">
-                    <p style="color:#2A9BB8;font-weight:700;font-size:13px;margin:0 0 10px 0;">💡 BANCO DE PALAVRAS:</p>
-                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                        ${bancoPalavras.map(p => `<span style="background:#fff;border:2px solid #4FC3DC;border-radius:20px;padding:4px 14px;font-weight:600;color:#2A9BB8;font-size:14px;">${p}</span>`).join('')}
-                    </div>
-                </div>`;
+            let html = `<h2>${fase.nome}</h2><p style="color:#666;margin-bottom:20px;">Preencha os campos em branco:</p>`;
 
             fase.frases.forEach((frase, i) => {
                 const textoComInput = frase.texto.replace('___',
-                    `<input type="text" class="lacunas-input" id="lacuna-${i}" placeholder="digite aqui..." autocomplete="off">`
+                    `<input type="text" class="lacunas-input" id="lacuna-${i}" placeholder="..." autocomplete="off">`
                 );
                 html += `<div class="lacunas-frase">${textoComInput}</div>`;
             });

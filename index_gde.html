@@ -1,0 +1,4082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orievo Safety Learn | Grupo Dislub Equador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4FC3DC;
+            --secondary: #2A9BB8;
+            --dark: #1a1a1a;
+            --accent: #6DD5ED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(160deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding-top: 90px;
+            padding-bottom: 80px;
+        }
+
+        /* ========================================== */
+        /* HEADER PROFISSIONAL                        */
+        /* ========================================== */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header-logo-orievo img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-center h1 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .header-center p {
+            font-size: 11px;
+            color: #888;
+            margin: 2px 0 0 0;
+            font-weight: 400;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 36px;
+            background: #e0e0e0;
+        }
+
+        .header-logo-gde img {
+            height: 72px;
+            width: auto;
+            display: block;
+        }
+
+        /* ========================================== */
+        /* FOOTER PROFISSIONAL                        */
+        /* ========================================== */
+        .site-footer {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 999;
+            background: rgba(15, 32, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(79, 195, 220, 0.2);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.55);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-text strong {
+            color: rgba(79, 195, 220, 0.9);
+            font-weight: 600;
+        }
+
+        /* ========================================== */
+        /* CONTAINER                                  */
+        /* ========================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px;
+        }
+
+        /* ========================================== */
+        /* ROADMAP CORPORATIVO - SELEÇÃO DE MÓDULOS */
+        /* ========================================== */
+        
+        .mundos-roadmap {
+            max-width: 900px;
+            margin: 40px auto;
+            position: relative;
+        }
+        
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            padding: 36px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(79,195,220,0.15);
+        }
+
+        .roadmap-header h2 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .roadmap-header p {
+            color: rgba(255,255,255,0.55);
+            font-size: 15px;
+        }
+
+        .roadmap-progress-global {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        .roadmap-progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .roadmap-progress-bar {
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .roadmap-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 6px;
+            transition: width 0.8s ease;
+        }
+        
+        /* Timeline vertical */
+        .roadmap-timeline {
+            position: relative;
+            padding: 0 0 0 80px;
+        }
+        
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary) 0%, #e9ecef 100%);
+        }
+        
+        /* Módulo individual */
+        .modulo-item {
+            position: relative;
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+        
+        .modulo-item::before {
+            content: '';
+            position: absolute;
+            left: -65px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        /* Estados do módulo */
+        .modulo-item.completed::before {
+            border-color: #28a745;
+            background: #28a745;
+            box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .modulo-item.available::before {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 4px 20px rgba(79, 195, 220, 0.4);
+            animation: pulse-module 2s infinite;
+        }
+        
+        .modulo-item.locked::before {
+            border-color: #dee2e6;
+            background: #f8f9fa;
+            opacity: 0.6;
+        }
+        
+        @keyframes pulse-module {
+            0%, 100% {
+                transform: translateY(-50%) scale(1);
+            }
+            50% {
+                transform: translateY(-50%) scale(1.05);
+            }
+        }
+        
+        /* Ícone no círculo da timeline */
+        .modulo-timeline-icon {
+            position: absolute;
+            left: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 28px;
+            z-index: 3;
+            filter: grayscale(100%);
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+        
+        .modulo-item.completed .modulo-timeline-icon {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        
+        .modulo-item.available .modulo-timeline-icon {
+            filter: grayscale(0%);
+            opacity: 1;
+            animation: icon-glow 2s infinite;
+        }
+        
+        @keyframes icon-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 0px rgba(79, 195, 220, 0));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(79, 195, 220, 0.8));
+            }
+        }
+        
+        /* Card do módulo */
+        .modulo-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 16px;
+            padding: 28px 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            transition: all 0.35s cubic-bezier(.25,.8,.25,1);
+            border-left: 6px solid #dee2e6;
+        }
+
+        .modulo-item.completed .modulo-card {
+            border-left-color: #28a745;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
+        }
+
+        .modulo-item.available .modulo-card {
+            border-left-color: var(--primary);
+            background: #ffffff;
+        }
+
+        .modulo-item.locked .modulo-card {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .modulo-item:not(.locked):hover .modulo-card {
+            transform: translateX(12px) translateY(-2px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+        }
+        
+        /* Cabeçalho do módulo */
+        .modulo-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .modulo-title-group {
+            flex: 1;
+        }
+        
+        .modulo-status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        
+        .modulo-item.completed .modulo-status-badge {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .modulo-item.available .modulo-status-badge {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .modulo-item.locked .modulo-status-badge {
+            background: #e9ecef;
+            color: #6c757d;
+        }
+        
+        .modulo-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .modulo-icon {
+            font-size: 32px;
+        }
+        
+        .modulo-description {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* Métricas do módulo */
+        .modulo-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-item {
+            text-align: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .modulo-item.completed .metric-value {
+            color: #28a745;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Barra de progresso do módulo */
+        .modulo-progress {
+            margin-bottom: 15px;
+        }
+        
+        .modulo-progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .modulo-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .modulo-item.completed .modulo-progress-fill {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        
+        .modulo-progress-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Botão de ação */
+        .modulo-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .modulo-cta {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modulo-cta:hover {
+            background: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .modulo-item.completed .modulo-cta {
+            background: #28a745;
+        }
+        
+        .modulo-item.completed .modulo-cta:hover {
+            background: #218838;
+        }
+        
+        .modulo-item.locked .modulo-cta {
+            background: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .modulo-item.locked .modulo-cta:hover {
+            transform: none;
+        }
+        
+        /* Ícone de cadeado */
+        .lock-icon {
+            font-size: 20px;
+            opacity: 0.5;
+        }
+
+        .mundos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .mundo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .mundo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: var(--primary);
+        }
+
+        .mundo-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .mundo-card h3 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .mundo-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .mundo-card button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mundo-card button:hover {
+            background: var(--secondary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .mundo-screen {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .mundo-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .mundo-header h1 {
+            color: #1a1a1a;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .mundo-header p {
+            color: #888;
+            font-size: 15px;
+        }
+
+        .progresso-container {
+            margin-bottom: 30px;
+        }
+
+        .progresso-bar {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progresso-fill {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        .progresso-text {
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* ========================================== */
+        /* JORNADA LINEAR PROFISSIONAL */
+        /* ========================================== */
+        
+        .journey-container {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .journey-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .journey-header h2 {
+            color: #1a1a1a;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        /* Linha do tempo horizontal */
+        .journey-timeline {
+            position: relative;
+            padding: 60px 0;
+            overflow-x: auto;
+        }
+        
+        .journey-line {
+            position: absolute;
+            top: 90px;
+            left: 60px;
+            right: 60px;
+            height: 4px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+        
+        .journey-line-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.8s ease;
+        }
+        
+        /* Fases na linha */
+        .journey-phases {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+            min-width: 800px;
+            padding: 0 30px;
+        }
+        
+        /* Fase individual */
+        .phase-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+        
+        .phase-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .phase-node.completed .phase-circle {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .phase-node.available .phase-circle {
+            border-color: var(--primary);
+            background: white;
+            animation: pulse-phase 2s infinite;
+        }
+        
+        .phase-node.locked .phase-circle {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .phase-node:not(.locked):hover .phase-circle {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        @keyframes pulse-phase {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(79, 195, 220, 0.4);
+            }
+        }
+        
+        /* Checkmark de conclusão */
+        .phase-check {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 32px;
+            height: 32px;
+            background: #28a745;
+            border-radius: 50%;
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Nome da fase */
+        .phase-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            max-width: 100px;
+        }
+        
+        .phase-node.locked .phase-label {
+            color: #999;
+        }
+        
+        /* Bandeira de chegada */
+        .finish-flag {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+            animation: flag-wave 2s ease-in-out infinite;
+        }
+        
+        @keyframes flag-wave {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* ========================================== */
+        /* MODAL DE CERTIFICADO */
+        /* ========================================== */
+        
+        .certificate-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .certificate-modal.active {
+            display: flex;
+        }
+        
+        .certificate-content {
+            background: white;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .certificate-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .certificate-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .certificate-body {
+            padding: 50px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 15px solid;
+            border-image: linear-gradient(135deg, var(--primary), var(--accent)) 1;
+            position: relative;
+        }
+        
+        .certificate-body::before {
+            content: '🏆';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.1;
+        }
+        
+        .certificate-logos {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .certificate-logos img {
+            max-width: 200px;
+            max-height: 80px;
+            object-fit: contain;
+        }
+        
+        .certificate-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .certificate-text {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .certificate-name {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+        
+        .certificate-module {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        .certificate-modules-list {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        
+        .certificate-modules-list li {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #28a745;
+        }
+        
+        .certificate-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .certificate-info-item {
+            text-align: center;
+        }
+        
+        .certificate-info-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .certificate-info-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .certificate-footer {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn-certificate {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .btn-download {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-download:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-close-cert {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-close-cert:hover {
+            background: #5a6268;
+        }
+        
+
+        .fases-list {
+            list-style: none;
+        }
+
+        .fase-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 5px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .fase-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .fase-item.completa {
+            opacity: 0.7;
+            border-left-color: #28a745;
+        }
+
+        .fase-icon {
+            font-size: 28px;
+        }
+
+        .fase-info {
+            flex: 1;
+        }
+
+        .fase-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .fase-status {
+            font-size: 24px;
+        }
+
+        .fase-screen {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .fase-screen h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .artigo-content {
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .artigo-content h2 {
+            color: var(--primary);
+            margin: 30px 0 15px 0;
+        }
+
+        .artigo-content h3 {
+            color: #333;
+            margin: 25px 0 10px 0;
+        }
+
+        .artigo-content p {
+            margin-bottom: 15px;
+        }
+
+        .artigo-content ul, .artigo-content ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        .artigo-content li {
+            margin-bottom: 8px;
+        }
+
+        .artigo-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .pergunta-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .pergunta-box h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .opcao {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .opcao:hover {
+            border-color: var(--primary);
+            background: #f0f8ff;
+        }
+
+        .opcao.selecionada {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            background: white;
+            border: 3px solid var(--primary);
+            color: #333;
+        }
+
+        .memory-card.matched {
+            background: #28a745;
+            cursor: default;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 22px;
+            color: var(--primary);
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .btn-voltar {
+            background: #6c757d;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .btn-voltar:hover {
+            background: #5a6268;
+        }
+
+        .btn-concluir {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .btn-concluir:hover {
+            background: var(--secondary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========================================== */
+        /* TOAST NOTIFICATION */
+        /* ========================================== */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: #28a745;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(.175,.885,.32,1.275);
+            pointer-events: none;
+        }
+        .toast-notification.show {
+            transform: translateX(0);
+        }
+
+        /* ========================================== */
+        /* VERDADEIRO OU FALSO */
+        /* ========================================== */
+        .vf-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        .vf-afirmacao {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .vf-botoes {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .btn-verdadeiro {
+            padding: 16px 40px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 44px;
+        }
+        .btn-verdadeiro:hover { background: #218838; transform: scale(1.05); }
+        .btn-falso {
+            padding: 16px 40px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 44px;
+        }
+        .btn-falso:hover { background: #c82333; transform: scale(1.05); }
+
+        /* ========================================== */
+        /* ORDENAR SEQUÊNCIA */
+        /* ========================================== */
+        .ordenar-lista {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .ordenar-item {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            min-height: 44px;
+        }
+        .ordenar-item:hover { border-color: var(--primary); box-shadow: 0 2px 10px rgba(79,195,220,0.2); }
+        .ordenar-item.dragging { opacity: 0.5; border-style: dashed; }
+        .ordenar-item.correct { border-color: #28a745; background: #f0fff4; color: #155724; }
+        .ordenar-item.incorrect { border-color: #dc3545; background: #fff5f5; color: #721c24; }
+        .ordenar-handle { font-size: 18px; color: #aaa; }
+
+        /* ========================================== */
+        /* PREENCHER LACUNAS */
+        /* ========================================== */
+        .lacunas-frase {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .lacunas-input {
+            border: none;
+            border-bottom: 2px solid var(--primary);
+            padding: 4px 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            width: 160px;
+            text-align: center;
+            background: transparent;
+            outline: none;
+            transition: border-color 0.2s;
+            min-height: 30px;
+        }
+        .lacunas-input.correct { border-color: #28a745; background: #f0fff4; color: #155724; border-radius: 6px; }
+        .lacunas-input.incorrect { border-color: #dc3545; background: #fff5f5; color: #721c24; border-radius: 6px; }
+
+        /* ========================================== */
+        /* PAINEL ADMIN */
+        /* ========================================== */
+        #adminPanel {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #adminPanel.active { display: flex; }
+        .admin-card {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .admin-header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 25px 30px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .admin-body { padding: 30px; }
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table th, .admin-table td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .admin-table th { background: #f8f9fa; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; }
+        .toggle-btn {
+            padding: 7px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 44px;
+        }
+        .toggle-btn.liberado { background: #d4edda; color: #155724; }
+        .toggle-btn.bloqueado { background: #f8d7da; color: #721c24; }
+        .admin-footer { padding: 20px 30px; background: #f8f9fa; text-align: right; }
+
+        /* ========================================== */
+        /* RESPONSIVIDADE MOBILE */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .journey-timeline { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .phase-circle { width: 60px; height: 60px; font-size: 26px; }
+            .modulo-metrics { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .certificate-body { padding: 20px; }
+            .modal-content { padding: 25px; }
+            .btn, .modulo-cta, .btn-certificate, .toggle-btn { min-height: 44px; }
+            .vf-botoes { flex-direction: column; align-items: center; }
+            .roadmap-timeline { padding: 0 0 0 60px; }
+            .modulo-timeline-icon { left: -40px; font-size: 22px; }
+            .modulo-item::before { left: -55px; width: 50px; height: 50px; }
+        }
+    </style>
+    
+    <!-- Bibliotecas para gerar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- HEADER PROFISSIONAL -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-logo-orievo">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_orievo_fundo_branco.png" alt="Orievo Group">
+            </div>
+            <div class="header-center">
+                <h1>Safety Learn — Plataforma de Treinamentos</h1>
+                <p>Cultura de Segurança · Grupo Dislub Equador</p>
+            </div>
+            <div class="header-divider"></div>
+            <div class="header-logo-gde">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Grupo Dislub Equador">
+            </div>
+        </div>
+    </header>
+
+    <!-- FOOTER PROFISSIONAL -->
+    <footer class="site-footer">
+        <p class="footer-text">
+            Desenvolvido por <strong>ORIEVO GROUP</strong> para <strong>Grupo Dislub Equador</strong>
+            &nbsp;·&nbsp; © 2026 · Todos os direitos reservados
+        </p>
+    </footer>
+
+    <div class="container">
+
+        <div id="telaSelecao">
+            <div class="mundos-roadmap">
+                <div class="roadmap-header">
+                    <h2>Jornada de Capacitação</h2>
+                    <p>Siga o caminho de desenvolvimento profissional</p>
+                    <div class="roadmap-progress-global">
+                        <div class="roadmap-progress-label">
+                            <span>Progresso Geral — <span id="modulosConcluidosText">0 de 0 módulos concluídos</span></span>
+                            <span id="progressoGlobalText">0%</span>
+                        </div>
+                        <div class="roadmap-progress-bar">
+                            <div class="roadmap-progress-fill" id="progressoGlobalFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-timeline" id="mundosRoadmap"></div>
+            </div>
+        </div>
+
+        <div id="telaMundo" class="hidden">
+            <div class="mundo-screen">
+                <button class="btn btn-voltar" onclick="voltarSelecao()">← Voltar aos Mundos</button>
+                
+                <div class="mundo-header">
+                    <h1 id="mundoTitulo"></h1>
+                    <p id="mundoDesc"></p>
+                </div>
+
+                <div class="progresso-container">
+                    <div class="progresso-bar">
+                        <div class="progresso-fill" id="progressoFill" style="width: 0%"></div>
+                    </div>
+                    <div class="progresso-text" id="progressoText">0% concluído</div>
+                </div>
+
+                <div class="journey-container">
+                    <div class="journey-timeline">
+                        <div class="journey-line">
+                            <div class="journey-line-progress" id="journeyProgress" style="width: 0%"></div>
+                        </div>
+                        <div class="journey-phases" id="journeyPhases"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="telaFase" class="hidden">
+            <div class="fase-screen">
+                <button class="btn btn-voltar" onclick="voltarMundo()">← Voltar</button>
+                <div id="faseConteudo"></div>
+            </div>
+        </div>
+
+        <!-- Toast notification -->
+        <div id="toastNotification" class="toast-notification"></div>
+
+        <div id="modalLogin" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitulo"></h2>
+                
+                <div class="form-group">
+                    <label>Senha de Acesso:</label>
+                    <input type="password" id="senhaInput" placeholder="Digite a senha">
+                </div>
+
+                <div class="form-group">
+                    <label>Seu Nome:</label>
+                    <input type="text" id="nomeInput" placeholder="Nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label>Seu Email:</label>
+                    <input type="email" id="emailInput" placeholder="seu@email.com">
+                </div>
+
+                <div class="error" id="loginError"></div>
+
+                <div class="modal-buttons">
+                    <button class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+                    <button class="btn-primary" onclick="validarLogin()">Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // TRACKING - NÃO MEXA AQUI!
+        // ============================================
+        const TRACKING_URL = 'https://script.google.com/macros/s/AKfycbxW8j9X8O_1q7ECg0w2ihAl8DDyafW5XxsbMnP5ypNc3i6NQBIkecKoCWHFFOwYDopX/exec';
+
+        let dadosUsuario = {
+            nome: '',
+            email: ''
+        };
+
+        let tempoInicioFase = null;
+
+        function enviarTracking(mundo, fase, nota) {
+            const tempoMinutos = tempoInicioFase ? Math.round((Date.now() - tempoInicioFase) / 60000) : 0;
+            const dados = {
+                nome: dadosUsuario.nome,
+                email: dadosUsuario.email,
+                mundo: mundo,
+                fase: fase,
+                nota: nota || 'Concluído',
+                tempo_minutos: tempoMinutos,
+                dispositivo: /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'
+            };
+
+            // Criar form data
+            const formData = new FormData();
+            formData.append('dados', JSON.stringify(dados));
+
+            // Enviar via fetch
+            fetch(TRACKING_URL, {
+                method: 'POST',
+                body: JSON.stringify(dados)
+            }).then(() => {
+                console.log('✅ Tracking enviado em ' + tempoMinutos + ' min:', dados);
+            }).catch(error => {
+                console.log('⚠️ Erro tracking:', error);
+            });
+        }
+
+        // ============================================
+        // SENHA MASTER DO INSTRUTOR
+        // ============================================
+        const SENHA_MASTER = 'MasterOrievo2026';  // ← Mude para sua senha master
+        
+        // ============================================
+        // CONFIGURAÇÃO DOS MUNDOS
+        // EDITE AQUI PARA PERSONALIZAR!
+        // ============================================
+
+        const MUNDOS = {
+            'bradley_curve': {
+                nome: 'Curva de Bradley — Evolução da Cultura de Segurança',
+                descricao: 'Os 4 estágios de maturidade em segurança segundo o modelo DuPont',
+                icone: '📈',
+                cor: '#16a085',
+                senha: 'BradleyCurve2026',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
+
+                fases: [
+                    {
+                        nome: 'Leitura: O que é a Curva de Bradley?',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">📈</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">A Curva de Bradley</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Modelo DuPont de Maturidade em Cultura de Segurança</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A <strong>Curva de Bradley</strong> é um modelo desenvolvido pela DuPont que descreve a evolução da cultura de segurança de uma organização ao longo do tempo. O modelo mostra que à medida que a cultura madura, o número de acidentes cai significativamente.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0;">
+                                <div style="background: #fff5f5; border-radius: 12px; padding: 20px; border-top: 4px solid #e74c3c;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
+                                    <h3 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 1 — Instinto Natural</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Acidentes são aceitos como inevitáveis. Ninguém sente responsabilidade. Segurança não é prioridade. <em>Risco: extremamente alto.</em></p>
+                                </div>
+                                <div style="background: #fff8f0; border-radius: 12px; padding: 20px; border-top: 4px solid #f39c12;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">📋</div>
+                                    <h3 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 2 — Controle e Supervisão</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Segurança por regras e punição. Funciona apenas quando alguém está olhando. Compliance sem convicção. <em>Risco: alto.</em></p>
+                                </div>
+                                <div style="background: #f0fff8; border-radius: 12px; padding: 20px; border-top: 4px solid #27ae60;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">💚</div>
+                                    <h3 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 3 — Convicção Pessoal</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Cada pessoa cuida da própria segurança por vontade própria. Normas são construídas coletivamente. <em>Risco: baixo.</em></p>
+                                </div>
+                                <div style="background: #f0f8ff; border-radius: 12px; padding: 20px; border-top: 4px solid #2980b9;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">🤝</div>
+                                    <h3 style="color: #2980b9; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 4 — Interdependência</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Todos cuidam uns dos outros. Zero acidentes é um compromisso coletivo. Segurança acima de produtividade. <em>Risco: próximo de zero.</em></p>
+                                </div>
+                            </div>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-top: 20px;">
+                                <h3 style="color: #333; margin: 0 0 12px 0;">🔑 A pergunta central do modelo:</h3>
+                                <p style="font-size: 18px; font-weight: 600; color: #16a085; text-align: center; margin: 0; padding: 10px;">"Em que estágio você está — e em que estágio você quer estar?"</p>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                                <strong>📌 Prepare-se:</strong> O próximo passo é assistir ao vídeo original da Curva de Bradley com legendas em português. Preste atenção nos exemplos de cada estágio!
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Vídeo: The Bradley Curve — Legendas em Português',
+                        tipo: 'video',
+                        url: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve.mp4',
+                        legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt'
+                    },
+
+                    {
+                        nome: 'Quiz: Os 4 Estágios da Curva de Bradley',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'No Estágio 1 da Curva de Bradley, como os colaboradores encaram o risco de acidente?',
+                                opcoes: [
+                                    'Como algo que pode ser eliminado com treinamento',
+                                    'Como um fenômeno natural inevitável, fora do seu controle',
+                                    'Como responsabilidade exclusiva do setor de segurança',
+                                    'Como resultado de falhas na liderança'
+                                ],
+                                correta: 1,
+                                explicacao: 'No Estágio 1 (Instinto Natural), acidentes são aceitos como algo que simplesmente acontece — inevitável e incontrolável. Não há vontade de mudança. Os especialistas em segurança são vistos como inconvenientes. O risco de acidentes é extremamente alto.'
+                            },
+                            {
+                                pergunta: 'Qual é a principal característica do Estágio 2 da Curva de Bradley?',
+                                opcoes: [
+                                    'Colaboradores se protegem por convicção própria',
+                                    'A segurança depende de regras, monitoramento e medo de punição',
+                                    'Toda a equipe cuida da segurança uns dos outros',
+                                    'Zero acidentes é visto como meta alcançável e coletiva'
+                                ],
+                                correta: 1,
+                                explicacao: 'No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está observando. A empresa usa regras rígidas e punições. O problema: quando ninguém está olhando, as normas são ignoradas. É semelhante a uma criação muito severa — a obediência vem do medo, não da convicção.'
+                            },
+                            {
+                                pergunta: 'O que diferencia o Estágio 3 do Estágio 2 na Curva de Bradley?',
+                                opcoes: [
+                                    'O número de regras escritas é maior',
+                                    'A punição por desvios é mais rígida',
+                                    'A segurança passa a ser uma convicção pessoal, não uma obrigação imposta',
+                                    'Os líderes fiscalizam com mais frequência'
+                                ],
+                                correta: 2,
+                                explicacao: 'No Estágio 3 (Convicção Pessoal), cada colaborador quer se proteger — não porque é obrigado, mas porque acredita na importância da segurança. As normas são construídas em conjunto. Os especialistas em segurança são vistos como parceiros, não como policiais. A taxa de acidentes cai drasticamente.'
+                            },
+                            {
+                                pergunta: 'No Estágio 4 da Curva de Bradley, o que motiva os colaboradores a seguir as normas de segurança?',
+                                opcoes: [
+                                    'O receio de punições e advertências',
+                                    'A presença constante do supervisor',
+                                    'O cuidado com a própria vida e com a segurança dos colegas',
+                                    'Metas de bônus atreladas a indicadores de acidentes'
+                                ],
+                                correta: 2,
+                                explicacao: 'No Estágio 4 (Interdependência), a motivação vai além da própria segurança: as pessoas cuidam umas das outras. Zero acidentes é um compromisso coletivo — não uma meta imposta. Até os líderes se recusam a colocar produtividade acima do bem-estar das pessoas.'
+                            },
+                            {
+                                pergunta: 'Segundo o vídeo, qual afirmação descreve melhor o Estágio 4?',
+                                opcoes: [
+                                    '"Acidentes acontecem — é da natureza do trabalho."',
+                                    '"Seguimos as regras porque somos monitorados."',
+                                    '"Cuido da minha segurança porque acredito nela."',
+                                    '"Zero acidentes não é uma meta — é uma escolha coletiva e inegociável."'
+                                ],
+                                correta: 3,
+                                explicacao: 'O Estágio 4 representa o mais alto nível de maturidade em segurança. Zero acidentes deixa de ser uma meta imposta e torna-se uma escolha — um compromisso pessoal e coletivo. Um único acidente é percebido como falha de toda a organização, incluindo a liderança.'
+                            },
+                            {
+                                pergunta: 'De acordo com a Curva de Bradley, o que está associado ao menor risco de acidentes?',
+                                opcoes: [
+                                    'Mais fiscalizações e auditorias',
+                                    'Punições mais severas para desvios',
+                                    'Uma cultura de respeito mútuo, motivação e espírito de equipe',
+                                    'Mais treinamentos obrigatórios por ano'
+                                ],
+                                correta: 2,
+                                explicacao: 'A Curva de Bradley demonstra que o menor risco de acidentes não vem de mais regras ou mais punições, mas de uma cultura interna de respeito mútuo, motivação genuína e espírito de equipe. Quando as pessoas se importam umas com as outras, o risco cai para próximo de zero.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'V/F: Verdadeiro ou Falso — Curva de Bradley',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'No Estágio 1, os especialistas em segurança são vistos como parceiros fundamentais da operação.',
+                                correta: false,
+                                explicacao: 'FALSO. No Estágio 1 (Instinto Natural), os especialistas em segurança são vistos como inconvenientes e raramente levados a sério. A segurança não é prioridade — acidentes são tratados como algo natural e inevitável.'
+                            },
+                            {
+                                texto: 'Uma empresa no Estágio 2 depende de monitoramento constante para manter os comportamentos seguros.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está olhando. Quando não há fiscalização, as regras tendem a ser ignoradas. O comportamento seguro é resultado do medo de punição, não de convicção.'
+                            },
+                            {
+                                texto: 'No Estágio 3, as normas de segurança são impostas exclusivamente pela liderança, sem participação dos colaboradores.',
+                                correta: false,
+                                explicacao: 'FALSO. Uma das características do Estágio 3 é exatamente o oposto: as medidas e padrões de segurança são construídos em conjunto com os colaboradores. Isso gera maior comprometimento e convicção, pois as pessoas participam ativamente da criação das normas.'
+                            },
+                            {
+                                texto: 'No Estágio 4, mesmo os líderes se recusam a colocar produtividade acima da segurança dos colaboradores.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O Estágio 4 (Interdependência) representa a maturidade máxima: líderes se veem pessoalmente responsáveis por nunca colocar lucro ou produtividade acima do bem-estar das pessoas. O bem-estar do colaborador é o objetivo final.'
+                            },
+                            {
+                                texto: 'A Curva de Bradley mostra que mais regras e mais punições são sempre a solução para chegar ao zero acidentes.',
+                                correta: false,
+                                explicacao: 'FALSO. A Curva de Bradley demonstra o oposto: os estágios mais elevados (3 e 4) abandonam a abordagem de coerção e medo. O verdadeiro zero acidentes vem de convicção pessoal, cuidado mútuo e cultura compartilhada — não de mais regras e punições.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Associar os Estágios da Curva de Bradley',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Estágio 1 — Instinto', definicao: 'Acidentes são inevitáveis. Nenhuma vontade de controle.' },
+                            { termo: 'Estágio 2 — Controle', definicao: 'Regras e punições. Segurança só quando observado.' },
+                            { termo: 'Estágio 3 — Convicção', definicao: 'Cada um cuida de si por vontade própria.' },
+                            { termo: 'Estágio 4 — Interdependência', definicao: 'Todos cuidam uns dos outros. Zero acidentes é escolha.' },
+                            { termo: 'Curva de Bradley', definicao: 'Modelo DuPont de maturidade em cultura de segurança.' }
+                        ]
+                    }
+                ]
+            },
+
+            'lideranca_cultura': {
+                nome: 'Liderança e Cultura de Segurança',
+                descricao: 'O que você tolera define quem você é como líder',
+                icone: '🎯',
+                cor: '#8e44ad',
+                senha: 'CulturaLider2026',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
+
+                fases: [
+                    {
+                        nome: 'Podcast: Cultura é o que você tolera',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #8e44ad, #6c3483); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 60px; margin-bottom: 15px;">🎙️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">Podcast</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 16px;">Cultura é o que você tolera</p>
+                            </div>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+                                <h3 style="color: #333; margin: 0 0 15px 0;">🎧 Ouça o podcast completo:</h3>
+                                <audio controls style="width: 100%; border-radius: 8px;" controlsList="nodownload">
+                                    <source src="https://orievogroup.github.io/orievosafetylearning/podcast_cultura_tolerancia.m4a.mp4" type="audio/mp4">
+                                    <source src="https://orievogroup.github.io/orievosafetylearning/podcast_cultura_tolerancia.mp3" type="audio/mpeg">
+                                    Seu navegador não suporta áudio HTML5.
+                                </audio>
+                                <p style="color: #888; font-size: 13px; margin: 10px 0 0 0;">⏱️ Ouça com atenção — as próximas atividades são baseadas neste conteúdo.</p>
+                            </div>
+
+                            <div style="background: white; border-left: 5px solid #8e44ad; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                <h3 style="color: #8e44ad; margin: 0 0 15px 0;">💡 Conceito central</h3>
+                                <p style="font-size: 18px; font-weight: 600; color: #333; margin: 0 0 10px 0;">"A cultura de uma organização é definida pelo que sua liderança <u>tolera</u>, não pelo que ela <u>prega</u>."</p>
+                                <p style="color: #666; margin: 0;">Se um líder fala em segurança mas fecha os olhos para um desvio, ele está comunicando à equipe que aquele desvio é aceitável.</p>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                                <div style="background: #f0fff4; border-radius: 10px; padding: 20px; border: 2px solid #28a745;">
+                                    <div style="font-size: 30px; margin-bottom: 10px;">✅</div>
+                                    <h4 style="color: #28a745; margin: 0 0 8px 0;">Líder que transforma</h4>
+                                    <ul style="color: #555; padding-left: 18px; margin: 0;">
+                                        <li>Age conforme o que fala</li>
+                                        <li>Corrige desvios imediatamente</li>
+                                        <li>Dá o exemplo diariamente</li>
+                                        <li>Reconhece comportamentos seguros</li>
+                                    </ul>
+                                </div>
+                                <div style="background: #fff5f5; border-radius: 10px; padding: 20px; border: 2px solid #dc3545;">
+                                    <div style="font-size: 30px; margin-bottom: 10px;">❌</div>
+                                    <h4 style="color: #dc3545; margin: 0 0 8px 0;">Líder que perpetua riscos</h4>
+                                    <ul style="color: #555; padding-left: 18px; margin: 0;">
+                                        <li>Fala em segurança, ignora desvios</li>
+                                        <li>"Dessa vez tudo bem..."</li>
+                                        <li>Pressiona por produção acima da segurança</li>
+                                        <li>Normaliza o risco</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px;">
+                                <strong>⚠️ Reflita:</strong> Pense em uma situação recente onde você ou alguém da sua equipe tolerou um desvio de segurança. Qual mensagem isso enviou para os outros?
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Vídeo: Brain Games — Conformidade do Grupo',
+                        tipo: 'video',
+                        url: 'https://orievogroup.github.io/orievosafetylearning/brain_games_conformidade.mp4'
+                    },
+
+                    {
+                        nome: 'Quiz: A Importância do Exemplo',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'No vídeo do Brain Games, o que aconteceu quando todas as pessoas na sala se levantaram sem motivo aparente?',
+                                opcoes: [
+                                    'O participante ignorou completamente e ficou sentado',
+                                    'O participante também se levantou, conformando-se ao grupo',
+                                    'O participante perguntou o motivo antes de agir',
+                                    'O participante saiu da sala imediatamente'
+                                ],
+                                correta: 1,
+                                explicacao: 'O experimento mostrou que a pressão social é extremamente poderosa. Mesmo sem entender o motivo, o participante se levantou para se conformar ao grupo. Isso acontece no ambiente de trabalho: se todos ignoram uma norma de segurança, o indivíduo tende a fazer o mesmo.'
+                            },
+                            {
+                                pergunta: 'Qual a principal mensagem do podcast "Cultura é o que você tolera"?',
+                                opcoes: [
+                                    'Treinamentos formais são suficientes para criar uma cultura segura',
+                                    'A cultura é moldada pelos comportamentos que a liderança permite acontecer',
+                                    'Punições são a forma mais eficaz de criar cultura de segurança',
+                                    'A cultura de segurança é responsabilidade exclusiva do departamento de SST'
+                                ],
+                                correta: 1,
+                                explicacao: 'A cultura real de uma organização não é definida por seus valores escritos na parede, mas pelo que sua liderança efetivamente tolera no dia a dia. Cada vez que um líder fecha os olhos para um desvio, ele está dizendo "isso é aceitável aqui".'
+                            },
+                            {
+                                pergunta: 'Um líder usa EPI apenas quando o supervisor está por perto. Que mensagem passa para a equipe?',
+                                opcoes: [
+                                    'Que o EPI é obrigatório apenas durante inspeções e vistorias',
+                                    'Que a segurança é sempre a maior prioridade',
+                                    'Que as normas devem ser seguidas à risca',
+                                    'Que cada um é responsável pela própria decisão'
+                                ],
+                                correta: 0,
+                                explicacao: 'Quando um líder usa EPI apenas na presença do supervisor, ele comunica — através do comportamento — que o EPI é uma formalidade, não uma necessidade real. A equipe aprende que pode fazer o mesmo. Liderar pelo exemplo significa manter o comportamento seguro SEMPRE, independente de quem está observando.'
+                            },
+                            {
+                                pergunta: 'O que é mais eficaz para mudar a cultura de segurança de uma equipe?',
+                                opcoes: [
+                                    'Distribuir materiais informativos e cartazes',
+                                    'Realizar mais auditorias e inspeções',
+                                    'O líder demonstrar os comportamentos esperados no dia a dia',
+                                    'Aumentar o número de treinamentos obrigatórios'
+                                ],
+                                correta: 2,
+                                explicacao: 'Pesquisas em psicologia comportamental mostram que as pessoas aprendem muito mais por observação do que por instrução verbal. Quando o líder demonstra os comportamentos corretos consistentemente, a equipe tende a replicá-los. Cartazes e treinamentos são complementos, não substitutos do exemplo.'
+                            },
+                            {
+                                pergunta: 'Relacionando o Brain Games com a realidade do trabalho: quando toda a equipe ignora um procedimento de segurança, o que tende a acontecer com um novo colaborador?',
+                                opcoes: [
+                                    'Ele segue o procedimento porque foi treinado para isso',
+                                    'Ele reporta o desvio imediatamente ao setor de SST',
+                                    'Ele tende a adotar o comportamento do grupo por pressão social',
+                                    'Ele ignora o grupo e cria seus próprios procedimentos'
+                                ],
+                                correta: 2,
+                                explicacao: 'O experimento do Brain Games demonstrou que a pressão social é uma força poderosa. No ambiente de trabalho, um novo colaborador que vê toda a equipe ignorando um procedimento tende a concluir que "aqui funciona assim". Por isso, a cultura de segurança precisa ser vivida por TODOS, especialmente pelos líderes, que têm maior poder de influência.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'V/F: Cultura de Segurança na Prática',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'A cultura de uma empresa é definida principalmente por seus treinamentos formais e procedimentos escritos.',
+                                correta: false,
+                                explicacao: 'FALSO. A cultura é definida pelos comportamentos que são tolerados e praticados no dia a dia, não pelo que está escrito nos manuais. Você pode ter o melhor procedimento do mundo — se ele não for seguido e os desvios não forem corrigidos, a cultura real é de descaso com a segurança.'
+                            },
+                            {
+                                texto: 'Quando um líder ignora um desvio de segurança "apenas uma vez", está enviando uma mensagem para toda a equipe.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Cada vez que um líder silencia diante de um desvio, ele comunica que aquele comportamento é aceitável. A equipe está sempre observando e aprendendo com as reações do líder. "Só dessa vez" rapidamente vira "sempre é assim aqui".'
+                            },
+                            {
+                                texto: 'Diante da pressão do grupo, é natural que o indivíduo também abandone os comportamentos seguros que conhece.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Como mostrou o experimento do Brain Games, a pressão social pode fazer com que uma pessoa aja contra seu próprio julgamento. No ambiente de trabalho, isso é um risco real. Por isso, líderes precisam criar ambientes onde o comportamento seguro seja a norma do grupo, e não a exceção.'
+                            },
+                            {
+                                texto: 'Liderar pelo exemplo significa usar EPI somente quando há risco iminente visível.',
+                                correta: false,
+                                explicacao: 'FALSO. Liderar pelo exemplo significa adotar os comportamentos seguros SEMPRE e em QUALQUER situação, independente de o risco ser visível ou não, e independente de haver alguém observando. A consistência é o que constrói cultura.'
+                            },
+                            {
+                                texto: 'Um colaborador pode mudar a cultura de segurança da equipe mesmo sem ter cargo de liderança formal.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Embora a liderança formal tenha maior influência, qualquer pessoa pode contribuir para a cultura de segurança ao manter comportamentos seguros, falar sobre riscos e encorajar colegas. Liderança em segurança não depende de cargo — depende de atitude.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Lacunas: Fundamentos da Cultura de Segurança',
+                        tipo: 'lacunas',
+                        frases: [
+                            {
+                                texto: 'A cultura de segurança é o que a liderança ___ no dia a dia.',
+                                resposta: 'tolera'
+                            },
+                            {
+                                texto: 'Liderar pelo ___ é mais poderoso do que dar ordens verbais.',
+                                resposta: 'exemplo'
+                            },
+                            {
+                                texto: 'A pressão do grupo pode levar o indivíduo a ___ o que sabe ser correto.',
+                                resposta: 'ignorar'
+                            },
+                            {
+                                texto: 'Quando um líder fecha os olhos para um desvio, ele está ___ aquele comportamento.',
+                                resposta: 'tolerando'
+                            },
+                            {
+                                texto: 'Segurança começa com ___, não com palavras.',
+                                resposta: 'exemplo'
+                            },
+                            {
+                                texto: 'O silêncio do líder diante de um desvio é interpretado pela equipe como ___.',
+                                resposta: 'aprovação'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Associar — Liderança e Cultura',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Cultura de segurança', definicao: 'O que a liderança tolera no dia a dia' },
+                            { termo: 'Liderar pelo exemplo', definicao: 'Agir conforme o comportamento seguro esperado' },
+                            { termo: 'Pressão do grupo', definicao: 'Força social que pode mudar o comportamento individual' },
+                            { termo: 'Normalização do risco', definicao: 'Quando desvios repetidos passam a ser aceitos como normais' },
+                            { termo: 'DDS eficaz', definicao: 'Diálogo participativo que reforça comportamentos seguros diariamente' }
+                        ]
+                    }
+                ]
+            },
+
+
+            'piecs_modulo2': {
+                nome: 'Tomada de Decisão e Responsabilidade',
+                descricao: 'Quando liderança transforma segurança em realidade',
+                icone: '⚖️',
+                cor: '#1E2761',
+                senha: 'PIECS2026',
+                bloqueadoPorSenha: true,
+                ativo: true,
+
+                fases: [
+
+                    // ─── BLOCO 1: RESPONSABILIDADE ───────────────────────────
+                    {
+                        nome: 'Artigo: Responsabilidade ou Culpa?',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #1E2761, #2d3a8c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">⚖️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">Responsabilidade ou Culpa?</h2>
+                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">A diferença que muda tudo depois de um incidente</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Toda vez que algo dá errado em uma operação, uma pergunta surge quase automaticamente: <strong>"Quem foi o culpado?"</strong></p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">É uma reação humana. Natural. Mas é exatamente aí que a maioria das organizações comete o primeiro erro depois de um incidente.</p>
+
+                            <div style="background: #f0f4ff; border-left: 5px solid #1E2761; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+                                <p style="font-size: 17px; font-weight: 700; color: #1E2761; margin: 0;">Culpa olha para trás. Responsabilidade olha para frente.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando uma base de combustível tem um acidente no carregamento, investigar quem errou resolve o sintoma imediato. Mas não responde à pergunta que realmente importa: <em>o que no sistema permitiu que esse erro acontecesse?</em></p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 24px;">Um operador que pula uma etapa de validação de aterramento raramente está sendo irresponsável. Na maioria dos casos, ele está respondendo a uma pressão real: meta atrasada, supervisor apressado, protocolo longo demais para o tempo disponível. O sistema criou as condições. A pessoa foi o último elo.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 24px;">
+                                <div style="background: #fff0f0; border-radius: 10px; padding: 20px; border: 2px solid #C41E3A;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">❌</div>
+                                    <h4 style="color: #C41E3A; margin: 0 0 10px 0; font-size: 15px;">Busca de CULPA</h4>
+                                    <ul style="color: #555; padding-left: 16px; margin: 0; font-size: 14px; line-height: 1.8;">
+                                        <li>Pergunta: "Quem errou?"</li>
+                                        <li>Emoção: medo de falar</li>
+                                        <li>Resultado: equipe silencia</li>
+                                        <li>Próximo incidente: provável</li>
+                                    </ul>
+                                </div>
+                                <div style="background: #f0fff4; border-radius: 10px; padding: 20px; border: 2px solid #2C5F2D;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">✅</div>
+                                    <h4 style="color: #2C5F2D; margin: 0 0 10px 0; font-size: 15px;">Busca de RESPONSABILIDADE</h4>
+                                    <ul style="color: #555; padding-left: 16px; margin: 0; font-size: 14px; line-height: 1.8;">
+                                        <li>Pergunta: "O que falhou no sistema?"</li>
+                                        <li>Emoção: coragem de mudar</li>
+                                        <li>Resultado: equipe reporta riscos</li>
+                                        <li>Próximo incidente: prevenido</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Isso não significa que não há responsabilidade individual. Significa que há quatro camadas que precisam ser endereçadas: quem projeta e conhece o sistema (técnica), quem garante que funciona do jeito certo (operacional), quem criou as condições para o certo acontecer (organizacional) e cada pessoa que toma uma decisão (pessoal).</p>
+
+                            <div style="background: #1E2761; color: white; padding: 20px; border-radius: 10px; margin-bottom: 24px;">
+                                <p style="margin: 0; font-size: 15px; line-height: 1.7;">A diferença entre as duas culturas não está no treinamento. Está na reação do líder nos primeiros dez minutos depois de um desvio. <strong>O que você faz nesse momento define o que sua equipe aprende.</strong></p>
+                            </div>
+
+                            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                <strong>💬 Reflita:</strong> Pense em uma situação recente onde algo deu errado na sua base. A primeira reação foi buscar culpa ou causa? Como isso afetou a equipe nos dias seguintes?
+                            </div>
+
+                            <div style="padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <p style="font-size: 12px; color: #888; margin: 0;">📚 <strong>Referência:</strong> DEKKER, Sidney. <em>Just Culture: Balancing Safety and Accountability.</em> Ashgate, 2007. REASON, James. <em>Managing the Risks of Organizational Accidents.</em> Ashgate, 1997.</p>
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'V/F: Decisão e Responsabilidade',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Buscar o culpado depois de um incidente é a forma mais eficaz de evitar que ele se repita.',
+                                correta: false,
+                                explicacao: 'FALSO. Buscar culpa gera medo e silêncio. A equipe aprende a esconder problemas. Investigar a causa sistêmica é o que previne reincidência.'
+                            },
+                            {
+                                texto: 'Na tomada de decisão sob pressão, o líder pode abrir mão da segurança se o risco for considerado baixo pelo supervisor.',
+                                correta: false,
+                                explicacao: 'FALSO. Segurança é premissa, não uma variável que se negocia com base em percepção de momento. A avaliação de risco exige informação técnica. "Parece OK" não é análise.'
+                            },
+                            {
+                                texto: 'No Triângulo da Decisão, Custo e Tempo podem se adaptar, mas Segurança tem um piso que não cede.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. A inteligência do líder está em encontrar onde Custo e Tempo se adaptam, não em negociar segurança para baixo.'
+                            },
+                            {
+                                texto: 'Se um supervisor experiente pede para pular uma etapa, o histórico dele justifica a aprovação sem análise.',
+                                correta: false,
+                                explicacao: 'FALSO. Confiança excessiva é uma das três armadilhas clássicas. Sistemas humanos falham. Barreiras técnicas existem justamente para não depender de confiança individual.'
+                            },
+                            {
+                                texto: 'Antes de aprovar qualquer desvio, o líder deve conseguir responder: "Se isso der errado, eu posso responder por essa decisão".',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Responsabilidade pessoal significa assumir conscientemente. Se você não pode responder por uma decisão, você não deveria estar aprovando ela.'
+                            },
+                            {
+                                texto: 'A Fase 1 do ciclo decisório é a Análise, onde você processa o significado do risco.',
+                                correta: false,
+                                explicacao: 'FALSO. A Fase 1 é a Detecção. A Análise vem depois, na Fase 3. Pular fases é onde as decisões ruins acontecem.'
+                            },
+                            {
+                                texto: '"Posso reverter essa decisão se errar?" é uma pergunta válida e importante antes de decidir.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Se a decisão é irreversível, você precisa de mais informação e tempo antes de agir. Se é reversível, pode seguir com mais confiança.'
+                            },
+                            {
+                                texto: 'Quando você não consegue responder 4 das 5 perguntas da Matriz de Decisão, ainda assim pode aprovar se confiar na equipe.',
+                                correta: false,
+                                explicacao: 'FALSO. Se você não consegue responder 4 de 5, não decida ainda. Confiança na equipe não substitui informação completa.'
+                            }
+                        ]
+                    },
+
+                    // ─── BLOCO 2: DRIFT ───────────────────────────────────────
+                    {
+                        nome: 'Artigo: Drift — Quando o Normal Vira Risco',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #C41E3A, #8b0000); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">⚠️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">Drift Operacional</h2>
+                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">Quando o seguro vira arriscado sem ninguém perceber</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Uma base pode se tornar perigosa em 60 dias sem que ninguém tome uma única decisão de colocar alguém em risco.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Isso tem nome: <strong>Drift Operacional</strong>. E começa sempre com pressão real.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Cliente quer prazo mais curto. Meta atrasada. O supervisor experiente adapta o processo. Só dessa vez. Ninguém morre. "Deu certo mesmo." Aí está o problema: o desvio que funciona uma vez cria uma percepção falsa de segurança. Na segunda vez é mais fácil. Na terceira já é "o jeito que a gente faz aqui".</p>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h3 style="color: #333; margin: 0 0 15px 0; font-size: 16px;">📅 Como o drift acontece na prática:</h3>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #1E2761;"><span style="font-weight: 700; color: #1E2761; min-width: 50px;">Dia 1</span><span style="color: #555; font-size: 14px;">Validação de aterramento = 5 min (protocolo)</span></div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #f39c12;"><span style="font-weight: 700; color: #f39c12; min-width: 50px;">Dia 3</span><span style="color: #555; font-size: 14px;">"Fazemos em 3 minutos, não muda nada"</span></div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #e67e22;"><span style="font-weight: 700; color: #e67e22; min-width: 50px;">Dia 14</span><span style="color: #555; font-size: 14px;">"Fazemos visualmente, nem usa equipamento"</span></div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #C41E3A;"><span style="font-weight: 700; color: #C41E3A; min-width: 50px;">Dia 60</span><span style="color: #555; font-size: 14px;">Risco incorporado. Essa é a "norma" agora.</span></div>
+                                </div>
+                            </div>
+
+                            <div style="background: #fff0f0; border-left: 5px solid #C41E3A; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
+                                <p style="font-size: 15px; font-weight: 700; color: #C41E3A; margin: 0 0 8px 0;">O ponto crítico de intervenção é o primeiro desvio.</p>
+                                <p style="font-size: 14px; color: #555; margin: 0;">Não o quinto. Não quando já virou padrão. No primeiro. A socióloga Diane Vaughan estudou o desastre do Challenger e chamou isso de <em>normalização do desvio</em>: equipes experientes que racionalizam anomalias repetidas até que o risco se torna invisível.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A boa notícia é que drift pode ser revertido. A ferramenta é simples: curiosidade genuína antes de qualquer julgamento. <strong>"Vi que vocês estão fazendo diferente. Me explica?"</strong></p>
+
+                            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                <strong>💬 Reflita:</strong> Na sua operação, há algum processo que você sabe que não está sendo feito exatamente como o protocolo define? O que impediu a conversa até agora?
+                            </div>
+
+                            <div style="padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <p style="font-size: 12px; color: #888; margin: 0;">📚 <strong>Referências:</strong> VAUGHAN, Diane. <em>The Challenger Launch Decision.</em> University of Chicago Press, 1996. HOPKINS, Andrew. <em>Failure to Learn: The BP Texas City Refinery Disaster.</em> CCH Australia, 2008.</p>
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Lacunas: Anatomia da Decisão',
+                        tipo: 'lacunas',
+                        frases: [
+                            {
+                                texto: 'Na Fase 1 do ciclo decisório, o líder coleta ___ antes de decidir — não opinião, mas fatos verificáveis.',
+                                resposta: 'informação'
+                            },
+                            {
+                                texto: 'Na Fase 2, o líder faz a ___ do que aquela informação significa para a segurança da operação.',
+                                resposta: 'análise'
+                            },
+                            {
+                                texto: 'Na Fase 3, vem o ___ — a escolha baseada em valores não-negociáveis quando há conflito entre meta e segurança.',
+                                resposta: 'julgamento'
+                            },
+                            {
+                                texto: 'Na Fase 4, o líder ___ a decisão com clareza, explicando não só o que foi decidido, mas por quê.',
+                                resposta: 'comunica'
+                            },
+                            {
+                                texto: 'A maioria das decisões ruins acontece porque o líder ___ uma ou mais fases do ciclo.',
+                                resposta: 'pula'
+                            },
+                            {
+                                texto: 'Buscar ___ depois de um incidente gera medo e silêncio — a equipe aprende a esconder problemas.',
+                                resposta: 'culpa'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Armadilhas x Como Evitar',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Pressão Imediata vs Visão Sistêmica', definicao: 'Pausar antes de decidir e buscar terceira alternativa (rápido + seguro)' },
+                            { termo: 'Normalização do Desvio', definicao: 'Bloquear no primeiro desvio, não abrir exceções' },
+                            { termo: 'Confiança Excessiva', definicao: 'Seguir procedimentos integralmente independente do histórico do profissional' }
+                        ]
+                    },
+
+                    // ─── QUIZ ─────────────────────────────────────────────────
+                    {
+                        nome: 'Quiz: Cases Reais — Decisão em Campo',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'É segunda-feira, 10h. Um cliente pede 2 carregamentos adiantados. A meta da semana já está em risco. Seu supervisor espera uma resposta. O que você faz PRIMEIRO?',
+                                opcoes: [
+                                    'Autoriza imediatamente para não perder o cliente',
+                                    'Recusa sem explicação para preservar o protocolo',
+                                    'Pergunta: "Qual protocolo seria impactado? Temos técnico disponível agora?"',
+                                    'Transfere a decisão para o supervisor'
+                                ],
+                                correta: 2,
+                                explicacao: 'A resposta correta aplica a Fase 1 do ciclo decisório: coletar informação antes de decidir. Autorizar sem verificar é decidir às cegas. Recusar sem análise desperdiça uma oportunidade real.'
+                            },
+                            {
+                                pergunta: 'Um supervisor diz: "Podemos pular a inspeção pré-carregamento? Fizemos 100 vezes, conhecemos o processo." Qual é a resposta correta do líder?',
+                                opcoes: [
+                                    '"Tudo bem, você é experiente."',
+                                    '"Não pode. Ponto final."',
+                                    '"Anota pra gente rever o protocolo depois."',
+                                    '"Por quê? Qual etapa especificamente? Qual é o risco que você está assumindo?"'
+                                ],
+                                correta: 3,
+                                explicacao: 'A resposta correta aplica o método estruturado: pausar, perguntar, analisar antes de decidir. "Tudo bem" é confiança excessiva. "Não pode, ponto final" pode estar certo, mas sem análise não ensina.'
+                            },
+                            {
+                                pergunta: 'Você descobre que a validação de aterramento está sendo feita visualmente, sem equipamento, por 3 dias seguidos. O supervisor diz "já testamos, tá OK." O que isso caracteriza?',
+                                opcoes: [
+                                    'Uma melhoria de processo identificada pela equipe',
+                                    'Um desvio pontual que pode ser ignorado se não houve acidente',
+                                    'Drift operacional no Estágio 3: desvio em repetição, ponto crítico de intervenção',
+                                    'Um problema de treinamento individual do técnico'
+                                ],
+                                correta: 2,
+                                explicacao: 'Quando o desvio já se repete e virou "padrão local", estamos no Estágio 3 do drift. Intervenção agora ainda evita incorporação permanente (Estágio 4) e acidente (Estágio 5).'
+                            },
+                            {
+                                pergunta: 'Você aborda o supervisor sobre o desvio. Ele diz: "Não sabia que era tão importante. A gente estava tentando ganhar tempo." O que essa resposta revela?',
+                                opcoes: [
+                                    'Desvio intencional e malicioso',
+                                    'Falta de clareza no processo: o risco não estava comunicado adequadamente',
+                                    'Incompetência técnica do supervisor',
+                                    'Problema disciplinar que exige advertência'
+                                ],
+                                correta: 1,
+                                explicacao: 'Quando o desvio vem de "não sabia que era importante", a causa é de design e comunicação, não de caráter. A solução é clareza sobre o risco, não punição.'
+                            },
+                            {
+                                pergunta: 'Você tem 2h para fechar a meta. Um técnico propõe: "Paraleliza a inspeção e a preparação — a gente recupera 8 minutos sem abrir mão de nada." Como classificar essa proposta?',
+                                opcoes: [
+                                    'Risco oculto: paralelizar sempre aumenta a probabilidade de erro',
+                                    'Solução parcial: segurança mantida, mas custo aumenta',
+                                    'Não é papel do técnico propor mudanças de processo',
+                                    'Solução inteligente: segurança mantida, tempo recuperado, custo neutro'
+                                ],
+                                correta: 3,
+                                explicacao: 'No Triângulo da Decisão, a inteligência operacional está em encontrar onde Custo e Tempo se adaptam sem ceder segurança. Paralelização bem executada é exatamente isso.'
+                            },
+                            {
+                                pergunta: 'Um operador chega até você e diz: "Vi que a válvula X está com comportamento estranho. Não sei se é grave, mas achei melhor avisar." Qual é a resposta certa?',
+                                opcoes: [
+                                    '"Obrigado, mas se não é grave, pode continuar a operação."',
+                                    '"Por que você demorou para avisar?"',
+                                    '"Anota no sistema. Vou ver quando tiver tempo."',
+                                    '"Obrigado. Vamos parar e validar antes de continuar."'
+                                ],
+                                correta: 3,
+                                explicacao: 'Segurança psicológica se constrói nesse momento. Quando um operador reporta e a resposta é ação imediata mais agradecimento, ele aprende que reportar tem valor.'
+                            },
+                            {
+                                pergunta: 'Após um quase-acidente, o gerente diz: "O erro foi do supervisor que estava de plantão." O que está errado nessa análise?',
+                                opcoes: [
+                                    'Nada: o supervisor estava no comando e deve responder',
+                                    'O gerente deveria ter punido também o operador',
+                                    'O gerente está culpando para baixo sem investigar o que no sistema permitiu o erro',
+                                    'A análise está correta, mas deveria ser feita em privado'
+                                ],
+                                correta: 2,
+                                explicacao: 'Responsabilidade vertical significa que o líder assume o resultado, inclusive verificar se o sistema criou condições para o erro. "Culpa do supervisor" sem investigação sistêmica é o início do próximo incidente.'
+                            },
+                            {
+                                pergunta: 'O tempo médio de carregamento aumentou de 2h para 3h nos últimos 45 dias, sem nenhuma mudança técnica registrada. O que isso provavelmente sinaliza?',
+                                opcoes: [
+                                    'Melhoria de qualidade: a equipe está sendo mais cuidadosa',
+                                    'Problema de equipamento que a manutenção não identificou',
+                                    'Drift estrutural: desvios acumulados degradaram o sistema original',
+                                    'Falta de motivação da equipe: problema de RH'
+                                ],
+                                correta: 2,
+                                explicacao: 'Crescimento de prazo sem causa técnica clara é um sinal fraco de drift estrutural. O sistema original foi adaptado por melhorias informais que, juntas, criaram ineficiência e riscos não documentados.'
+                            },
+                            {
+                                pergunta: 'Você implementou uma mudança de processo há 3 semanas. A equipe executa do jeito antigo quando você não está. O que isso significa?',
+                                opcoes: [
+                                    'A mudança foi mal treinada: refaça o treinamento',
+                                    'A equipe está com má vontade: problema disciplinar',
+                                    'A mudança não faz sentido operacional: reverta',
+                                    'A mudança não foi compreendida ou aceita: é preciso investigar por que o jeito antigo parece melhor para eles'
+                                ],
+                                correta: 3,
+                                explicacao: 'Quando a equipe adota o comportamento novo só quando você está presente, o problema não é disciplina, é compreensão e adesão. A Auditoria Positiva revelaria a causa real.'
+                            },
+                            {
+                                pergunta: 'Após 60 dias de presença genuína e decisões coerentes, um operador te procura espontaneamente para reportar um risco. Isso nunca havia acontecido antes. O que indica?',
+                                opcoes: [
+                                    'O operador está buscando atenção ou promoção',
+                                    'Coincidência: não há relação com as mudanças de liderança',
+                                    'O operador tem medo de ser punido se não reportar',
+                                    'Segurança psicológica estabelecida: a equipe aprendeu que reportar riscos é seguro e tem valor'
+                                ],
+                                correta: 3,
+                                explicacao: 'Esse é o indicador mais importante de maturidade em cultura de segurança. Quando pessoas reportam espontaneamente, sem obrigação, sem medo, a liderança criou o ambiente certo.'
+                            }
+                        ]
+                    },
+
+                    // ─── BLOCO 3: MODELAGEM ───────────────────────────────────
+                    {
+                        nome: 'Artigo: O Líder como Espelho',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #2C5F2D, #1a3d1b); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🪞</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">O Líder como Espelho</h2>
+                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">Sua equipe aprende o que você faz, não o que você diz</p>
+                            </div>
+
+                            <div style="background: #f0fff4; border-left: 5px solid #2C5F2D; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+                                <p style="font-size: 17px; font-weight: 700; color: #2C5F2D; margin: 0 0 8px 0;">"A cultura de uma organização é definida pelo pior comportamento que a liderança tolera."</p>
+                                <p style="font-size: 14px; color: #555; margin: 0;">Não pelo treinamento mais recente. Não pelo manual de segurança. Pelo que o líder tolera, especialmente sob pressão.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando um supervisor pula uma etapa e o gerente vê mas não comenta, a equipe inteira recebe uma mensagem silenciosa: aqui, isso é aceitável. Sem uma palavra dita. Sem uma decisão explícita. A cultura foi modelada.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;"><strong>Modelagem não é o que você anuncia. É o que você faz quando o custo de fazer certo é real.</strong></p>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h3 style="color: #333; margin: 0 0 15px 0; font-size: 16px;">Os 3 momentos críticos onde a modelagem acontece:</h3>
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #1E2761;">
+                                        <strong style="color: #1E2761;">1. Sob pressão</strong>
+                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Quando meta e segurança colidem, o que você escolhe? A equipe observa e aprende.</p>
+                                    </div>
+                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #2C5F2D;">
+                                        <strong style="color: #2C5F2D;">2. Na visibilidade</strong>
+                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Como você reage quando te veem decidindo? Você conversa ou ordena? Isso ensina como decisões devem ser tomadas.</p>
+                                    </div>
+                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #C41E3A;">
+                                        <strong style="color: #C41E3A;">3. Na consequência</strong>
+                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Quando algo dá certo com segurança, você reconhece? Quando há desvio, você redesenha ou pune?</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Edgar Schein, pesquisador de cultura organizacional em MIT, chama isso de <strong>Liderança Humilde</strong>: humildade genuína (reconhecer que você não tem toda a informação sobre o trabalho real no chão), inquérito genuíno (perguntar com intenção de entender, não de provar que já sabe) e presença real (estar no chão de verdade, não para auditar, mas para aprender).</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Amy Edmondson, professora de Harvard, mostrou em anos de pesquisa que equipes com alta segurança psicológica não cometem menos erros. Elas reportam mais. E por isso previnem mais.</p>
+
+                            <div style="background: #1E2761; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="margin: 0; font-size: 15px; line-height: 1.7;"><strong>A mudança de cultura começa com uma mudança de comportamento. Do líder. Hoje.</strong></p>
+                            </div>
+
+                            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                <strong>💬 Reflita:</strong> Na última semana, em que momento sua equipe observou você tomar uma decisão difícil? O que eles aprenderam com isso?
+                            </div>
+
+                            <div style="padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <p style="font-size: 12px; color: #888; margin: 0;">📚 <strong>Referências:</strong> SCHEIN, Edgar H. <em>Humble Inquiry.</em> Berrett-Koehler, 2013. EDMONDSON, Amy C. <em>The Fearless Organization.</em> Wiley, 2018.</p>
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'V/F: Modelagem e Cultura',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Um líder que diz que segurança é premissa mas tolera desvios em momentos de pressão está modelando que segurança não é premissa.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. A equipe acredita no comportamento, não nas palavras. Coerência entre discurso e ação é o que define o real padrão de uma liderança.'
+                            },
+                            {
+                                texto: 'Humildade de liderança significa não tomar decisões para não errar.',
+                                correta: false,
+                                explicacao: 'FALSO. Ausência de decisão não é humildade, é vácuo de autoridade. Humildade genuína é ouvir antes de decidir, admitir o que não sabe e ainda assim ser responsável pela decisão final.'
+                            },
+                            {
+                                texto: 'Se um operador relata um problema de segurança e nada muda, ele vai parar de reportar.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Escuta sem ação destrói a segurança psicológica. Quando a equipe percebe que reportar não leva a mudança, aprende que o silêncio é mais seguro para ela.'
+                            },
+                            {
+                                texto: 'Punir um desvio é sempre mais eficaz do que investigar sua causa.',
+                                correta: false,
+                                explicacao: 'FALSO. Punição sem investigação ensina a equipe a esconder desvios, não a eliminá-los. Investigar com curiosidade revela a causa real e possibilita redesenho.'
+                            },
+                            {
+                                texto: 'A mudança de cultura de uma base começa quando o líder muda seu comportamento de forma consistente por semanas.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Cultura muda por repetição de comportamento, não por decreto. Semanas de presença genuína e decisões coerentes criam um novo padrão.'
+                            },
+                            {
+                                texto: 'Atribuir o erro ao supervisor ou operador quando há pressão da diretoria é uma forma válida de gestão.',
+                                correta: false,
+                                explicacao: 'FALSO. Responsabilidade vertical significa o oposto: o líder assume o resultado, mesmo que o erro tenha sido executado por alguém da equipe.'
+                            },
+                            {
+                                texto: 'Presença genuína de liderança significa estar no chão para aprender como o trabalho realmente acontece, não apenas para auditar.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Um líder que vai ao chão para auditar com checklist cria defensividade. Um líder que vai para aprender e perguntar com curiosidade cria confiança e revela a operação real.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Conceitos-Chave do Módulo 2',
+                        tipo: 'associar',
+                        pares: [
+                            { termo: 'Drift Operacional', definicao: 'Processo gradual onde um sistema seguro vira arriscado por adaptações informais do dia a dia' },
+                            { termo: 'Auditoria Positiva', definicao: 'Investigar um desvio com curiosidade genuína, sem punição, para encontrar a causa real' },
+                            { termo: 'Segurança Psicológica', definicao: 'Convicção do operador de que reportar um risco não resultará em punição' },
+                            { termo: 'Normalização do Desvio', definicao: 'Quando um desvio se repete tanto que vira o jeito normal de fazer' },
+                            { termo: 'Liderança Humilde', definicao: 'Combinação de humildade genuína, inquérito genuíno e presença real no chão' }
+                        ]
+                    }
+
+                ]
+            }
+
+        };
+
+        // ============================================
+        // SISTEMA
+        // ============================================
+
+        let mundoSelecionado = null;
+        let faseAtual = null;
+        let progresso = {};
+        let respostasQuiz = [];
+        let memoriaCards = [];
+        let memoriaFlipped = [];
+
+        // ============================================
+        // LOCAL STORAGE
+        // ============================================
+        function salvarProgresso() {
+            try {
+                localStorage.setItem('orievo_progresso', JSON.stringify({ progresso, dadosUsuario }));
+            } catch(e) {}
+        }
+
+        function carregarProgresso() {
+            try {
+                const saved = localStorage.getItem('orievo_progresso');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.progresso) progresso = data.progresso;
+                    if (data.dadosUsuario && data.dadosUsuario.nome) dadosUsuario = data.dadosUsuario;
+                }
+            } catch(e) {}
+        }
+
+        // ============================================
+        // TOAST NOTIFICATION
+        // ============================================
+        function mostrarToast(mensagem, cor) {
+            const toast = document.getElementById('toastNotification');
+            toast.textContent = mensagem;
+            toast.style.background = cor || '#28a745';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ============================================
+        // SHUFFLE
+        // ============================================
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function shuffleQuizPerguntas(perguntas) {
+            // Embaralha as perguntas
+            const shuffled = shuffleArray(perguntas.map((p, origIdx) => ({...p, origIdx})));
+            // Para cada pergunta, embaralha as opções mantendo o índice correto
+            return shuffled.map(p => {
+                const opcoesComIndex = p.opcoes.map((o, i) => ({texto: o, origIndex: i}));
+                const shuffledOpcoes = shuffleArray(opcoesComIndex);
+                const novoCorreta = shuffledOpcoes.findIndex(o => o.origIndex === p.correta);
+                return {
+                    ...p,
+                    opcoes: shuffledOpcoes.map(o => o.texto),
+                    correta: novoCorreta
+                };
+            });
+        }
+
+        window.onload = function() {
+            carregarProgresso();
+            carregarConfigAdmin();
+            renderizarRoadmap();
+            calcularProgressoGlobal();
+            verificarHash();
+        };
+
+        window.onhashchange = function() {
+            verificarHash();
+        };
+
+        function verificarHash() {
+            if (window.location.hash === '#admin') {
+                abrirPainelAdmin();
+            }
+        }
+        
+        function renderizarRoadmap() {
+            const roadmap = document.getElementById('mundosRoadmap');
+            roadmap.innerHTML = '';
+            
+            let moduloIndex = 0;
+            let algumMundoCompleto = false;
+            
+            for (let id in MUNDOS) {
+                if (MUNDOS[id].ativo !== false) {
+                    const mundo = MUNDOS[id];
+                    const progressoMundo = progresso[id] || [];
+                    const totalFases = mundo.fases.length;
+                    const concluidas = progressoMundo.length;
+                    const percentual = totalFases > 0 ? Math.round((concluidas / totalFases) * 100) : 0;
+                    
+                    // Determinar estado do módulo
+                    let estado = 'locked';
+                    let motivoBloqueio = '';
+                    const modoTeste = localStorage.getItem('orievo_modo_teste') === 'true';
+
+                    // Verifica se está bloqueado por senha (aguardando instrutor)
+                    if (mundo.bloqueadoPorSenha === true) {
+                        estado = 'locked';
+                        motivoBloqueio = 'aguardando';
+                    } else if (percentual === 100) {
+                        estado = 'completed';
+                        algumMundoCompleto = true;
+                    } else if (moduloIndex === 0 || algumMundoCompleto || modoTeste) {
+                        estado = 'available';
+                    } else {
+                        motivoBloqueio = 'anterior';
+                    }
+                    
+                    const modulo = document.createElement('div');
+                    modulo.className = `modulo-item ${estado}`;
+                    
+                    // Ícone na timeline
+                    const timelineIcon = document.createElement('div');
+                    timelineIcon.className = 'modulo-timeline-icon';
+                    timelineIcon.textContent = mundo.icone;
+                    modulo.appendChild(timelineIcon);
+                    
+                    // Card do módulo
+                    const card = document.createElement('div');
+                    card.className = 'modulo-card';
+                    
+                    // Determinar badge de status
+                    let badgeText = '';
+                    if (estado === 'completed') {
+                        badgeText = '✓ Concluído';
+                    } else if (estado === 'available') {
+                        badgeText = percentual > 0 ? '⏳ Em andamento' : '▶ Disponível';
+                    } else {
+                        badgeText = motivoBloqueio === 'aguardando' ? '⏳ Aguardando Liberação' : '🔒 Bloqueado';
+                    }
+                    
+                    // Mensagem de bloqueio
+                    let mensagemBloqueio = '';
+                    if (estado === 'locked') {
+                        if (motivoBloqueio === 'aguardando') {
+                            mensagemBloqueio = '<span class="lock-icon">⏳</span> Aguarde o instrutor liberar este módulo';
+                        } else {
+                            mensagemBloqueio = '<span class="lock-icon">🔒</span> Complete o módulo anterior';
+                        }
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="modulo-header">
+                            <div class="modulo-title-group">
+                                <div class="modulo-title">
+                                    <span class="modulo-icon">${mundo.icone}</span>
+                                    <span>Módulo ${moduloIndex + 1}: ${mundo.nome}</span>
+                                </div>
+                                <div class="modulo-description">${mundo.descricao}</div>
+                            </div>
+                            <div class="modulo-status-badge">${badgeText}</div>
+                        </div>
+                        
+                        <div class="modulo-metrics">
+                            <div class="metric-item">
+                                <span class="metric-value">${percentual}%</span>
+                                <span class="metric-label">Progresso</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">${concluidas}/${totalFases}</span>
+                                <span class="metric-label">Fases</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">${totalFases * 10}min</span>
+                                <span class="metric-label">Duração</span>
+                            </div>
+                        </div>
+                        
+                        <div class="modulo-progress">
+                            <div class="modulo-progress-bar">
+                                <div class="modulo-progress-fill" style="width: ${percentual}%"></div>
+                            </div>
+                            <div class="modulo-progress-text">
+                                <span>${concluidas} de ${totalFases} fases concluídas</span>
+                                <span>${percentual}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="modulo-action">
+                            <div style="font-size: 13px; color: #666;">
+                                ${mensagemBloqueio}
+                            </div>
+                            <button class="modulo-cta" ${estado === 'locked' ? 'disabled' : ''} onclick="${estado !== 'locked' ? `abrirModalLogin('${id}')` : ''}">
+                                ${estado === 'completed' ? '↻ Revisar Módulo' : estado === 'available' ? (percentual > 0 ? '▶ Continuar' : '▶ Iniciar') : '🔒 Bloqueado'}
+                                ${estado !== 'locked' ? '→' : ''}
+                            </button>
+                        </div>
+                    `;
+                    
+                    modulo.appendChild(card);
+                    roadmap.appendChild(modulo);
+                    
+                    moduloIndex++;
+                }
+            }
+        }
+        
+        function calcularProgressoGlobal() {
+            let totalFases = 0;
+            let fasesCompletas = 0;
+            let totalModulos = 0;
+            let modulosConcluidos = 0;
+
+            for (let id in MUNDOS) {
+                if (MUNDOS[id].ativo !== false) {
+                    const nFases = MUNDOS[id].fases.length;
+                    const nCompletas = (progresso[id] || []).length;
+                    totalFases += nFases;
+                    fasesCompletas += nCompletas;
+                    totalModulos++;
+                    if (nCompletas === nFases && nFases > 0) modulosConcluidos++;
+                }
+            }
+
+            const percentualGlobal = totalFases > 0 ? Math.round((fasesCompletas / totalFases) * 100) : 0;
+
+            document.getElementById('progressoGlobalFill').style.width = `${percentualGlobal}%`;
+            document.getElementById('progressoGlobalText').textContent = `${percentualGlobal}%`;
+            const modulosEl = document.getElementById('modulosConcluidosText');
+            if (modulosEl) modulosEl.textContent = `${modulosConcluidos} de ${totalModulos} módulos concluídos`;
+        }
+
+        function abrirModalLogin(mundoId) {
+            mundoSelecionado = mundoId;
+            document.getElementById('modalTitulo').textContent = MUNDOS[mundoId].nome;
+            document.getElementById('modalLogin').classList.add('active');
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        function fecharModal() {
+            document.getElementById('modalLogin').classList.remove('active');
+            document.getElementById('senhaInput').value = '';
+            document.getElementById('nomeInput').value = '';
+            document.getElementById('emailInput').value = '';
+        }
+
+        function validarLogin() {
+            const senha = document.getElementById('senhaInput').value;
+            const nome = document.getElementById('nomeInput').value;
+            const email = document.getElementById('emailInput').value;
+            const erro = document.getElementById('loginError');
+
+            // Verifica senha: pode ser a senha do módulo OU a senha master
+            const senhaCorreta = senha === MUNDOS[mundoSelecionado].senha || senha === SENHA_MASTER;
+            
+            if (!senhaCorreta) {
+                erro.textContent = 'Senha incorreta!';
+                erro.style.display = 'block';
+                return;
+            }
+
+            if (!nome || !email) {
+                erro.textContent = 'Preencha nome e email';
+                erro.style.display = 'block';
+                return;
+            }
+
+            dadosUsuario.nome = nome;
+            dadosUsuario.email = email;
+            progresso[mundoSelecionado] = progresso[mundoSelecionado] || [];
+            
+            fecharModal();
+            abrirMundo();
+        }
+
+        function abrirMundo() {
+            const mundo = MUNDOS[mundoSelecionado];
+            
+            document.getElementById('telaSelecao').classList.add('hidden');
+            document.getElementById('telaMundo').classList.remove('hidden');
+            
+            // Adicionar logo do mundo se existir
+            let logoHtml = '';
+            if (mundo.logo) {
+                logoHtml = `
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img src="${mundo.logo}" alt="${mundo.nome}" style="max-width: 250px; height: auto; border-radius: 10px;">
+                    </div>
+                `;
+            }
+            
+            document.getElementById('mundoTitulo').textContent = mundo.nome;
+            document.getElementById('mundoDesc').textContent = mundo.descricao;
+            
+            // Inserir logo antes do título
+            const mundoHeader = document.querySelector('.mundo-header');
+            const tituloElement = document.getElementById('mundoTitulo');
+            
+            // Remove logo anterior se existir
+            const logoAnterior = mundoHeader.querySelector('.mundo-logo');
+            if (logoAnterior) {
+                logoAnterior.remove();
+            }
+            
+            // Adiciona nova logo se existir
+            if (mundo.logo) {
+                const logoDiv = document.createElement('div');
+                logoDiv.className = 'mundo-logo';
+                logoDiv.innerHTML = `<img src="${mundo.logo}" alt="${mundo.nome}" style="max-width: 250px; height: auto; border-radius: 10px; margin-bottom: 20px;">`;
+                mundoHeader.insertBefore(logoDiv, tituloElement);
+            }
+            
+            renderizarJornadaLinear();
+            atualizarProgresso();
+        }
+        
+        function renderizarJornadaLinear() {
+            const mundo = MUNDOS[mundoSelecionado];
+            const container = document.getElementById('journeyPhases');
+            const progressBar = document.getElementById('journeyProgress');
+            
+            container.innerHTML = '';
+            
+            const icones = {
+                'video': '📹',
+                'artigo': '📄',
+                'quiz': '❓',
+                'memoria': '🎮',
+                'associar': '🔗',
+                'verdadeirofalso': '⚖️',
+                'ordenar': '🔢',
+                'lacunas': '✏️'
+            };
+            
+            // Renderizar fases
+            mundo.fases.forEach((fase, index) => {
+                const isCompleted = progresso[mundoSelecionado].includes(index);
+                const isAvailable = index === 0 || progresso[mundoSelecionado].includes(index - 1);
+                const isLocked = !isAvailable && !isCompleted;
+                
+                const phaseNode = document.createElement('div');
+                phaseNode.className = 'phase-node';
+                
+                if (isCompleted) {
+                    phaseNode.classList.add('completed');
+                } else if (isAvailable) {
+                    phaseNode.classList.add('available');
+                } else {
+                    phaseNode.classList.add('locked');
+                }
+                
+                // Círculo da fase
+                const circle = document.createElement('div');
+                circle.className = 'phase-circle';
+                circle.textContent = icones[fase.tipo] || '❓';
+                
+                // Checkmark se completa
+                if (isCompleted) {
+                    const check = document.createElement('div');
+                    check.className = 'phase-check';
+                    check.textContent = '✓';
+                    circle.appendChild(check);
+                }
+                
+                phaseNode.appendChild(circle);
+                
+                // Label da fase
+                const label = document.createElement('div');
+                label.className = 'phase-label';
+                label.textContent = fase.nome.replace(/^(Vídeo|Artigo|Quiz|Jogo):\s*/, '');
+                phaseNode.appendChild(label);
+                
+                // Click handler
+                if (!isLocked) {
+                    phaseNode.onclick = () => abrirFase(index);
+                }
+                
+                container.appendChild(phaseNode);
+            });
+            
+            // Bandeira de chegada
+            const finishNode = document.createElement('div');
+            finishNode.className = 'phase-node';
+            
+            const finishCircle = document.createElement('div');
+            finishCircle.className = 'finish-flag';
+            finishCircle.textContent = '🏁';
+            finishNode.appendChild(finishCircle);
+            
+            const finishLabel = document.createElement('div');
+            finishLabel.className = 'phase-label';
+            finishLabel.textContent = 'Finalizar';
+            finishNode.appendChild(finishLabel);
+            
+            container.appendChild(finishNode);
+            
+            // Atualizar progresso da linha
+            const totalFases = mundo.fases.length;
+            const concluidas = progresso[mundoSelecionado].length;
+            const percentual = totalFases > 0 ? (concluidas / totalFases) * 100 : 0;
+            progressBar.style.width = `${percentual}%`;
+            
+            // Se todas concluídas, mostrar certificado do módulo
+            if (concluidas === totalFases) {
+                finishNode.onclick = () => mostrarCertificadoModulo();
+            }
+        }
+        
+        function mostrarCertificadoModulo() {
+            const mundo = MUNDOS[mundoSelecionado];
+            const modal = document.getElementById('certificadoModal');
+            const body = document.getElementById('certBody');
+            const titulo = document.getElementById('certTitulo');
+            
+            titulo.textContent = '🎓 CERTIFICADO DE CONCLUSÃO';
+            
+            const logoOrievo = 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png';
+            const logoCliente = mundo.logo || logoOrievo;
+            
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const cargaHoraria = mundo.fases.length * 10;
+            
+            body.innerHTML = `
+                <div class="certificate-logos">
+                    <img src="${logoOrievo}" alt="Orievo">
+                    ${logoCliente !== logoOrievo ? `<img src="${logoCliente}" alt="Cliente">` : ''}
+                </div>
+                
+                <div class="certificate-title">
+                    Certificado de Conclusão
+                </div>
+                
+                <div class="certificate-text">
+                    Certificamos que
+                </div>
+                
+                <div class="certificate-name">
+                    ${dadosUsuario.nome || 'Aluno'}
+                </div>
+                
+                <div class="certificate-text">
+                    Concluiu com êxito o módulo
+                </div>
+                
+                <div class="certificate-module">
+                    ${mundo.nome}
+                </div>
+                
+                <div class="certificate-info">
+                    <div class="certificate-info-item">
+                        <div class="certificate-info-label">Data de Conclusão</div>
+                        <div class="certificate-info-value">${dataAtual}</div>
+                    </div>
+                    <div class="certificate-info-item">
+                        <div class="certificate-info-label">Carga Horária</div>
+                        <div class="certificate-info-value">${cargaHoraria} minutos</div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            
+            // Verificar se todos os módulos foram concluídos
+            verificarCertificadoFinal();
+        }
+        
+        function verificarCertificadoFinal() {
+            let todosCompletos = true;
+            const modulosCompletos = [];
+            
+            for (let id in MUNDOS) {
+                if (MUNDOS[id].ativo !== false) {
+                    const mundo = MUNDOS[id];
+                    const totalFases = mundo.fases.length;
+                    const concluidas = (progresso[id] || []).length;
+                    
+                    if (concluidas < totalFases) {
+                        todosCompletos = false;
+                    } else {
+                        modulosCompletos.push(mundo.nome);
+                    }
+                }
+            }
+            
+            if (todosCompletos && modulosCompletos.length > 1) {
+                // Adicionar botão extra para certificado final
+                const footer = document.querySelector('.certificate-footer');
+                const btnFinal = document.createElement('button');
+                btnFinal.className = 'btn-certificate btn-download';
+                btnFinal.innerHTML = '🏆 Ver Certificado Final';
+                btnFinal.onclick = () => {
+                    fecharCertificado();
+                    setTimeout(mostrarCertificadoFinal, 300);
+                };
+                footer.insertBefore(btnFinal, footer.firstChild);
+            }
+        }
+        
+        function mostrarCertificadoFinal() {
+            const modal = document.getElementById('certificadoModal');
+            const body = document.getElementById('certBody');
+            const titulo = document.getElementById('certTitulo');
+            
+            titulo.textContent = '🏆 CERTIFICADO DE CONCLUSÃO - JORNADA COMPLETA';
+            
+            const logoOrievo = 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png';
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            
+            let modulosHtml = '';
+            let cargaTotal = 0;
+            
+            for (let id in MUNDOS) {
+                if (MUNDOS[id].ativo !== false) {
+                    const mundo = MUNDOS[id];
+                    modulosHtml += `<li>✓ ${mundo.nome}</li>`;
+                    cargaTotal += mundo.fases.length * 10;
+                }
+            }
+            
+            body.innerHTML = `
+                <div class="certificate-logos">
+                    <img src="${logoOrievo}" alt="Orievo">
+                </div>
+                
+                <div class="certificate-title">
+                    🏆 Jornada Completa 🏆
+                </div>
+                
+                <div class="certificate-text">
+                    Certificamos que
+                </div>
+                
+                <div class="certificate-name">
+                    ${dadosUsuario.nome || 'Aluno'}
+                </div>
+                
+                <div class="certificate-text">
+                    Concluiu com êxito <strong>TODOS OS MÓDULOS</strong> da jornada de capacitação:
+                </div>
+                
+                <ul class="certificate-modules-list">
+                    ${modulosHtml}
+                </ul>
+                
+                <div class="certificate-info">
+                    <div class="certificate-info-item">
+                        <div class="certificate-info-label">Data de Conclusão</div>
+                        <div class="certificate-info-value">${dataAtual}</div>
+                    </div>
+                    <div class="certificate-info-item">
+                        <div class="certificate-info-label">Carga Horária Total</div>
+                        <div class="certificate-info-value">${cargaTotal} minutos</div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        function fecharCertificado() {
+            document.getElementById('certificadoModal').classList.remove('active');
+        }
+        
+        function baixarCertificado() {
+            try {
+                const { jsPDF } = window.jspdf;
+
+                const tituloEl = document.getElementById('certTitulo').textContent;
+                const nomeAluno = (dadosUsuario.nome || 'Aluno').toUpperCase();
+                const dataAtual = new Date().toLocaleDateString('pt-BR');
+                const isJornada = tituloEl.includes('JORNADA');
+
+                // Determinar módulo e carga
+                let nomeModulo = '';
+                let cargaHoraria = 0;
+                if (mundoSelecionado && MUNDOS[mundoSelecionado]) {
+                    nomeModulo = MUNDOS[mundoSelecionado].nome;
+                    cargaHoraria = MUNDOS[mundoSelecionado].fases.length * 10;
+                }
+                if (isJornada) {
+                    nomeModulo = 'Jornada Completa de Capacitação';
+                    for (let id in MUNDOS) {
+                        if (MUNDOS[id].ativo !== false) cargaHoraria += MUNDOS[id].fases.length * 10;
+                    }
+                }
+
+                const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                const W = 297, H = 210;
+
+                // Fundo branco
+                pdf.setFillColor(255, 255, 255);
+                pdf.rect(0, 0, W, H, 'F');
+
+                // Borda dupla decorativa
+                pdf.setDrawColor(79, 195, 220);
+                pdf.setLineWidth(3);
+                pdf.rect(8, 8, W - 16, H - 16);
+                pdf.setLineWidth(1);
+                pdf.rect(12, 12, W - 24, H - 24);
+
+                // Cabeçalho decorativo
+                pdf.setFillColor(79, 195, 220);
+                pdf.rect(12, 12, W - 24, 28, 'F');
+
+                // Título do certificado
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFontSize(22);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('CERTIFICADO DE CONCLUSÃO', W / 2, 30, { align: 'center' });
+
+                // Subtítulo
+                pdf.setFontSize(10);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text('Orievo Safety Learning', W / 2, 37, { align: 'center' });
+
+                // Corpo do certificado
+                pdf.setTextColor(50, 50, 50);
+
+                // "Certificamos que"
+                pdf.setFontSize(13);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text('Certificamos que', W / 2, 60, { align: 'center' });
+
+                // Nome do aluno em destaque
+                pdf.setFontSize(28);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(42, 155, 184);
+                pdf.text(nomeAluno, W / 2, 78, { align: 'center' });
+
+                // Linha decorativa abaixo do nome
+                pdf.setDrawColor(79, 195, 220);
+                pdf.setLineWidth(0.5);
+                const nameWidth = Math.min(pdf.getTextWidth(nomeAluno) + 20, W - 60);
+                pdf.line((W - nameWidth) / 2, 82, (W + nameWidth) / 2, 82);
+
+                // Texto "concluiu com êxito"
+                pdf.setFontSize(13);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setTextColor(80, 80, 80);
+                pdf.text('concluiu com êxito o módulo', W / 2, 95, { align: 'center' });
+
+                // Nome do módulo
+                pdf.setFontSize(17);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(79, 195, 220);
+                // Quebra linhas longas
+                const linhasModulo = pdf.splitTextToSize(nomeModulo, W - 80);
+                pdf.text(linhasModulo, W / 2, 108, { align: 'center' });
+
+                // Linha divisória
+                pdf.setDrawColor(200, 200, 200);
+                pdf.setLineWidth(0.5);
+                pdf.line(40, 135, W - 40, 135);
+
+                // Data e Carga Horária
+                pdf.setFontSize(10);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setTextColor(120, 120, 120);
+                pdf.text('DATA DE CONCLUSÃO', W / 2 - 50, 143, { align: 'center' });
+                pdf.text('CARGA HORÁRIA', W / 2 + 50, 143, { align: 'center' });
+
+                pdf.setFontSize(13);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(50, 50, 50);
+                pdf.text(dataAtual, W / 2 - 50, 151, { align: 'center' });
+                pdf.text(cargaHoraria + ' minutos', W / 2 + 50, 151, { align: 'center' });
+
+                // Rodapé
+                pdf.setFillColor(79, 195, 220);
+                pdf.rect(12, H - 28, W - 24, 16, 'F');
+                pdf.setFontSize(10);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(255, 255, 255);
+                pdf.text('Orievo Safety Learning  —  www.orievogroup.com', W / 2, H - 18, { align: 'center' });
+
+                // Nome do arquivo
+                const nomeArquivoAluno = (dadosUsuario.nome || 'Aluno').replace(/\s+/g, '_');
+                const tipoModuloPdf = isJornada ? 'Jornada_Completa' : 'Modulo';
+                const dataISO = new Date().toISOString().split('T')[0];
+                const nomeArquivo = `Certificado_${tipoModuloPdf}_${nomeArquivoAluno}_${dataISO}.pdf`;
+
+                pdf.save(nomeArquivo);
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                alert('Erro ao gerar PDF. Verifique a conexão e tente novamente.');
+            }
+        }
+
+        function atualizarProgresso() {
+            const total = MUNDOS[mundoSelecionado].fases.length;
+            const completas = progresso[mundoSelecionado].length;
+            const percentual = (completas / total) * 100;
+            
+            document.getElementById('progressoFill').style.width = percentual + '%';
+            document.getElementById('progressoText').textContent = Math.round(percentual) + '% concluído';
+        }
+
+        function abrirFase(index) {
+            faseAtual = index;
+            tempoInicioFase = Date.now();
+            const fase = MUNDOS[mundoSelecionado].fases[index];
+
+            document.getElementById('telaMundo').classList.add('hidden');
+            document.getElementById('telaFase').classList.remove('hidden');
+
+            const conteudo = document.getElementById('faseConteudo');
+
+            if (fase.tipo === 'video') {
+                carregarVideo(fase, conteudo);
+            } else if (fase.tipo === 'artigo') {
+                carregarArtigo(fase, conteudo);
+            } else if (fase.tipo === 'quiz') {
+                carregarQuiz(fase, conteudo);
+            } else if (fase.tipo === 'memoria') {
+                carregarMemoria(fase, conteudo);
+            } else if (fase.tipo === 'associar') {
+                carregarAssociar(fase, conteudo);
+            } else if (fase.tipo === 'verdadeirofalso') {
+                carregarVerdadeiroFalso(fase, conteudo);
+            } else if (fase.tipo === 'ordenar') {
+                carregarOrdenar(fase, conteudo);
+            } else if (fase.tipo === 'lacunas') {
+                carregarLacunas(fase, conteudo);
+            }
+        }
+
+        function carregarVideo(fase, conteudo) {
+            // Se tiver URL de legenda, usa <video> nativo com <track>
+            if (fase.legenda) {
+                conteudo.innerHTML = `
+                    <h2>${fase.nome}</h2>
+                    <div style="background:#000;border-radius:12px;overflow:hidden;margin-bottom:20px;position:relative;">
+                        <video
+                            controls
+                            style="width:100%;display:block;max-height:500px;"
+                            crossorigin="anonymous"
+                        >
+                            <source src="${fase.url}" type="video/mp4">
+                            <track
+                                label="Português"
+                                kind="subtitles"
+                                srclang="pt"
+                                src="${fase.legenda}"
+                                default
+                            >
+                            Seu navegador não suporta vídeo HTML5.
+                        </video>
+                    </div>
+                    <div style="background:#f0f8ff;border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:13px;color:#555;">
+                        💬 <b>Legendas em português</b> ativadas automaticamente. Se não aparecerem, clique no ícone CC (legendas) no player.
+                    </div>
+                    <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Avançar →</button>
+                `;
+            } else {
+                conteudo.innerHTML = `
+                    <h2>${fase.nome}</h2>
+                    <div class="video-container">
+                        <iframe src="${fase.url}" allowfullscreen></iframe>
+                    </div>
+                    <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Voltar</button>
+                `;
+            }
+        }
+
+        function carregarArtigo(fase, conteudo) {
+            conteudo.innerHTML = `
+                <h2>${fase.nome}</h2>
+                <div class="artigo-content">${fase.conteudo}</div>
+                <button class="btn btn-concluir" onclick="concluirFase()">Concluir Leitura</button>
+            `;
+        }
+
+        let perguntaAtualQuiz = 0;
+        let acertosQuiz = 0;
+
+        let faseQuizEmbaralhada = null;
+
+        function carregarQuiz(fase, conteudo) {
+            // Embaralha perguntas e opções (anti-cola)
+            faseQuizEmbaralhada = { ...fase, perguntas: shuffleQuizPerguntas(fase.perguntas) };
+            respostasQuiz = new Array(faseQuizEmbaralhada.perguntas.length).fill(null);
+            perguntaAtualQuiz = 0;
+            acertosQuiz = 0;
+            mostrarPerguntaQuiz(faseQuizEmbaralhada, conteudo);
+        }
+
+        function mostrarPerguntaQuiz(fase, conteudo) {
+            const p = fase.perguntas[perguntaAtualQuiz];
+            
+            let html = `
+                <h2>${fase.nome}</h2>
+                <div style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Pergunta ${perguntaAtualQuiz + 1} de ${fase.perguntas.length}
+                </div>
+                
+                <div class="pergunta-box">
+                    <h3>${p.pergunta}</h3>`;
+            
+            p.opcoes.forEach((opcao, j) => {
+                html += `<div class="opcao" onclick="responderPergunta(${j})">
+                    <span>${opcao}</span>
+                </div>`;
+            });
+            
+            html += '</div>';
+            conteudo.innerHTML = html;
+        }
+
+        function responderPergunta(opcaoSelecionada) {
+            const fase = faseQuizEmbaralhada || MUNDOS[mundoSelecionado].fases[faseAtual];
+            const p = fase.perguntas[perguntaAtualQuiz];
+            const acertou = opcaoSelecionada === p.correta;
+
+            if (acertou) {
+                acertosQuiz++;
+            }
+
+            respostasQuiz[perguntaAtualQuiz] = opcaoSelecionada;
+
+            mostrarExplicacao(acertou, p);
+        }
+
+        function mostrarExplicacao(acertou, pergunta) {
+            const conteudo = document.getElementById('faseConteudo');
+            const fase = faseQuizEmbaralhada || MUNDOS[mundoSelecionado].fases[faseAtual];
+            
+            const corEmoji = acertou ? '✅' : '❌';
+            const corTexto = acertou ? '#28a745' : '#dc3545';
+            const titulo = acertou ? 'Resposta Correta!' : 'Resposta Incorreta';
+            
+            let html = `
+                <h2>${fase.nome}</h2>
+                <div style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Pergunta ${perguntaAtualQuiz + 1} de ${fase.perguntas.length}
+                </div>
+                
+                <div style="text-align: center; font-size: 80px; margin: 30px 0;">
+                    ${corEmoji}
+                </div>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid ${corTexto};">
+                    <h3 style="color: ${corTexto}; margin-bottom: 20px;">${titulo}</h3>
+                    
+                    <p style="margin-bottom: 15px;"><strong>Pergunta:</strong> ${pergunta.pergunta}</p>
+                    
+                    <p style="margin-bottom: 15px;"><strong>Resposta correta:</strong> ${pergunta.opcoes[pergunta.correta]}</p>`;
+            
+            if (pergunta.explicacao) {
+                html += `
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <p style="margin: 0;"><strong>💡 Explicação:</strong></p>
+                        <p style="margin: 10px 0 0 0;">${pergunta.explicacao}</p>
+                    </div>`;
+            }
+            
+            html += `</div>`;
+            
+            if (perguntaAtualQuiz < fase.perguntas.length - 1) {
+                html += '<button class="btn btn-concluir" onclick="proximaPergunta()">Próxima Pergunta →</button>';
+            } else {
+                html += '<button class="btn btn-concluir" onclick="finalizarQuizComExplicacao()">Ver Resultado Final</button>';
+            }
+            
+            conteudo.innerHTML = html;
+        }
+
+        function proximaPergunta() {
+            const fase = faseQuizEmbaralhada || MUNDOS[mundoSelecionado].fases[faseAtual];
+            const conteudo = document.getElementById('faseConteudo');
+
+            perguntaAtualQuiz++;
+            mostrarPerguntaQuiz(fase, conteudo);
+        }
+
+        function finalizarQuizComExplicacao() {
+            const fase = faseQuizEmbaralhada || MUNDOS[mundoSelecionado].fases[faseAtual];
+            const percentual = (acertosQuiz / fase.perguntas.length) * 100;
+            const nota = percentual.toFixed(0) + '%';
+            
+            // ENVIA TRACKING DO QUIZ
+            enviarTracking(
+                MUNDOS[mundoSelecionado].nome,
+                fase.nome,
+                nota
+            );
+            
+            const conteudo = document.getElementById('faseConteudo');
+            
+            const passou = percentual >= 70;
+            const emoji = passou ? '🎉' : '📚';
+            const cor = passou ? '#28a745' : '#dc3545';
+            const titulo = passou ? 'Parabéns! Você foi aprovado!' : 'Você precisa estudar mais';
+            const mensagem = passou ? 
+                'Você demonstrou conhecimento suficiente sobre o tema!' : 
+                'Você precisa de pelo menos 70% para ser aprovado. Revise o conteúdo e tente novamente!';
+            
+            let html = `
+                <h2>${fase.nome}</h2>
+                
+                <div style="text-align: center; font-size: 100px; margin: 30px 0;">
+                    ${emoji}
+                </div>
+                
+                <div style="background: white; padding: 40px; border-radius: 15px; text-align: center; border: 3px solid ${cor};">
+                    <h3 style="color: ${cor}; font-size: 28px; margin-bottom: 20px;">${titulo}</h3>
+                    
+                    <div style="font-size: 48px; font-weight: bold; color: ${cor}; margin: 20px 0;">
+                        ${nota}
+                    </div>
+                    
+                    <p style="font-size: 18px; margin-bottom: 10px;">
+                        Você acertou <strong>${acertosQuiz}</strong> de <strong>${fase.perguntas.length}</strong> perguntas
+                    </p>
+                    
+                    <p style="color: #666; margin-top: 20px;">
+                        ${mensagem}
+                    </p>
+                </div>`;
+            
+            if (passou) {
+                html += '<button class="btn btn-concluir" onclick="concluirFase()">Concluir e Voltar</button>';
+            } else {
+                html += '<button class="btn btn-concluir" onclick="voltarMundo()">Tentar Novamente</button>';
+            }
+            
+            conteudo.innerHTML = html;
+        }
+
+        function selecionarOpcao(pergunta, opcao) {
+            // Função mantida para compatibilidade, mas não é mais usada
+        }
+
+        function finalizarQuiz() {
+            // Função mantida para compatibilidade, mas não é mais usada
+        }
+
+        function carregarMemoria(fase, conteudo) {
+            const simbolos = [...fase.simbolos, ...fase.simbolos];
+            simbolos.sort(() => Math.random() - 0.5);
+            
+            memoriaCards = simbolos.map((simbolo, i) => ({
+                id: i,
+                simbolo,
+                flipped: false,
+                matched: false
+            }));
+            memoriaFlipped = [];
+            
+            let html = `<h2>${fase.nome}</h2>`;
+            html += `<div class="score">Pares encontrados: <span id="pares">0</span>/${fase.simbolos.length}</div>`;
+            html += '<div class="memory-grid">';
+            
+            memoriaCards.forEach((card, i) => {
+                html += `<div class="memory-card" id="card-${i}" onclick="flipCard(${i})">?</div>`;
+            });
+            
+            html += '</div>';
+            conteudo.innerHTML = html;
+        }
+
+        function flipCard(index) {
+            if (memoriaFlipped.length === 2) return;
+            if (memoriaCards[index].matched) return;
+            if (memoriaFlipped.includes(index)) return;
+            
+            const card = document.getElementById(`card-${index}`);
+            card.textContent = memoriaCards[index].simbolo;
+            card.classList.add('flipped');
+            memoriaFlipped.push(index);
+            
+            if (memoriaFlipped.length === 2) {
+                setTimeout(checkMatch, 800);
+            }
+        }
+
+        function checkMatch() {
+            const [i1, i2] = memoriaFlipped;
+            const card1 = memoriaCards[i1];
+            const card2 = memoriaCards[i2];
+            
+            if (card1.simbolo === card2.simbolo) {
+                card1.matched = true;
+                card2.matched = true;
+                document.getElementById(`card-${i1}`).classList.add('matched');
+                document.getElementById(`card-${i2}`).classList.add('matched');
+                
+                const pares = memoriaCards.filter(c => c.matched).length / 2;
+                document.getElementById('pares').textContent = pares;
+                
+                if (pares === 8) {
+                    setTimeout(() => {
+                        alert('Parabéns! Você completou o jogo!');
+                        concluirFase();
+                    }, 500);
+                }
+            } else {
+                document.getElementById(`card-${i1}`).textContent = '?';
+                document.getElementById(`card-${i2}`).textContent = '?';
+                document.getElementById(`card-${i1}`).classList.remove('flipped');
+                document.getElementById(`card-${i2}`).classList.remove('flipped');
+            }
+            
+            memoriaFlipped = [];
+        }
+
+        // ============================================
+        // JOGO ASSOCIAR PARES
+        // ============================================
+        
+        let associarPares = [];
+        let associarSelecionado = null;
+        let associarAcertos = 0;
+        
+        function carregarAssociar(fase, conteudo) {
+            // Embaralha definições
+            const definicoes = [...fase.pares.map((p, i) => ({texto: p.definicao, index: i}))];
+            definicoes.sort(() => Math.random() - 0.5);
+            
+            associarPares = fase.pares.map((p, i) => ({...p, conectado: false, index: i}));
+            associarSelecionado = null;
+            associarAcertos = 0;
+            
+            let html = `<h2>${fase.nome}</h2>`;
+            html += `<div class="score">Pares conectados: <span id="paresAssociados">0</span>/${fase.pares.length}</div>`;
+            html += `<p style="text-align: center; color: #666; margin: 20px 0;">Clique em um termo à esquerda, depois em sua definição à direita</p>`;
+            
+            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">';
+            
+            // Coluna esquerda - Termos
+            html += '<div style="display: flex; flex-direction: column; gap: 15px;">';
+            fase.pares.forEach((par, i) => {
+                html += `
+                    <div id="termo-${i}" class="associar-termo" onclick="selecionarTermo(${i})" 
+                         style="background: #3498db; color: white; padding: 20px; border-radius: 10px; 
+                                cursor: pointer; text-align: center; font-weight: 600; transition: all 0.3s;
+                                border: 3px solid transparent;">
+                        ${par.termo}
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            // Coluna direita - Definições (embaralhadas)
+            html += '<div style="display: flex; flex-direction: column; gap: 15px;">';
+            definicoes.forEach((def, i) => {
+                html += `
+                    <div id="def-${def.index}" class="associar-def" onclick="selecionarDefinicao(${def.index})"
+                         style="background: #e0e0e0; color: #333; padding: 20px; border-radius: 10px; 
+                                cursor: pointer; text-align: center; transition: all 0.3s;
+                                border: 3px solid transparent;">
+                        ${def.texto}
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            html += '</div>';
+            
+            conteudo.innerHTML = html;
+        }
+        
+        function selecionarTermo(index) {
+            if (associarPares[index].conectado) return;
+            
+            // Remove seleção anterior
+            document.querySelectorAll('.associar-termo').forEach(el => {
+                if (!associarPares[parseInt(el.id.split('-')[1])].conectado) {
+                    el.style.background = '#3498db';
+                    el.style.borderColor = 'transparent';
+                    el.style.transform = 'scale(1)';
+                }
+            });
+            
+            // Seleciona novo
+            const termo = document.getElementById(`termo-${index}`);
+            termo.style.background = '#2ecc71';
+            termo.style.borderColor = '#27ae60';
+            termo.style.transform = 'scale(1.05)';
+            
+            associarSelecionado = index;
+        }
+        
+        function selecionarDefinicao(index) {
+            if (associarSelecionado === null) {
+                alert('Selecione um termo à esquerda primeiro!');
+                return;
+            }
+            
+            if (associarPares[index].conectado) return;
+            
+            const termo = document.getElementById(`termo-${associarSelecionado}`);
+            const def = document.getElementById(`def-${index}`);
+            
+            // Verifica se está correto
+            if (associarSelecionado === index) {
+                // CORRETO!
+                termo.style.background = '#27ae60';
+                termo.style.borderColor = '#229954';
+                termo.style.cursor = 'default';
+                termo.style.transform = 'scale(1)';
+                
+                def.style.background = '#27ae60';
+                def.style.borderColor = '#229954';
+                def.style.color = 'white';
+                def.style.cursor = 'default';
+                
+                associarPares[index].conectado = true;
+                associarAcertos++;
+                
+                document.getElementById('paresAssociados').textContent = associarAcertos;
+                
+                associarSelecionado = null;
+                
+                // Verifica se completou
+                if (associarAcertos === associarPares.length) {
+                    setTimeout(() => {
+                        alert('Parabéns! Você conectou todos os pares corretamente!');
+                        concluirFase();
+                    }, 500);
+                }
+            } else {
+                // ERRADO!
+                termo.style.background = '#e74c3c';
+                def.style.background = '#e74c3c';
+                def.style.color = 'white';
+                
+                setTimeout(() => {
+                    termo.style.background = '#3498db';
+                    termo.style.borderColor = 'transparent';
+                    termo.style.transform = 'scale(1)';
+                    def.style.background = '#e0e0e0';
+                    def.style.color = '#333';
+                    associarSelecionado = null;
+                }, 800);
+            }
+        }
+
+        // ============================================
+        // VERDADEIRO OU FALSO
+        // ============================================
+        let vfPerguntaAtual = 0;
+        let vfAcertos = 0;
+        let vfFaseAtual = null;
+
+        function carregarVerdadeiroFalso(fase, conteudo) {
+            vfFaseAtual = fase;
+            vfPerguntaAtual = 0;
+            vfAcertos = 0;
+            mostrarPerguntaVF(conteudo);
+        }
+
+        function mostrarPerguntaVF(conteudo) {
+            if (!conteudo) conteudo = document.getElementById('faseConteudo');
+            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
+            conteudo.innerHTML = `
+                <h2>${vfFaseAtual.nome}</h2>
+                <div style="text-align:center;color:#666;margin-bottom:20px;">
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
+                </div>
+                <div class="vf-card">
+                    <div class="vf-afirmacao">${p.afirmacao}</div>
+                    <div class="vf-botoes">
+                        <button class="btn-verdadeiro" onclick="responderVF(true)">✅ VERDADEIRO</button>
+                        <button class="btn-falso" onclick="responderVF(false)">❌ FALSO</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function responderVF(resposta) {
+            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
+            const acertou = resposta === p.resposta;
+            if (acertou) vfAcertos++;
+
+            const conteudo = document.getElementById('faseConteudo');
+            const corEmoji = acertou ? '✅' : '❌';
+            const cor = acertou ? '#28a745' : '#dc3545';
+            const titulo = acertou ? 'Correto!' : 'Incorreto!';
+            const proxima = vfPerguntaAtual < vfFaseAtual.perguntas.length - 1;
+
+            conteudo.innerHTML = `
+                <h2>${vfFaseAtual.nome}</h2>
+                <div style="text-align:center;color:#666;margin-bottom:20px;">
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
+                </div>
+                <div style="text-align:center;font-size:70px;margin:20px 0;">${corEmoji}</div>
+                <div style="background:white;padding:30px;border-radius:15px;border-left:5px solid ${cor};margin-bottom:25px;">
+                    <h3 style="color:${cor};margin-bottom:15px;">${titulo}</h3>
+                    <p><strong>Afirmação:</strong> ${p.afirmacao}</p>
+                    <p style="margin-top:10px;"><strong>Resposta correta:</strong> ${p.resposta ? 'VERDADEIRO' : 'FALSO'}</p>
+                    ${p.explicacao ? `<div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-top:15px;"><strong>💡 Explicação:</strong><br>${p.explicacao}</div>` : ''}
+                </div>
+                ${proxima
+                    ? `<button class="btn btn-concluir" onclick="proximaVF()">Próxima →</button>`
+                    : `<button class="btn btn-concluir" onclick="finalizarVF()">Ver Resultado</button>`}
+            `;
+        }
+
+        function proximaVF() {
+            vfPerguntaAtual++;
+            mostrarPerguntaVF();
+        }
+
+        function finalizarVF() {
+            const total = vfFaseAtual.perguntas.length;
+            const percentual = Math.round((vfAcertos / total) * 100);
+            const passou = percentual >= 70;
+            const cor = passou ? '#28a745' : '#dc3545';
+            const emoji = passou ? '🎉' : '📚';
+
+            enviarTracking(MUNDOS[mundoSelecionado].nome, vfFaseAtual.nome, percentual + '%');
+
+            const conteudo = document.getElementById('faseConteudo');
+            conteudo.innerHTML = `
+                <h2>${vfFaseAtual.nome}</h2>
+                <div style="text-align:center;font-size:80px;margin:20px 0;">${emoji}</div>
+                <div style="background:white;padding:30px;border-radius:15px;border:3px solid ${cor};text-align:center;">
+                    <h3 style="color:${cor};font-size:26px;margin-bottom:15px;">
+                        ${passou ? 'Aprovado!' : 'Estude mais e tente novamente'}
+                    </h3>
+                    <div style="font-size:42px;font-weight:bold;color:${cor};margin:15px 0;">${percentual}%</div>
+                    <p>Você acertou <strong>${vfAcertos}</strong> de <strong>${total}</strong> afirmações</p>
+                </div>
+                ${passou
+                    ? `<button class="btn btn-concluir" onclick="concluirFase()">Concluir e Voltar</button>`
+                    : `<button class="btn btn-concluir" onclick="voltarMundo()">Tentar Novamente</button>`}
+            `;
+        }
+
+        // ============================================
+        // ORDENAR SEQUÊNCIA
+        // ============================================
+        let ordenarItensAtual = [];
+        let ordenarFaseAtual = null;
+        let ordenarDragSrcIdx = null;
+
+        function carregarOrdenar(fase, conteudo) {
+            ordenarFaseAtual = fase;
+            // Embaralha os itens
+            ordenarItensAtual = shuffleArray(fase.itens.map((item, i) => ({ texto: item, origIdx: i })));
+            renderizarOrdenar(conteudo);
+        }
+
+        function renderizarOrdenar(conteudo) {
+            if (!conteudo) conteudo = document.getElementById('faseConteudo');
+            let listHtml = '';
+            ordenarItensAtual.forEach((item, i) => {
+                listHtml += `
+                    <li class="ordenar-item" draggable="true"
+                        ondragstart="ordenarDragStart(event, ${i})"
+                        ondragover="ordenarDragOver(event)"
+                        ondrop="ordenarDrop(event, ${i})"
+                        ondragend="ordenarDragEnd(event)">
+                        <span class="ordenar-handle">☰</span>
+                        <span>${item.texto}</span>
+                    </li>
+                `;
+            });
+            conteudo.innerHTML = `
+                <h2>${ordenarFaseAtual.nome}</h2>
+                <p style="color:#666;margin-bottom:20px;">${ordenarFaseAtual.instrucao || 'Coloque os itens na ordem correta:'}</p>
+                <ul class="ordenar-lista" id="ordenarLista">${listHtml}</ul>
+                <button class="btn btn-concluir" onclick="verificarOrdem()">Verificar Ordem</button>
+            `;
+        }
+
+        function ordenarDragStart(event, idx) {
+            ordenarDragSrcIdx = idx;
+            event.dataTransfer.effectAllowed = 'move';
+            event.target.classList.add('dragging');
+        }
+
+        function ordenarDragOver(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+        }
+
+        function ordenarDrop(event, targetIdx) {
+            event.preventDefault();
+            if (ordenarDragSrcIdx === null || ordenarDragSrcIdx === targetIdx) return;
+            const moved = ordenarItensAtual.splice(ordenarDragSrcIdx, 1)[0];
+            ordenarItensAtual.splice(targetIdx, 0, moved);
+            ordenarDragSrcIdx = null;
+            renderizarOrdenar();
+        }
+
+        function ordenarDragEnd(event) {
+            event.target.classList.remove('dragging');
+        }
+
+        function verificarOrdem() {
+            const faseOriginal = ordenarFaseAtual;
+            const lista = document.querySelectorAll('#ordenarLista .ordenar-item');
+            let todosCorretos = true;
+
+            ordenarItensAtual.forEach((item, i) => {
+                const el = lista[i];
+                if (item.origIdx === i) {
+                    el.classList.add('correct');
+                    el.classList.remove('incorrect');
+                } else {
+                    el.classList.add('incorrect');
+                    el.classList.remove('correct');
+                    todosCorretos = false;
+                }
+            });
+
+            const conteudo = document.getElementById('faseConteudo');
+            // Remove botão anterior de resultado se existir
+            const oldResult = conteudo.querySelector('.ordenar-result');
+            if (oldResult) oldResult.remove();
+
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'ordenar-result';
+            resultDiv.style.cssText = 'margin-top:20px;padding:20px;border-radius:12px;text-align:center;font-weight:600;font-size:16px;';
+
+            if (todosCorretos) {
+                resultDiv.style.background = '#d4edda';
+                resultDiv.style.color = '#155724';
+                resultDiv.innerHTML = '✅ Perfeito! A sequência está correta!<br><button class="btn btn-concluir" style="margin-top:15px;" onclick="concluirFase()">Concluir e Voltar</button>';
+            } else {
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+                resultDiv.innerHTML = '❌ Alguns itens estão fora de ordem. Os corretos ficaram verdes, os errados ficaram vermelhos. Tente reordenar!';
+            }
+            conteudo.appendChild(resultDiv);
+        }
+
+        // ============================================
+        // PREENCHER LACUNAS
+        // ============================================
+        let lacunasFaseAtual = null;
+
+        function carregarLacunas(fase, conteudo) {
+            lacunasFaseAtual = fase;
+            // Coleta todas as respostas e embaralha para o banco de palavras
+            const todasRespostas = fase.frases.map(f => f.resposta);
+            const bancoPalavras = [...todasRespostas].sort(() => Math.random() - 0.5);
+
+            let html = `<h2>${fase.nome}</h2>
+                <p style="color:#666;margin-bottom:12px;">Complete as frases usando as palavras do banco abaixo:</p>
+                <div style="background:#e8f4fd;border:2px solid #4FC3DC;border-radius:12px;padding:14px 18px;margin-bottom:24px;">
+                    <p style="color:#2A9BB8;font-weight:700;font-size:13px;margin:0 0 10px 0;">💡 BANCO DE PALAVRAS:</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        ${bancoPalavras.map(p => `<span style="background:#fff;border:2px solid #4FC3DC;border-radius:20px;padding:4px 14px;font-weight:600;color:#2A9BB8;font-size:14px;">${p}</span>`).join('')}
+                    </div>
+                </div>`;
+
+            fase.frases.forEach((frase, i) => {
+                const textoComInput = frase.texto.replace('___',
+                    `<input type="text" class="lacunas-input" id="lacuna-${i}" placeholder="digite aqui..." autocomplete="off">`
+                );
+                html += `<div class="lacunas-frase">${textoComInput}</div>`;
+            });
+
+            html += `<button class="btn btn-concluir" onclick="verificarLacunas()">Verificar</button>`;
+            conteudo.innerHTML = html;
+        }
+
+        function verificarLacunas() {
+            const fase = lacunasFaseAtual;
+            let acertos = 0;
+            fase.frases.forEach((frase, i) => {
+                const input = document.getElementById(`lacuna-${i}`);
+                if (!input) return;
+                const resposta = input.value.trim().toLowerCase();
+                const correta = frase.resposta.trim().toLowerCase();
+                if (resposta === correta) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    acertos++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+
+            const percentual = Math.round((acertos / fase.frases.length) * 100);
+            const passou = percentual >= 70;
+
+            enviarTracking(MUNDOS[mundoSelecionado].nome, fase.nome, percentual + '%');
+
+            const conteudo = document.getElementById('faseConteudo');
+            const oldResult = conteudo.querySelector('.lacunas-result');
+            if (oldResult) oldResult.remove();
+
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'lacunas-result';
+            resultDiv.style.cssText = `margin-top:20px;padding:20px;border-radius:12px;text-align:center;font-weight:600;
+                background:${passou ? '#d4edda' : '#f8d7da'};color:${passou ? '#155724' : '#721c24'};`;
+
+            if (passou) {
+                resultDiv.innerHTML = `✅ Ótimo! Você acertou ${acertos} de ${fase.frases.length} (${percentual}%)<br>
+                    <button class="btn btn-concluir" style="margin-top:15px;" onclick="concluirFase()">Concluir e Voltar</button>`;
+            } else {
+                resultDiv.innerHTML = `❌ Você acertou ${acertos} de ${fase.frases.length} (${percentual}%). Precisa de 70% para passar. Revise os campos em vermelho!`;
+            }
+            conteudo.appendChild(resultDiv);
+        }
+
+        // ============================================
+        // PAINEL ADMIN
+        // ============================================
+        let adminLogado = false;
+
+        function carregarConfigAdmin() {
+            try {
+                const saved = localStorage.getItem('orievo_admin_config');
+                if (saved) {
+                    const config = JSON.parse(saved);
+                    for (let id in config) {
+                        if (MUNDOS[id]) {
+                            MUNDOS[id].bloqueadoPorSenha = config[id].bloqueadoPorSenha;
+                        }
+                    }
+                }
+            } catch(e) {}
+        }
+
+        function salvarConfigAdmin() {
+            const config = {};
+            for (let id in MUNDOS) {
+                config[id] = { bloqueadoPorSenha: MUNDOS[id].bloqueadoPorSenha };
+            }
+            try {
+                localStorage.setItem('orievo_admin_config', JSON.stringify(config));
+            } catch(e) {}
+        }
+
+        function abrirPainelAdmin() {
+            document.getElementById('adminPanel').classList.add('active');
+            if (!adminLogado) {
+                renderizarLoginAdmin();
+            } else {
+                renderizarTabelaAdmin();
+            }
+        }
+
+        function fecharPainelAdmin() {
+            document.getElementById('adminPanel').classList.remove('active');
+            // Limpa o hash sem recarregar
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        function renderizarLoginAdmin() {
+            document.getElementById('adminBody').innerHTML = `
+                <div style="text-align:center;">
+                    <p style="color:#666;margin-bottom:20px;">Digite a senha master para acessar o painel:</p>
+                    <div class="form-group">
+                        <input type="password" id="adminSenhaInput" placeholder="Senha Master" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:16px;">
+                    </div>
+                    <div id="adminErro" style="color:#dc3545;font-size:14px;margin-bottom:10px;display:none;">Senha incorreta.</div>
+                    <button class="btn btn-concluir" style="margin-top:10px;" onclick="validarAdminSenha()">Entrar</button>
+                </div>
+            `;
+            document.getElementById('adminSenhaInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') validarAdminSenha();
+            });
+        }
+
+        function validarAdminSenha() {
+            const senha = document.getElementById('adminSenhaInput').value;
+            if (senha === SENHA_MASTER) {
+                adminLogado = true;
+                renderizarTabelaAdmin();
+            } else {
+                document.getElementById('adminErro').style.display = 'block';
+            }
+        }
+
+        function renderizarTabelaAdmin() {
+            let rows = '';
+            for (let id in MUNDOS) {
+                if (MUNDOS[id].ativo !== false) {
+                    const bloqueado = MUNDOS[id].bloqueadoPorSenha;
+                    rows += `
+                        <tr>
+                            <td>${MUNDOS[id].icone} ${MUNDOS[id].nome}</td>
+                            <td>${bloqueado ? '🔴 Bloqueado' : '🟢 Liberado'}</td>
+                            <td>
+                                <button class="toggle-btn ${bloqueado ? 'bloqueado' : 'liberado'}"
+                                    onclick="toggleModulo('${id}')">
+                                    ${bloqueado ? '🔓 Liberar' : '🔒 Bloquear'}
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+            const modoTeste = localStorage.getItem('orievo_modo_teste') === 'true';
+            document.getElementById('adminBody').innerHTML = `
+                <div style="background:${modoTeste ? '#fff3cd' : '#f8f9fa'};border:2px solid ${modoTeste ? '#ffc107' : '#e0e0e0'};border-radius:10px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                    <div>
+                        <div style="font-weight:700;font-size:14px;color:#333;">🧪 Modo Teste</div>
+                        <div style="font-size:12px;color:#666;margin-top:2px;">Libera todos os módulos para visualização, sem precisar completar os anteriores.</div>
+                    </div>
+                    <button onclick="toggleModoTeste()" style="padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:13px;background:${modoTeste ? '#dc3545' : '#28a745'};color:#fff;white-space:nowrap;">
+                        ${modoTeste ? '🔒 Desativar' : '🔓 Ativar'}
+                    </button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Módulo</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            `;
+        }
+
+        function toggleModoTeste() {
+            const atual = localStorage.getItem('orievo_modo_teste') === 'true';
+            localStorage.setItem('orievo_modo_teste', (!atual).toString());
+            renderizarTabelaAdmin();
+            renderizarRoadmap();
+            calcularProgressoGlobal();
+        }
+
+        function toggleModulo(id) {
+            MUNDOS[id].bloqueadoPorSenha = !MUNDOS[id].bloqueadoPorSenha;
+            salvarConfigAdmin();
+            renderizarTabelaAdmin();
+            renderizarRoadmap();
+            calcularProgressoGlobal();
+        }
+
+        function concluirFase() {
+            if (!progresso[mundoSelecionado].includes(faseAtual)) {
+                progresso[mundoSelecionado].push(faseAtual);
+
+                // Salva no localStorage
+                salvarProgresso();
+
+                // ENVIA TRACKING DA FASE
+                const fase = MUNDOS[mundoSelecionado].fases[faseAtual];
+                if (fase.tipo !== 'quiz') { // Quiz já envia tracking próprio
+                    enviarTracking(
+                        MUNDOS[mundoSelecionado].nome,
+                        fase.nome,
+                        'Concluído'
+                    );
+                }
+
+                // Mostra toast
+                const tempoMin = tempoInicioFase ? Math.round((Date.now() - tempoInicioFase) / 60000) : 0;
+                mostrarToast(`✅ Fase concluída em ${tempoMin} min! +1 ponto`);
+            }
+            voltarMundo();
+        }
+
+        function voltarMundo() {
+            document.getElementById('telaFase').classList.add('hidden');
+            document.getElementById('telaMundo').classList.remove('hidden');
+            abrirMundo();
+        }
+
+        function voltarSelecao() {
+            document.getElementById('telaMundo').classList.add('hidden');
+            document.getElementById('telaSelecao').classList.remove('hidden');
+            mundoSelecionado = null;
+            renderizarRoadmap();
+            calcularProgressoGlobal();
+        }
+    </script>
+
+    <!-- Painel Admin -->
+    <div id="adminPanel">
+        <div class="admin-card">
+            <div class="admin-header">🔐 Painel do Instrutor</div>
+            <div class="admin-body" id="adminBody"></div>
+            <div class="admin-footer">
+                <button class="btn btn-voltar" onclick="fecharPainelAdmin()">Fechar Painel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Certificado -->
+    <div id="certificadoModal" class="certificate-modal">
+        <div class="certificate-content">
+            <div class="certificate-header">
+                <h2 id="certTitulo">🎓 CERTIFICADO DE CONCLUSÃO</h2>
+            </div>
+            <div class="certificate-body" id="certBody">
+                <!-- Conteúdo dinâmico do certificado -->
+            </div>
+            <div class="certificate-footer">
+                <button class="btn-certificate btn-download" onclick="baixarCertificado()">📥 Baixar PDF</button>
+                <button class="btn-certificate btn-close-cert" onclick="fecharCertificado()">Fechar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

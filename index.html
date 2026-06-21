@@ -1493,16 +1493,19 @@
             </div>
             <div class="header-center">
                 <h1>Safety Learn — Plataforma de Treinamentos</h1>
-                <p>Plataforma de Aprendizagem Corporativa</p>
+                <p>Cultura de Segurança · Grupo Dislub Equador</p>
             </div>
-
+            <div class="header-divider"></div>
+            <div class="header-logo-gde">
+                <img src="https://orievogroup.github.io/orievosafetylearning/logo_gde.png" alt="Grupo Dislub Equador">
+            </div>
         </div>
     </header>
 
     <!-- FOOTER PROFISSIONAL -->
     <footer class="site-footer">
         <p class="footer-text">
-            Desenvolvido por <strong>ORIEVO GROUP</strong>
+            Desenvolvido por <strong>ORIEVO GROUP</strong> para <strong>Grupo Dislub Equador</strong>
             &nbsp;·&nbsp; © 2026 · Todos os direitos reservados
         </p>
     </footer>
@@ -1645,229 +1648,185 @@
         // ============================================
 
         const MUNDOS = {
-            'seguranca': {
-                nome: 'Segurança no Trabalho',
-                descricao: 'EPIs e Prevenção de Acidentes',
-                icone: '🛡️',
-                cor: '#e74c3c',
-                senha: 'Seguranca2026',
-                bloqueadoPorSenha: false,  // false = liberado, true = só senha master
+            'bradley_curve': {
+                nome: 'Curva de Bradley — Evolução da Cultura de Segurança',
+                descricao: 'Os 4 estágios de maturidade em segurança segundo o modelo DuPont',
+                icone: '📈',
+                cor: '#16a085',
+                senha: 'BradleyCurve2026',
+                bloqueadoPorSenha: false,
                 ativo: true,
                 logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
-                
+
                 fases: [
                     {
-                        nome: 'Vídeo: Introdução à Segurança',
-                        tipo: 'video',
-                        url: 'https://orievogroup.github.io/orievosafetylearning/dds_video.mp4'
-                    },
-                    {
-                        nome: 'Quiz: Diálogo Diário de Segurança',
-                        tipo: 'quiz',
-                        perguntas: [
-                            {
-                                pergunta: 'O DDS não é importante, portanto vou pular essa etapa para fazer minha atividade mais rápido',
-                                opcoes: [
-                                    'Verdadeiro',
-                                    'Falso'
-                                ],
-                                correta: 1,
-                                explicacao: 'O DDS é muito importante e deve ser realizado diariamente. Nunca economize tempo quando se trata de segurança!'
-                            },
-                            {
-                                pergunta: 'Quando se trata de DDS, quanto mais longo, melhor',
-                                opcoes: [
-                                    'Verdadeiro',
-                                    'Falso'
-                                ],
-                                correta: 1,
-                                explicacao: 'O DDS deve ser dinâmico e participativo, durando no máximo 10 minutos, para que os colaboradores não percam atenção.'
-                            },
-                            {
-                                pergunta: 'Qual a principal função do DDS?',
-                                opcoes: [
-                                    'Reduzir custos da empresa',
-                                    'Substituir treinamentos formais',
-                                    'Conscientização diária sobre segurança',
-                                    'Apenas burocracia legal'
-                                ],
-                                correta: 2,
-                                explicacao: 'O DDS (Diálogo Diário de Segurança) tem como principal função conscientizar diariamente a equipe sobre riscos específicos das atividades do dia, reforçar boas práticas e manter a segurança sempre em pauta. Não substitui treinamentos formais, mas complementa a cultura de segurança.'
-                            },
-                            {
-                                pergunta: 'Somente os líderes podem realizar DDS',
-                                opcoes: [
-                                    'Falso',
-                                    'Verdadeiro'
-                                ],
-                                correta: 0,
-                                explicacao: 'Qualquer pessoa pode - e deve - realizar DDS!'
-                            }
-                        ]
-                    },
-                    {
-                        nome: 'Artigo: Normas de Segurança',
+                        nome: 'Leitura: O que é a Curva de Bradley?',
                         tipo: 'artigo',
                         conteudo: `
-                            <h2>Normas de Segurança no Trabalho</h2>
-                            
-                            <p>A segurança no trabalho é um conjunto de medidas que são adotadas visando minimizar os acidentes de trabalho, doenças ocupacionais, bem como proteger a integridade e a capacidade de trabalho do colaborador.</p>
-                            
-                            <h3>1. Equipamentos de Proteção Individual (EPIs)</h3>
-                            <p>Os EPIs são dispositivos de uso individual destinados a proteger a saúde e a integridade física do trabalhador.</p>
-                            
-                            <ul>
-                                <li><strong>Capacete:</strong> Proteção contra impactos, perfurações e choques elétricos</li>
-                                <li><strong>Luvas:</strong> Proteção das mãos contra agentes químicos, biológicos e mecânicos</li>
-                                <li><strong>Óculos:</strong> Proteção dos olhos contra partículas e respingos</li>
-                                <li><strong>Botas:</strong> Proteção dos pés contra perfurações e impactos</li>
-                            </ul>
-                            
-                            <h3>2. Responsabilidades do Trabalhador</h3>
-                            <ol>
-                                <li>Usar os EPIs fornecidos pela empresa</li>
-                                <li>Comunicar ao supervisor qualquer equipamento danificado</li>
-                                <li>Seguir rigorosamente as normas de segurança</li>
-                                <li>Participar dos treinamentos oferecidos</li>
-                            </ol>
-                            
-                            <p><strong>⚠️ Lembre-se:</strong> Não usar EPIs pode resultar em acidentes graves e até fatais.</p>
+                            <div style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">📈</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">A Curva de Bradley</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Modelo DuPont de Maturidade em Cultura de Segurança</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A <strong>Curva de Bradley</strong> é um modelo desenvolvido pela DuPont que descreve a evolução da cultura de segurança de uma organização ao longo do tempo. O modelo mostra que à medida que a cultura madura, o número de acidentes cai significativamente.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0;">
+                                <div style="background: #fff5f5; border-radius: 12px; padding: 20px; border-top: 4px solid #e74c3c;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
+                                    <h3 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 1 — Instinto Natural</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Acidentes são aceitos como inevitáveis. Ninguém sente responsabilidade. Segurança não é prioridade. <em>Risco: extremamente alto.</em></p>
+                                </div>
+                                <div style="background: #fff8f0; border-radius: 12px; padding: 20px; border-top: 4px solid #f39c12;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">📋</div>
+                                    <h3 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 2 — Controle e Supervisão</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Segurança por regras e punição. Funciona apenas quando alguém está olhando. Compliance sem convicção. <em>Risco: alto.</em></p>
+                                </div>
+                                <div style="background: #f0fff8; border-radius: 12px; padding: 20px; border-top: 4px solid #27ae60;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">💚</div>
+                                    <h3 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 3 — Convicção Pessoal</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Cada pessoa cuida da própria segurança por vontade própria. Normas são construídas coletivamente. <em>Risco: baixo.</em></p>
+                                </div>
+                                <div style="background: #f0f8ff; border-radius: 12px; padding: 20px; border-top: 4px solid #2980b9;">
+                                    <div style="font-size: 28px; margin-bottom: 8px;">🤝</div>
+                                    <h3 style="color: #2980b9; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 4 — Interdependência</h3>
+                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Todos cuidam uns dos outros. Zero acidentes é um compromisso coletivo. Segurança acima de produtividade. <em>Risco: próximo de zero.</em></p>
+                                </div>
+                            </div>
+
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-top: 20px;">
+                                <h3 style="color: #333; margin: 0 0 12px 0;">🔑 A pergunta central do modelo:</h3>
+                                <p style="font-size: 18px; font-weight: 600; color: #16a085; text-align: center; margin: 0; padding: 10px;">"Em que estágio você está — e em que estágio você quer estar?"</p>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                                <strong>📌 Prepare-se:</strong> O próximo passo é assistir ao vídeo original da Curva de Bradley com legendas em português. Preste atenção nos exemplos de cada estágio!
+                            </div>
                         `
                     },
+
                     {
-                        nome: 'Quiz: Avaliação de Segurança',
+                        nome: 'Vídeo: The Bradley Curve — Legendas em Português',
+                        tipo: 'video',
+                        url: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve.mp4',
+                        legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt'
+                    },
+
+                    {
+                        nome: 'Quiz: Os 4 Estágios da Curva de Bradley',
                         tipo: 'quiz',
                         perguntas: [
                             {
-                                pergunta: 'O que significa EPI?',
+                                pergunta: 'No Estágio 1 da Curva de Bradley, como os colaboradores encaram o risco de acidente?',
                                 opcoes: [
-                                    'Equipamento de Proteção Individual',
-                                    'Equipamento de Produção Industrial',
-                                    'Equipamento Pessoal Interno',
-                                    'Equipamento de Processo'
-                                ],
-                                correta: 0,
-                                explicacao: 'EPI significa Equipamento de Proteção Individual. São dispositivos de uso pessoal destinados a proteger a saúde e integridade física do trabalhador, como capacetes, luvas, óculos e protetores auriculares.'
-                            },
-                            {
-                                pergunta: 'Quando devemos usar capacete?',
-                                opcoes: [
-                                    'Quando o supervisor está presente',
-                                    'Em áreas sinalizadas como obrigatório',
-                                    'Somente em dias de chuva',
-                                    'Apenas em obras'
+                                    'Como algo que pode ser eliminado com treinamento',
+                                    'Como um fenômeno natural inevitável, fora do seu controle',
+                                    'Como responsabilidade exclusiva do setor de segurança',
+                                    'Como resultado de falhas na liderança'
                                 ],
                                 correta: 1,
-                                explicacao: 'O capacete deve ser usado em todas as áreas onde houver sinalização indicando sua obrigatoriedade, independente da presença do supervisor ou condições climáticas. A sinalização existe para proteger contra riscos reais de impactos na cabeça.'
+                                explicacao: 'No Estágio 1 (Instinto Natural), acidentes são aceitos como algo que simplesmente acontece — inevitável e incontrolável. Não há vontade de mudança. Os especialistas em segurança são vistos como inconvenientes. O risco de acidentes é extremamente alto.'
                             },
                             {
-                                pergunta: 'Qual a principal função do DDS?',
+                                pergunta: 'Qual é a principal característica do Estágio 2 da Curva de Bradley?',
                                 opcoes: [
-                                    'Reduzir custos da empresa',
-                                    'Substituir treinamentos formais',
-                                    'Conscientização diária sobre segurança',
-                                    'Apenas burocracia legal'
+                                    'Colaboradores se protegem por convicção própria',
+                                    'A segurança depende de regras, monitoramento e medo de punição',
+                                    'Toda a equipe cuida da segurança uns dos outros',
+                                    'Zero acidentes é visto como meta alcançável e coletiva'
+                                ],
+                                correta: 1,
+                                explicacao: 'No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está observando. A empresa usa regras rígidas e punições. O problema: quando ninguém está olhando, as normas são ignoradas. É semelhante a uma criação muito severa — a obediência vem do medo, não da convicção.'
+                            },
+                            {
+                                pergunta: 'O que diferencia o Estágio 3 do Estágio 2 na Curva de Bradley?',
+                                opcoes: [
+                                    'O número de regras escritas é maior',
+                                    'A punição por desvios é mais rígida',
+                                    'A segurança passa a ser uma convicção pessoal, não uma obrigação imposta',
+                                    'Os líderes fiscalizam com mais frequência'
                                 ],
                                 correta: 2,
-                                explicacao: 'O DDS (Diálogo Diário de Segurança) tem como principal função conscientizar diariamente a equipe sobre riscos específicos das atividades do dia, reforçar boas práticas e manter a segurança sempre em pauta. Não substitui treinamentos formais, mas complementa a cultura de segurança.'
+                                explicacao: 'No Estágio 3 (Convicção Pessoal), cada colaborador quer se proteger — não porque é obrigado, mas porque acredita na importância da segurança. As normas são construídas em conjunto. Os especialistas em segurança são vistos como parceiros, não como policiais. A taxa de acidentes cai drasticamente.'
                             },
                             {
-                                pergunta: 'EPI danificado, o que fazer?',
+                                pergunta: 'No Estágio 4 da Curva de Bradley, o que motiva os colaboradores a seguir as normas de segurança?',
                                 opcoes: [
-                                    'Continuar usando',
-                                    'Reportar e solicitar substituição',
-                                    'Tentar consertar',
-                                    'Emprestar de um colega'
+                                    'O receio de punições e advertências',
+                                    'A presença constante do supervisor',
+                                    'O cuidado com a própria vida e com a segurança dos colegas',
+                                    'Metas de bônus atreladas a indicadores de acidentes'
                                 ],
-                                correta: 1,
-                                explicacao: 'Ao identificar um EPI danificado, o trabalhador deve imediatamente reportar ao supervisor e solicitar a substituição. Usar EPI danificado compromete a proteção e pode causar acidentes graves. Nunca tente consertar ou emprestar de colegas, pois cada EPI é individual e deve estar em perfeitas condições.'
+                                correta: 2,
+                                explicacao: 'No Estágio 4 (Interdependência), a motivação vai além da própria segurança: as pessoas cuidam umas das outras. Zero acidentes é um compromisso coletivo — não uma meta imposta. Até os líderes se recusam a colocar produtividade acima do bem-estar das pessoas.'
+                            },
+                            {
+                                pergunta: 'Segundo o vídeo, qual afirmação descreve melhor o Estágio 4?',
+                                opcoes: [
+                                    '"Acidentes acontecem — é da natureza do trabalho."',
+                                    '"Seguimos as regras porque somos monitorados."',
+                                    '"Cuido da minha segurança porque acredito nela."',
+                                    '"Zero acidentes não é uma meta — é uma escolha coletiva e inegociável."'
+                                ],
+                                correta: 3,
+                                explicacao: 'O Estágio 4 representa o mais alto nível de maturidade em segurança. Zero acidentes deixa de ser uma meta imposta e torna-se uma escolha — um compromisso pessoal e coletivo. Um único acidente é percebido como falha de toda a organização, incluindo a liderança.'
+                            },
+                            {
+                                pergunta: 'De acordo com a Curva de Bradley, o que está associado ao menor risco de acidentes?',
+                                opcoes: [
+                                    'Mais fiscalizações e auditorias',
+                                    'Punições mais severas para desvios',
+                                    'Uma cultura de respeito mútuo, motivação e espírito de equipe',
+                                    'Mais treinamentos obrigatórios por ano'
+                                ],
+                                correta: 2,
+                                explicacao: 'A Curva de Bradley demonstra que o menor risco de acidentes não vem de mais regras ou mais punições, mas de uma cultura interna de respeito mútuo, motivação genuína e espírito de equipe. Quando as pessoas se importam umas com as outras, o risco cai para próximo de zero.'
                             }
                         ]
                     },
+
                     {
-                        nome: 'Jogo: Memória dos EPIs',
-                        tipo: 'memoria',
-                        simbolos: ['⛑️', '🥽', '🦺', '👷', '🧤', '👟', '😷', '🎧']
+                        nome: 'V/F: Verdadeiro ou Falso — Curva de Bradley',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'No Estágio 1, os especialistas em segurança são vistos como parceiros fundamentais da operação.',
+                                correta: false,
+                                explicacao: 'FALSO. No Estágio 1 (Instinto Natural), os especialistas em segurança são vistos como inconvenientes e raramente levados a sério. A segurança não é prioridade — acidentes são tratados como algo natural e inevitável.'
+                            },
+                            {
+                                texto: 'Uma empresa no Estágio 2 depende de monitoramento constante para manter os comportamentos seguros.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está olhando. Quando não há fiscalização, as regras tendem a ser ignoradas. O comportamento seguro é resultado do medo de punição, não de convicção.'
+                            },
+                            {
+                                texto: 'No Estágio 3, as normas de segurança são impostas exclusivamente pela liderança, sem participação dos colaboradores.',
+                                correta: false,
+                                explicacao: 'FALSO. Uma das características do Estágio 3 é exatamente o oposto: as medidas e padrões de segurança são construídos em conjunto com os colaboradores. Isso gera maior comprometimento e convicção, pois as pessoas participam ativamente da criação das normas.'
+                            },
+                            {
+                                texto: 'No Estágio 4, mesmo os líderes se recusam a colocar produtividade acima da segurança dos colaboradores.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O Estágio 4 (Interdependência) representa a maturidade máxima: líderes se veem pessoalmente responsáveis por nunca colocar lucro ou produtividade acima do bem-estar das pessoas. O bem-estar do colaborador é o objetivo final.'
+                            },
+                            {
+                                texto: 'A Curva de Bradley mostra que mais regras e mais punições são sempre a solução para chegar ao zero acidentes.',
+                                correta: false,
+                                explicacao: 'FALSO. A Curva de Bradley demonstra o oposto: os estágios mais elevados (3 e 4) abandonam a abordagem de coerção e medo. O verdadeiro zero acidentes vem de convicção pessoal, cuidado mútuo e cultura compartilhada — não de mais regras e punições.'
+                            }
+                        ]
                     },
+
                     {
-                        nome: 'Jogo: Associar Termos de Segurança',
+                        nome: 'Jogo: Associar os Estágios da Curva de Bradley',
                         tipo: 'associar',
                         pares: [
-                            {
-                                termo: 'EPI',
-                                definicao: 'Equipamento de Proteção Individual'
-                            },
-                            {
-                                termo: 'DDS',
-                                definicao: 'Diálogo Diário de Segurança'
-                            },
-                            {
-                                termo: 'CIPA',
-                                definicao: 'Comissão Interna de Prevenção de Acidentes'
-                            },
-                            {
-                                termo: 'NR-6',
-                                definicao: 'Norma Regulamentadora sobre EPIs'
-                            },
-                            {
-                                termo: 'SESMT',
-                                definicao: 'Serviço Especializado em Engenharia de Segurança'
-                            }
+                            { termo: 'Estágio 1 — Instinto', definicao: 'Acidentes são inevitáveis. Nenhuma vontade de controle.' },
+                            { termo: 'Estágio 2 — Controle', definicao: 'Regras e punições. Segurança só quando observado.' },
+                            { termo: 'Estágio 3 — Convicção', definicao: 'Cada um cuida de si por vontade própria.' },
+                            { termo: 'Estágio 4 — Interdependência', definicao: 'Todos cuidam uns dos outros. Zero acidentes é escolha.' },
+                            { termo: 'Curva de Bradley', definicao: 'Modelo DuPont de maturidade em cultura de segurança.' }
                         ]
-                    }
-                ]
-            },
-
-            'lideranca': {
-                nome: 'Líder de Excelência',
-                descricao: 'Desenvolvimento de Habilidades de Liderança',
-                icone: '👔',
-                cor: '#3498db',
-                senha: 'Lider2026',
-                bloqueadoPorSenha: false,  // false = liberado, true = só senha master
-                ativo: true,
-                logo: 'https://via.placeholder.com/300x100/3498db/ffffff?text=LIDERANCA',
-                
-                fases: [
-                    {
-                        nome: 'Vídeo: O que é Liderança',
-                        tipo: 'video',
-                        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-                    },
-                    {
-                        nome: 'Quiz: Fundamentos de Liderança',
-                        tipo: 'quiz',
-                        perguntas: [
-                            {
-                                pergunta: 'Qual característica essencial em um líder?',
-                                opcoes: ['Autoritarismo', 'Empatia e comunicação', 'Rigidez', 'Distanciamento'],
-                                correta: 1,
-                                explicacao: 'Empatia e comunicação são essenciais porque um líder precisa entender as necessidades da equipe, ouvir ativamente e transmitir informações de forma clara. O autoritarismo e a rigidez criam distanciamento e desmotivam a equipe.'
-                            },
-                            {
-                                pergunta: 'Liderar pelo exemplo significa?',
-                                opcoes: ['Delegar tudo', 'Demonstrar comportamentos esperados', 'Só dar ordens', 'Evitar envolvimento'],
-                                correta: 1,
-                                explicacao: 'Liderar pelo exemplo significa que o líder deve demonstrar na prática os comportamentos, valores e atitudes que espera de sua equipe. As pessoas tendem a seguir ações, não apenas palavras.'
-                            },
-                            {
-                                pergunta: 'Qual o papel do feedback?',
-                                opcoes: ['Criticar erros', 'Evitar confrontos', 'Desenvolver e orientar equipe', 'Punir comportamentos'],
-                                correta: 2,
-                                explicacao: 'O feedback tem papel fundamental no desenvolvimento da equipe. Deve ser construtivo, específico e orientado para o crescimento profissional, não para punição. Um bom feedback ajuda a pessoa a melhorar e crescer.'
-                            },
-                            {
-                                pergunta: 'Como lidar com conflitos?',
-                                opcoes: ['Ignorar', 'Tomar partido', 'Mediar e buscar soluções', 'Transferir responsabilidade'],
-                                correta: 2,
-                                explicacao: 'O líder deve atuar como mediador em conflitos, ouvindo todas as partes envolvidas e buscando soluções que beneficiem o time como um todo. Ignorar conflitos ou tomar partido apenas agrava a situação.'
-                            }
-                        ]
-                    },
-                    {
-                        nome: 'Jogo: Memória de Competências',
-                        tipo: 'memoria',
-                        simbolos: ['👔', '💼', '📊', '🎯', '💡', '🤝', '📈', '⭐']
                     }
                 ]
             },
@@ -2083,188 +2042,6 @@
                 ]
             },
 
-            'bradley_curve': {
-                nome: 'Curva de Bradley — Evolução da Cultura de Segurança',
-                descricao: 'Os 4 estágios de maturidade em segurança segundo o modelo DuPont',
-                icone: '📈',
-                cor: '#16a085',
-                senha: 'BradleyCurve2026',
-                bloqueadoPorSenha: false,
-                ativo: true,
-                logo: 'https://orievogroup.github.io/orievosafetylearning/logo_gde.png',
-
-                fases: [
-                    {
-                        nome: 'Leitura: O que é a Curva de Bradley?',
-                        tipo: 'artigo',
-                        conteudo: `
-                            <div style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
-                                <div style="font-size: 56px; margin-bottom: 12px;">📈</div>
-                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">A Curva de Bradley</h2>
-                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Modelo DuPont de Maturidade em Cultura de Segurança</p>
-                            </div>
-
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A <strong>Curva de Bradley</strong> é um modelo desenvolvido pela DuPont que descreve a evolução da cultura de segurança de uma organização ao longo do tempo. O modelo mostra que à medida que a cultura madura, o número de acidentes cai significativamente.</p>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0;">
-                                <div style="background: #fff5f5; border-radius: 12px; padding: 20px; border-top: 4px solid #e74c3c;">
-                                    <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
-                                    <h3 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 1 — Instinto Natural</h3>
-                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Acidentes são aceitos como inevitáveis. Ninguém sente responsabilidade. Segurança não é prioridade. <em>Risco: extremamente alto.</em></p>
-                                </div>
-                                <div style="background: #fff8f0; border-radius: 12px; padding: 20px; border-top: 4px solid #f39c12;">
-                                    <div style="font-size: 28px; margin-bottom: 8px;">📋</div>
-                                    <h3 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 2 — Controle e Supervisão</h3>
-                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Segurança por regras e punição. Funciona apenas quando alguém está olhando. Compliance sem convicção. <em>Risco: alto.</em></p>
-                                </div>
-                                <div style="background: #f0fff8; border-radius: 12px; padding: 20px; border-top: 4px solid #27ae60;">
-                                    <div style="font-size: 28px; margin-bottom: 8px;">💚</div>
-                                    <h3 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 3 — Convicção Pessoal</h3>
-                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Cada pessoa cuida da própria segurança por vontade própria. Normas são construídas coletivamente. <em>Risco: baixo.</em></p>
-                                </div>
-                                <div style="background: #f0f8ff; border-radius: 12px; padding: 20px; border-top: 4px solid #2980b9;">
-                                    <div style="font-size: 28px; margin-bottom: 8px;">🤝</div>
-                                    <h3 style="color: #2980b9; margin: 0 0 8px 0; font-size: 15px;">ESTÁGIO 4 — Interdependência</h3>
-                                    <p style="color: #555; font-size: 13px; margin: 0; line-height: 1.6;">Todos cuidam uns dos outros. Zero acidentes é um compromisso coletivo. Segurança acima de produtividade. <em>Risco: próximo de zero.</em></p>
-                                </div>
-                            </div>
-
-                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-top: 20px;">
-                                <h3 style="color: #333; margin: 0 0 12px 0;">🔑 A pergunta central do modelo:</h3>
-                                <p style="font-size: 18px; font-weight: 600; color: #16a085; text-align: center; margin: 0; padding: 10px;">"Em que estágio você está — e em que estágio você quer estar?"</p>
-                            </div>
-
-                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                                <strong>📌 Prepare-se:</strong> O próximo passo é assistir ao vídeo original da Curva de Bradley com legendas em português. Preste atenção nos exemplos de cada estágio!
-                            </div>
-                        `
-                    },
-
-                    {
-                        nome: 'Vídeo: The Bradley Curve — Legendas em Português',
-                        tipo: 'video',
-                        url: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve.mp4',
-                        legenda: 'https://orievogroup.github.io/orievosafetylearning/bradley_curve_pt.vtt'
-                    },
-
-                    {
-                        nome: 'Quiz: Os 4 Estágios da Curva de Bradley',
-                        tipo: 'quiz',
-                        perguntas: [
-                            {
-                                pergunta: 'No Estágio 1 da Curva de Bradley, como os colaboradores encaram o risco de acidente?',
-                                opcoes: [
-                                    'Como algo que pode ser eliminado com treinamento',
-                                    'Como um fenômeno natural inevitável, fora do seu controle',
-                                    'Como responsabilidade exclusiva do setor de segurança',
-                                    'Como resultado de falhas na liderança'
-                                ],
-                                correta: 1,
-                                explicacao: 'No Estágio 1 (Instinto Natural), acidentes são aceitos como algo que simplesmente acontece — inevitável e incontrolável. Não há vontade de mudança. Os especialistas em segurança são vistos como inconvenientes. O risco de acidentes é extremamente alto.'
-                            },
-                            {
-                                pergunta: 'Qual é a principal característica do Estágio 2 da Curva de Bradley?',
-                                opcoes: [
-                                    'Colaboradores se protegem por convicção própria',
-                                    'A segurança depende de regras, monitoramento e medo de punição',
-                                    'Toda a equipe cuida da segurança uns dos outros',
-                                    'Zero acidentes é visto como meta alcançável e coletiva'
-                                ],
-                                correta: 1,
-                                explicacao: 'No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está observando. A empresa usa regras rígidas e punições. O problema: quando ninguém está olhando, as normas são ignoradas. É semelhante a uma criação muito severa — a obediência vem do medo, não da convicção.'
-                            },
-                            {
-                                pergunta: 'O que diferencia o Estágio 3 do Estágio 2 na Curva de Bradley?',
-                                opcoes: [
-                                    'O número de regras escritas é maior',
-                                    'A punição por desvios é mais rígida',
-                                    'A segurança passa a ser uma convicção pessoal, não uma obrigação imposta',
-                                    'Os líderes fiscalizam com mais frequência'
-                                ],
-                                correta: 2,
-                                explicacao: 'No Estágio 3 (Convicção Pessoal), cada colaborador quer se proteger — não porque é obrigado, mas porque acredita na importância da segurança. As normas são construídas em conjunto. Os especialistas em segurança são vistos como parceiros, não como policiais. A taxa de acidentes cai drasticamente.'
-                            },
-                            {
-                                pergunta: 'No Estágio 4 da Curva de Bradley, o que motiva os colaboradores a seguir as normas de segurança?',
-                                opcoes: [
-                                    'O receio de punições e advertências',
-                                    'A presença constante do supervisor',
-                                    'O cuidado com a própria vida e com a segurança dos colegas',
-                                    'Metas de bônus atreladas a indicadores de acidentes'
-                                ],
-                                correta: 2,
-                                explicacao: 'No Estágio 4 (Interdependência), a motivação vai além da própria segurança: as pessoas cuidam umas das outras. Zero acidentes é um compromisso coletivo — não uma meta imposta. Até os líderes se recusam a colocar produtividade acima do bem-estar das pessoas.'
-                            },
-                            {
-                                pergunta: 'Segundo o vídeo, qual afirmação descreve melhor o Estágio 4?',
-                                opcoes: [
-                                    '"Acidentes acontecem — é da natureza do trabalho."',
-                                    '"Seguimos as regras porque somos monitorados."',
-                                    '"Cuido da minha segurança porque acredito nela."',
-                                    '"Zero acidentes não é uma meta — é uma escolha coletiva e inegociável."'
-                                ],
-                                correta: 3,
-                                explicacao: 'O Estágio 4 representa o mais alto nível de maturidade em segurança. Zero acidentes deixa de ser uma meta imposta e torna-se uma escolha — um compromisso pessoal e coletivo. Um único acidente é percebido como falha de toda a organização, incluindo a liderança.'
-                            },
-                            {
-                                pergunta: 'De acordo com a Curva de Bradley, o que está associado ao menor risco de acidentes?',
-                                opcoes: [
-                                    'Mais fiscalizações e auditorias',
-                                    'Punições mais severas para desvios',
-                                    'Uma cultura de respeito mútuo, motivação e espírito de equipe',
-                                    'Mais treinamentos obrigatórios por ano'
-                                ],
-                                correta: 2,
-                                explicacao: 'A Curva de Bradley demonstra que o menor risco de acidentes não vem de mais regras ou mais punições, mas de uma cultura interna de respeito mútuo, motivação genuína e espírito de equipe. Quando as pessoas se importam umas com as outras, o risco cai para próximo de zero.'
-                            }
-                        ]
-                    },
-
-                    {
-                        nome: 'V/F: Verdadeiro ou Falso — Curva de Bradley',
-                        tipo: 'verdadeirofalso',
-                        afirmacoes: [
-                            {
-                                texto: 'No Estágio 1, os especialistas em segurança são vistos como parceiros fundamentais da operação.',
-                                correta: false,
-                                explicacao: 'FALSO. No Estágio 1 (Instinto Natural), os especialistas em segurança são vistos como inconvenientes e raramente levados a sério. A segurança não é prioridade — acidentes são tratados como algo natural e inevitável.'
-                            },
-                            {
-                                texto: 'Uma empresa no Estágio 2 depende de monitoramento constante para manter os comportamentos seguros.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. No Estágio 2 (Controle e Supervisão), a segurança funciona enquanto alguém está olhando. Quando não há fiscalização, as regras tendem a ser ignoradas. O comportamento seguro é resultado do medo de punição, não de convicção.'
-                            },
-                            {
-                                texto: 'No Estágio 3, as normas de segurança são impostas exclusivamente pela liderança, sem participação dos colaboradores.',
-                                correta: false,
-                                explicacao: 'FALSO. Uma das características do Estágio 3 é exatamente o oposto: as medidas e padrões de segurança são construídos em conjunto com os colaboradores. Isso gera maior comprometimento e convicção, pois as pessoas participam ativamente da criação das normas.'
-                            },
-                            {
-                                texto: 'No Estágio 4, mesmo os líderes se recusam a colocar produtividade acima da segurança dos colaboradores.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. O Estágio 4 (Interdependência) representa a maturidade máxima: líderes se veem pessoalmente responsáveis por nunca colocar lucro ou produtividade acima do bem-estar das pessoas. O bem-estar do colaborador é o objetivo final.'
-                            },
-                            {
-                                texto: 'A Curva de Bradley mostra que mais regras e mais punições são sempre a solução para chegar ao zero acidentes.',
-                                correta: false,
-                                explicacao: 'FALSO. A Curva de Bradley demonstra o oposto: os estágios mais elevados (3 e 4) abandonam a abordagem de coerção e medo. O verdadeiro zero acidentes vem de convicção pessoal, cuidado mútuo e cultura compartilhada — não de mais regras e punições.'
-                            }
-                        ]
-                    },
-
-                    {
-                        nome: 'Jogo: Associar os Estágios da Curva de Bradley',
-                        tipo: 'associar',
-                        pares: [
-                            { termo: 'Estágio 1 — Instinto', definicao: 'Acidentes são inevitáveis. Nenhuma vontade de controle.' },
-                            { termo: 'Estágio 2 — Controle', definicao: 'Regras e punições. Segurança só quando observado.' },
-                            { termo: 'Estágio 3 — Convicção', definicao: 'Cada um cuida de si por vontade própria.' },
-                            { termo: 'Estágio 4 — Interdependência', definicao: 'Todos cuidam uns dos outros. Zero acidentes é escolha.' },
-                            { termo: 'Curva de Bradley', definicao: 'Modelo DuPont de maturidade em cultura de segurança.' }
-                        ]
-                    }
-                ]
-            },
 
             'piecs_modulo2': {
                 nome: 'Tomada de Decisão e Responsabilidade',
@@ -2701,6 +2478,7 @@
 
                 ]
             }
+
         };
 
         // ============================================
@@ -3655,7 +3433,7 @@
             memoriaFlipped = [];
             
             let html = `<h2>${fase.nome}</h2>`;
-            html += '<div class="score">Pares encontrados: <span id="pares">0</span>/8</div>';
+            html += `<div class="score">Pares encontrados: <span id="pares">0</span>/${fase.simbolos.length}</div>`;
             html += '<div class="memory-grid">';
             
             memoriaCards.forEach((card, i) => {
@@ -4041,11 +3819,22 @@
 
         function carregarLacunas(fase, conteudo) {
             lacunasFaseAtual = fase;
-            let html = `<h2>${fase.nome}</h2><p style="color:#666;margin-bottom:20px;">Preencha os campos em branco:</p>`;
+            // Coleta todas as respostas e embaralha para o banco de palavras
+            const todasRespostas = fase.frases.map(f => f.resposta);
+            const bancoPalavras = [...todasRespostas].sort(() => Math.random() - 0.5);
+
+            let html = `<h2>${fase.nome}</h2>
+                <p style="color:#666;margin-bottom:12px;">Complete as frases usando as palavras do banco abaixo:</p>
+                <div style="background:#e8f4fd;border:2px solid #4FC3DC;border-radius:12px;padding:14px 18px;margin-bottom:24px;">
+                    <p style="color:#2A9BB8;font-weight:700;font-size:13px;margin:0 0 10px 0;">💡 BANCO DE PALAVRAS:</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        ${bancoPalavras.map(p => `<span style="background:#fff;border:2px solid #4FC3DC;border-radius:20px;padding:4px 14px;font-weight:600;color:#2A9BB8;font-size:14px;">${p}</span>`).join('')}
+                    </div>
+                </div>`;
 
             fase.frases.forEach((frase, i) => {
                 const textoComInput = frase.texto.replace('___',
-                    `<input type="text" class="lacunas-input" id="lacuna-${i}" placeholder="..." autocomplete="off">`
+                    `<input type="text" class="lacunas-input" id="lacuna-${i}" placeholder="digite aqui..." autocomplete="off">`
                 );
                 html += `<div class="lacunas-frase">${textoComInput}</div>`;
             });

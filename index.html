@@ -1649,6 +1649,38 @@
             });
         };
 
+        // Lê a flag de manutenção da nuvem (retorna Promise<boolean>)
+        window.verificarManutencao = function() {
+            return new Promise((resolve) => {
+                try {
+                    get(child(ref(db), 'nuvens/_site_manutencao'))
+                        .then((snap) => resolve(snap.exists() && snap.val() === true))
+                        .catch(() => resolve(false));
+                } catch (e) { resolve(false); }
+            });
+        };
+
+        // Liga/desliga o modo manutenção (só o instrutor usa, via painel admin)
+        window.setManutencao = function(ligado) {
+            return set(ref(db, 'nuvens/_site_manutencao'), ligado === true);
+        };
+
+        // Lê o estado de bloqueio dos módulos da nuvem (retorna Promise<obj { id: true/false }>)
+        window.carregarBloqueiosModulos = function() {
+            return new Promise((resolve) => {
+                try {
+                    get(child(ref(db), 'nuvens/_modulos_bloqueados'))
+                        .then((snap) => resolve(snap.exists() ? (snap.val() || {}) : {}))
+                        .catch(() => resolve({}));
+                } catch (e) { resolve({}); }
+            });
+        };
+
+        // Grava o estado de bloqueio de UM módulo na nuvem
+        window.setBloqueioModulo = function(id, bloqueado) {
+            return set(ref(db, 'nuvens/_modulos_bloqueados/' + id), bloqueado === true);
+        };
+
         window.firebaseProgressoReady = true;
         console.log('✅ Firebase de progresso pronto');
     </script>
@@ -1762,10 +1794,9 @@
                     },
 
                     {
-                        nome: 'Vídeo: The Bradley Curve — Legendas em Português',
+                        nome: 'Vídeo: A Curva de Bradley (Dublado)',
                         tipo: 'video',
-                        url: 'https://orievogroup.github.io/GDE/bradley-curve.mp4',
-                        legenda: 'https://orievogroup.github.io/GDE/bradley_curve_pt.vtt'
+                        url: 'https://orievogroup.github.io/GDE/bradley_curve_dublado.mp4'
                     },
 
                     {
@@ -2631,7 +2662,41 @@
             calcularProgressoGlobal();
             verificarHash();
             sincronizarNuvemInicial();
+            verificarManutencaoInicial();
+            // Aplica o estado de bloqueio dos módulos definido na nuvem (vale p/ todos)
+            carregarBloqueiosNuvem().then(() => {
+                renderizarRoadmap();
+                calcularProgressoGlobal();
+            });
         };
+
+        // Verifica na nuvem se o site está em manutenção. Se estiver, mostra
+        // a tela "Em manutenção" e impede o acesso. O instrutor (#admin) passa direto.
+        function verificarManutencaoInicial() {
+            if (window.location.hash === '#admin') return; // instrutor sempre entra
+            const tentar = () => {
+                if (!window.verificarManutencao) { setTimeout(tentar, 400); return; }
+                window.verificarManutencao().then((ligado) => {
+                    if (ligado) mostrarTelaManutencao();
+                });
+            };
+            tentar();
+        }
+
+        function mostrarTelaManutencao() {
+            const overlay = document.createElement('div');
+            overlay.id = 'overlayManutencao';
+            overlay.style.cssText = `position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+                display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;color:#fff;`;
+            overlay.innerHTML = `
+                <div style="font-size:64px;margin-bottom:20px;">🛠️</div>
+                <h1 style="font-size:28px;margin:0 0 12px 0;font-weight:700;">Estamos em manutenção</h1>
+                <p style="font-size:16px;max-width:480px;opacity:0.85;line-height:1.6;margin:0 0 8px 0;">
+                    A plataforma está recebendo melhorias e novos conteúdos.
+                    Seu progresso está salvo e seguro. Volte em instantes.</p>
+                <p style="font-size:13px;opacity:0.6;margin-top:24px;">ORIEVO GROUP · Safety Learn</p>`;
+            document.body.appendChild(overlay);
+        }
 
         // Se o aluno já tem e-mail salvo neste navegador, puxa o progresso mais
         // recente da nuvem (ex.: avançou em outro aparelho) e atualiza a tela.
@@ -2677,8 +2742,9 @@
                     let motivoBloqueio = '';
                     const modoTeste = localStorage.getItem('orievo_modo_teste') === 'true';
 
-                    // Verifica se está bloqueado por senha (aguardando instrutor)
-                    if (mundo.bloqueadoPorSenha === true) {
+                    // Verifica se está bloqueado por senha (aguardando instrutor).
+                    // O admin logado ignora o bloqueio e enxerga tudo liberado.
+                    if (mundo.bloqueadoPorSenha === true && !adminLogado) {
                         estado = 'locked';
                         motivoBloqueio = 'aguardando';
                     } else if (percentual === 100) {
@@ -3746,14 +3812,14 @@
 
         function mostrarPerguntaVF(conteudo) {
             if (!conteudo) conteudo = document.getElementById('faseConteudo');
-            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
+            const p = vfFaseAtual.afirmacoes[vfPerguntaAtual];
             conteudo.innerHTML = `
                 <h2>${vfFaseAtual.nome}</h2>
                 <div style="text-align:center;color:#666;margin-bottom:20px;">
-                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.afirmacoes.length}
                 </div>
                 <div class="vf-card">
-                    <div class="vf-afirmacao">${p.afirmacao}</div>
+                    <div class="vf-afirmacao">${p.texto}</div>
                     <div class="vf-botoes">
                         <button class="btn-verdadeiro" onclick="responderVF(true)">✅ VERDADEIRO</button>
                         <button class="btn-falso" onclick="responderVF(false)">❌ FALSO</button>
@@ -3763,26 +3829,26 @@
         }
 
         function responderVF(resposta) {
-            const p = vfFaseAtual.perguntas[vfPerguntaAtual];
-            const acertou = resposta === p.resposta;
+            const p = vfFaseAtual.afirmacoes[vfPerguntaAtual];
+            const acertou = resposta === p.correta;
             if (acertou) vfAcertos++;
 
             const conteudo = document.getElementById('faseConteudo');
             const corEmoji = acertou ? '✅' : '❌';
             const cor = acertou ? '#28a745' : '#dc3545';
             const titulo = acertou ? 'Correto!' : 'Incorreto!';
-            const proxima = vfPerguntaAtual < vfFaseAtual.perguntas.length - 1;
+            const proxima = vfPerguntaAtual < vfFaseAtual.afirmacoes.length - 1;
 
             conteudo.innerHTML = `
                 <h2>${vfFaseAtual.nome}</h2>
                 <div style="text-align:center;color:#666;margin-bottom:20px;">
-                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.perguntas.length}
+                    Afirmação ${vfPerguntaAtual + 1} de ${vfFaseAtual.afirmacoes.length}
                 </div>
                 <div style="text-align:center;font-size:70px;margin:20px 0;">${corEmoji}</div>
                 <div style="background:white;padding:30px;border-radius:15px;border-left:5px solid ${cor};margin-bottom:25px;">
                     <h3 style="color:${cor};margin-bottom:15px;">${titulo}</h3>
-                    <p><strong>Afirmação:</strong> ${p.afirmacao}</p>
-                    <p style="margin-top:10px;"><strong>Resposta correta:</strong> ${p.resposta ? 'VERDADEIRO' : 'FALSO'}</p>
+                    <p><strong>Afirmação:</strong> ${p.texto}</p>
+                    <p style="margin-top:10px;"><strong>Resposta correta:</strong> ${p.correta ? 'VERDADEIRO' : 'FALSO'}</p>
                     ${p.explicacao ? `<div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-top:15px;"><strong>💡 Explicação:</strong><br>${p.explicacao}</div>` : ''}
                 </div>
                 ${proxima
@@ -3797,7 +3863,7 @@
         }
 
         function finalizarVF() {
-            const total = vfFaseAtual.perguntas.length;
+            const total = vfFaseAtual.afirmacoes.length;
             const percentual = Math.round((vfAcertos / total) * 100);
             const passou = percentual >= 70;
             const cor = passou ? '#28a745' : '#dc3545';
@@ -3952,14 +4018,25 @@
             conteudo.innerHTML = html;
         }
 
+        // Normaliza texto para comparação tolerante: tira acentos, pontuação,
+        // espaços extras e maiúsculas. Assim "análise" = "analise", "transformação" = "transformacao".
+        function normalizarLacuna(txt) {
+            return (txt || '')
+                .normalize('NFD').replace(/[̀-ͯ]/g, '')   // remove acentos
+                .toLowerCase()
+                .replace(/[.,;:!?'"´`^~()\[\]\/\\-]/g, '')           // remove pontuação
+                .replace(/\s+/g, ' ')                                 // colapsa espaços
+                .trim();
+        }
+
         function verificarLacunas() {
             const fase = lacunasFaseAtual;
             let acertos = 0;
             fase.frases.forEach((frase, i) => {
                 const input = document.getElementById(`lacuna-${i}`);
                 if (!input) return;
-                const resposta = input.value.trim().toLowerCase();
-                const correta = frase.resposta.trim().toLowerCase();
+                const resposta = normalizarLacuna(input.value);
+                const correta = normalizarLacuna(frase.resposta);
                 if (resposta === correta) {
                     input.classList.add('correct');
                     input.classList.remove('incorrect');
@@ -3999,6 +4076,7 @@
         let adminLogado = false;
 
         function carregarConfigAdmin() {
+            // Mantido por compatibilidade — o estado real vem da nuvem (carregarBloqueiosNuvem)
             try {
                 const saved = localStorage.getItem('orievo_admin_config');
                 if (saved) {
@@ -4010,6 +4088,23 @@
                     }
                 }
             } catch(e) {}
+        }
+
+        // Lê o estado de bloqueio dos módulos da NUVEM e aplica (vale para todos).
+        // Retorna Promise que resolve quando aplicado.
+        function carregarBloqueiosNuvem() {
+            return new Promise((resolve) => {
+                const tentar = () => {
+                    if (!window.carregarBloqueiosModulos) { setTimeout(tentar, 300); return; }
+                    window.carregarBloqueiosModulos().then((bloqueios) => {
+                        for (let id in bloqueios) {
+                            if (MUNDOS[id]) MUNDOS[id].bloqueadoPorSenha = bloqueios[id] === true;
+                        }
+                        resolve();
+                    });
+                };
+                tentar();
+            });
         }
 
         function salvarConfigAdmin() {
@@ -4058,6 +4153,9 @@
             if (senha === SENHA_MASTER) {
                 adminLogado = true;
                 renderizarTabelaAdmin();
+                // Como admin, libera a visualização de todos os módulos (mesmo bloqueados)
+                renderizarRoadmap();
+                calcularProgressoGlobal();
             } else {
                 document.getElementById('adminErro').style.display = 'block';
             }
@@ -4084,6 +4182,13 @@
             }
             const modoTeste = localStorage.getItem('orievo_modo_teste') === 'true';
             document.getElementById('adminBody').innerHTML = `
+                <div id="boxManutencao" style="background:#f8f9fa;border:2px solid #e0e0e0;border-radius:10px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                    <div>
+                        <div style="font-weight:700;font-size:14px;color:#333;">🛠️ Modo Manutenção <span id="manutencaoStatus" style="font-size:12px;color:#999;">(verificando...)</span></div>
+                        <div style="font-size:12px;color:#666;margin-top:2px;">Mostra a tela "Em manutenção" para todos os alunos. Nenhum dado é perdido. Você (admin) continua acessando.</div>
+                    </div>
+                    <button id="btnManutencao" onclick="toggleManutencao()" disabled style="padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:13px;background:#999;color:#fff;white-space:nowrap;">...</button>
+                </div>
                 <div style="background:${modoTeste ? '#fff3cd' : '#f8f9fa'};border:2px solid ${modoTeste ? '#ffc107' : '#e0e0e0'};border-radius:10px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
                     <div>
                         <div style="font-weight:700;font-size:14px;color:#333;">🧪 Modo Teste</div>
@@ -4104,6 +4209,49 @@
                     <tbody>${rows}</tbody>
                 </table>
             `;
+            atualizarBotaoManutencao();
+        }
+
+        // Lê o estado atual da manutenção na nuvem e atualiza o botão do painel
+        function atualizarBotaoManutencao() {
+            const status = document.getElementById('manutencaoStatus');
+            const btn = document.getElementById('btnManutencao');
+            const box = document.getElementById('boxManutencao');
+            if (!status || !btn || !window.verificarManutencao) return;
+            window.verificarManutencao().then((ligado) => {
+                if (ligado) {
+                    status.textContent = '· 🔴 LIGADO (site em manutenção)';
+                    status.style.color = '#dc3545';
+                    box.style.borderColor = '#dc3545';
+                    box.style.background = '#fff5f5';
+                    btn.textContent = '🟢 Desligar manutenção';
+                    btn.style.background = '#28a745';
+                } else {
+                    status.textContent = '· 🟢 site no ar';
+                    status.style.color = '#28a745';
+                    box.style.borderColor = '#e0e0e0';
+                    box.style.background = '#f8f9fa';
+                    btn.textContent = '🛠️ Ligar manutenção';
+                    btn.style.background = '#dc3545';
+                }
+                btn.disabled = false;
+                btn.style.cursor = 'pointer';
+            });
+        }
+
+        function toggleManutencao() {
+            const btn = document.getElementById('btnManutencao');
+            if (!window.verificarManutencao || !window.setManutencao) return;
+            btn.disabled = true;
+            window.verificarManutencao().then((ligado) => {
+                window.setManutencao(!ligado).then(() => {
+                    atualizarBotaoManutencao();
+                    mostrarToast(!ligado ? '🛠️ Manutenção LIGADA — alunos verão a tela de manutenção' : '🟢 Manutenção desligada — site no ar', !ligado ? '#dc3545' : '#28a745');
+                }).catch(() => {
+                    btn.disabled = false;
+                    mostrarToast('⚠️ Erro ao alterar manutenção', '#dc3545');
+                });
+            });
         }
 
         function toggleModoTeste() {
@@ -4115,8 +4263,15 @@
         }
 
         function toggleModulo(id) {
-            MUNDOS[id].bloqueadoPorSenha = !MUNDOS[id].bloqueadoPorSenha;
+            const novoEstado = !MUNDOS[id].bloqueadoPorSenha;
+            MUNDOS[id].bloqueadoPorSenha = novoEstado;
             salvarConfigAdmin();
+            // Grava na NUVEM para valer para todos os alunos
+            if (window.setBloqueioModulo) {
+                window.setBloqueioModulo(id, novoEstado)
+                    .then(() => mostrarToast(novoEstado ? '🔒 Módulo bloqueado para os alunos' : '🔓 Módulo liberado para os alunos', novoEstado ? '#dc3545' : '#28a745'))
+                    .catch(() => mostrarToast('⚠️ Erro ao salvar na nuvem', '#dc3545'));
+            }
             renderizarTabelaAdmin();
             renderizarRoadmap();
             calcularProgressoGlobal();

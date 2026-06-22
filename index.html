@@ -1597,6 +1597,62 @@
         </div>
     </div>
 
+    <!-- ============================================ -->
+    <!-- FIREBASE - SALVAMENTO DE PROGRESSO NA NUVEM   -->
+    <!-- O progresso do aluno fica vinculado ao e-mail  -->
+    <!-- e sobrevive a atualizações e troca de aparelho -->
+    <!-- ============================================ -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+        const app = initializeApp({
+            apiKey: "AIzaSyARUq5PhuNa45_Na6SNPveRX_lcucTRkRA",
+            authDomain: "dislub-equador.firebaseapp.com",
+            databaseURL: "https://dislub-equador-default-rtdb.firebaseio.com",
+            projectId: "dislub-equador",
+            storageBucket: "dislub-equador.firebasestorage.app",
+            messagingSenderId: "160052415363",
+            appId: "1:160052415363:web:f17df9700cd511122504b6"
+        });
+
+        const db = getDatabase(app);
+
+        // Firebase não aceita . # $ [ ] / nas chaves — sanitiza o e-mail
+        function sanitizarEmail(email) {
+            return (email || '').trim().toLowerCase().replace(/[.#$\[\]\/@]/g, '_');
+        }
+
+        // Salva o progresso do aluno na nuvem
+        window.salvarProgressoNuvem = function(dadosUsuario, progresso) {
+            try {
+                if (!dadosUsuario || !dadosUsuario.email) return;
+                const key = sanitizarEmail(dadosUsuario.email);
+                set(ref(db, 'progresso_alunos/' + key), {
+                    nome: dadosUsuario.nome || '',
+                    email: dadosUsuario.email,
+                    progresso: progresso || {},
+                    atualizadoEm: new Date().toISOString()
+                });
+            } catch (e) { console.log('⚠️ Erro ao salvar progresso na nuvem:', e); }
+        };
+
+        // Carrega o progresso do aluno da nuvem (retorna Promise)
+        window.carregarProgressoNuvem = function(email) {
+            return new Promise((resolve) => {
+                try {
+                    const key = sanitizarEmail(email);
+                    get(child(ref(db), 'progresso_alunos/' + key))
+                        .then((snap) => resolve(snap.exists() ? snap.val() : null))
+                        .catch(() => resolve(null));
+                } catch (e) { resolve(null); }
+            });
+        };
+
+        window.firebaseProgressoReady = true;
+        console.log('✅ Firebase de progresso pronto');
+    </script>
+
     <script>
         // ============================================
         // TRACKING - NÃO MEXA AQUI!
@@ -1653,8 +1709,8 @@
                 descricao: 'Os 4 estágios de maturidade em segurança segundo o modelo DuPont',
                 icone: '📈',
                 cor: '#16a085',
-                senha: 'BradleyCurve2026',
-                bloqueadoPorSenha: false,
+                senha: 'GDE',
+                bloqueadoPorSenha: true,
                 ativo: true,
                 logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
 
@@ -1836,8 +1892,8 @@
                 descricao: 'O que você tolera define quem você é como líder',
                 icone: '🎯',
                 cor: '#8e44ad',
-                senha: 'CulturaLider2026',
-                bloqueadoPorSenha: false,
+                senha: 'GDE',
+                bloqueadoPorSenha: true,
                 ativo: true,
                 logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
 
@@ -2048,7 +2104,7 @@
                 descricao: 'Quando liderança transforma segurança em realidade',
                 icone: '⚖️',
                 cor: '#1E2761',
-                senha: 'PIECS2026',
+                senha: 'GDE',
                 bloqueadoPorSenha: true,
                 ativo: true,
 
@@ -2496,9 +2552,26 @@
         // LOCAL STORAGE
         // ============================================
         function salvarProgresso() {
+            // Cache local (rápido, funciona offline)
             try {
                 localStorage.setItem('orievo_progresso', JSON.stringify({ progresso, dadosUsuario }));
             } catch(e) {}
+            // Backup na nuvem (sobrevive a atualizações e troca de aparelho)
+            try {
+                if (window.salvarProgressoNuvem && dadosUsuario && dadosUsuario.email) {
+                    window.salvarProgressoNuvem(dadosUsuario, progresso);
+                }
+            } catch(e) {}
+        }
+
+        // Mescla o progresso da nuvem com o local sem perder nada (união das fases)
+        function mesclarProgresso(remoto) {
+            if (!remoto) return;
+            for (const mundo in remoto) {
+                const local = progresso[mundo] || [];
+                const rem = remoto[mundo] || [];
+                progresso[mundo] = Array.from(new Set([...local, ...rem])).sort((a, b) => a - b);
+            }
         }
 
         function carregarProgresso() {
@@ -2557,7 +2630,22 @@
             renderizarRoadmap();
             calcularProgressoGlobal();
             verificarHash();
+            sincronizarNuvemInicial();
         };
+
+        // Se o aluno já tem e-mail salvo neste navegador, puxa o progresso mais
+        // recente da nuvem (ex.: avançou em outro aparelho) e atualiza a tela.
+        function sincronizarNuvemInicial() {
+            if (!dadosUsuario || !dadosUsuario.email || !window.carregarProgressoNuvem) return;
+            window.carregarProgressoNuvem(dadosUsuario.email).then((nuvem) => {
+                if (nuvem && nuvem.progresso) {
+                    mesclarProgresso(nuvem.progresso);
+                    salvarProgresso();
+                    renderizarRoadmap();
+                    calcularProgressoGlobal();
+                }
+            });
+        }
 
         window.onhashchange = function() {
             verificarHash();
@@ -2730,7 +2818,7 @@
             document.getElementById('emailInput').value = '';
         }
 
-        function validarLogin() {
+        async function validarLogin() {
             const senha = document.getElementById('senhaInput').value;
             const nome = document.getElementById('nomeInput').value;
             const email = document.getElementById('emailInput').value;
@@ -2738,7 +2826,7 @@
 
             // Verifica senha: pode ser a senha do módulo OU a senha master
             const senhaCorreta = senha === MUNDOS[mundoSelecionado].senha || senha === SENHA_MASTER;
-            
+
             if (!senhaCorreta) {
                 erro.textContent = 'Senha incorreta!';
                 erro.style.display = 'block';
@@ -2753,8 +2841,22 @@
 
             dadosUsuario.nome = nome;
             dadosUsuario.email = email;
+
+            // Recupera o progresso salvo na nuvem para este e-mail e mescla com o local.
+            // Garante que o aluno não perde o avanço mesmo em outro aparelho ou após atualizações.
+            if (window.carregarProgressoNuvem) {
+                erro.style.display = 'none';
+                try {
+                    const nuvem = await window.carregarProgressoNuvem(email);
+                    if (nuvem && nuvem.progresso) mesclarProgresso(nuvem.progresso);
+                } catch(e) {}
+            }
+
             progresso[mundoSelecionado] = progresso[mundoSelecionado] || [];
-            
+            salvarProgresso(); // grava a mescla de volta (local + nuvem)
+            renderizarRoadmap();
+            calcularProgressoGlobal();
+
             fecharModal();
             abrirMundo();
         }
@@ -3240,10 +3342,17 @@
             } else {
                 conteudo.innerHTML = `
                     <h2>${fase.nome}</h2>
-                    <div class="video-container">
-                        <iframe src="${fase.url}" allowfullscreen></iframe>
+                    <div style="background:#000;border-radius:12px;overflow:hidden;margin-bottom:20px;">
+                        <video
+                            controls
+                            style="width:100%;display:block;max-height:500px;"
+                            crossorigin="anonymous"
+                        >
+                            <source src="${fase.url}" type="video/mp4">
+                            Seu navegador não suporta vídeo HTML5.
+                        </video>
                     </div>
-                    <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Voltar</button>
+                    <button class="btn btn-concluir" onclick="concluirFase()">Concluir e Avançar →</button>
                 `;
             }
         }

@@ -1562,7 +1562,7 @@
 
         <div id="telaFase" class="hidden">
             <div class="fase-screen">
-                <button class="btn btn-voltar" onclick="voltarMundo()">← Voltar</button>
+                <button class="btn btn-voltar" onclick="voltarFaseAnterior()">← Voltar</button>
                 <div id="faseConteudo"></div>
             </div>
         </div>
@@ -2148,44 +2148,50 @@
                         nome: 'Artigo: Responsabilidade ou Culpa?',
                         tipo: 'artigo',
                         conteudo: `
-                            <div style="background: linear-gradient(135deg, #1E2761, #2d3a8c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
-                                <div style="font-size: 56px; margin-bottom: 12px;">⚖️</div>
-                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">Responsabilidade ou Culpa?</h2>
-                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">A diferença que muda tudo depois de um incidente</p>
+                            <div style="background: linear-gradient(135deg, #071A2F 0%, #1E2761 60%, #20C7C7 100%); border-radius: 18px; padding: 36px 32px; text-align: center; margin-bottom: 28px; position: relative; overflow: hidden;">
+                                <div style="font-size: 52px; margin-bottom: 10px;">⚖️</div>
+                                <h2 style="color: #fff; font-size: 24px; font-weight: 800; margin-bottom: 6px; margin-top: 0;">Responsabilidade ou Culpa?</h2>
+                                <p style="color: rgba(255,255,255,0.78); font-size: 14px; margin: 0;">A diferença que muda tudo depois de um incidente</p>
+                            </div>
+
+                            <div style="background: #fff; border-radius: 14px; padding: 20px 24px; border-left: 6px solid #20C7C7; margin-bottom: 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);">
+                                <p style="font-size: 18px; font-weight: 700; color: #071A2F; margin: 0; line-height: 1.5;">Culpa olha para trás. Responsabilidade olha para frente.</p>
                             </div>
 
                             <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Toda vez que algo dá errado em uma operação, uma pergunta surge quase automaticamente: <strong>"Quem foi o culpado?"</strong></p>
 
                             <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">É uma reação humana. Natural. Mas é exatamente aí que a maioria das organizações comete o primeiro erro depois de um incidente.</p>
 
-                            <div style="background: #f0f4ff; border-left: 5px solid #1E2761; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
-                                <p style="font-size: 17px; font-weight: 700; color: #1E2761; margin: 0;">Culpa olha para trás. Responsabilidade olha para frente.</p>
-                            </div>
-
                             <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando uma base de combustível tem um acidente no carregamento, investigar quem errou resolve o sintoma imediato. Mas não responde à pergunta que realmente importa: <em>o que no sistema permitiu que esse erro acontecesse?</em></p>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 24px;">Um operador que pula uma etapa de validação de aterramento raramente está sendo irresponsável. Na maioria dos casos, ele está respondendo a uma pressão real: meta atrasada, supervisor apressado, protocolo longo demais para o tempo disponível. O sistema criou as condições. A pessoa foi o último elo.</p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 24px;">Um operador que pula uma etapa raramente está sendo irresponsável. Na maioria dos casos, ele não compreende a real importância do procedimento, por falta de capacitação ou treinamento insuficiente. O sistema criou as condições. A pessoa é o último elo.</p>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 24px;">
-                                <div style="background: #fff0f0; border-radius: 10px; padding: 20px; border: 2px solid #C41E3A;">
-                                    <div style="font-size: 28px; margin-bottom: 10px;">❌</div>
-                                    <h4 style="color: #C41E3A; margin: 0 0 10px 0; font-size: 15px;">Busca de CULPA</h4>
-                                    <ul style="color: #555; padding-left: 16px; margin: 0; font-size: 14px; line-height: 1.8;">
-                                        <li>Pergunta: "Quem errou?"</li>
-                                        <li>Emoção: medo de falar</li>
-                                        <li>Resultado: equipe silencia</li>
-                                        <li>Próximo incidente: provável</li>
-                                    </ul>
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 14px;">📍 Os dois caminhos após um incidente</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;">
+                                <div style="background: #fff0f0; border: 2px solid #e8b4b4; border-radius: 14px; padding: 20px;">
+                                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #C41E3A; margin-bottom: 14px;">❌ Busca de CULPA</div>
+                                    <div style="display: flex; flex-direction: column; gap: 0;">
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #C41E3A;">🔎 Pergunta: "Quem errou?"</div>
+                                        <div style="text-align: center; color: #ccc; padding: 3px 0; font-size: 16px;">↓</div>
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #C41E3A;">😨 Emoção: medo de falar</div>
+                                        <div style="text-align: center; color: #ccc; padding: 3px 0; font-size: 16px;">↓</div>
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #C41E3A;">🤫 Resultado: equipe silencia</div>
+                                        <div style="text-align: center; color: #ccc; padding: 3px 0; font-size: 16px;">↓</div>
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #C41E3A;">🔄 Próximo incidente: provável</div>
+                                    </div>
                                 </div>
-                                <div style="background: #f0fff4; border-radius: 10px; padding: 20px; border: 2px solid #2C5F2D;">
-                                    <div style="font-size: 28px; margin-bottom: 10px;">✅</div>
-                                    <h4 style="color: #2C5F2D; margin: 0 0 10px 0; font-size: 15px;">Busca de RESPONSABILIDADE</h4>
-                                    <ul style="color: #555; padding-left: 16px; margin: 0; font-size: 14px; line-height: 1.8;">
-                                        <li>Pergunta: "O que falhou no sistema?"</li>
-                                        <li>Emoção: coragem de mudar</li>
-                                        <li>Resultado: equipe reporta riscos</li>
-                                        <li>Próximo incidente: prevenido</li>
-                                    </ul>
+                                <div style="background: #f0fdf4; border: 2px solid #86efac; border-radius: 14px; padding: 20px;">
+                                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #166534; margin-bottom: 14px;">✅ Busca de RESPONSABILIDADE</div>
+                                    <div style="display: flex; flex-direction: column; gap: 0;">
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #22c55e;">🔎 Pergunta: "O que falhou no sistema?"</div>
+                                        <div style="text-align: center; color: #ccc; padding: 3px 0; font-size: 16px;">↓</div>
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #22c55e;">💪 Emoção: coragem de mudar</div>
+                                        <div style="text-align: center; color: #ccc; padding: 3px 0; font-size: 16px;">↓</div>
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #22c55e;">📢 Resultado: equipe reporta riscos</div>
+                                        <div style="text-align: center; color: #ccc; padding: 3px 0; font-size: 16px;">↓</div>
+                                        <div style="background: rgba(255,255,255,0.75); border-radius: 8px; padding: 9px 12px; font-size: 13px; color: #333; border-left: 3px solid #22c55e;">🛡️ Próximo incidente: prevenido</div>
+                                    </div>
                                 </div>
                             </div>
                         `
@@ -2201,9 +2207,9 @@
                                 explicacao: 'FALSO. Buscar culpa gera medo e silêncio. A equipe aprende a esconder problemas. Investigar a causa sistêmica é o que previne reincidência.'
                             },
                             {
-                                texto: 'Na tomada de decisão sob pressão, o líder pode abrir mão da segurança se o risco for considerado baixo pelo supervisor.',
+                                texto: 'Na tomada de decisão, o coordenador/gerente pode abrir mão da segurança se o risco for considerado baixo pelo supervisor.',
                                 correta: false,
-                                explicacao: 'FALSO. Segurança é premissa, não uma variável que se negocia com base em percepção de momento. A avaliação de risco exige informação técnica. "Parece OK" não é análise.'
+                                explicacao: 'FALSO. Segurança é premissa, não uma variável que se negocia com base em percepção de momento. A avaliação de risco exige informação técnica. "Parece OK" não é avaliação.'
                             },
                             {
                                 texto: 'No Triângulo da Decisão, Custo e Tempo podem se adaptar, mas Segurança tem um piso que não cede.',
@@ -2221,9 +2227,9 @@
                                 explicacao: 'VERDADEIRO. Responsabilidade pessoal significa assumir conscientemente. Se você não pode responder por uma decisão, você não deveria estar aprovando ela.'
                             },
                             {
-                                texto: 'A Fase 1 do ciclo decisório é a Análise, onde você processa o significado do risco.',
+                                texto: 'A Fase 1 do ciclo decisório é a Avaliação, onde você processa o significado do risco.',
                                 correta: false,
-                                explicacao: 'FALSO. A Fase 1 é a Detecção. A Análise vem depois, na Fase 3. Pular fases é onde as decisões ruins acontecem.'
+                                explicacao: 'FALSO. A Fase 1 é a Percepção. A Avaliação vem depois, na Fase 3. Pular fases é onde as decisões ruins acontecem.'
                             },
                             {
                                 texto: '"Posso reverter essa decisão se errar?" é uma pergunta válida e importante antes de decidir.',
@@ -2231,9 +2237,9 @@
                                 explicacao: 'VERDADEIRO. Se a decisão é irreversível, você precisa de mais informação e tempo antes de agir. Se é reversível, pode seguir com mais confiança.'
                             },
                             {
-                                texto: 'Quando você não consegue responder 4 das 5 perguntas da Matriz de Decisão, ainda assim pode aprovar se confiar na equipe.',
+                                texto: 'Ainda que você não consiga responder todas as perguntas da Matriz de Decisão, ainda assim pode aprovar se confiar na equipe.',
                                 correta: false,
-                                explicacao: 'FALSO. Se você não consegue responder 4 de 5, não decida ainda. Confiança na equipe não substitui informação completa.'
+                                explicacao: 'FALSO. Se você não consegue responder todas as perguntas da Matriz, não decida ainda. Confiança na equipe não substitui informação completa.'
                             }
                         ]
                     },
@@ -2249,11 +2255,20 @@
                                 <p style="opacity: 0.85; margin: 0; font-size: 14px;">Quando o seguro vira arriscado sem ninguém perceber</p>
                             </div>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Uma base pode se tornar perigosa em 60 dias sem que ninguém tome uma única decisão de colocar alguém em risco.</p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Uma base pode se tornar perigosa rapidamente sem que ninguém tome uma única decisão de colocar alguém em risco. Isso tem nome: <strong>Drift Operacional</strong>, mais conhecido como <strong>Desvio Operacional</strong>.</p>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Isso tem nome: <strong>Drift Operacional</strong>. E começa sempre com pressão real.</p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Imagine a seguinte situação:</p>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Cliente quer prazo mais curto. Meta atrasada. O supervisor experiente adapta o processo. Só dessa vez. Ninguém morre. "Deu certo mesmo." Aí está o problema: o desvio que funciona uma vez cria uma percepção falsa de segurança. Na segunda vez é mais fácil. Na terceira já é "o jeito que a gente faz aqui".</p>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 5px solid #1E2761;">
+                                <p style="font-size: 15px; color: #333; line-height: 1.8; margin: 0 0 12px 0;">O caminhão chega para carregar. Ao conectar o aterramento da plataforma, algo não está certo: um erro foi apresentado. Esse erro pode ser tanto por defeito do sistema mediterra quanto por falha no sistema de aterramento do caminhão.</p>
+                                <p style="font-size: 15px; color: #333; line-height: 1.8; margin: 0 0 12px 0;">Para não atrasar o carregamento, o operador/supervisor experiente adapta o processo. Ele pensa: <em>"Só dessa vez. Não vai dar problema."</em></p>
+                                <p style="font-size: 15px; color: #333; line-height: 1.8; margin: 0 0 12px 0;">E realmente não deu problema. O carregamento seguiu sem intercorrências.</p>
+                                <p style="font-size: 16px; font-weight: 700; color: #C41E3A; margin: 0;">E É AÍ QUE INICIA O GRANDE PERIGO.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">O desvio que funciona uma vez cria uma percepção falsa de segurança. Como se parar o carregamento para identificar o real problema fosse um atraso. Na segunda vez que isso acontecer vai ser ainda mais fácil bypassar o sistema sem se questionar. Na terceira vez já começa a virar rotina — e se alguém questionar, a resposta vai ser: <em>"já fizemos várias vezes e não deu problema"</em>.</p>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Assim vai se criando uma cultura de segurança baseada em desvios.</p>
 
                             <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
                                 <h3 style="color: #333; margin: 0 0 15px 0; font-size: 16px;">📅 Como o drift acontece na prática:</h3>
@@ -2265,23 +2280,36 @@
                                 </div>
                             </div>
 
-                            <div style="background: #fff0f0; border-left: 5px solid #C41E3A; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
-                                <p style="font-size: 15px; font-weight: 700; color: #C41E3A; margin: 0 0 8px 0;">O ponto crítico de intervenção é o primeiro desvio.</p>
-                                <p style="font-size: 14px; color: #555; margin: 0;">Não o quinto. Não quando já virou padrão. No primeiro. A socióloga Diane Vaughan estudou o desastre do Challenger e chamou isso de <em>normalização do desvio</em>: equipes experientes que racionalizam anomalias repetidas até que o risco se torna invisível.</p>
+                            <div style="background: #C41E3A; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <p style="font-size: 15px; font-weight: 700; color: #fff; margin: 0 0 8px 0;">⚠️ O ponto crítico de intervenção é o primeiro desvio.</p>
+                                <p style="font-size: 14px; color: #ffe0e0; margin: 0; line-height: 1.7;">A socióloga Diane Vaughan, que estudou o desastre do Challenger, chamou isso de <strong style="color:#fff;">NORMALIZAÇÃO DO DESVIO</strong>: equipes experientes que racionalizam anomalias repetidas até que o risco se torna invisível.</p>
                             </div>
 
                             <h3 style="color: #1E2761; font-size: 18px; margin: 24px 0 16px 0;">O Triângulo da Decisão: Segurança, Tempo e Custo</h3>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Toda decisão operacional existe na tensão entre três variáveis: <strong>Segurança</strong>, <strong>Tempo</strong> e <strong>Custo</strong>. A inteligência do líder não está em manter os três perfeitos — está em saber qual é não-negociável.</p>
-
-                            <div style="background: #f0f4ff; border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: center;">
-                                <p style="font-size: 15px; font-weight: 700; color: #1E2761; margin: 0 0 12px 0;">Segurança tem um piso que não cede.</p>
-                                <p style="font-size: 14px; color: #555; line-height: 1.7; margin: 0;">Tempo e Custo são variáveis que você adapta, busca terceira alternativa, renegocia com cliente. Mas segurança? Segurança é a premissa, não o resultado.</p>
+                            <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 24px; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 14px;">Toda decisão operacional existe no equilíbrio entre três variáveis: <strong>Segurança</strong>, <strong>Tempo</strong> e <strong>Custo</strong>. A inteligência do líder não está em manter os três perfeitos, mas em definir qual é inegociável.</p>
+                                    <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 14px;"><strong>O vértice da Segurança não pode ceder.</strong></p>
+                                    <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 0;">Tempo e Custo são variáveis que você adapta, busca alternativas, renegocia com cliente. Mas segurança? Segurança é a premissa, não resultado.</p>
+                                </div>
+                                <div style="flex-shrink: 0; text-align: center;">
+                                    <svg viewBox="0 0 260 290" width="220" height="220" xmlns="http://www.w3.org/2000/svg">
+                                        <defs><filter id="sombra"><feDropShadow dx="3" dy="4" stdDeviation="5" flood-color="#00000033"/></filter></defs>
+                                        <polygon points="130,48 250,270 10,270" fill="#5B7EC9" filter="url(#sombra)"/>
+                                        <circle cx="130" cy="44" r="34" fill="#4FC3DC"/>
+                                        <text x="130" y="40" text-anchor="middle" fill="#1E2761" font-size="10" font-weight="800" font-family="sans-serif">SEGURANÇA</text>
+                                        <circle cx="10" cy="270" r="34" fill="#1E2761"/>
+                                        <text x="10" y="266" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800" font-family="sans-serif">TEMPO</text>
+                                        <circle cx="250" cy="270" r="34" fill="#e0e0e0"/>
+                                        <text x="250" y="266" text-anchor="middle" fill="#444" font-size="10" font-weight="800" font-family="sans-serif">CUSTO</text>
+                                    </svg>
+                                </div>
                             </div>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando um supervisor diz "posso pular a validação se for rápido?", o que ele está pedindo é colocar Segurança como variável. Não é. A pergunta correta é: "Como fazemos rápido E seguro?" — aí Tempo se adapta.</p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando um colaborador diz <em>"posso pular a etapa se for rápido?"</em>, o que ele está pedindo é colocar a Segurança como variável. A pergunta correta é: <strong>"Como podemos fazer de forma rápida e segura?"</strong>, adaptando o vértice do Tempo.</p>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A boa notícia é que drift pode ser revertido. A ferramenta é simples: curiosidade genuína antes de qualquer julgamento. <strong>"Vi que vocês estão fazendo diferente. Me explica?"</strong></p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A boa notícia é que drift operacional pode ser revertido. A ferramenta é simples: curiosidade genuína antes de qualquer julgamento. <strong>"Vi que vocês estão fazendo diferente. Me explica?"</strong></p>
 
                             <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
                                 <strong>💬 Reflita:</strong> Na sua operação, há algum processo que você sabe que não está sendo feito exatamente como o protocolo define? O que impediu a conversa até agora?
@@ -2303,27 +2331,37 @@
                                 <p style="opacity: 0.85; margin: 0; font-size: 14px;">Guia rápido: reconheça e intervenha antes que o risco se torne invisível</p>
                             </div>
 
-                            <h3 style="color: #1E2761; font-size: 18px; margin: 24px 0 16px 0;">1️⃣ Anatomia da Decisão</h3>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+                            <h3 style="color: #1E2761; font-size: 18px; margin: 24px 0 16px 0;">1️⃣ As 6 Fases da Decisão</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px;">
                                 <div style="background: #e8f4f8; border-radius: 10px; padding: 15px; border-left: 4px solid #1E2761; text-align: center;">
-                                    <p style="font-size: 24px; margin: 0 0 8px 0;">📊</p>
-                                    <p style="font-size: 14px; font-weight: 700; color: #1E2761; margin: 0;">Detecção</p>
-                                    <p style="font-size: 12px; color: #555; margin: 6px 0 0 0;">Coletar fatos</p>
+                                    <p style="font-size: 22px; margin: 0 0 6px 0;">👁️</p>
+                                    <p style="font-size: 13px; font-weight: 700; color: #1E2761; margin: 0;">1. Percepção</p>
+                                    <p style="font-size: 11px; color: #555; margin: 5px 0 0 0;">Coletar fatos verificáveis</p>
                                 </div>
                                 <div style="background: #f0f4ff; border-radius: 10px; padding: 15px; border-left: 4px solid #2d3a8c; text-align: center;">
-                                    <p style="font-size: 24px; margin: 0 0 8px 0;">🔍</p>
-                                    <p style="font-size: 14px; font-weight: 700; color: #2d3a8c; margin: 0;">Análise</p>
-                                    <p style="font-size: 12px; color: #555; margin: 6px 0 0 0;">Entender significado</p>
+                                    <p style="font-size: 22px; margin: 0 0 6px 0;">🔍</p>
+                                    <p style="font-size: 13px; font-weight: 700; color: #2d3a8c; margin: 0;">2. Compreensão</p>
+                                    <p style="font-size: 11px; color: #555; margin: 5px 0 0 0;">Entender o significado</p>
                                 </div>
                                 <div style="background: #fff8e1; border-radius: 10px; padding: 15px; border-left: 4px solid #ffc107; text-align: center;">
-                                    <p style="font-size: 24px; margin: 0 0 8px 0;">⚖️</p>
-                                    <p style="font-size: 14px; font-weight: 700; color: #cc7a00; margin: 0;">Julgamento</p>
-                                    <p style="font-size: 12px; color: #555; margin: 6px 0 0 0;">Escolha do líder</p>
+                                    <p style="font-size: 22px; margin: 0 0 6px 0;">⚖️</p>
+                                    <p style="font-size: 13px; font-weight: 700; color: #cc7a00; margin: 0;">3. Avaliação</p>
+                                    <p style="font-size: 11px; color: #555; margin: 5px 0 0 0;">Analisar alternativas</p>
+                                </div>
+                                <div style="background: #fdf0ff; border-radius: 10px; padding: 15px; border-left: 4px solid #8e44ad; text-align: center;">
+                                    <p style="font-size: 22px; margin: 0 0 6px 0;">🎯</p>
+                                    <p style="font-size: 13px; font-weight: 700; color: #8e44ad; margin: 0;">4. Decisão</p>
+                                    <p style="font-size: 11px; color: #555; margin: 5px 0 0 0;">Escolha fundamentada</p>
+                                </div>
+                                <div style="background: #fff0e8; border-radius: 10px; padding: 15px; border-left: 4px solid #e67e22; text-align: center;">
+                                    <p style="font-size: 22px; margin: 0 0 6px 0;">⚡</p>
+                                    <p style="font-size: 13px; font-weight: 700; color: #e67e22; margin: 0;">5. Execução</p>
+                                    <p style="font-size: 11px; color: #555; margin: 5px 0 0 0;">Agir com clareza</p>
                                 </div>
                                 <div style="background: #f0fff4; border-radius: 10px; padding: 15px; border-left: 4px solid #28a745; text-align: center;">
-                                    <p style="font-size: 24px; margin: 0 0 8px 0;">📢</p>
-                                    <p style="font-size: 14px; font-weight: 700; color: #2C5F2D; margin: 0;">Comunicação</p>
-                                    <p style="font-size: 12px; color: #555; margin: 6px 0 0 0;">Explicar o porquê</p>
+                                    <p style="font-size: 22px; margin: 0 0 6px 0;">✅</p>
+                                    <p style="font-size: 13px; font-weight: 700; color: #2C5F2D; margin: 0;">6. Verificação</p>
+                                    <p style="font-size: 11px; color: #555; margin: 5px 0 0 0;">Confirmar resultado</p>
                                 </div>
                             </div>
 
@@ -2416,28 +2454,28 @@
                         tipo: 'lacunas',
                         frases: [
                             {
-                                texto: 'Na Fase 1 do ciclo decisório, o líder coleta ___ antes de decidir — não opinião, mas fatos verificáveis.',
-                                resposta: 'informação'
+                                texto: 'Na Fase 1 do ciclo decisório, a ___ é a coleta de fatos verificáveis — o líder observa antes de concluir.',
+                                resposta: 'percepção'
                             },
                             {
-                                texto: 'Na Fase 2, o líder faz a ___ do que aquela informação significa para a segurança da operação.',
-                                resposta: 'análise'
+                                texto: 'Na Fase 2, a ___ é entender o que aquela informação significa para a segurança da operação.',
+                                resposta: 'compreensão'
                             },
                             {
-                                texto: 'Na Fase 3, vem o ___ — a escolha baseada em valores não-negociáveis quando há conflito entre meta e segurança.',
-                                resposta: 'julgamento'
+                                texto: 'Na Fase 3, a ___ analisa as alternativas disponíveis diante do conflito entre meta e segurança.',
+                                resposta: 'avaliação'
                             },
                             {
-                                texto: 'Na Fase 4, o líder ___ a decisão com clareza, explicando não só o que foi decidido, mas por quê.',
-                                resposta: 'comunica'
+                                texto: 'Na Fase 4, vem a ___ — a escolha baseada em valores não-negociáveis, com fundamento claro.',
+                                resposta: 'decisão'
                             },
                             {
-                                texto: 'A maioria das decisões ruins acontece porque o líder ___ uma ou mais fases do ciclo.',
-                                resposta: 'pula'
+                                texto: 'Na Fase 5, a ___ coloca em prática o que foi decidido, com clareza e comunicação à equipe.',
+                                resposta: 'execução'
                             },
                             {
-                                texto: 'Buscar ___ depois de um incidente gera medo e silêncio — a equipe aprende a esconder problemas.',
-                                resposta: 'culpa'
+                                texto: 'Na Fase 6, a ___ confirma se o resultado foi o esperado e o que pode ser aprendido.',
+                                resposta: 'verificação'
                             }
                         ]
                     },
@@ -2459,29 +2497,18 @@
                         tipo: 'quiz',
                         perguntas: [
                             {
-                                pergunta: 'É segunda-feira, 10h. Um cliente pede 2 carregamentos adiantados. A meta da semana já está em risco. Seu supervisor espera uma resposta. O que você faz PRIMEIRO?',
-                                opcoes: [
-                                    'Autoriza imediatamente para não perder o cliente',
-                                    'Recusa sem explicação para preservar o protocolo',
-                                    'Pergunta: "Qual protocolo seria impactado? Temos técnico disponível agora?"',
-                                    'Transfere a decisão para o supervisor'
-                                ],
-                                correta: 2,
-                                explicacao: 'A resposta correta aplica a Fase 1 do ciclo decisório: coletar informação antes de decidir. Autorizar sem verificar é decidir às cegas. Recusar sem análise desperdiça uma oportunidade real.'
-                            },
-                            {
-                                pergunta: 'Um supervisor diz: "Podemos pular a inspeção pré-carregamento? Fizemos 100 vezes, conhecemos o processo." Qual é a resposta correta do líder?',
+                                pergunta: 'Um supervisor diz: "Podemos pular a inspeção pré-carregamento? Nas últimas inspeções não identificamos nenhum problema." Qual é a resposta correta do líder?',
                                 opcoes: [
                                     '"Tudo bem, você é experiente."',
                                     '"Não pode. Ponto final."',
                                     '"Anota pra gente rever o protocolo depois."',
-                                    '"Por quê? Qual etapa especificamente? Qual é o risco que você está assumindo?"'
+                                    '"Por quê? Qual a justificativa? Qual é o risco que você está assumindo?"'
                                 ],
                                 correta: 3,
-                                explicacao: 'A resposta correta aplica o método estruturado: pausar, perguntar, analisar antes de decidir. "Tudo bem" é confiança excessiva. "Não pode, ponto final" pode estar certo, mas sem análise não ensina.'
+                                explicacao: 'A resposta correta aplica o método estruturado: pausar, questionar e entender antes de decidir. "Tudo bem" é confiança excessiva. "Não pode, ponto final" pode estar certo, mas sem questionamento não ensina o porquê.'
                             },
                             {
-                                pergunta: 'Você descobre que a validação de aterramento está sendo feita visualmente, sem equipamento, por 3 dias seguidos. O supervisor diz "já testamos, tá OK." O que isso caracteriza?',
+                                pergunta: 'Você descobre que os operadores estão pulando etapas importantes de verificação de segurança no carregamento. Quando questionados, eles respondem que estão fazendo assim há dias e não houve nenhum problema. O que isso caracteriza?',
                                 opcoes: [
                                     'Uma melhoria de processo identificada pela equipe',
                                     'Um desvio pontual que pode ser ignorado se não houve acidente',
@@ -2492,7 +2519,7 @@
                                 explicacao: 'Quando o desvio já se repete e virou "padrão local", estamos no Estágio 3 do drift. Intervenção agora ainda evita incorporação permanente (Estágio 4) e acidente (Estágio 5).'
                             },
                             {
-                                pergunta: 'Você aborda o supervisor sobre o desvio. Ele diz: "Não sabia que era tão importante. A gente estava tentando ganhar tempo." O que essa resposta revela?',
+                                pergunta: 'Você aborda o colaborador sobre o desvio. Ele diz: "Não sabia que era tão importante. A gente estava tentando ganhar tempo." O que essa resposta revela?',
                                 opcoes: [
                                     'Desvio intencional e malicioso',
                                     'Falta de clareza no processo: o risco não estava comunicado adequadamente',
@@ -2503,23 +2530,12 @@
                                 explicacao: 'Quando o desvio vem de "não sabia que era importante", a causa é de design e comunicação, não de caráter. A solução é clareza sobre o risco, não punição.'
                             },
                             {
-                                pergunta: 'Você tem 2h para fechar a meta. Um técnico propõe: "Paraleliza a inspeção e a preparação — a gente recupera 8 minutos sem abrir mão de nada." Como classificar essa proposta?',
-                                opcoes: [
-                                    'Risco oculto: paralelizar sempre aumenta a probabilidade de erro',
-                                    'Solução parcial: segurança mantida, mas custo aumenta',
-                                    'Não é papel do técnico propor mudanças de processo',
-                                    'Solução inteligente: segurança mantida, tempo recuperado, custo neutro'
-                                ],
-                                correta: 3,
-                                explicacao: 'No Triângulo da Decisão, a inteligência operacional está em encontrar onde Custo e Tempo se adaptam sem ceder segurança. Paralelização bem executada é exatamente isso.'
-                            },
-                            {
                                 pergunta: 'Um operador chega até você e diz: "Vi que a válvula X está com comportamento estranho. Não sei se é grave, mas achei melhor avisar." Qual é a resposta certa?',
                                 opcoes: [
                                     '"Obrigado, mas se não é grave, pode continuar a operação."',
                                     '"Por que você demorou para avisar?"',
                                     '"Anota no sistema. Vou ver quando tiver tempo."',
-                                    '"Obrigado. Vamos parar e validar antes de continuar."'
+                                    '"Obrigado. Vamos parar e avaliar antes de continuar."'
                                 ],
                                 correta: 3,
                                 explicacao: 'Segurança psicológica se constrói nesse momento. Quando um operador reporta e a resposta é ação imediata mais agradecimento, ele aprende que reportar tem valor.'
@@ -2536,7 +2552,7 @@
                                 explicacao: 'Responsabilidade vertical significa que o líder assume o resultado, inclusive verificar se o sistema criou condições para o erro. "Culpa do supervisor" sem investigação sistêmica é o início do próximo incidente.'
                             },
                             {
-                                pergunta: 'O tempo médio de carregamento aumentou de 2h para 3h nos últimos 45 dias, sem nenhuma mudança técnica registrada. O que isso provavelmente sinaliza?',
+                                pergunta: 'O tempo médio de carregamento aumentou 50% nos últimos 45 dias, sem nenhuma mudança técnica registrada. O que isso provavelmente sinaliza?',
                                 opcoes: [
                                     'Melhoria de qualidade: a equipe está sendo mais cuidadosa',
                                     'Problema de equipamento que a manutenção não identificou',
@@ -2576,45 +2592,91 @@
                         nome: 'Artigo: O Líder como Espelho',
                         tipo: 'artigo',
                         conteudo: `
-                            <div style="background: linear-gradient(135deg, #2C5F2D, #1a3d1b); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
-                                <div style="font-size: 56px; margin-bottom: 12px;">🪞</div>
-                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 22px;">O Líder como Espelho</h2>
-                                <p style="opacity: 0.85; margin: 0; font-size: 14px;">Sua equipe aprende o que você faz, não o que você diz</p>
+                            <div style="background: linear-gradient(135deg, #071A2F 0%, #2C5F2D 70%, #20C7C7 100%); border-radius: 18px; padding: 36px 32px; text-align: center; margin-bottom: 28px; position: relative; overflow: hidden;">
+                                <div style="font-size: 52px; margin-bottom: 10px;">🪞</div>
+                                <h2 style="color: #fff; font-size: 24px; font-weight: 800; margin-bottom: 6px; margin-top: 0;">O Líder como Espelho</h2>
+                                <p style="color: rgba(255,255,255,0.78); font-size: 14px; margin: 0;">Sua equipe aprende o que você faz, não o que você diz</p>
                             </div>
 
-                            <div style="background: #f0fff4; border-left: 5px solid #2C5F2D; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
-                                <p style="font-size: 17px; font-weight: 700; color: #2C5F2D; margin: 0 0 8px 0;">"A cultura de uma organização é definida pelo pior comportamento que a liderança tolera."</p>
-                                <p style="font-size: 14px; color: #555; margin: 0;">Não pelo treinamento mais recente. Não pelo manual de segurança. Mas sim pelo que o líder tolera, especialmente em situações adversas.</p>
+                            <div style="background: #fff; border-radius: 14px; padding: 22px 26px; border-left: 6px solid #20C7C7; margin-bottom: 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);">
+                                <p style="font-size: 17px; font-weight: 700; color: #071A2F; margin: 0 0 10px 0; line-height: 1.5;">"A cultura de uma organização é definida pelo pior comportamento que a liderança tolera."</p>
+                                <p style="font-size: 14px; color: #555; margin: 0; line-height: 1.6;">Não pelo treinamento mais recente. Não pelo manual de segurança. Mas sim pelo que o líder tolera, especialmente em situações adversas.</p>
                             </div>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando um supervisor pula uma etapa e o gerente vê mas não comenta, a equipe inteira recebe uma mensagem silenciosa: aqui, isso é aceitável. Sem uma palavra dita. Sem uma decisão explícita. A cultura foi modelada.</p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Quando um colaborador pula uma etapa e o líder vê mas não comenta, a equipe inteira recebe uma mensagem silenciosa: aqui, isso é aceitável. Sem uma palavra dita. Sem uma decisão explícita. A cultura foi modelada.</p>
 
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;"><strong>Modelagem não é o que você anuncia. É o que você faz quando o custo de fazer certo é real.</strong></p>
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 24px;"><strong>Modelagem DE CULTURA não é o que você anuncia. É o que você faz quando o custo de fazer certo é real.</strong></p>
 
-                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                                <h3 style="color: #333; margin: 0 0 15px 0; font-size: 16px;">Os 3 momentos críticos onde a modelagem acontece:</h3>
-                                <div style="display: flex; flex-direction: column; gap: 12px;">
-                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #1E2761;">
-                                        <strong style="color: #1E2761;">1. Sob pressão</strong>
-                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Quando meta e segurança colidem, o que você escolhe? A equipe observa e aprende.</p>
+                            <div style="background: #fff; border-radius: 16px; padding: 22px; box-shadow: 0 2px 14px rgba(0,0,0,0.08); margin-bottom: 28px;">
+                                <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; text-align: center; margin-bottom: 18px;">🪞 O reflexo que você projeta na equipe</p>
+                                <div style="display: grid; grid-template-columns: 1fr 44px 1fr; gap: 0; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 11px; font-weight: 800; color: #2C5F2D; background: #f0fdf4; text-align: center; padding: 5px 8px; border-radius: 6px; margin-bottom: 10px; letter-spacing: 0.8px; text-transform: uppercase;">O Líder faz</div>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #166534;">🛑 Para quando há risco</div>
+                                            <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #166534;">💬 Pergunta antes de ordenar</div>
+                                            <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #166534;">🎯 Reconhece segurança</div>
+                                            <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #166534;">🔍 Investiga desvios</div>
+                                        </div>
                                     </div>
-                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #2C5F2D;">
-                                        <strong style="color: #2C5F2D;">2. Na visibilidade</strong>
-                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Como você reage quando te veem decidindo? Você conversa ou ordena? Isso ensina como decisões devem ser tomadas.</p>
+                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 0 4px;">
+                                        <span style="font-size: 22px;">🪞</span>
+                                        <div style="width: 2px; height: 110px; background: linear-gradient(180deg, #20C7C7, #1E2761); border-radius: 2px;"></div>
                                     </div>
-                                    <div style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #C41E3A;">
-                                        <strong style="color: #C41E3A;">3. Na consequência</strong>
-                                        <p style="margin: 6px 0 0 0; font-size: 14px; color: #555;">Quando algo dá certo com segurança, você reconhece? Quando há desvio, você redesenha ou pune?</p>
+                                    <div>
+                                        <div style="font-size: 11px; font-weight: 800; color: #1E2761; background: #f0f4ff; text-align: center; padding: 5px 8px; border-radius: 6px; margin-bottom: 10px; letter-spacing: 0.8px; text-transform: uppercase;">A Equipe aprende</div>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <div style="background: #f0f4ff; border: 1.5px solid #c7d2fe; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #1e1b4b;">✅ Segurança é inegociável</div>
+                                            <div style="background: #f0f4ff; border: 1.5px solid #c7d2fe; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #1e1b4b;">🗣️ Posso falar com segurança</div>
+                                            <div style="background: #f0f4ff; border: 1.5px solid #c7d2fe; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #1e1b4b;">🙌 Fazer certo é valorizado</div>
+                                            <div style="background: #f0f4ff; border: 1.5px solid #c7d2fe; border-radius: 9px; padding: 9px 12px; font-size: 13px; color: #1e1b4b;">📢 Reportar faz parte do trabalho</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: #1E2761; border-radius: 12px; padding: 22px; margin-bottom: 24px;">
+                                <h3 style="color: #4FC3DC; margin: 0 0 18px 0; font-size: 17px; letter-spacing: 0.5px;">⚡ Os 3 Momentos Críticos onde a modelagem de cultura acontece:</h3>
+                                <div style="display: flex; flex-direction: column; gap: 14px;">
+                                    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; border-left: 5px solid #4FC3DC;">
+                                        <strong style="color: #4FC3DC; font-size: 16px;">1. Sob pressão</strong>
+                                        <p style="margin: 8px 0 0 0; font-size: 14px; color: #cdd9f0; line-height: 1.7;">Quando meta e segurança colidem, o que você escolhe? A equipe observa e aprende o padrão real da liderança.</p>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; border-left: 5px solid #28a745;">
+                                        <strong style="color: #6dd98c; font-size: 16px;">2. Na visibilidade</strong>
+                                        <p style="margin: 8px 0 0 0; font-size: 14px; color: #cdd9f0; line-height: 1.7;">Como você reage quando te veem decidindo? Você conversa ou ordena? Isso ensina como decisões devem ser tomadas na operação.</p>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; border-left: 5px solid #C41E3A;">
+                                        <strong style="color: #ff7f7f; font-size: 16px;">3. Na consequência</strong>
+                                        <p style="margin: 8px 0 0 0; font-size: 14px; color: #cdd9f0; line-height: 1.7;">Quando algo dá certo com segurança, você reconhece? Quando há desvio, você investiga a causa ou pune quem errou?</p>
                                     </div>
                                 </div>
                             </div>
 
                             <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 18px;">Edgar Schein, pesquisador de cultura organizacional em MIT, chama isso de <strong>Liderança Humilde</strong>: humildade genuína (reconhecer que você não tem toda a informação sobre o trabalho), inquérito genuíno (perguntar com intenção de entender, não de provar que já sabe) e presença real (estar presente, vivenciar o campo, não para auditar, mas para aprender).</p>
 
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                                <div style="background: #fff; border-radius: 13px; padding: 18px 14px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 4px solid #20C7C7;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">🧠</div>
+                                    <h4 style="font-size: 13px; font-weight: 800; color: #111; margin-bottom: 6px; margin-top: 0;">Humildade Genuína</h4>
+                                    <p style="font-size: 12px; color: #666; line-height: 1.6; margin: 0;">Reconhecer que você não tem toda informação sobre como o trabalho realmente acontece</p>
+                                </div>
+                                <div style="background: #fff; border-radius: 13px; padding: 18px 14px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 4px solid #2C5F2D;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">❓</div>
+                                    <h4 style="font-size: 13px; font-weight: 800; color: #111; margin-bottom: 6px; margin-top: 0;">Inquérito Genuíno</h4>
+                                    <p style="font-size: 12px; color: #666; line-height: 1.6; margin: 0;">Perguntar com intenção de entender — não de provar que já sabe a resposta</p>
+                                </div>
+                                <div style="background: #fff; border-radius: 13px; padding: 18px 14px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 4px solid #1E2761;">
+                                    <div style="font-size: 28px; margin-bottom: 10px;">👟</div>
+                                    <h4 style="font-size: 13px; font-weight: 800; color: #111; margin-bottom: 6px; margin-top: 0;">Presença Real</h4>
+                                    <p style="font-size: 12px; color: #666; line-height: 1.6; margin: 0;">Estar no campo para vivenciar o trabalho real — não apenas para auditar com checklist</p>
+                                </div>
+                            </div>
+
                             <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Amy Edmondson, professora de Harvard, mostrou em anos de pesquisa que equipes com alta segurança psicológica não cometem menos erros. Elas reportam mais. E por isso previnem mais.</p>
 
-                            <div style="background: #1E2761; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                                <p style="margin: 0; font-size: 15px; line-height: 1.7;"><strong>A mudança de cultura começa com uma mudança de comportamento. Do líder. Hoje.</strong></p>
+                            <div style="background: linear-gradient(135deg, #1E2761, #071A2F); color: white; padding: 22px 26px; border-radius: 14px; margin-bottom: 20px; text-align: center;">
+                                <p style="margin: 0; font-size: 16px; line-height: 1.7;"><strong>A mudança de cultura começa com uma mudança de comportamento. Do líder. Hoje.</strong></p>
                             </div>
 
                             <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
@@ -2652,7 +2714,7 @@
                                 explicacao: 'FALSO. Punição sem investigação ensina a equipe a esconder desvios, não a eliminá-los. Investigar com curiosidade revela a causa real e possibilita redesenho.'
                             },
                             {
-                                texto: 'A mudança de cultura de uma base começa quando o líder muda seu comportamento de forma consistente por semanas.',
+                                texto: 'A mudança de cultura de uma base ou terminal começa quando o líder muda seu comportamento de forma consistente por semanas.',
                                 correta: true,
                                 explicacao: 'VERDADEIRO. Cultura muda por repetição de comportamento, não por decreto. Semanas de presença genuína e decisões coerentes criam um novo padrão.'
                             },
@@ -2662,7 +2724,7 @@
                                 explicacao: 'FALSO. Responsabilidade vertical significa o oposto: o líder assume o resultado, mesmo que o erro tenha sido executado por alguém da equipe.'
                             },
                             {
-                                texto: 'Presença genuína de liderança significa estar no chão para aprender como o trabalho realmente acontece, não apenas para auditar.',
+                                texto: 'Presença genuína de liderança significa estar presente no campo, no dia a dia operacional, para vivenciar como o trabalho realmente acontece, não apenas para auditar.',
                                 correta: true,
                                 explicacao: 'VERDADEIRO. Um líder que vai ao chão para auditar com checklist cria defensividade. Um líder que vai para aprender e perguntar com curiosidade cria confiança e revela a operação real.'
                             }
@@ -4418,6 +4480,14 @@
                 mostrarToast(`✅ Fase concluída em ${tempoMin} min! +1 ponto`);
             }
             voltarMundo();
+        }
+
+        function voltarFaseAnterior() {
+            if (faseAtual !== null && faseAtual > 0) {
+                mostrarFase(faseAtual - 1);
+            } else {
+                voltarMundo();
+            }
         }
 
         function voltarMundo() {

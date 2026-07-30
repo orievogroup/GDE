@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orievo · Gerador de Bow Tie</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --navy:#0f2540; --navy2:#16345c;
+    --perigo:#b45309; --perigo-bg:#fffbeb; --perigo-bd:#f59e0b;
+    --topo:#7f1d1d; --topo-bg:#b91c1c;
+    --causa:#1d4ed8; --causa-bg:#eff6ff; --causa-bd:#93c5fd;
+    --conseq:#c2410c; --conseq-bg:#fff7ed; --conseq-bd:#fdba74;
+    --barreira:#047857; --barreira-bg:#ecfdf5; --barreira-bd:#6ee7b7;
+    --grey:#64748b; --bg:#f4f6f9; --card:#ffffff; --line:#94a3b8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Montserrat,Arial,sans-serif;background:var(--bg);color:#1e293b;}
+  header{background:var(--navy);color:#fff;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:50;}
+  header h1{font-size:17px;margin:0;font-weight:600;letter-spacing:.3px;}
+  header .sub{font-size:11px;opacity:.7;font-weight:400;}
+  header .actions{display:flex;gap:8px;flex-wrap:wrap;}
+  button{cursor:pointer;border:none;border-radius:7px;padding:8px 14px;font-size:13px;font-weight:600;font-family:inherit;transition:.15s;}
+  button.primary{background:#2563eb;color:#fff;}
+  button.primary:hover{background:#1d4ed8;}
+  button.ghost{background:rgba(255,255,255,.12);color:#fff;}
+  button.ghost:hover{background:rgba(255,255,255,.22);}
+  button.danger{background:#fee2e2;color:#b91c1c;}
+  button.danger:hover{background:#fecaca;}
+  button.small{padding:4px 9px;font-size:11px;border-radius:6px;}
+  button.subtle{background:#e2e8f0;color:#334155;}
+  button.subtle:hover{background:#cbd5e1;}
+  main{max-width:1400px;margin:0 auto;padding:20px;}
+
+  /* ===== LISTA ===== */
+  #view-lista .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+  #view-lista .toolbar h2{margin:0;font-size:19px;}
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;}
+  .card-diagrama{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:8px;}
+  .card-diagrama h3{margin:0;font-size:15px;color:var(--navy);}
+  .card-diagrama .meta{font-size:12px;color:var(--grey);line-height:1.5;}
+  .card-diagrama .tag{display:inline-block;background:var(--perigo-bg);color:var(--perigo);border:1px solid var(--perigo-bd);border-radius:5px;padding:2px 7px;font-size:11px;margin-top:2px;}
+  .card-diagrama .row-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .empty-state{text-align:center;padding:60px 20px;color:var(--grey);}
+  .empty-state div.ico{font-size:40px;margin-bottom:10px;}
+
+  /* ===== EDITOR ===== */
+  #view-editor{display:none;}
+  .editor-topbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+  .editor-topbar input.nome-diagrama{font-size:16px;font-weight:600;border:1px solid #cbd5e1;border-radius:7px;padding:8px 10px;flex:1;min-width:220px;background:#fff;}
+  .save-status{font-size:11px;color:var(--grey);min-width:90px;}
+
+  #diagram-visual{position:relative;background:#fff;border-radius:14px;border:1px solid #e2e8f0;padding:30px 22px;overflow:visible;}
+  #svg-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+  .bowtie-grid{display:grid;grid-template-columns:1fr 200px 1fr;gap:14px;align-items:start;position:relative;z-index:2;}
+  .col-causas, .col-conseq{display:flex;flex-direction:column;gap:22px;}
+  .col-center{display:flex;flex-direction:column;align-items:center;gap:14px;position:sticky;top:70px;}
+
+  textarea.box-input{width:100%;resize:none;overflow:hidden;border-radius:9px;font-family:inherit;font-size:13px;font-weight:600;padding:9px 10px;line-height:1.35;}
+  .box-perigo{background:var(--perigo-bg);border:2px solid var(--perigo-bd);color:var(--perigo);text-align:center;}
+  .box-perigo textarea{background:transparent;border:none;color:var(--perigo);text-align:center;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;}
+  .box-evento{background:var(--topo-bg);border:2px solid var(--topo);border-radius:10px;padding:2px;width:100%;}
+  .box-evento textarea{background:transparent;border:none;color:#fff;text-align:center;font-size:14px;}
+  .label-mini{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;opacity:.85;text-align:center;font-weight:700;margin-bottom:2px;}
+
+  .row-causa, .row-conseq{position:relative;display:flex;align-items:center;gap:8px;background:transparent;}
+  .row-causa{flex-direction:row;}
+  .row-conseq{flex-direction:row-reverse;}
+  .row-line{position:relative;flex:1;display:flex;align-items:center;gap:8px;padding:4px 0;}
+  .row-causa .row-line{flex-direction:row;}
+  .row-conseq .row-line{flex-direction:row-reverse;}
+
+  .box{border-radius:8px;padding:8px 9px;position:relative;flex-shrink:0;}
+  .box-causa{background:var(--causa-bg);border:2px solid var(--causa-bd);width:150px;}
+  .box-causa textarea{color:var(--causa);}
+  .box-conseq{background:var(--conseq-bg);border:2px solid var(--conseq-bd);width:150px;}
+  .box-conseq textarea{color:var(--conseq);}
+  .box-barreira{background:var(--barreira-bg);border:2px dashed var(--barreira-bd);width:96px;}
+  .box-barreira textarea{color:var(--barreira);font-size:11px;font-weight:600;}
+  .del-x{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0;font-weight:700;}
+  .add-barreira-btn{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--barreira-bg);border:1.5px dashed var(--barreira-bd);color:var(--barreira);font-size:14px;padding:0;line-height:1;}
+  .add-barreira-btn:hover{background:#d1fae5;}
+  .del-row-btn{flex-shrink:0;width:22px;height:22px;border-radius:6px;background:#f1f5f9;color:#64748b;font-size:12px;padding:0;}
+  .col-add-btn{width:100%;padding:10px;border-radius:9px;border:2px dashed;font-size:12.5px;}
+  .col-add-btn.causa{border-color:var(--causa-bd);color:var(--causa);background:#fff;}
+  .col-add-btn.causa:hover{background:var(--causa-bg);}
+  .col-add-btn.conseq{border-color:var(--conseq-bd);color:var(--conseq);background:#fff;}
+  .col-add-btn.conseq:hover{background:var(--conseq-bg);}
+
+  .suggestions{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+  .chip{background:#f1f5f9;border:1px solid #e2e8f0;color:#475569;border-radius:20px;padding:2px 9px;font-size:10.5px;cursor:pointer;}
+  .chip:hover{background:#e2e8f0;}
+
+  /* ===== MODAL ===== */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;align-items:center;justify-content:center;padding:20px;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:#fff;border-radius:14px;max-width:640px;width:100%;max-height:82vh;overflow:auto;padding:22px;}
+  .modal h3{margin-top:0;}
+  .know-section{margin-bottom:16px;}
+  .know-section h4{font-size:12px;text-transform:uppercase;color:var(--grey);letter-spacing:.5px;margin-bottom:8px;}
+  .know-item{display:flex;justify-content:space-between;align-items:center;padding:6px 9px;border-radius:7px;background:#f8fafc;margin-bottom:4px;font-size:12.5px;}
+  .know-item .cnt{font-size:10.5px;color:var(--grey);background:#e2e8f0;border-radius:10px;padding:1px 7px;margin-right:8px;}
+  .know-item .x{background:none;color:#cbd5e1;font-size:13px;padding:2px 4px;}
+  .know-item .x:hover{color:#ef4444;}
+  .modal-close-row{text-align:right;margin-top:14px;}
+  .hint{font-size:11.5px;color:var(--grey);background:#f8fafc;border-left:3px solid #cbd5e1;padding:8px 10px;border-radius:6px;margin-bottom:14px;line-height:1.5;}
+
+  footer{text-align:center;padding:30px;font-size:11px;color:#94a3b8;}
+  @media(max-width:900px){
+    .bowtie-grid{grid-template-columns:1fr;}
+    .col-center{position:static;}
+    .row-causa, .row-conseq{flex-direction:column;align-items:stretch;}
+    .row-line{flex-direction:row!important;flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🎀 Gerador de Bow Tie — Orievo</h1>
+    <div class="sub">Análise de barreiras · Causas → Evento Topo → Consequências</div>
+  </div>
+  <div class="actions" id="header-actions">
+    <button class="ghost small" id="btn-conhecimento">🧠 Base de Conhecimento</button>
+    <button class="ghost small" id="btn-backup">⇅ Backup</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- LISTA -->
+  <div id="view-lista">
+    <div class="toolbar">
+      <h2>Meus diagramas</h2>
+      <button class="primary" id="btn-novo">+ Novo Bow Tie</button>
+    </div>
+    <div class="grid-cards" id="lista-cards"></div>
+  </div>
+
+  <!-- EDITOR -->
+  <div id="view-editor">
+    <div class="editor-topbar">
+      <button class="subtle small" id="btn-voltar">← Voltar</button>
+      <input type="text" class="nome-diagrama" id="input-nome" placeholder="Nome do diagrama (ex: Queda de altura - Andaime)">
+      <span class="save-status" id="save-status">salvo</span>
+      <button class="subtle" id="btn-exportar-pdf">⬇ Exportar PDF</button>
+    </div>
+
+    <div id="diagram-visual">
+      <svg id="svg-lines"></svg>
+      <div class="bowtie-grid">
+        <div class="col-causas" id="col-causas"></div>
+
+        <div class="col-center">
+          <div class="box-perigo box" style="width:100%">
+            <div class="label-mini">⚠ Perigo</div>
+            <textarea class="box-input" id="input-perigo" rows="2" placeholder="Ex: Trabalho em altura"></textarea>
+          </div>
+          <div class="box-evento" id="box-evento">
+            <div class="label-mini" style="color:#fecaca">Evento Topo</div>
+            <textarea class="box-input" id="input-evento" rows="2" placeholder="Ex: Queda de trabalhador"></textarea>
+          </div>
+        </div>
+
+        <div class="col-conseq" id="col-conseq"></div>
+      </div>
+    </div>
+
+    <div class="bowtie-grid" style="margin-top:14px;">
+      <button class="col-add-btn causa" id="btn-add-causa">+ Adicionar Causa</button>
+      <div></div>
+      <button class="col-add-btn conseq" id="btn-add-conseq">+ Adicionar Consequência</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>Orievo Safety Learn · dados salvos localmente neste navegador — use "Backup" para exportar/importar</footer>
+
+<!-- MODAL CONHECIMENTO -->
+<div class="modal-overlay" id="modal-conhecimento">
+  <div class="modal">
+    <h3>🧠 Base de Conhecimento</h3>
+    <div class="hint">Toda vez que você salva um diagrama, o app aprende as causas, consequências e barreiras usadas. Quanto mais você alimenta, mais sugestões inteligentes aparecem ao criar novos bow ties.</div>
+    <div id="know-content"></div>
+    <div class="modal-close-row">
+      <button class="danger small" id="btn-limpar-conhecimento">Limpar base de conhecimento</button>
+      <button class="subtle small" id="btn-fechar-conhecimento">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BACKUP -->
+<div class="modal-overlay" id="modal-backup">
+  <div class="modal">
+    <h3>⇅ Backup dos dados</h3>
+    <div class="hint">Os diagramas e a base de conhecimento ficam salvos apenas neste navegador. Exporte um backup regularmente ou para levar seus dados para outro computador.</div>
+    <p style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="primary small" id="btn-exportar-json">⬇ Exportar backup (.json)</button>
+      <label class="subtle small" style="display:inline-flex;align-items:center;padding:8px 14px;border-radius:7px;cursor:pointer;">
+        ⬆ Importar backup
+        <input type="file" id="input-importar" accept=".json" style="display:none;">
+      </label>
+    </p>
+    <div class="modal-close-row">
+      <button class="subtle small" id="btn-fechar-backup">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const LS_DIAGRAMAS = "orievo_bowtie_diagramas";
+  const LS_CONHECIMENTO = "orievo_bowtie_conhecimento";
+  const LS_DENYLIST = "orievo_bowtie_denylist";
+
+  let diagramas = JSON.parse(localStorage.getItem(LS_DIAGRAMAS) || "[]");
+  let conhecimento = JSON.parse(localStorage.getItem(LS_CONHECIMENTO) || "null") || {
+    perigos:{}, eventosTopo:{}, causas:{}, consequencias:{}
+  };
+  let denylist = JSON.parse(localStorage.getItem(LS_DENYLIST) || "null") || {
+    perigos:{}, eventosTopo:{}, causas:{}, consequencias:{}
+  };
+  let atual = null;
+  let saveTimer = null;
+
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+  const persistDiagramas = () => localStorage.setItem(LS_DIAGRAMAS, JSON.stringify(diagramas));
+  const persistConhecimento = () => localStorage.setItem(LS_CONHECIMENTO, JSON.stringify(conhecimento));
+  const persistDenylist = () => localStorage.setItem(LS_DENYLIST, JSON.stringify(denylist));
+
+  const $ = sel => document.querySelector(sel);
+  const viewLista = $("#view-lista"), viewEditor = $("#view-editor");
+
+  // ---------- LISTA ----------
+  function renderLista(){
+    const el = $("#lista-cards");
+    if(diagramas.length === 0){
+      el.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+        <div class="ico">🎀</div>
+        <div>Nenhum diagrama ainda. Clique em <b>+ Novo Bow Tie</b> para começar.</div>
+      </div>`;
+      return;
+    }
+    const ordenados = [...diagramas].sort((a,b)=> (b.atualizadoEm||0) - (a.atualizadoEm||0));
+    el.innerHTML = ordenados.map(d => `
+      <div class="card-diagrama" data-id="${d.id}">
+        <h3>${escapeHtml(d.nome || "Sem nome")}</h3>
+        <div class="meta">
+          ${d.perigo ? `<span class="tag">${escapeHtml(truncate(d.perigo,40))}</span><br>` : ""}
+          ${d.causas.length} causa(s) · ${d.consequencias.length} consequência(s)<br>
+          Atualizado em ${formatDate(d.atualizadoEm)}
+        </div>
+        <div class="row-btns">
+          <button class="primary small" data-action="abrir">Abrir/Editar</button>
+          <button class="subtle small" data-action="duplicar">Duplicar</button>
+          <button class="danger small" data-action="excluir">Excluir</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  $("#lista-cards").addEventListener("click", e=>{
+    const card = e.target.closest(".card-diagrama");
+    if(!card) return;
+    const id = card.dataset.id;
+    const action = e.target.dataset.action;
+    if(action === "abrir") abrirDiagrama(id);
+    if(action === "duplicar") duplicarDiagrama(id);
+    if(action === "excluir") excluirDiagrama(id);
+  });
+
+  function novoDiagrama(){
+    atual = {
+      id: uid(), nome: "Novo diagrama", perigo:"", eventoTopo:"",
+      causas: [{id:uid(), texto:"", barreiras:[{id:uid(), texto:""}]}],
+      consequencias: [{id:uid(), texto:"", barreiras:[{id:uid(), texto:""}]}],
+      criadoEm: Date.now(), atualizadoEm: Date.now()
+    };
+    diagramas.push(atual);
+    persistDiagramas();
+    abrirEditor();
+  }
+
+  function abrirDiagrama(id){
+    atual = diagramas.find(d=>d.id===id);
+    if(!atual) return;
+    abrirEditor();
+  }
+
+  function duplicarDiagrama(id){
+    const orig = diagramas.find(d=>d.id===id);
+    if(!orig) return;
+    const copia = JSON.parse(JSON.stringify(orig));
+    copia.id = uid();
+    copia.nome = orig.nome + " (cópia)";
+    copia.criadoEm = Date.now();
+    copia.atualizadoEm = Date.now();
+    diagramas.push(copia);
+    persistDiagramas();
+    renderLista();
+  }
+
+  function excluirDiagrama(id){
+    const d = diagramas.find(x=>x.id===id);
+    if(!d) return;
+    if(!confirm(`Excluir o diagrama "${d.nome}"? Essa ação não pode ser desfeita.`)) return;
+    diagramas = diagramas.filter(x=>x.id!==id);
+    persistDiagramas();
+    rebuildConhecimento();
+    renderLista();
+  }
+
+  // ---------- EDITOR ----------
+  function abrirEditor(){
+    viewLista.style.display = "none";
+    viewEditor.style.display = "block";
+    $("#input-nome").value = atual.nome || "";
+    $("#input-perigo").value = atual.perigo || "";
+    $("#input-evento").value = atual.eventoTopo || "";
+    renderColuna("causas");
+    renderColuna("consequencias");
+    autoGrowAll();
+    setTimeout(drawConnectors, 30);
+  }
+
+  $("#btn-voltar").addEventListener("click", ()=>{
+    salvarAtual();
+    viewEditor.style.display = "none";
+    viewLista.style.display = "block";
+    renderLista();
+  });
+
+  $("#btn-novo").addEventListener("click", novoDiagrama);
+
+  function tipoConfig(tipo){
+    return tipo === "causas"
+      ? {campo:"causas", boxClass:"box-causa", rowClass:"row-causa", contId:"col-causas", know:"causas", label:"Causa", barreiraLabel:"Barreira preventiva"}
+      : {campo:"consequencias", boxClass:"box-conseq", rowClass:"row-conseq", contId:"col-conseq", know:"consequencias", label:"Consequência", barreiraLabel:"Barreira mitigadora"};
+  }
+
+  function renderColuna(tipo){
+    const cfg = tipoConfig(tipo);
+    const cont = document.getElementById(cfg.contId);
+    const itens = atual[cfg.campo];
+    cont.innerHTML = itens.map(item => `
+      <div class="${cfg.rowClass}" data-id="${item.id}">
+        <div class="box ${cfg.boxClass}" style="position:relative;">
+          <button class="del-x" data-del-item="${item.id}" title="Remover">×</button>
+          <div class="label-mini" style="color:inherit;opacity:.7;">${cfg.label}</div>
+          <textarea class="box-input" rows="2" data-field="texto" placeholder="Descreva a ${cfg.label.toLowerCase()}">${escapeHtml(item.texto)}</textarea>
+          <div class="suggestions" data-suggest-item="${item.id}"></div>
+        </div>
+        <div class="row-line">
+          ${item.barreiras.map(b => `
+            <div class="box box-barreira" data-barreira-id="${b.id}" style="position:relative;">
+              <button class="del-x" data-del-barreira="${b.id}" title="Remover">×</button>
+              <textarea class="box-input" rows="2" data-field="barreira-texto" placeholder="Barreira">${escapeHtml(b.texto)}</textarea>
+            </div>
+          `).join("")}
+          <button class="add-barreira-btn" data-add-barreira="${item.id}" title="Adicionar barreira">+</button>
+        </div>
+      </div>
+    `).join("");
+
+    // texto principal do item
+    cont.querySelectorAll(`.${cfg.rowClass} > .box > textarea[data-field="texto"]`).forEach(ta=>{
+      const row = ta.closest(`.${cfg.rowClass}`);
+      const id = row.dataset.id;
+      ta.addEventListener("input", ()=>{
+        const item = itens.find(i=>i.id===id);
+        item.texto = ta.value;
+        autoGrow(ta);
+        renderSuggestionsFor(tipo, item);
+        agendarSalvar();
+        drawConnectors();
+      });
+      renderSuggestionsFor(tipo, itens.find(i=>i.id===id));
+    });
+
+    // textos de barreira
+    cont.querySelectorAll('textarea[data-field="barreira-texto"]').forEach(ta=>{
+      const box = ta.closest(".box-barreira");
+      const bid = box.dataset.barreiraId;
+      ta.addEventListener("input", ()=>{
+        const item = itens.find(i=> i.barreiras.some(b=>b.id===bid));
+        const barreira = item.barreiras.find(b=>b.id===bid);
+        barreira.texto = ta.value;
+        autoGrow(ta);
+        agendarSalvar();
+        drawConnectors();
+      });
+    });
+
+    // remover item
+    cont.querySelectorAll("[data-del-item]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const id = btn.dataset.delItem;
+        if(itens.length<=1){ alert("Mantenha pelo menos um item na coluna."); return; }
+        atual[cfg.campo] = itens.filter(i=>i.id!==id);
+        renderColuna(tipo);
+        agendarSalvar();
+        drawConnectors();
+      });
+    });
+
+    // remover barreira
+    cont.querySelectorAll("[data-del-barreira]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const bid = btn.dataset.delBarreira;
+        const item = itens.find(i=> i.barreiras.some(b=>b.id===bid));
+        if(item.barreiras.length<=1){ item.barreiras = [{id:uid(), texto:""}]; }
+        else { item.barreiras = item.barreiras.filter(b=>b.id!==bid); }
+        renderColuna(tipo);
+        agendarSalvar();
+        drawConnectors();
+      });
+    });
+
+    // adicionar barreira
+    cont.querySelectorAll("[data-add-barreira]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const id = btn.dataset.addBarreira;
+        const item = itens.find(i=>i.id===id);
+        item.barreiras.push({id:uid(), texto:""});
+        renderColuna(tipo);
+        agendarSalvar();
+        drawConnectors();
+      });
+    });
+
+    autoGrowAll();
+  }
+
+  function renderSuggestionsFor(tipo, item){
+    const cfg = tipoConfig(tipo);
+    const wrap = document.querySelector(`[data-suggest-item="${item.id}"]`);
+    if(!wrap) return;
+    const q = (item.texto||"").trim().toLowerCase();
+    if(q.length < 2){ wrap.innerHTML = ""; return; }
+    const base = conhecimento[cfg.know] || {};
+    const matches = Object.keys(base)
+      .filter(k => k.toLowerCase().includes(q) && k.toLowerCase() !== q)
+      .sort((a,b)=> (base[b].count||0) - (base[a].count||0))
+      .slice(0,4);
+    wrap.innerHTML = matches.map(m => `<span class="chip" data-fill="${item.id}">${escapeHtml(truncate(m,38))}</span>`).join("");
+    wrap.querySelectorAll(".chip").forEach(chip=>{
+      chip.addEventListener("click", ()=>{
+        const texto = matches.find(m => truncate(m,38)===chip.textContent) || chip.title;
+        applySuggestion(tipo, item.id, texto || chip.textContent);
+      });
+    });
+  }
+
+  function applySuggestion(tipo, itemId, texto){
+    const cfg = tipoConfig(tipo);
+    const item = atual[cfg.campo].find(i=>i.id===itemId);
+    item.texto = texto;
+    // sugere também barreiras associadas mais usadas
+    const known = conhecimento[cfg.know] && conhecimento[cfg.know][texto];
+    if(known && known.barreiras){
+      const topBarreiras = Object.keys(known.barreiras).sort((a,b)=>known.barreiras[b]-known.barreiras[a]).slice(0,3);
+      if(topBarreiras.length){
+        item.barreiras = topBarreiras.map(t=>({id:uid(), texto:t}));
+      }
+    }
+    renderColuna(tipo);
+    agendarSalvar();
+    drawConnectors();
+  }
+
+  // perigo / evento topo
+  $("#input-perigo").addEventListener("input", e=>{ atual.perigo = e.target.value; autoGrow(e.target); agendarSalvar(); });
+  $("#input-evento").addEventListener("input", e=>{ atual.eventoTopo = e.target.value; autoGrow(e.target); agendarSalvar(); drawConnectors(); });
+  $("#input-nome").addEventListener("input", e=>{ atual.nome = e.target.value; agendarSalvar(); });
+
+  $("#btn-add-causa").addEventListener("click", ()=>{
+    atual.causas.push({id:uid(), texto:"", barreiras:[{id:uid(), texto:""}]});
+    renderColuna("causas"); agendarSalvar(); drawConnectors();
+  });
+  $("#btn-add-conseq").addEventListener("click", ()=>{
+    atual.consequencias.push({id:uid(), texto:"", barreiras:[{id:uid(), texto:""}]});
+    renderColuna("consequencias"); agendarSalvar(); drawConnectors();
+  });
+
+  function agendarSalvar(){
+    $("#save-status").textContent = "salvando...";
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(salvarAtual, 500);
+  }
+
+  function salvarAtual(){
+    if(!atual) return;
+    atual.atualizadoEm = Date.now();
+    const idx = diagramas.findIndex(d=>d.id===atual.id);
+    if(idx>=0) diagramas[idx] = atual; else diagramas.push(atual);
+    persistDiagramas();
+    rebuildConhecimento();
+    $("#save-status").textContent = "salvo ✓";
+  }
+
+  // ---------- APRENDIZADO / BASE DE CONHECIMENTO ----------
+  function bump(obj, key){
+    if(!key || !key.trim()) return;
+    key = key.trim();
+    if(!obj[key]) obj[key] = {count:0};
+    obj[key].count++;
+  }
+  function bumpComBarreiras(obj, itens){
+    itens.forEach(item=>{
+      const key = (item.texto||"").trim();
+      if(!key) return;
+      if(!obj[key]) obj[key] = {count:0, barreiras:{}};
+      obj[key].count++;
+      if(!obj[key].barreiras) obj[key].barreiras = {};
+      item.barreiras.forEach(b=>{
+        const bt = (b.texto||"").trim();
+        if(!bt) return;
+        obj[key].barreiras[bt] = (obj[key].barreiras[bt]||0) + 1;
+      });
+    });
+  }
+  function rebuildConhecimento(){
+    const novo = {perigos:{}, eventosTopo:{}, causas:{}, consequencias:{}};
+    diagramas.forEach(d=>{
+      bump(novo.perigos, d.perigo);
+      bump(novo.eventosTopo, d.eventoTopo);
+      bumpComBarreiras(novo.causas, d.causas);
+      bumpComBarreiras(novo.consequencias, d.consequencias);
+    });
+    Object.keys(denylist).forEach(sec=>{
+      Object.keys(denylist[sec]).forEach(key=>{ delete novo[sec][key]; });
+    });
+    conhecimento = novo;
+    persistConhecimento();
+  }
+
+  // ---------- AUTO-GROW TEXTAREAS ----------
+  function autoGrow(ta){
+    ta.style.height = "auto";
+    ta.style.height = (ta.scrollHeight) + "px";
+  }
+  function autoGrowAll(){
+    document.querySelectorAll("textarea.box-input").forEach(autoGrow);
+  }
+
+  // ---------- CONECTORES SVG (fan da bow tie) ----------
+  function drawConnectors(){
+    const container = $("#diagram-visual");
+    const svg = $("#svg-lines");
+    const eventoBox = $("#box-evento");
+    if(!container || !eventoBox) return;
+    const cRect = container.getBoundingClientRect();
+    svg.setAttribute("width", cRect.width);
+    svg.setAttribute("height", cRect.height);
+    svg.setAttribute("viewBox", `0 0 ${cRect.width} ${cRect.height}`);
+
+    const evRect = eventoBox.getBoundingClientRect();
+    const evLeft = {x: evRect.left - cRect.left, y: evRect.top - cRect.top + evRect.height/2};
+    const evRight = {x: evRect.right - cRect.left, y: evRect.top - cRect.top + evRect.height/2};
+
+    let paths = "";
+
+    document.querySelectorAll(".row-causa").forEach(row=>{
+      const boxes = row.querySelectorAll(".box-barreira, .box-causa");
+      const lastBox = boxes[boxes.length-1];
+      const r = lastBox.getBoundingClientRect();
+      const p1 = {x: r.right - cRect.left, y: r.top - cRect.top + r.height/2};
+      paths += connectorPath(p1, evLeft);
+    });
+
+    document.querySelectorAll(".row-conseq").forEach(row=>{
+      const boxes = row.querySelectorAll(".box-barreira, .box-conseq");
+      const lastBox = boxes[boxes.length-1];
+      const r = lastBox.getBoundingClientRect();
+      const p1 = {x: r.left - cRect.left, y: r.top - cRect.top + r.height/2};
+      paths += connectorPath(evRight, p1);
+    });
+
+    svg.innerHTML = paths;
+  }
+
+  function connectorPath(p1, p2){
+    const midX = (p1.x + p2.x)/2;
+    return `<path d="M${p1.x},${p1.y} C${midX},${p1.y} ${midX},${p2.y} ${p2.x},${p2.y}" stroke="var(--line)" stroke-width="2" fill="none" opacity="0.8"/>`;
+  }
+
+  window.addEventListener("resize", ()=>{ clearTimeout(window._rz); window._rz = setTimeout(drawConnectors, 150); });
+
+  // ---------- MODAL CONHECIMENTO ----------
+  $("#btn-conhecimento").addEventListener("click", ()=>{
+    renderConhecimento();
+    $("#modal-conhecimento").classList.add("show");
+  });
+  $("#btn-fechar-conhecimento").addEventListener("click", ()=> $("#modal-conhecimento").classList.remove("show"));
+
+  function renderConhecimento(){
+    const secoes = [
+      {key:"causas", titulo:"Causas aprendidas"},
+      {key:"consequencias", titulo:"Consequências aprendidas"},
+      {key:"perigos", titulo:"Perigos aprendidos"},
+      {key:"eventosTopo", titulo:"Eventos topo aprendidos"}
+    ];
+    let html = "";
+    let total = 0;
+    secoes.forEach(sec=>{
+      const obj = conhecimento[sec.key] || {};
+      const keys = Object.keys(obj).sort((a,b)=>(obj[b].count||0)-(obj[a].count||0));
+      total += keys.length;
+      if(keys.length===0) return;
+      html += `<div class="know-section"><h4>${sec.titulo} (${keys.length})</h4>`;
+      html += keys.map(k=>`
+        <div class="know-item">
+          <span>${escapeHtml(k)}</span>
+          <span><span class="cnt">${obj[k].count}x</span><button class="x" data-rm-sec="${sec.key}" data-rm-key="${encodeURIComponent(k)}">×</button></span>
+        </div>`).join("");
+      html += `</div>`;
+    });
+    $("#know-content").innerHTML = total ? html : `<div class="empty-state"><div class="ico">🧠</div>Ainda não há nada aprendido. Preencha e salve diagramas para começar a alimentar a base.</div>`;
+    $("#know-content").querySelectorAll("[data-rm-sec]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const sec = btn.dataset.rmSec;
+        const key = decodeURIComponent(btn.dataset.rmKey);
+        denylist[sec][key] = true;
+        persistDenylist();
+        rebuildConhecimento();
+        renderConhecimento();
+      });
+    });
+  }
+
+  $("#btn-limpar-conhecimento").addEventListener("click", ()=>{
+    if(!confirm("Isso vai ocultar todas as sugestões aprendidas até agora (elas voltam se você editar e salvar os diagramas de novo). Continuar?")) return;
+    denylist = {perigos:{}, eventosTopo:{}, causas:{}, consequencias:{}};
+    Object.keys(conhecimento).forEach(sec=>{
+      Object.keys(conhecimento[sec]).forEach(key=>{ denylist[sec][key] = true; });
+    });
+    persistDenylist();
+    rebuildConhecimento();
+    renderConhecimento();
+  });
+
+  // ---------- BACKUP ----------
+  $("#btn-backup").addEventListener("click", ()=> $("#modal-backup").classList.add("show"));
+  $("#btn-fechar-backup").addEventListener("click", ()=> $("#modal-backup").classList.remove("show"));
+
+  $("#btn-exportar-json").addEventListener("click", ()=>{
+    const backup = {versao:1, exportadoEm: new Date().toISOString(), diagramas, conhecimento};
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `orievo_bowtie_backup_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+  });
+
+  $("#input-importar").addEventListener("change", e=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = evt=>{
+      try{
+        const data = JSON.parse(evt.target.result);
+        if(!Array.isArray(data.diagramas)) throw new Error("formato inválido");
+        if(!confirm(`Importar ${data.diagramas.length} diagrama(s)? Eles serão adicionados aos já existentes (sem apagar nada).`)) return;
+        data.diagramas.forEach(d=>{ d.id = uid(); diagramas.push(d); });
+        if(data.conhecimento){
+          ["perigos","eventosTopo","causas","consequencias"].forEach(k=>{
+            Object.assign(conhecimento[k] = conhecimento[k]||{}, data.conhecimento[k]||{});
+          });
+        }
+        persistDiagramas(); persistConhecimento();
+        renderLista();
+        $("#modal-backup").classList.remove("show");
+        alert("Backup importado com sucesso!");
+      }catch(err){
+        alert("Não foi possível ler esse arquivo de backup.");
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  // ---------- EXPORTAR PDF ----------
+  $("#btn-exportar-pdf").addEventListener("click", async ()=>{
+    salvarAtual();
+    const btn = $("#btn-exportar-pdf");
+    const original = btn.textContent;
+    btn.textContent = "Gerando PDF...";
+    btn.disabled = true;
+    try{
+      await exportarPDF();
+    }catch(err){
+      alert("Erro ao gerar PDF: " + err.message);
+    }finally{
+      btn.textContent = original;
+      btn.disabled = false;
+    }
+  });
+
+  async function exportarPDF(){
+    const { jsPDF } = window.jspdf;
+    const el = $("#diagram-visual");
+    const canvas = await html2canvas(el, {scale:2, backgroundColor:"#ffffff"});
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({orientation:"landscape", unit:"pt", format:"a4"});
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 24;
+
+    pdf.setFontSize(16);
+    pdf.setTextColor(15,37,64);
+    pdf.text(atual.nome || "Bow Tie", margin, margin);
+    pdf.setFontSize(9);
+    pdf.setTextColor(100);
+    pdf.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} · Orievo Safety Learn`, margin, margin+14);
+
+    const imgW = pageW - margin*2;
+    const imgH = (canvas.height / canvas.width) * imgW;
+    let renderH = imgH, renderW = imgW;
+    const maxH = pageH - margin*2 - 30;
+    if(renderH > maxH){
+      renderH = maxH;
+      renderW = (canvas.width/canvas.height) * renderH;
+    }
+    pdf.addImage(imgData, "PNG", margin, margin+26, renderW, renderH);
+
+    // pagina 2: resumo em texto
+    pdf.addPage();
+    let y = margin;
+    pdf.setFontSize(14);
+    pdf.setTextColor(15,37,64);
+    pdf.text("Resumo detalhado", margin, y); y+=20;
+
+    pdf.setFontSize(10);
+    pdf.setTextColor(180,83,9);
+    pdf.text(`Perigo: ${atual.perigo || "-"}`, margin, y); y+=14;
+    pdf.setTextColor(127,29,29);
+    pdf.text(`Evento Topo: ${atual.eventoTopo || "-"}`, margin, y); y+=22;
+
+    const colW = (pageW - margin*3)/2;
+    let yCausas = y, yConseq = y;
+
+    pdf.setTextColor(29,78,216);
+    pdf.text("CAUSAS", margin, yCausas); yCausas += 14;
+    atual.causas.forEach((c,i)=>{
+      pdf.setFontSize(9.5); pdf.setTextColor(30,41,59);
+      const linhas = pdf.splitTextToSize(`${i+1}. ${c.texto || "(sem descrição)"}`, colW);
+      pdf.text(linhas, margin, yCausas); yCausas += linhas.length*12 + 2;
+      c.barreiras.filter(b=>b.texto.trim()).forEach(b=>{
+        pdf.setTextColor(4,120,87);
+        const bl = pdf.splitTextToSize(`   • ${b.texto}`, colW);
+        pdf.text(bl, margin, yCausas); yCausas += bl.length*11;
+      });
+      yCausas += 6;
+      if(yCausas > pageH - margin){ pdf.addPage(); yCausas = margin; }
+    });
+
+    const x2 = margin*2 + colW;
+    pdf.setFontSize(10); pdf.setTextColor(194,65,12);
+    pdf.text("CONSEQUÊNCIAS", x2, yConseq); yConseq += 14;
+    atual.consequencias.forEach((c,i)=>{
+      pdf.setFontSize(9.5); pdf.setTextColor(30,41,59);
+      const linhas = pdf.splitTextToSize(`${i+1}. ${c.texto || "(sem descrição)"}`, colW);
+      pdf.text(linhas, x2, yConseq); yConseq += linhas.length*12 + 2;
+      c.barreiras.filter(b=>b.texto.trim()).forEach(b=>{
+        pdf.setTextColor(4,120,87);
+        const bl = pdf.splitTextToSize(`   • ${b.texto}`, colW);
+        pdf.text(bl, x2, yConseq); yConseq += bl.length*11;
+      });
+      yConseq += 6;
+      if(yConseq > pageH - margin){ pdf.addPage(); yConseq = margin; }
+    });
+
+    const nomeArquivo = (atual.nome || "bowtie").toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+    pdf.save(`${nomeArquivo || 'bowtie'}.pdf`);
+  }
+
+  // ---------- HELPERS ----------
+  function escapeHtml(s){
+    return (s||"").replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+  }
+  function truncate(s,n){ return s.length>n ? s.slice(0,n-1)+"…" : s; }
+  function formatDate(ts){
+    if(!ts) return "-";
+    const d = new Date(ts);
+    return d.toLocaleDateString('pt-BR') + " " + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  }
+
+  // init
+  renderLista();
+})();
+</script>
+</body>
+</html>

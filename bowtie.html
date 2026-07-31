@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orievo · Gerador de Bow Tie</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
     --navy:#0f2540; --navy2:#16345c;
@@ -910,25 +909,102 @@
     svg.innerHTML = paths;
   }
 
-  async function exportarDiagramaPDF(){
+  function exportarDiagramaPDF(){
     const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:"landscape", unit:"pt", format:"a4"});
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 30;
+    let y = margin;
 
-    const wrap = buildExportContainer();
-    let canvas;
-    try{
-      await new Promise(r => requestAnimationFrame(r));
-      drawConnectorsExport(wrap);
-      const pageEl = wrap.querySelector("#pv-page");
-      canvas = await html2canvas(pageEl, {scale:2, backgroundColor:"#ffffff"});
-    } finally {
-      wrap.remove();
+    const logoH = 24;
+    const logoW = logoH * LOGO_RATIO;
+    pdf.addImage(LOGO_URI, "PNG", margin, y, logoW, logoH);
+
+    pdf.setFontSize(13);
+    pdf.setTextColor(15,37,64);
+    pdf.text(atual.nome || "Bow Tie", margin + logoW + 16, y + 8);
+    pdf.setFontSize(8);
+    pdf.setTextColor(120);
+    pdf.text("Análise de Bow Tie, gerado em " + new Date().toLocaleDateString('pt-BR'), margin + logoW + 16, y + 16);
+
+    y += logoH + 20;
+    const contentW = pageW - margin*2;
+
+    function drawBox(x, y, w, h, text, bgRGB, textRGB){
+      pdf.setFillColor(...bgRGB);
+      pdf.setDrawColor(...bgRGB);
+      pdf.rect(x, y, w, h, "F");
+      pdf.setLineWidth(0.5);
+      pdf.rect(x, y, w, h);
+      pdf.setFontSize(9);
+      pdf.setTextColor(...textRGB);
+      const linhas = pdf.splitTextToSize(text, w - 6);
+      let ty = y + 6;
+      linhas.forEach(l => { pdf.text(l, x + 3, ty); ty += 10; });
     }
 
-    const imgData = canvas.toDataURL("image/png");
-    const ptW = canvas.width / 2;
-    const ptH = canvas.height / 2;
-    const pdf = new jsPDF({orientation: ptW > ptH ? "landscape" : "portrait", unit:"pt", format:[ptW, ptH]});
-    pdf.addImage(imgData, "PNG", 0, 0, ptW, ptH);
+    const boxW = 100;
+    const boxH = 40;
+    pdf.setFont(undefined, "bold");
+    drawBox(margin, y, boxW, boxH, (atual.perigo || "-").slice(0,30), [255,251,235], [180,83,9]);
+    pdf.setFontSize(7);
+    pdf.text("PERIGO", margin + 3, y - 3);
+
+    const eventoX = pageW / 2 - boxW / 2;
+    drawBox(eventoX, y, boxW, boxH, (atual.eventoTopo || "-").slice(0,30), [185,28,28], [255,255,255]);
+    pdf.text("EVENTO TOPO", eventoX + 3, y - 3);
+
+    drawBox(pageW - margin - boxW, y, boxW, boxH, (atual.perigo || "-").slice(0,30), [255,247,237], [194,65,12]);
+    pdf.text("PERIGO", pageW - margin - boxW + 3, y - 3);
+
+    y += boxH + 18;
+    pdf.setFont(undefined, "bold");
+    pdf.setTextColor(29,78,216);
+    pdf.setFontSize(10);
+    pdf.text("CAUSAS", margin, y);
+    y += 12;
+
+    atual.causas.forEach((causa, i) => {
+      if(y > pageH - margin - 30) { pdf.addPage(); y = margin; }
+      pdf.setFont(undefined, "normal");
+      pdf.setFontSize(9);
+      pdf.setTextColor(30,41,59);
+      const linhas = pdf.splitTextToSize((i+1) + ". " + (causa.texto || "sem descrição"), contentW);
+      pdf.text(linhas, margin, y);
+      y += linhas.length * 11 + 2;
+      causa.barreiras.filter(b=>b.texto && b.texto.trim()).forEach(b=>{
+        pdf.setTextColor(4,120,87);
+        const bl = pdf.splitTextToSize("   • " + b.texto + " [" + (b.status === "implementada" ? "Implementada" : b.status === "degradada" ? "Degradada" : "Não implementada") + "]", contentW);
+        pdf.text(bl, margin, y);
+        y += bl.length * 10 + 1;
+      });
+      y += 6;
+    });
+
+    y += 6;
+    pdf.setFont(undefined, "bold");
+    pdf.setTextColor(194,65,12);
+    pdf.setFontSize(10);
+    pdf.text("CONSEQUÊNCIAS", margin, y);
+    y += 12;
+
+    atual.consequencias.forEach((conseq, i) => {
+      if(y > pageH - margin - 30) { pdf.addPage(); y = margin; }
+      pdf.setFont(undefined, "normal");
+      pdf.setFontSize(9);
+      pdf.setTextColor(30,41,59);
+      const linhas = pdf.splitTextToSize((i+1) + ". " + (conseq.texto || "sem descrição"), contentW);
+      pdf.text(linhas, margin, y);
+      y += linhas.length * 11 + 2;
+      conseq.barreiras.filter(b=>b.texto && b.texto.trim()).forEach(b=>{
+        pdf.setTextColor(4,120,87);
+        const bl = pdf.splitTextToSize("   • " + b.texto + " [" + (b.status === "implementada" ? "Implementada" : b.status === "degradada" ? "Degradada" : "Não implementada") + "]", contentW);
+        pdf.text(bl, margin, y);
+        y += bl.length * 10 + 1;
+      });
+      y += 6;
+    });
 
     const nomeArquivo = (atual.nome || "bowtie").toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
     pdf.save(`${nomeArquivo || 'bowtie'}_diagrama.pdf`);

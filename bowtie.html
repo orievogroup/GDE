@@ -232,7 +232,7 @@
 
 </main>
 
-<footer>Orievo Safety Learn · dados salvos localmente neste navegador — use "Backup" para exportar/importar</footer>
+<footer>Orievo Safety Learn · dados salvos localmente neste navegador, use "Backup" para exportar/importar</footer>
 
 <!-- MODAL CONHECIMENTO -->
 <div class="modal-overlay" id="modal-conhecimento">
@@ -1027,7 +1027,7 @@
 
     pdf.setFontSize(15);
     pdf.setTextColor(15,37,64);
-    pdf.text(`${atual.nome || "Bow Tie"} — Resumo detalhado`, margin, y); y += 18;
+    pdf.text(`${atual.nome || "Bow Tie"}: Resumo detalhado`, margin, y); y += 18;
     pdf.setFontSize(9);
     pdf.setTextColor(120);
     pdf.text(`Orievo Safety Learn · gerado em ${new Date().toLocaleDateString('pt-BR')}`, margin, y); y += 16;

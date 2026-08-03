@@ -2941,17 +2941,6 @@
                                 ],
                                 correta: 3,
                                 explicacao: 'É o status que indica um gap real no sistema de barreiras: algo que precisa de ação, não uma barreira funcionando.'
-                            },
-                            {
-                                pergunta: 'Por que você pode recusar uma operação de carregamento mesmo sem uma ordem formal para isso?',
-                                opcoes: [
-                                    'É proibido carregar aos finais de semana',
-                                    'Apenas o supervisor pode decidir isso',
-                                    'O Direito de Recusa garante que você pode parar diante de qualquer sinal de risco, sem retaliação',
-                                    'Não existe essa possibilidade'
-                                ],
-                                correta: 2,
-                                explicacao: 'O Direito de Recusa existe exatamente para isso: qualquer sinal de risco real, como mangueira suspeita, aterramento solto ou checklist incompleto, já é motivo suficiente para parar.'
                             }
                         ]
                     }
@@ -3739,8 +3728,13 @@
 
         function atualizarProgresso() {
             const total = MUNDOS[mundoSelecionado].fases.length;
-            const completas = progresso[mundoSelecionado].length;
-            const percentual = (completas / total) * 100;
+            const fasesUnicas = [...new Set(progresso[mundoSelecionado] || [])].filter(idx => idx >= 0 && idx < total);
+            if (fasesUnicas.length !== (progresso[mundoSelecionado] || []).length) {
+                progresso[mundoSelecionado] = fasesUnicas;
+                salvarProgresso();
+            }
+            const completas = Math.min(fasesUnicas.length, total);
+            const percentual = total > 0 ? (completas / total) * 100 : 0;
             
             document.getElementById('progressoFill').style.width = percentual + '%';
             document.getElementById('progressoText').textContent = Math.round(percentual) + '% concluído';

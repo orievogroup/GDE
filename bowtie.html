@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orievo · Gerador de Bow Tie</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
     --navy:#0f2540; --navy2:#16345c;
@@ -233,7 +232,7 @@
 
 </main>
 
-<footer>Orievo Safety Learn · dados salvos localmente neste navegador, use "Backup" para exportar/importar · v2026-08-02c</footer>
+<footer>Orievo Safety Learn · dados salvos localmente neste navegador, use "Backup" para exportar/importar · v2026-08-02d</footer>
 
 <!-- MODAL CONHECIMENTO -->
 <div class="modal-overlay" id="modal-conhecimento">
@@ -910,32 +909,195 @@
     svg.innerHTML = paths;
   }
 
-  async function exportarDiagramaPDF(){
+  const LOGO_RATIO = 1139/313; // largura/altura da logo Orievo (fundo branco)
+
+  // Desenha o diagrama direto no PDF (vetorial), sem captura de tela.
+  // Cada caixa cresce conforme o texto e a página se adapta ao conteúdo.
+  function exportarDiagramaPDF(){
     const { jsPDF } = window.jspdf;
 
-    const wrap = buildExportContainer();
-    let canvas;
-    try{
-      await new Promise(r => setTimeout(r, 1500));
-      drawConnectorsExport(wrap);
-      await new Promise(r => setTimeout(r, 1500));
-      const pageEl = wrap.querySelector("#pv-page");
-      canvas = await html2canvas(pageEl, {scale:1, backgroundColor:"#ffffff", logging:false, useCORS:true, allowTaint:true, imageTimeout:0, ignoreElements:[]});
-    } finally {
-      wrap.remove();
+    const FS_BOX = 9.5, FS_LABEL = 7, FS_PILL = 6.5;
+    const LH = 12, PAD = 9;
+    const W_CAUSA = 158, W_BARR = 124, W_CONSEQ = 158, W_EVENTO = 190;
+    const GAP_X = 16, GAP_Y = 18, CENTER_GAP = 38, MARGIN = 36;
+    const HEADER_H = 66, LEGEND_H = 52;
+
+    const med = new jsPDF({unit:"pt", format:"a4"});
+    function wrap(txt, w, fs, bold, fallback){
+      med.setFont("helvetica", bold ? "bold" : "normal");
+      med.setFontSize(fs);
+      const t = String(txt == null ? "" : txt).trim() || (fallback || "(sem descrição)");
+      return med.splitTextToSize(t, w);
     }
 
-    const imgData = canvas.toDataURL("image/png");
-    const ptW = canvas.width;
-    const ptH = canvas.height;
-    const pdf = new jsPDF({orientation: ptW > ptH ? "landscape" : "portrait", unit:"px", format:[ptW, ptH]});
-    pdf.addImage(imgData, "PNG", 0, 0, ptW, ptH);
+    const ST = {
+      implementada:     {label:"IMPLEMENTADA",      pill:[16,185,129], bg:[236,253,245], bd:[16,185,129], txt:[6,95,70],   dash:false},
+      degradada:        {label:"DEGRADADA",         pill:[245,158,11], bg:[255,251,235], bd:[245,158,11], txt:[146,64,14], dash:false},
+      nao_implementada: {label:"NÃO IMPLEMENTADA",  pill:[239,68,68],  bg:[254,242,242], bd:[239,68,68],  txt:[153,27,27], dash:false}
+    };
+    const ST_NONE = {label:"NÃO AVALIADA", pill:[148,163,184], bg:[236,253,245], bd:[110,231,183], txt:[4,120,87], dash:true};
+
+    function modelBarreira(b){
+      const st = ST[b.status] || ST_NONE;
+      const lines = wrap(b.texto, W_BARR - 2*PAD, FS_BOX, true, "barreira");
+      return {lines, st, h: PAD + lines.length*LH + 5 + 12 + PAD};
+    }
+    function modelLado(itens, boxW, label){
+      return (itens || []).map(it => {
+        const lines = wrap(it.texto, boxW - 2*PAD, FS_BOX, true);
+        const mainH = PAD + FS_LABEL + 6 + lines.length*LH + PAD;
+        const barrs = (it.barreiras || []).filter(b => b.texto && b.texto.trim()).map(modelBarreira);
+        return {lines, mainH, barrs, label, h: Math.max(mainH, ...barrs.map(b=>b.h), 0)};
+      });
+    }
+
+    const rowsL = modelLado(atual.causas, W_CAUSA, "CAUSA");
+    const rowsR = modelLado(atual.consequencias, W_CONSEQ, "CONSEQUÊNCIA");
+    const maxBL = Math.max(0, ...rowsL.map(r=>r.barrs.length));
+    const maxBR = Math.max(0, ...rowsR.map(r=>r.barrs.length));
+    const leftW  = W_CAUSA  + maxBL*(GAP_X + W_BARR);
+    const rightW = W_CONSEQ + maxBR*(GAP_X + W_BARR);
+
+    const perigoLines = wrap(atual.perigo, W_EVENTO - 2*PAD, FS_BOX, true, "(não informado)");
+    const perigoH = PAD + FS_LABEL + 6 + perigoLines.length*LH + PAD;
+    const eventoLines = wrap(atual.eventoTopo, W_EVENTO - 2*PAD, FS_BOX, true, "(não informado)");
+    const eventoH = PAD + FS_LABEL + 6 + eventoLines.length*LH + PAD;
+    const centerH = perigoH + 20 + eventoH;
+
+    const sum = rows => rows.reduce((s,r)=>s+r.h,0) + Math.max(0, rows.length-1)*GAP_Y;
+    const bodyH = Math.max(sum(rowsL), sum(rowsR), centerH);
+    const pageW = MARGIN + leftW + CENTER_GAP + W_EVENTO + CENTER_GAP + rightW + MARGIN;
+    const pageH = MARGIN + HEADER_H + bodyH + LEGEND_H + MARGIN;
+
+    // jsPDF reordena o array de formato conforme a orientação, por isso ela precisa
+    // acompanhar a proporção real da página, senão largura e altura saem trocadas.
+    const pdf = new jsPDF({orientation: pageW >= pageH ? "landscape" : "portrait", unit:"pt", format:[pageW, pageH]});
+
+    function box(x,y,w,h,bg,bd,dash){
+      pdf.setFillColor(bg[0],bg[1],bg[2]);
+      pdf.setDrawColor(bd[0],bd[1],bd[2]);
+      pdf.setLineWidth(1.3);
+      if(dash) pdf.setLineDashPattern([3,2],0);
+      pdf.roundedRect(x,y,w,h,7,7,"FD");
+      if(dash) pdf.setLineDashPattern([],0);
+    }
+    function label(txt,cx,y,color){
+      pdf.setFont("helvetica","bold"); pdf.setFontSize(FS_LABEL);
+      pdf.setTextColor(color[0],color[1],color[2]);
+      pdf.text(txt, cx, y, {align:"center"});
+    }
+    function body(lines,cx,yTop,color){
+      pdf.setFont("helvetica","bold"); pdf.setFontSize(FS_BOX);
+      pdf.setTextColor(color[0],color[1],color[2]);
+      lines.forEach((ln,i)=> pdf.text(ln, cx, yTop + i*LH + LH - 3.5, {align:"center"}));
+    }
+    function pill(txt,cx,y,fill){
+      pdf.setFont("helvetica","bold"); pdf.setFontSize(FS_PILL);
+      const w = pdf.getTextWidth(txt) + 11, h = 12;
+      pdf.setFillColor(fill[0],fill[1],fill[2]);
+      pdf.roundedRect(cx-w/2, y, w, h, 6, 6, "F");
+      pdf.setTextColor(255,255,255);
+      pdf.text(txt, cx, y + 8.3, {align:"center"});
+    }
+    function curva(x1,y1,x2,y2){
+      const mx = (x1+x2)/2;
+      pdf.setDrawColor(148,163,184);
+      pdf.setLineWidth(1.2);
+      pdf.lines([[mx-x1, 0, mx-x1, y2-y1, x2-x1, y2-y1]], x1, y1, [1,1], "S", false);
+    }
+
+    // Cabeçalho
+    const logoH = 30, logoW = logoH * LOGO_RATIO;
+    pdf.addImage(LOGO_URI, "PNG", MARGIN, MARGIN, logoW, logoH);
+    pdf.setFont("helvetica","bold"); pdf.setFontSize(15); pdf.setTextColor(15,37,64);
+    pdf.text(atual.nome || "Bow Tie", pageW - MARGIN, MARGIN + 15, {align:"right"});
+    pdf.setFont("helvetica","normal"); pdf.setFontSize(8.5); pdf.setTextColor(100,116,139);
+    pdf.text("Análise de Bow Tie · gerado em " + new Date().toLocaleDateString('pt-BR'), pageW - MARGIN, MARGIN + 28, {align:"right"});
+    pdf.setDrawColor(15,37,64); pdf.setLineWidth(1.6);
+    pdf.line(MARGIN, MARGIN + 44, pageW - MARGIN, MARGIN + 44);
+
+    const bodyTop = MARGIN + HEADER_H;
+    const evX = MARGIN + leftW + CENTER_GAP;
+    const evCx = evX + W_EVENTO/2;
+    const centerTop = bodyTop + (bodyH - centerH)/2;
+
+    box(evX, centerTop, W_EVENTO, perigoH, [255,251,235], [245,158,11], false);
+    label("PERIGO", evCx, centerTop + PAD + FS_LABEL, [180,83,9]);
+    body(perigoLines, evCx, centerTop + PAD + FS_LABEL + 6, [180,83,9]);
+
+    const evTop = centerTop + perigoH + 20;
+    box(evX, evTop, W_EVENTO, eventoH, [185,28,28], [127,29,29], false);
+    label("EVENTO TOPO", evCx, evTop + PAD + FS_LABEL, [254,202,202]);
+    body(eventoLines, evCx, evTop + PAD + FS_LABEL + 6, [255,255,255]);
+    const evCy = evTop + eventoH/2;
+
+    // Causas (esquerda)
+    let y = bodyTop + (bodyH - sum(rowsL))/2;
+    rowsL.forEach(r => {
+      const cy = y + r.h/2;
+      const my = y + (r.h - r.mainH)/2;
+      box(MARGIN, my, W_CAUSA, r.mainH, [239,246,255], [147,197,253], false);
+      label("CAUSA", MARGIN + W_CAUSA/2, my + PAD + FS_LABEL, [29,78,216]);
+      body(r.lines, MARGIN + W_CAUSA/2, my + PAD + FS_LABEL + 6, [29,78,216]);
+      let right = MARGIN + W_CAUSA;
+      r.barrs.forEach((b,k) => {
+        const bx = MARGIN + W_CAUSA + GAP_X + k*(W_BARR + GAP_X);
+        const by = y + (r.h - b.h)/2;
+        box(bx, by, W_BARR, b.h, b.st.bg, b.st.bd, b.st.dash);
+        body(b.lines, bx + W_BARR/2, by + PAD - 2, b.st.txt);
+        pill(b.st.label, bx + W_BARR/2, by + PAD + b.lines.length*LH + 2, b.st.pill);
+        right = bx + W_BARR;
+      });
+      curva(right, cy, evX, evCy);
+      y += r.h + GAP_Y;
+    });
+
+    // Consequências (direita)
+    y = bodyTop + (bodyH - sum(rowsR))/2;
+    const conseqX = pageW - MARGIN - W_CONSEQ;
+    rowsR.forEach(r => {
+      const cy = y + r.h/2;
+      const my = y + (r.h - r.mainH)/2;
+      box(conseqX, my, W_CONSEQ, r.mainH, [255,247,237], [253,186,116], false);
+      label("CONSEQUÊNCIA", conseqX + W_CONSEQ/2, my + PAD + FS_LABEL, [194,65,12]);
+      body(r.lines, conseqX + W_CONSEQ/2, my + PAD + FS_LABEL + 6, [194,65,12]);
+      let left = conseqX;
+      r.barrs.forEach((b,k) => {
+        const bx = conseqX - GAP_X - W_BARR - k*(W_BARR + GAP_X);
+        const by = y + (r.h - b.h)/2;
+        box(bx, by, W_BARR, b.h, b.st.bg, b.st.bd, b.st.dash);
+        body(b.lines, bx + W_BARR/2, by + PAD - 2, b.st.txt);
+        pill(b.st.label, bx + W_BARR/2, by + PAD + b.lines.length*LH + 2, b.st.pill);
+        left = bx;
+      });
+      curva(evX + W_EVENTO, evCy, left, cy);
+      y += r.h + GAP_Y;
+    });
+
+    // Legenda
+    const legY = bodyTop + bodyH + 24;
+    pdf.setDrawColor(226,232,240); pdf.setLineWidth(1);
+    pdf.line(MARGIN, legY - 12, pageW - MARGIN, legY - 12);
+    const itens = [
+      ["Causa",[59,130,246]], ["Consequência",[194,65,12]],
+      ["Barreira implementada",[16,185,129]], ["Barreira degradada",[245,158,11]],
+      ["Barreira não implementada",[239,68,68]], ["Barreira não avaliada",[148,163,184]]
+    ];
+    let lx = MARGIN;
+    pdf.setFont("helvetica","normal"); pdf.setFontSize(8);
+    itens.forEach(([txt,cor]) => {
+      pdf.setFillColor(cor[0],cor[1],cor[2]);
+      pdf.roundedRect(lx, legY - 6, 8, 8, 2, 2, "F");
+      pdf.setTextColor(71,85,105);
+      pdf.text(txt, lx + 12, legY + 0.5);
+      lx += 12 + pdf.getTextWidth(txt) + 20;
+    });
+    pdf.setFontSize(7.5); pdf.setTextColor(148,163,184);
+    pdf.text("Orievo Safety Learn · documento gerado automaticamente pelo Gerador de Bow Tie", pageW/2, pageH - MARGIN + 8, {align:"center"});
 
     const nomeArquivo = (atual.nome || "bowtie").toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
     pdf.save(`${nomeArquivo || 'bowtie'}_diagrama.pdf`);
   }
-
-  const LOGO_RATIO = 1139/313; // largura/altura da logo Orievo (fundo branco)
 
   function exportarResumoPDF(){
     const { jsPDF } = window.jspdf;

@@ -3246,7 +3246,12 @@
             for (let id in MUNDOS) {
                 if (MUNDOS[id].ativo !== false) {
                     const nFases = MUNDOS[id].fases.length;
-                    const nCompletas = (progresso[id] || []).length;
+                    const fasesUnicas = [...new Set(progresso[id] || [])].filter(idx => idx >= 0 && idx < nFases);
+                    if (fasesUnicas.length !== (progresso[id] || []).length) {
+                        progresso[id] = fasesUnicas;
+                        salvarProgresso();
+                    }
+                    const nCompletas = Math.min(fasesUnicas.length, nFases);
                     totalFases += nFases;
                     fasesCompletas += nCompletas;
                     totalModulos++;

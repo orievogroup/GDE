@@ -1527,6 +1527,9 @@
                         <div class="roadmap-progress-bar">
                             <div class="roadmap-progress-fill" id="progressoGlobalFill" style="width: 0%"></div>
                         </div>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <a href="javascript:void(0)" onclick="abrirRecuperarProgresso()" style="font-size: 12px; color: #4FC3DC; text-decoration: underline;">Já fez algum módulo neste aparelho antes? Recuperar meu progresso</a>
+                        </div>
                     </div>
                     <div style="margin-top: 18px; text-align: center;">
                         <a href="bowtie.html" target="_blank" class="btn btn-concluir" style="display: inline-block; width: auto; margin-top: 0; text-decoration: none; padding: 12px 26px;">Ferramenta Bow Tie</a>
@@ -1650,8 +1653,8 @@
                     const key = sanitizarEmail(email);
                     get(child(ref(db), 'progresso_alunos/' + key))
                         .then((snap) => resolve(snap.exists() ? snap.val() : null))
-                        .catch(() => resolve(null));
-                } catch (e) { resolve(null); }
+                        .catch((e) => { console.error('Erro ao buscar progresso na nuvem:', e); resolve(null); });
+                } catch (e) { console.error('Erro ao buscar progresso na nuvem:', e); resolve(null); }
             });
         };
 
@@ -3400,6 +3403,575 @@
                         ]
                     }
                 ]
+            },
+
+            'operacoes_fluviais': {
+                nome: 'Gestão de Riscos Operacionais: Operações Fluviais',
+                numero: '5',
+                descricao: 'As barreiras que seguram a operação na água',
+                icone: '🚢',
+                cor: '#1565C0',
+                senha: 'GDE',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
+
+                fases: [
+                    {
+                        nome: 'Barreiras na Água: Riscos da Operação Fluvial',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #071A2F, #1565C0); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">⚓</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Barreiras na Água: Riscos da Operação Fluvial</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">O rio não tem acostamento. Cada barreira conta em dobro.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Carregar ou descarregar combustível numa embarcação muda o cenário. A base não é fixa, a correnteza empurra, e um vazamento na água se espalha muito mais rápido do que um vazamento em terra firme. As mesmas ideias de barreiras que você já viu continuam valendo, só que aplicadas a um ambiente que se move.</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 16px 18px;"><strong style="color: #071A2F;">Barreiras físicas</strong><br><span style="color: #666; font-size: 13px;">casco duplo, boom de contenção, mangote flutuante, desconexão de emergência</span></div>
+                                <div style="background: #f1efe6; border-radius: 10px; padding: 16px 18px;"><strong style="color: #071A2F;">Barreiras procedimentais</strong><br><span style="color: #666; font-size: 13px;">checklist navio-terra, comunicação por VHF, monitoramento de calado e corrente</span></div>
+                                <div style="background: #e9e4d3; border-radius: 10px; padding: 16px 18px;"><strong style="color: #071A2F;">Barreira humana</strong><br><span style="color: #666; font-size: 13px;">atenção do operador de convés, Direito de Recusa</span></div>
+                            </div>
+
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 10px;">⚓ O que muda numa operação fluvial?</p>
+
+                            <p style="font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 20px;">Um caminhão-tanque fica parado. Uma embarcação, não. À medida que o produto é transferido, o peso muda, o <strong>calado</strong> varia, e a tensão nas linhas de amarração precisa de ajuste contínuo. Some a isso a corrente, a maré e o vento, e fica claro por que a comunicação constante entre convés e terminal deixa de ser opcional: é uma barreira em si.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
+                                <div style="background: #f0f4ff; border-radius: 12px; padding: 16px; border-left: 4px solid #4472C4;">
+                                    <div style="font-size: 11px; font-weight: 800; color: #4472C4; text-transform: uppercase; margin-bottom: 8px;">Causas → Barreiras preventivas</div>
+                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;">Corrente forte desloca a embarcação → <strong>Monitoramento contínuo da amarração</strong></p>
+                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;">Mangote danificado → <strong>Inspeção visual antes da conexão</strong></p>
+                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;">Falha de comunicação → <strong>Protocolo de VHF obrigatório</strong></p>
+                                </div>
+                                <div style="background: #fff0f0; border-radius: 12px; padding: 16px; border-left: 4px solid #e74c3c;">
+                                    <div style="font-size: 11px; font-weight: 800; color: #e74c3c; text-transform: uppercase; margin-bottom: 8px;">Barreiras mitigadoras → Consequência</div>
+                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;"><strong>Boom de contenção</strong> → evita que o vazamento se espalhe no rio</p>
+                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;"><strong>Desconexão de emergência</strong> → evita ruptura em caso de deslocamento brusco</p>
+                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;"><strong>Direito de Recusa</strong> → evita pessoas expostas ao risco</p>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 14px;">📍 As etapas críticas, do início ao fim</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px;">
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">1.</strong> Atracação e amarração, com a tensão correta nas espias</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">2.</strong> Conexão do braço ou mangote, com aterramento e equalização</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">3.</strong> Checklist navio-terra assinado pelas duas equipes</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">4.</strong> Transferência do produto com monitoramento contínuo de calado e corrente</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">5.</strong> Comunicação constante por VHF entre convés e terminal</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">6.</strong> Desconexão e liberação, com verificação final de vazamento</div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px;">
+                                <strong>📌 A seguir:</strong> assista ao vídeo para ver essas barreiras aplicadas numa operação fluvial real.
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Vídeo: Segurança em Operações Fluviais',
+                        tipo: 'video',
+                        // Suba o arquivo video_fluvial.mp4 (comprimido, máx 20MB) no repositório GDE do GitHub
+                        url: 'https://orievogroup.github.io/GDE/video_fluvial.mp4'
+                    },
+
+                    {
+                        nome: 'Check: Fundamentos de Operação Fluvial',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'O calado da embarcação pode mudar significativamente durante o carregamento ou a descarga.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. À medida que o produto é transferido, o peso da embarcação muda e o calado varia, exigindo ajuste constante das linhas de amarração.'
+                            },
+                            {
+                                texto: 'A comunicação por VHF entre o convés e o terminal é opcional, desde que a operação esteja dentro do previsto.',
+                                correta: false,
+                                explicacao: 'FALSO. A comunicação constante é uma barreira procedimental crítica. Sem ela, uma mudança de corrente, maré ou pressão pode não ser percebida a tempo.'
+                            },
+                            {
+                                texto: 'O boom de contenção é uma barreira preventiva que impede o vazamento de acontecer.',
+                                correta: false,
+                                explicacao: 'FALSO. O boom é uma barreira mitigadora. Ele não impede o vazamento, mas contém o produto na água depois que ele já vazou, evitando que se espalhe.'
+                            },
+                            {
+                                texto: 'O casco duplo é um exemplo de barreira física.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O casco duplo cria uma camada extra entre o produto transportado e a água, reduzindo a chance de vazamento em caso de colisão ou avaria.'
+                            },
+                            {
+                                texto: 'Se a correnteza estiver forte demais, a operação pode e deve ser suspensa até normalizar.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Condições ambientais adversas são motivo legítimo para pausar a operação. O Direito de Recusa também vale para o ambiente, não só para uma falha de equipamento.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Barreiras da Operação Fluvial',
+                        tipo: 'associar',
+                        descricao: 'Associe os termos à esquerda às suas definições, à direita.',
+                        pares: [
+                            { termo: 'Amarração', definicao: 'Conjunto de cabos e espias que prendem a embarcação ao cais ou à boia, mantendo-a estável durante a operação mesmo com o movimento da água.' },
+                            { termo: 'Calado', definicao: 'Profundidade que o casco da embarcação ocupa abaixo da linha d\'água. Muda conforme o peso de carga aumenta ou diminui durante a transferência.' },
+                            { termo: 'Boom de contenção', definicao: 'Barreira flutuante usada para conter um derramamento na superfície da água antes que ele se espalhe.' },
+                            { termo: 'Checklist navio-terra', definicao: 'Lista de verificação conjunta entre a equipe do terminal e a tripulação, assinada pelos dois lados antes de iniciar a transferência do produto.' },
+                            { termo: 'Desconexão de emergência', definicao: 'Sistema que libera automaticamente o braço ou mangote de carregamento se a embarcação se deslocar além do limite seguro, evitando a ruptura da conexão.' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Barreiras na Prática',
+                        tipo: 'lacunas',
+                        frases: [
+                            { texto: 'O ___ da embarcação muda durante a operação, por isso a amarração precisa de ajuste contínuo.', resposta: 'calado' },
+                            { texto: 'O boom de contenção não evita o vazamento, ele evita que o produto se ___ na água.', resposta: 'espalhe' },
+                            { texto: 'Antes de iniciar a transferência, o ___ navio-terra precisa ser assinado pelas duas equipes.', resposta: 'checklist' },
+                            { texto: 'Se a correnteza estiver forte demais, você pode e deve ___ a operação até as condições normalizarem.', resposta: 'suspender' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene as etapas da operação fluvial',
+                        tipo: 'ordenar',
+                        itens: ['Atracação e amarração', 'Conexão do mangote com aterramento', 'Checklist navio-terra assinado', 'Transferência com monitoramento contínuo', 'Desconexão e liberação']
+                    },
+
+                    {
+                        nome: 'Ordene: Resposta a um vazamento na água',
+                        tipo: 'ordenar',
+                        itens: ['Parar a transferência imediatamente', 'Comunicar e acionar a equipe de emergência', 'Isolar a área com o boom de contenção', 'Recuperar o produto derramado', 'Registrar e investigar o ocorrido']
+                    },
+
+                    {
+                        nome: 'Avaliação Final',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'Por que o calado da embarcação precisa ser monitorado durante toda a operação de carregamento ou descarga?',
+                                opcoes: [
+                                    'Porque é uma exigência estética do terminal',
+                                    'Porque o peso da carga muda o calado, exigindo ajuste contínuo da amarração',
+                                    'Porque só importa no início da operação',
+                                    'Porque o calado não tem relação com a segurança'
+                                ],
+                                correta: 1,
+                                explicacao: 'À medida que o produto é transferido, o peso da embarcação muda e o calado varia. Sem ajuste da amarração, a tensão nos cabos pode ficar incorreta e comprometer a conexão.'
+                            },
+                            {
+                                pergunta: 'Qual a diferença entre uma barreira preventiva e uma mitigadora numa operação fluvial?',
+                                opcoes: [
+                                    'Não existe diferença',
+                                    'A preventiva evita que o evento aconteça; a mitigadora reduz a consequência depois que ele já aconteceu',
+                                    'A mitigadora é sempre mais importante',
+                                    'A preventiva só se aplica em terra'
+                                ],
+                                correta: 1,
+                                explicacao: 'A barreira preventiva, como a inspeção do mangote, impede que a causa vire o evento. A mitigadora, como o boom de contenção, age depois que o evento já ocorreu, reduzindo o dano.'
+                            },
+                            {
+                                pergunta: 'O que o sistema de desconexão de emergência faz?',
+                                opcoes: [
+                                    'Aumenta a velocidade da transferência',
+                                    'Libera automaticamente a conexão se a embarcação se deslocar além do limite seguro',
+                                    'Substitui o checklist navio-terra',
+                                    'Serve apenas para comunicação por VHF'
+                                ],
+                                correta: 1,
+                                explicacao: 'Ele evita que o deslocamento da embarcação, por corrente, maré ou colisão, rompa o mangote ou braço de carregamento de forma descontrolada.'
+                            },
+                            {
+                                pergunta: 'O que fazer se a correnteza ou o vento estiverem fortes demais durante a operação?',
+                                opcoes: [
+                                    'Acelerar a transferência para terminar antes que piore',
+                                    'Ignorar, já que a amarração aguenta qualquer condição',
+                                    'Suspender a operação até as condições normalizarem, usando o Direito de Recusa se necessário',
+                                    'Continuar normalmente sem avisar ninguém'
+                                ],
+                                correta: 2,
+                                explicacao: 'Condições ambientais adversas são motivo legítimo para pausar a operação. O Direito de Recusa também vale para o ambiente, não só para falhas de equipamento.'
+                            },
+                            {
+                                pergunta: 'Qual é a função do checklist navio-terra?',
+                                opcoes: [
+                                    'É uma formalidade sem efeito prático',
+                                    'Confirma que terminal e tripulação verificaram juntos as condições de segurança antes de iniciar a transferência',
+                                    'Serve só para registro contábil',
+                                    'Substitui a necessidade de comunicação por VHF'
+                                ],
+                                correta: 1,
+                                explicacao: 'O checklist navio-terra é uma barreira procedimental: garante que as duas equipes, terminal e embarcação, confirmaram juntas que está tudo pronto e seguro antes de começar.'
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            'bow_tie': {
+                nome: 'Segurança de Processos: Ferramenta Bow Tie',
+                numero: '6',
+                descricao: 'Perigo não é risco. O Bow Tie mostra o caminho entre os dois.',
+                icone: '🎀',
+                cor: '#263238',
+                senha: 'GDE',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
+
+                fases: [
+                    {
+                        nome: 'Perigo x Risco: a base do Bow Tie',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #263238, #B71C1C); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">⚠️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Perigo x Risco: a base do Bow Tie</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">O perigo não desaparece. O que muda é o risco.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Esse é o conceito que precisa ficar muito claro antes de montar qualquer diagrama: <strong>perigo não é risco</strong>. Confundir os dois é o erro mais comum na hora de construir um Bow Tie, e é dele que toda a ferramenta parte.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
+                                <div style="background: #fff0f0; border-radius: 12px; padding: 18px; border-left: 4px solid #C62828;">
+                                    <div style="font-size: 12px; font-weight: 800; color: #C62828; text-transform: uppercase; margin-bottom: 8px;">Perigo</div>
+                                    <p style="font-size: 13.5px; color: #444; line-height: 1.6; margin: 0 0 10px 0;">A fonte com potencial intrínseco de causar dano. Combustível inflamável, pressão do sistema, energia mecânica, eletricidade.</p>
+                                    <p style="font-size: 12px; color: #888; margin: 0;">É uma propriedade. Não muda porque você instalou uma barreira.</p>
+                                </div>
+                                <div style="background: #f0f4ff; border-radius: 12px; padding: 18px; border-left: 4px solid #1565C0;">
+                                    <div style="font-size: 12px; font-weight: 800; color: #1565C0; text-transform: uppercase; margin-bottom: 8px;">Risco</div>
+                                    <p style="font-size: 13.5px; color: #444; line-height: 1.6; margin: 0 0 10px 0;">O cenário: de que forma o perigo pode sair do controle, com que possibilidade e com quais consequências.</p>
+                                    <p style="font-size: 12px; color: #888; margin: 0;">Muda porque existem (ou não existem) contenção e barreiras.</p>
+                                </div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 24px;">
+                                🔑 <strong>Frase para gravar:</strong> "O combustível é o perigo. O acidente é a materialização de um cenário de risco."
+                            </div>
+
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 10px;">🔁 Mesmo perigo, risco diferente</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px;">
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #16a34a;">Risco baixo.</strong> Tanque íntegro, produto armazenado, barreiras disponíveis e saudáveis.</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #d97706;">Risco crescente.</strong> Transferência em andamento: mais interfaces, mais energia, mais chance de falha.</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #C62828;">Risco crítico.</strong> Já existe perda de contenção, vapores no ar e potencial de ignição.</div>
+                            </div>
+
+                            <p style="font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 20px;">O perigo é o mesmo nos três casos: o combustível continua inflamável. O que muda é o contexto, a exposição e a saúde das barreiras.</p>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px;">
+                                <strong>📌 A seguir:</strong> veja como o Bow Tie organiza esse raciocínio, do perigo até a consequência.
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Anatomia do Bow Tie: da causa à consequência',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #263238, #1565C0); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🎀</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Anatomia do Bow Tie</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Quatro peças. Cada uma no lugar certo.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">A dificuldade do Bow Tie não é imaginar coisas que podem dar errado. É colocá-las no lugar causal correto. São quatro peças:</p>
+
+                            <div style="display: flex; align-items: stretch; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                                <div style="background: #ffebee; border-radius: 10px; padding: 14px; min-width: 130px; flex: 1; text-align: center;">
+                                    <div style="font-size: 11px; font-weight: 800; color: #C62828; text-transform: uppercase; margin-bottom: 6px;">Perigo</div>
+                                    <div style="font-size: 12px; color: #444;">Potencial intrínseco de causar dano</div>
+                                </div>
+                                <div style="font-size: 20px; color: #999; display: flex; align-items: center;">➜</div>
+                                <div style="background: #fff3e0; border-radius: 10px; padding: 14px; min-width: 130px; flex: 1; text-align: center;">
+                                    <div style="font-size: 11px; font-weight: 800; color: #EF6C00; text-transform: uppercase; margin-bottom: 6px;">Ameaça</div>
+                                    <div style="font-size: 12px; color: #444;">O que pode levar à perda de controle</div>
+                                </div>
+                                <div style="font-size: 20px; color: #999; display: flex; align-items: center;">➜</div>
+                                <div style="background: #263238; color: white; border-radius: 10px; padding: 14px; min-width: 130px; flex: 1; text-align: center;">
+                                    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Evento topo</div>
+                                    <div style="font-size: 12px; opacity: 0.9;">O momento em que o perigo deixa de estar controlado</div>
+                                </div>
+                                <div style="font-size: 20px; color: #999; display: flex; align-items: center;">➜</div>
+                                <div style="background: #ffebee; border-radius: 10px; padding: 14px; min-width: 130px; flex: 1; text-align: center;">
+                                    <div style="font-size: 11px; font-weight: 800; color: #B71C1C; text-transform: uppercase; margin-bottom: 6px;">Consequência</div>
+                                    <div style="font-size: 12px; color: #444;">O que pode resultar se o cenário evoluir</div>
+                                </div>
+                            </div>
+                            <p style="text-align: center; font-size: 12px; color: #888; margin-bottom: 24px;">Exemplo: Gasolina em transferência (perigo) → Ruptura do mangote (ameaça) → Perda de contenção (evento topo) → Incêndio (consequência)</p>
+
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 10px;">🎀 O desenho completo: barreiras de cada lado</p>
+
+                            <p style="font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 16px;">À esquerda do evento topo ficam as ameaças e as <strong>barreiras preventivas</strong>: não deixar o controle se perder. À direita ficam as <strong>barreiras mitigadoras</strong> e as consequências: não deixar a situação escalar.</p>
+
+                            <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 14px; min-width: 120px; text-align: center;">
+                                    <div style="font-size: 10.5px; font-weight: 800; color: #EF6C00; text-transform: uppercase; margin-bottom: 6px;">Ameaças</div>
+                                    <div style="font-size: 11.5px; color: #444; line-height: 1.5;">Ruptura do mangote<br>Abertura da válvula errada<br>CT se movimenta</div>
+                                </div>
+                                <div style="font-size: 18px; color: #999;">➜</div>
+                                <div style="background: #e3f2fd; border-radius: 10px; padding: 14px; min-width: 120px; text-align: center;">
+                                    <div style="font-size: 10.5px; font-weight: 800; color: #1565C0; text-transform: uppercase; margin-bottom: 6px;">Barreiras preventivas</div>
+                                    <div style="font-size: 11.5px; color: #444; line-height: 1.5;">Checklist pré-operação<br>Intertravamento<br>Inspeção do mangote</div>
+                                </div>
+                                <div style="font-size: 18px; color: #999;">➜</div>
+                                <div style="background: #263238; color: white; border-radius: 50%; width: 108px; height: 108px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 10.5px; font-weight: 800; padding: 8px; flex-shrink: 0;">EVENTO TOPO<br><span style="font-weight: 400; font-size: 9.5px;">Perda de contenção</span></div>
+                                <div style="font-size: 18px; color: #999;">➜</div>
+                                <div style="background: #e0f2f1; border-radius: 10px; padding: 14px; min-width: 120px; text-align: center;">
+                                    <div style="font-size: 10.5px; font-weight: 800; color: #00796B; text-transform: uppercase; margin-bottom: 6px;">Barreiras mitigadoras</div>
+                                    <div style="font-size: 11.5px; color: #444; line-height: 1.5;">Canaletas de drenagem<br>Kit de mitigação<br>Interrupção automática</div>
+                                </div>
+                                <div style="font-size: 18px; color: #999;">➜</div>
+                                <div style="background: #ffebee; border-radius: 10px; padding: 14px; min-width: 120px; text-align: center;">
+                                    <div style="font-size: 10.5px; font-weight: 800; color: #B71C1C; text-transform: uppercase; margin-bottom: 6px;">Consequências</div>
+                                    <div style="font-size: 11.5px; color: #444; line-height: 1.5;">Incêndio<br>Explosão<br>Impacto ambiental</div>
+                                </div>
+                            </div>
+                            <p style="text-align: center; font-size: 12px; color: #888; margin-bottom: 24px;">Lado esquerdo = prevenção &nbsp;|&nbsp; Centro = perda de controle &nbsp;|&nbsp; Lado direito = mitigação</p>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 16px;">
+                                ⚠️ O Bow Tie muda de acordo com o <strong>evento topo escolhido</strong>. Sobre-enchimento, perda de contenção, movimentação do caminhão conectado e ignição de atmosfera inflamável podem ser eventos topo diferentes para o mesmo cenário, e cada escolha gera um diagrama diferente. Não existe "o" Bow Tie certo: existe coerência causal.
+                            </div>
+
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 16px 18px; font-size: 14px; color: #333;">
+                                <strong>Pergunta-chave:</strong> esta medida interrompe qual trajetória causal? Se a resposta não for clara, a barreira provavelmente está genérica demais.
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Barreiras de verdade: 5 perguntas antes de confiar',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #263238, #00796B); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🛡️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Barreiras de verdade</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">5 perguntas antes de confiar. Quantidade de barreiras ≠ qualidade do controle do risco.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Ter várias barreiras desenhadas no papel não significa estar protegido. Antes de contar uma barreira como real, pergunte:</p>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 22px;">
+                                <div style="background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); text-align: center;">
+                                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #1565C0; color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto;">🎯</div>
+                                    <div style="font-size: 13px; font-weight: 800; color: #1565C0; text-transform: uppercase; margin-bottom: 6px;">1. Específica</div>
+                                    <div style="font-size: 12px; color: #555; line-height: 1.5;">Qual função ela executa exatamente? "Treinamento" é genérico; "operador confirma tanque, produto e capacidade" é específico.</div>
+                                </div>
+                                <div style="background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); text-align: center;">
+                                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #00796B; color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto;">⚡</div>
+                                    <div style="font-size: 13px; font-weight: 800; color: #00796B; text-transform: uppercase; margin-bottom: 6px;">2. Eficaz</div>
+                                    <div style="font-size: 12px; color: #555; line-height: 1.5;">Ela consegue realmente interromper este caminho causal?</div>
+                                </div>
+                                <div style="background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); text-align: center;">
+                                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #6A1B9A; color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto;">🔀</div>
+                                    <div style="font-size: 13px; font-weight: 800; color: #6A1B9A; text-transform: uppercase; margin-bottom: 6px;">3. Independente</div>
+                                    <div style="font-size: 12px; color: #555; line-height: 1.5;">Ela pode falhar pela mesma causa que derrubaria as outras barreiras?</div>
+                                </div>
+                                <div style="background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); text-align: center;">
+                                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #EF6C00; color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto;">🔍</div>
+                                    <div style="font-size: 13px; font-weight: 800; color: #EF6C00; text-transform: uppercase; margin-bottom: 6px;">4. Auditável</div>
+                                    <div style="font-size: 12px; color: #555; line-height: 1.5;">Consigo provar, com evidência, que está disponível e funcionando agora?</div>
+                                </div>
+                                <div style="background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); text-align: center;">
+                                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #C62828; color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto;">👤</div>
+                                    <div style="font-size: 13px; font-weight: 800; color: #C62828; text-transform: uppercase; margin-bottom: 6px;">5. Com dono</div>
+                                    <div style="font-size: 12px; color: #555; line-height: 1.5;">Quem garante o desempenho dela?</div>
+                                </div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 24px;">
+                                Além de existir, a barreira precisa estar <strong>íntegra</strong> e <strong>funcional</strong>.
+                            </div>
+
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 10px;">💚 A saúde da barreira</p>
+
+                            <div style="background: linear-gradient(135deg, #e0f2f1, #f1f9f8); border-radius: 14px; padding: 22px 16px; margin-bottom: 24px;">
+                                <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;">
+                                    <span style="background: white; border-radius: 20px; padding: 8px 14px; font-size: 11.5px; font-weight: 700; color: #00695C; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">⚙️ função disponível</span>
+                                    <span style="color: #00796B; font-weight: 800;">+</span>
+                                    <span style="background: white; border-radius: 20px; padding: 8px 14px; font-size: 11.5px; font-weight: 700; color: #00695C; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">🩺 sem degradação conhecida</span>
+                                    <span style="color: #00796B; font-weight: 800;">+</span>
+                                    <span style="background: white; border-radius: 20px; padding: 8px 14px; font-size: 11.5px; font-weight: 700; color: #00695C; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">📈 desempenho requerido</span>
+                                    <span style="color: #00796B; font-weight: 800;">+</span>
+                                    <span style="background: white; border-radius: 20px; padding: 8px 14px; font-size: 11.5px; font-weight: 700; color: #00695C; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">🧪 teste válido</span>
+                                    <span style="color: #00796B; font-weight: 800;">+</span>
+                                    <span style="background: white; border-radius: 20px; padding: 8px 14px; font-size: 11.5px; font-weight: 700; color: #00695C; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">🙋 responsável claro</span>
+                                </div>
+                                <div style="text-align: center; margin: 14px 0 6px 0; color: #00796B; font-weight: 800; font-size: 18px;">=</div>
+                                <div style="text-align: center;">
+                                    <span style="background: #00796B; color: white; border-radius: 20px; padding: 10px 22px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; display: inline-block;">✅ BARREIRA SAUDÁVEL</span>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 10px;">✅ Checklist de campo</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px;">
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Existe e está disponível?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Está no modo correto, sem bypass indevido?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Foi testada no prazo?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Atua no tempo necessário?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Existe evidência do teste?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Quem é o dono/responsável?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Qual fator mais degrada essa barreira?</div>
+                                <div style="background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #333; display: flex; align-items: center; gap: 10px;"><span style="background: #e0f2f1; color: #00796B; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;">✓</span>Qual indicador mostra a saúde dela?</div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 16px;">
+                                Se alguém entrasse amanhã na sua unidade, quantas barreiras críticas você conseguiria provar que estão saudáveis?
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px;">
+                                <strong>📌 A seguir:</strong> um caso real mostra que o evento topo nem sempre é "vazamento". Veja o colapso de um tanque por vácuo.
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Vídeo: Colapso de Tanque por Vácuo',
+                        tipo: 'video',
+                        // Suba o arquivo bowtie_colapso_vacuo.mp4 (já comprimido, ~2MB) no repositório GDE do GitHub
+                        url: 'https://orievogroup.github.io/GDE/bowtie_colapso_vacuo.mp4'
+                    },
+
+                    {
+                        nome: 'Check: Perigo, Risco e Anatomia do Bow Tie',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'O perigo desaparece quando uma barreira boa é instalada.',
+                                correta: false,
+                                explicacao: 'FALSO. O perigo é uma propriedade intrínseca, como a gasolina inflamável. Ele não desaparece. O que muda com a barreira é o nível de risco.'
+                            },
+                            {
+                                texto: 'O evento topo é sempre a pior consequência possível do cenário.',
+                                correta: false,
+                                explicacao: 'FALSO. O evento topo é o momento da perda de controle, a fronteira entre prevenção e mitigação. Ele não precisa ser a pior consequência.'
+                            },
+                            {
+                                texto: 'Dois grupos analisando o mesmo cenário podem escolher eventos topo diferentes e chegar a Bow Ties diferentes, sendo ambos defensáveis.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O critério não é "ficar igual ao gabarito", é manter coerência causal e mostrar que cada barreira atua sobre a trajetória representada.'
+                            },
+                            {
+                                texto: 'Uma barreira instalada, mas em bypass, conta como barreira disponível naquele momento.',
+                                correta: false,
+                                explicacao: 'FALSO. Um equipamento bypassado não está disponível. Ele existe fisicamente, mas não está cumprindo a função de barreira.'
+                            },
+                            {
+                                texto: 'Quantidade de barreiras é sinônimo de qualidade do controle do risco.',
+                                correta: false,
+                                explicacao: 'FALSO. A barreira precisa ser específica, eficaz, independente, auditável e ter um dono. Sem isso, ela é só um desenho.'
+                            },
+                            {
+                                texto: 'No desenho do Bow Tie, as barreiras preventivas ficam à esquerda do evento topo, e as mitigadoras, à direita.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Esquerda = prevenção, não deixar o controle se perder. Direita = mitigação, não deixar a situação escalar.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: As peças do Bow Tie',
+                        tipo: 'associar',
+                        descricao: 'Associe os termos à esquerda às suas definições, à direita.',
+                        pares: [
+                            { termo: 'Perigo', definicao: 'Fonte com potencial intrínseco de causar dano. Existe antes do acidente e não desaparece com as barreiras.' },
+                            { termo: 'Ameaça', definicao: 'Circunstância ou causa que pode levar diretamente à perda de controle sobre o perigo.' },
+                            { termo: 'Evento topo', definicao: 'O momento exato em que o controle sobre o perigo é perdido. É a fronteira entre prevenção e mitigação.' },
+                            { termo: 'Consequência', definicao: 'O que pode acontecer depois da perda de controle, se o cenário evoluir sem ser contido.' },
+                            { termo: 'Barreira preventiva', definicao: 'Atua antes do evento topo, impedindo que a ameaça leve à perda de controle.' },
+                            { termo: 'Barreira mitigadora', definicao: 'Atua depois do evento topo, impedindo que a situação escale.' },
+                            { termo: 'Barreira auditável', definicao: 'Aquela que você consegue provar, com evidência, que está disponível e funcionando agora.' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene a sequência causal',
+                        tipo: 'ordenar',
+                        itens: ['Perigo: gasolina em transferência', 'Ameaça: ruptura do mangote', 'Evento topo: perda de contenção da gasolina', 'Consequência: incêndio']
+                    },
+
+                    {
+                        nome: 'Ordene: como montar um Bow Tie',
+                        tipo: 'ordenar',
+                        itens: ['Definir o perigo do cenário', 'Escolher conscientemente o evento topo', 'Identificar as ameaças que levam ao evento topo', 'Mapear as barreiras preventivas de cada ameaça', 'Identificar as consequências possíveis', 'Mapear as barreiras mitigadoras de cada consequência']
+                    },
+
+                    {
+                        nome: 'Avaliação Final',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'Qual a diferença entre perigo e risco?',
+                                opcoes: [
+                                    'São sinônimos, podem ser usados de forma intercambiável',
+                                    'Perigo é a fonte de dano e não muda; risco é o cenário e muda com as barreiras',
+                                    'Risco é sempre maior do que o perigo',
+                                    'Perigo só existe depois que o acidente acontece'
+                                ],
+                                correta: 1,
+                                explicacao: 'A gasolina continua inflamável (perigo) dentro de um tanque íntegro. O que muda é o risco, porque existem condições de contenção e barreiras.'
+                            },
+                            {
+                                pergunta: 'O que é o evento topo num Bow Tie?',
+                                opcoes: [
+                                    'A pior consequência possível do cenário',
+                                    'O momento em que o controle sobre o perigo é perdido',
+                                    'A barreira mais importante do diagrama',
+                                    'O mesmo que uma ameaça'
+                                ],
+                                correta: 1,
+                                explicacao: 'O evento topo é a fronteira entre prevenção e mitigação. Ele não precisa ser a pior consequência, é o ponto em que o controle deixa de existir.'
+                            },
+                            {
+                                pergunta: 'Segundo os 5 filtros de qualidade de barreira, o que significa "auditável"?',
+                                opcoes: [
+                                    'Que ela nunca falha',
+                                    'Que existe um manual escrito sobre ela',
+                                    'Que você consegue provar, com evidência, que ela está disponível e funcionando',
+                                    'Que ela foi comprada recentemente'
+                                ],
+                                correta: 2,
+                                explicacao: 'Auditável é conseguir demonstrar, com evidência real, que a barreira está disponível e funcionando agora, não presumir que está.'
+                            },
+                            {
+                                pergunta: 'Por que a escolha do evento topo muda o Bow Tie inteiro?',
+                                opcoes: [
+                                    'Não muda, o desenho é sempre igual para o mesmo perigo',
+                                    'Porque ameaças, barreiras e consequências dependem de qual ponto da trajetória você define como perda de controle',
+                                    'Porque cada evento topo tem uma cor obrigatória diferente',
+                                    'Porque só o instrutor da turma pode escolher o evento topo'
+                                ],
+                                correta: 1,
+                                explicacao: 'Sobre-enchimento, perda de contenção ou ignição de atmosfera inflamável podem ser eventos topo diferentes para o mesmo cenário, e cada escolha muda o que entra de cada lado do diagrama.'
+                            },
+                            {
+                                pergunta: 'No acidente de Paulínia (2025), as investigações apontaram uso de celular na plataforma e possível falha de aterramento durante o carregamento de etanol. Nesse cenário, esses dois fatores seriam classificados, no Bow Tie, como:',
+                                opcoes: [
+                                    'Barreiras mitigadoras',
+                                    'Consequências do acidente',
+                                    'Ameaças que podem levar à ignição de atmosfera inflamável',
+                                    'O próprio evento topo'
+                                ],
+                                correta: 2,
+                                explicacao: 'São hipóteses de causas que podem levar à perda de controle (a ignição), portanto são ameaças, não o evento topo em si nem uma barreira.'
+                            },
+                            {
+                                pergunta: 'O que garante, de fato, que o risco está controlado?',
+                                opcoes: [
+                                    'O desenho do Bow Tie em si',
+                                    'Ter muitas barreiras desenhadas no diagrama',
+                                    'A saúde real das barreiras: estarem íntegras, funcionais e auditáveis',
+                                    'A aprovação do gerente da unidade'
+                                ],
+                                correta: 2,
+                                explicacao: 'O risco não é controlado pelo Bow Tie. É controlado pelas barreiras. O Bow Tie apenas mostra quais delas não podem falhar.'
+                            }
+                        ]
+                    }
+                ]
             }
 
         };
@@ -3681,6 +4253,36 @@
             }
         }
         
+        // Recupera o progresso pelo e-mail direto na tela inicial, sem precisar
+        // entrar em nenhum módulo. Resolve o caso do aluno que troca de aparelho
+        // ou limpa o navegador e vê tudo zerado mesmo tendo progresso salvo na nuvem.
+        async function abrirRecuperarProgresso() {
+            const email = prompt('Digite o e-mail que você usou para fazer os módulos:');
+            if (!email || !email.trim()) return;
+
+            if (!window.carregarProgressoNuvem) {
+                alert('Não foi possível conectar à nuvem agora. Tente novamente em alguns instantes.');
+                return;
+            }
+
+            try {
+                const nuvem = await window.carregarProgressoNuvem(email.trim());
+                if (nuvem && nuvem.progresso && Object.keys(nuvem.progresso).length > 0) {
+                    mesclarProgresso(nuvem.progresso);
+                    dadosUsuario.email = email.trim();
+                    if (nuvem.nome) dadosUsuario.nome = nuvem.nome;
+                    salvarProgresso();
+                    renderizarRoadmap();
+                    calcularProgressoGlobal();
+                    mostrarToast('✓ Progresso recuperado com sucesso!', '#28a745');
+                } else {
+                    alert('Não encontramos nenhum progresso salvo para esse e-mail. Confira se digitou exatamente igual ao que usou antes.');
+                }
+            } catch (e) {
+                alert('Não foi possível buscar seu progresso agora. Verifique sua conexão e tente de novo.');
+            }
+        }
+
         function calcularProgressoGlobal() {
             let totalFases = 0;
             let fasesCompletas = 0;

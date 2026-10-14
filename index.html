@@ -3405,211 +3405,6 @@
                 ]
             },
 
-            'operacoes_fluviais': {
-                nome: 'Gestão de Riscos Operacionais: Operações Fluviais',
-                numero: '5',
-                descricao: 'As barreiras que seguram a operação na água',
-                icone: '🚢',
-                cor: '#1565C0',
-                senha: 'GDE',
-                bloqueadoPorSenha: false,
-                ativo: false, // removido do roadmap por enquanto, a pedido da Luana (2026-08-28) — conteúdo preservado, só reativar depois
-                logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
-
-                fases: [
-                    {
-                        nome: 'Barreiras na Água: Riscos da Operação Fluvial',
-                        tipo: 'artigo',
-                        conteudo: `
-                            <div style="background: linear-gradient(135deg, #071A2F, #1565C0); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
-                                <div style="font-size: 56px; margin-bottom: 12px;">⚓</div>
-                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Barreiras na Água: Riscos da Operação Fluvial</h2>
-                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">O rio não tem acostamento. Cada barreira conta em dobro.</p>
-                            </div>
-
-                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Carregar ou descarregar combustível numa embarcação muda o cenário. A base não é fixa, a correnteza empurra, e um vazamento na água se espalha muito mais rápido do que um vazamento em terra firme. As mesmas ideias de barreiras que você já viu continuam valendo, só que aplicadas a um ambiente que se move.</p>
-
-                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 16px 18px;"><strong style="color: #071A2F;">Barreiras físicas</strong><br><span style="color: #666; font-size: 13px;">casco duplo, boom de contenção, mangote flutuante, desconexão de emergência</span></div>
-                                <div style="background: #f1efe6; border-radius: 10px; padding: 16px 18px;"><strong style="color: #071A2F;">Barreiras procedimentais</strong><br><span style="color: #666; font-size: 13px;">checklist navio-terra, comunicação por VHF, monitoramento de calado e corrente</span></div>
-                                <div style="background: #e9e4d3; border-radius: 10px; padding: 16px 18px;"><strong style="color: #071A2F;">Barreira humana</strong><br><span style="color: #666; font-size: 13px;">atenção do operador de convés, Direito de Recusa</span></div>
-                            </div>
-
-                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 10px;">⚓ O que muda numa operação fluvial?</p>
-
-                            <p style="font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 20px;">Um caminhão-tanque fica parado. Uma embarcação, não. À medida que o produto é transferido, o peso muda, o <strong>calado</strong> varia, e a tensão nas linhas de amarração precisa de ajuste contínuo. Some a isso a corrente, a maré e o vento, e fica claro por que a comunicação constante entre convés e terminal deixa de ser opcional: é uma barreira em si.</p>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
-                                <div style="background: #f0f4ff; border-radius: 12px; padding: 16px; border-left: 4px solid #4472C4;">
-                                    <div style="font-size: 11px; font-weight: 800; color: #4472C4; text-transform: uppercase; margin-bottom: 8px;">Causas → Barreiras preventivas</div>
-                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;">Corrente forte desloca a embarcação → <strong>Monitoramento contínuo da amarração</strong></p>
-                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;">Mangote danificado → <strong>Inspeção visual antes da conexão</strong></p>
-                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;">Falha de comunicação → <strong>Protocolo de VHF obrigatório</strong></p>
-                                </div>
-                                <div style="background: #fff0f0; border-radius: 12px; padding: 16px; border-left: 4px solid #e74c3c;">
-                                    <div style="font-size: 11px; font-weight: 800; color: #e74c3c; text-transform: uppercase; margin-bottom: 8px;">Barreiras mitigadoras → Consequência</div>
-                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;"><strong>Boom de contenção</strong> → evita que o vazamento se espalhe no rio</p>
-                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;"><strong>Desconexão de emergência</strong> → evita ruptura em caso de deslocamento brusco</p>
-                                    <p style="font-size: 12.5px; color: #444; margin: 4px 0;"><strong>Direito de Recusa</strong> → evita pessoas expostas ao risco</p>
-                                </div>
-                            </div>
-
-                            <p style="font-size: 12px; font-weight: 800; color: #888; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 14px;">📍 As etapas críticas, do início ao fim</p>
-
-                            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px;">
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">1.</strong> Atracação e amarração, com a tensão correta nas espias</div>
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">2.</strong> Conexão do braço ou mangote, com aterramento e equalização</div>
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">3.</strong> Checklist navio-terra assinado pelas duas equipes</div>
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">4.</strong> Transferência do produto com monitoramento contínuo de calado e corrente</div>
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">5.</strong> Comunicação constante por VHF entre convés e terminal</div>
-                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #333;"><strong style="color: #1565C0;">6.</strong> Desconexão e liberação, com verificação final de vazamento</div>
-                            </div>
-
-                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px;">
-                                <strong>📌 A seguir:</strong> assista ao vídeo para ver essas barreiras aplicadas numa operação fluvial real.
-                            </div>
-                        `
-                    },
-
-                    {
-                        nome: 'Vídeo: Segurança em Operações Fluviais',
-                        tipo: 'video',
-                        // Suba o arquivo video_fluvial.mp4 (comprimido, máx 20MB) no repositório GDE do GitHub
-                        url: 'https://orievogroup.github.io/GDE/video_fluvial.mp4'
-                    },
-
-                    {
-                        nome: 'Check: Fundamentos de Operação Fluvial',
-                        tipo: 'verdadeirofalso',
-                        afirmacoes: [
-                            {
-                                texto: 'O calado da embarcação pode mudar significativamente durante o carregamento ou a descarga.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. À medida que o produto é transferido, o peso da embarcação muda e o calado varia, exigindo ajuste constante das linhas de amarração.'
-                            },
-                            {
-                                texto: 'A comunicação por VHF entre o convés e o terminal é opcional, desde que a operação esteja dentro do previsto.',
-                                correta: false,
-                                explicacao: 'FALSO. A comunicação constante é uma barreira procedimental crítica. Sem ela, uma mudança de corrente, maré ou pressão pode não ser percebida a tempo.'
-                            },
-                            {
-                                texto: 'O boom de contenção é uma barreira preventiva que impede o vazamento de acontecer.',
-                                correta: false,
-                                explicacao: 'FALSO. O boom é uma barreira mitigadora. Ele não impede o vazamento, mas contém o produto na água depois que ele já vazou, evitando que se espalhe.'
-                            },
-                            {
-                                texto: 'O casco duplo é um exemplo de barreira física.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. O casco duplo cria uma camada extra entre o produto transportado e a água, reduzindo a chance de vazamento em caso de colisão ou avaria.'
-                            },
-                            {
-                                texto: 'Se a correnteza estiver forte demais, a operação pode e deve ser suspensa até normalizar.',
-                                correta: true,
-                                explicacao: 'VERDADEIRO. Condições ambientais adversas são motivo legítimo para pausar a operação. O Direito de Recusa também vale para o ambiente, não só para uma falha de equipamento.'
-                            }
-                        ]
-                    },
-
-                    {
-                        nome: 'Jogo: Barreiras da Operação Fluvial',
-                        tipo: 'associar',
-                        descricao: 'Associe os termos à esquerda às suas definições, à direita.',
-                        pares: [
-                            { termo: 'Amarração', definicao: 'Conjunto de cabos e espias que prendem a embarcação ao cais ou à boia, mantendo-a estável durante a operação mesmo com o movimento da água.' },
-                            { termo: 'Calado', definicao: 'Profundidade que o casco da embarcação ocupa abaixo da linha d\'água. Muda conforme o peso de carga aumenta ou diminui durante a transferência.' },
-                            { termo: 'Boom de contenção', definicao: 'Barreira flutuante usada para conter um derramamento na superfície da água antes que ele se espalhe.' },
-                            { termo: 'Checklist navio-terra', definicao: 'Lista de verificação conjunta entre a equipe do terminal e a tripulação, assinada pelos dois lados antes de iniciar a transferência do produto.' },
-                            { termo: 'Desconexão de emergência', definicao: 'Sistema que libera automaticamente o braço ou mangote de carregamento se a embarcação se deslocar além do limite seguro, evitando a ruptura da conexão.' }
-                        ]
-                    },
-
-                    {
-                        nome: 'Barreiras na Prática',
-                        tipo: 'lacunas',
-                        frases: [
-                            { texto: 'O ___ da embarcação muda durante a operação, por isso a amarração precisa de ajuste contínuo.', resposta: 'calado' },
-                            { texto: 'O boom de contenção não evita o vazamento, ele evita que o produto se ___ na água.', resposta: 'espalhe' },
-                            { texto: 'Antes de iniciar a transferência, o ___ navio-terra precisa ser assinado pelas duas equipes.', resposta: 'checklist' },
-                            { texto: 'Se a correnteza estiver forte demais, você pode e deve ___ a operação até as condições normalizarem.', resposta: 'suspender' }
-                        ]
-                    },
-
-                    {
-                        nome: 'Ordene as etapas da operação fluvial',
-                        tipo: 'ordenar',
-                        itens: ['Atracação e amarração', 'Conexão do mangote com aterramento', 'Checklist navio-terra assinado', 'Transferência com monitoramento contínuo', 'Desconexão e liberação']
-                    },
-
-                    {
-                        nome: 'Ordene: Resposta a um vazamento na água',
-                        tipo: 'ordenar',
-                        itens: ['Parar a transferência imediatamente', 'Comunicar e acionar a equipe de emergência', 'Isolar a área com o boom de contenção', 'Recuperar o produto derramado', 'Registrar e investigar o ocorrido']
-                    },
-
-                    {
-                        nome: 'Avaliação Final',
-                        tipo: 'quiz',
-                        perguntas: [
-                            {
-                                pergunta: 'Por que o calado da embarcação precisa ser monitorado durante toda a operação de carregamento ou descarga?',
-                                opcoes: [
-                                    'Porque é uma exigência estética do terminal',
-                                    'Porque o peso da carga muda o calado, exigindo ajuste contínuo da amarração',
-                                    'Porque só importa no início da operação',
-                                    'Porque o calado não tem relação com a segurança'
-                                ],
-                                correta: 1,
-                                explicacao: 'À medida que o produto é transferido, o peso da embarcação muda e o calado varia. Sem ajuste da amarração, a tensão nos cabos pode ficar incorreta e comprometer a conexão.'
-                            },
-                            {
-                                pergunta: 'Qual a diferença entre uma barreira preventiva e uma mitigadora numa operação fluvial?',
-                                opcoes: [
-                                    'Não existe diferença',
-                                    'A preventiva evita que o evento aconteça; a mitigadora reduz a consequência depois que ele já aconteceu',
-                                    'A mitigadora é sempre mais importante',
-                                    'A preventiva só se aplica em terra'
-                                ],
-                                correta: 1,
-                                explicacao: 'A barreira preventiva, como a inspeção do mangote, impede que a causa vire o evento. A mitigadora, como o boom de contenção, age depois que o evento já ocorreu, reduzindo o dano.'
-                            },
-                            {
-                                pergunta: 'O que o sistema de desconexão de emergência faz?',
-                                opcoes: [
-                                    'Aumenta a velocidade da transferência',
-                                    'Libera automaticamente a conexão se a embarcação se deslocar além do limite seguro',
-                                    'Substitui o checklist navio-terra',
-                                    'Serve apenas para comunicação por VHF'
-                                ],
-                                correta: 1,
-                                explicacao: 'Ele evita que o deslocamento da embarcação, por corrente, maré ou colisão, rompa o mangote ou braço de carregamento de forma descontrolada.'
-                            },
-                            {
-                                pergunta: 'O que fazer se a correnteza ou o vento estiverem fortes demais durante a operação?',
-                                opcoes: [
-                                    'Acelerar a transferência para terminar antes que piore',
-                                    'Ignorar, já que a amarração aguenta qualquer condição',
-                                    'Suspender a operação até as condições normalizarem, usando o Direito de Recusa se necessário',
-                                    'Continuar normalmente sem avisar ninguém'
-                                ],
-                                correta: 2,
-                                explicacao: 'Condições ambientais adversas são motivo legítimo para pausar a operação. O Direito de Recusa também vale para o ambiente, não só para falhas de equipamento.'
-                            },
-                            {
-                                pergunta: 'Qual é a função do checklist navio-terra?',
-                                opcoes: [
-                                    'É uma formalidade sem efeito prático',
-                                    'Confirma que terminal e tripulação verificaram juntos as condições de segurança antes de iniciar a transferência',
-                                    'Serve só para registro contábil',
-                                    'Substitui a necessidade de comunicação por VHF'
-                                ],
-                                correta: 1,
-                                explicacao: 'O checklist navio-terra é uma barreira procedimental: garante que as duas equipes, terminal e embarcação, confirmaram juntas que está tudo pronto e seguro antes de começar.'
-                            }
-                        ]
-                    }
-                ]
-            },
-
             'bow_tie': {
                 nome: 'Segurança de Processos: Ferramenta Bow Tie',
                 numero: '5',
@@ -3961,6 +3756,402 @@
                                 ],
                                 correta: 2,
                                 explicacao: 'O risco não é controlado pelo Bow Tie. É controlado pelas barreiras. O Bow Tie apenas mostra quais delas não podem falhar.'
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            'piecs_modulo6': {
+                nome: 'Gestão de Riscos Operacionais: Operações Fluviais e Armazenamento de Inflamáveis',
+                numero: '6',
+                descricao: 'Fixação: barreiras, níveis, respiro e resposta à emergência',
+                icone: '🛢️',
+                cor: '#00695C',
+                senha: 'GDE',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
+
+                fases: [
+
+                    // ─── BLOCO 1: OPERAÇÃO FLUVIAL ───────────────────────────
+                    {
+                        nome: 'Duas frentes, a mesma lógica',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #071A2F, #00695C); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🛢️</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Duas frentes, a mesma lógica</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Na água ou em terra, o combustível é o mesmo. O que o mantém sob controle são as camadas.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Seja uma transferência entre terminal e embarcação, seja um tanque recebendo produto, o raciocínio de segurança é o mesmo: <strong>nenhuma barreira sozinha é suficiente</strong>. A proteção vem de várias camadas, e cada uma precisa estar em boas condições <em>antes</em> de a operação começar.</p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 22px;">
+                                <div style="background: #f0f4ff; border-radius: 12px; padding: 16px; text-align: center;">
+                                    <div style="font-size: 28px;">🔧</div>
+                                    <div style="font-size: 12px; font-weight: 800; color: #1565C0; text-transform: uppercase; margin: 6px 0;">Físicas</div>
+                                    <p style="font-size: 12.5px; color: #555; margin: 0; line-height: 1.5;">Equipamentos que agem sem depender de ninguém</p>
+                                </div>
+                                <div style="background: #f3f0ff; border-radius: 12px; padding: 16px; text-align: center;">
+                                    <div style="font-size: 28px;">📋</div>
+                                    <div style="font-size: 12px; font-weight: 800; color: #5E35B1; text-transform: uppercase; margin: 6px 0;">Administrativas</div>
+                                    <p style="font-size: 12.5px; color: #555; margin: 0; line-height: 1.5;">Procedimentos, checklists, permissões e comunicação</p>
+                                </div>
+                                <div style="background: #effaf5; border-radius: 12px; padding: 16px; text-align: center;">
+                                    <div style="font-size: 28px;">🧠</div>
+                                    <div style="font-size: 12px; font-weight: 800; color: #00695C; text-transform: uppercase; margin: 6px 0;">Humanas</div>
+                                    <p style="font-size: 12.5px; color: #555; margin: 0; line-height: 1.5;">Atenção, preparo e coragem de interromper</p>
+                                </div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                                🔑 <strong>Para fixar:</strong> a pressa não é uma barreira. Ela é o que costuma fazer as outras falharem em silêncio.
+                            </div>
+
+                            <p style="font-size: 15px; color: #333; line-height: 1.8; margin: 0;">Nas próximas fases você vai testar o que entendeu, começando pela operação na água.</p>
+                        `
+                    },
+
+                    {
+                        nome: 'V/F: Operação Fluvial',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Um checklist embarcação-terra assinado quando a transferência já está em andamento cumpre o seu papel, desde que todos os itens estejam conformes.',
+                                correta: false,
+                                explicacao: 'FALSO. O checklist é a verificação das barreiras antes de começar. Assinado depois, vira só registro: ele não evitou nada.'
+                            },
+                            {
+                                texto: 'O vapor do combustível transferido pode se deslocar para além da área demarcada, empurrado pelo vento e pela correnteza.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Sobre a água o vapor se espalha de forma pouco previsível. Por isso a restrição a fontes de ignição vale mais longe do que parece.'
+                            },
+                            {
+                                texto: 'Se a vazão for baixa, não há problema em deixar o produto cair livremente dentro do tanque da balsa.',
+                                correta: false,
+                                explicacao: 'FALSO. A queda livre gera vapor e eletricidade estática, mesmo com vazão baixa. O carregamento deve ser feito pela tubulação interna.'
+                            },
+                            {
+                                texto: 'Ao final da transferência, a primeira válvula a fechar deve ser a de saída do tanque, para estancar o fluxo mais rápido.',
+                                correta: false,
+                                explicacao: 'FALSO. O fechamento segue a ordem do píer para o tanque: píer, intermediárias e, por último, a saída do tanque. Ordem errada pode causar surto de pressão.'
+                            },
+                            {
+                                texto: 'Interromper a operação diante de um indício de insegurança é uma barreira preventiva, não um atraso.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Parar a tempo é a barreira mais barata e mais poderosa que existe. Ninguém deve ser cobrado por exercê-la.'
+                            },
+                            {
+                                texto: 'Desgaste em mangotes e conexões só é detectável com ensaios de laboratório.',
+                                correta: false,
+                                explicacao: 'FALSO. Rachaduras, ressecamento e engates frouxos costumam aparecer numa inspeção visual rápida, desde que ela seja feita antes de cada operação.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene: Uma transferência segura, do início ao fim',
+                        tipo: 'ordenar',
+                        itens: [
+                            'Reunião pré-operacional registrada e rádios testados',
+                            'Conferência da rota e do tanque de destino',
+                            'Partida em vazão reduzida com inspeção inicial das conexões',
+                            'Vigilância contínua do fluxo, do nível, da conexão e do entorno',
+                            'Fechamento das válvulas em ordem e drenagem dos mangotes',
+                            'Medição final e documentação da operação'
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Equipamento e Função na Água',
+                        tipo: 'associar',
+                        descricao: 'Associe cada recurso à função que ele cumpre na operação.',
+                        pares: [
+                            { termo: 'Bandeja de contenção', definicao: 'Recolhe o gotejamento sob a conexão do mangote antes que ele alcance o convés ou a água.' },
+                            { termo: 'Barreira flutuante (boom)', definicao: 'Limita o espalhamento do produto na superfície da água.' },
+                            { termo: 'Kit anti-derrame', definicao: 'Reúne absorventes, EPI de resposta e recipientes para tratar pequenos vazamentos.' },
+                            { termo: 'Parada de emergência', definicao: 'Permite interromper o fluxo rapidamente, a partir de um ponto seguro.' },
+                            { termo: 'Sensor de overfill', definicao: 'Corta a entrada de produto quando o nível ultrapassa o limite programado.' },
+                            { termo: 'Reunião pré-operacional', definicao: 'Alinha a equipe sobre papéis, riscos e critérios de parada antes de iniciar.' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Quiz: Decisões na Água',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'Logo após a partida do bombeamento, o operador percebe gotejamento na conexão do mangote, caindo sobre a bandeja de contenção. O que fazer?',
+                                opcoes: [
+                                    'Seguir com a operação, já que a bandeja está contendo o produto',
+                                    'Interromper a transferência, comunicar e corrigir a conexão antes de retomar',
+                                    'Apertar a conexão com o fluxo em andamento para ganhar tempo',
+                                    'Registrar para ajustar ao final da operação'
+                                ],
+                                correta: 1,
+                                explicacao: 'A bandeja é uma barreira mitigadora. O gotejamento mostra que a barreira preventiva (a conexão) falhou. Corrigir com o fluxo em andamento é arriscado: pare, comunique e só então retome.'
+                            },
+                            {
+                                pergunta: 'Surgem relâmpagos ao longe durante a transferência. A tempestade deve chegar em 40 minutos e faltam 25 para terminar. Qual é a decisão correta?',
+                                opcoes: [
+                                    'Terminar, porque o tempo restante é menor que o previsto para a tempestade',
+                                    'Reduzir a vazão e continuar até o final',
+                                    'Interromper, fechar o sistema com segurança e aguardar a condição normalizar',
+                                    'Deixar a decisão com o comandante da embarcação, sem consultar o terminal'
+                                ],
+                                correta: 2,
+                                explicacao: 'Previsão não é garantia. Com relâmpagos, a operação para. A decisão deve ser conjunta entre terminal e embarcação, e ninguém deve apostar contra o relógio.'
+                            },
+                            {
+                                pergunta: 'Qual das opções é um exemplo de barreira HUMANA?',
+                                opcoes: [
+                                    'A atenção do operador e a disposição de interromper diante de um desvio',
+                                    'O casco duplo da embarcação',
+                                    'O checklist assinado pelas duas equipes',
+                                    'A barreira flutuante de contenção'
+                                ],
+                                correta: 0,
+                                explicacao: 'Casco e barreira flutuante são físicos; o checklist é administrativo. A barreira humana é a pessoa preparada, atenta e livre para parar a operação.'
+                            }
+                        ]
+                    },
+
+                    // ─── BLOCO 2: ARMAZENAMENTO DE INFLAMÁVEIS ───────────────
+                    {
+                        nome: 'O tanque é um sistema de camadas',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #263238, #E65100); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🏭</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">O tanque é um sistema de camadas</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Um tanque seguro não é só um recipiente: é um conjunto de proteções que se complementam.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Pense no parque de tanques como uma sequência de defesas. Cada elemento tem uma pergunta que ele responde:</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px;">
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13.5px; color: #333;"><strong style="color: #1565C0;">E se o produto vazar?</strong> O dique de contenção e o fundo duplo seguram e avisam.</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13.5px; color: #333;"><strong style="color: #5E35B1;">E se o nível passar do limite?</strong> Radar, alarmes e intertravamento agem, e a categoria do tanque define quanto tempo há para responder.</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13.5px; color: #333;"><strong style="color: #00695C;">E se a pressão interna variar?</strong> A válvula de pressão e vácuo e o corta-chamas protegem a estrutura e o respiro.</div>
+                                <div style="background: #f8f9fa; border-radius: 10px; padding: 12px 16px; font-size: 13.5px; color: #333;"><strong style="color: #C62828;">E se houver fogo?</strong> Espuma sobre o produto e resfriamento da parede evitam que ele cresça e se espalhe.</div>
+                            </div>
+
+                            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px;">
+                                🔑 <strong>Para fixar:</strong> cada camada só protege se estiver funcional, calibrada, testada e livre. Uma camada esquecida é uma camada que não existe.
+                            </div>
+                        `
+                    },
+
+                    {
+                        nome: 'Jogo: Componentes do Tanque e Suas Funções',
+                        tipo: 'associar',
+                        descricao: 'Associe cada componente à sua função de segurança.',
+                        pares: [
+                            { termo: 'Válvula de pressão e vácuo (VPV)', definicao: 'Libera vapores quando a pressão sobe e admite ar quando há vácuo, protegendo a estrutura do tanque.' },
+                            { termo: 'Corta-chamas', definicao: 'Impede que uma chama externa atravesse o respiro e alcance o interior do tanque.' },
+                            { termo: 'Câmara de espuma', definicao: 'Aplica espuma sobre a superfície do produto; o defletor conduz a espuma sem quebrá-la.' },
+                            { termo: 'Anel de resfriamento', definicao: 'Espalha água pela parede do tanque para resfriá-la quando há fogo por perto.' },
+                            { termo: 'Fundo duplo (liner)', definicao: 'Detecta perda de contenção no fundo e a direciona para um ponto de monitoramento.' },
+                            { termo: 'Radar de nível', definicao: 'Mede o nível pelo reflexo de micro-ondas na superfície, sem contato com o produto.' }
+                        ]
+                    },
+
+                    {
+                        nome: 'V/F: Armazenamento de Inflamáveis',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'O dique de contenção deve ser dimensionado para comportar cerca de 110% do volume do maior tanque que ele envolve.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. A margem acima de 100% existe para absorver o volume do vazamento mais a incerteza do evento.'
+                            },
+                            {
+                                texto: 'A corrosão no fundo do tanque costuma ser identificada na ronda visual diária.',
+                                correta: false,
+                                explicacao: 'FALSO. É um vazamento silencioso: normalmente só aparece em inspeção interna ou por ultrassom, por isso o fundo duplo e a inspeção periódica importam.'
+                            },
+                            {
+                                texto: 'A inspeção periódica baseada em norma (como a API 653) é recomendável, mas dispensável para tanques antigos que nunca falharam.',
+                                correta: false,
+                                explicacao: 'FALSO. Nunca ter falhado não é prova de integridade. A periodicidade é definida pelo histórico e pelo produto, e não é opcional.'
+                            },
+                            {
+                                texto: 'Uma VPV obstruída ou travada só aumenta perdas de produto; não afeta a integridade do tanque.',
+                                correta: false,
+                                explicacao: 'FALSO. Travada fechada, pode permitir pressão excessiva; travada aberta, libera vapor continuamente. Em ambos os casos há risco para a estrutura e para o entorno.'
+                            },
+                            {
+                                texto: 'Em tanque de teto flutuante, vedação, aterramento e drenagem do teto fazem parte dos pontos de verificação.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. A vedação reduz vapor, o aterramento controla a estática e a drenagem evita acúmulo de água sobre o teto.'
+                            },
+                            {
+                                texto: 'Quanto maior a categoria do tanque na API 2350, menor a dependência de intervenção humana para evitar o transbordamento.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. As categorias crescem com a automação: mais medição automática, alarmes independentes e menos dependência de alguém reagir a tempo.'
+                            },
+                            {
+                                texto: 'Alarmes de nível servem apenas para avisar o operador; nenhuma ação automática deve estar vinculada a eles.',
+                                correta: false,
+                                explicacao: 'FALSO. Intertravamentos podem atuar sobre bombas e válvulas motorizadas para interromper o recebimento quando o nível sobe demais.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene: Os níveis do tanque, do normal ao transbordamento',
+                        tipo: 'ordenar',
+                        itens: [
+                            'Nível normal de operação',
+                            'Alarme de nível alto: primeiro aviso, o enchimento deve terminar em breve',
+                            'Alarme de nível muito alto: o recebimento deve ser interrompido',
+                            'Nível crítico: iminência de transbordamento',
+                            'Nível de transbordamento: o produto sai do tanque'
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Categorias da API 2350',
+                        tipo: 'associar',
+                        descricao: 'Associe cada categoria ao tempo de resposta e ao tipo de monitoramento.',
+                        pares: [
+                            { termo: 'Categoria 0', definicao: 'Sem alarme automático; presença em horários definidos e tempo de resposta definido por procedimento.' },
+                            { termo: 'Categoria I', definicao: '45 minutos: operador presente e leitura de nível por régua ou verificação visual.' },
+                            { termo: 'Categoria II', definicao: '30 minutos: medição automática por radar, com sinal enviado à sala de controle.' },
+                            { termo: 'Categoria III', definicao: '15 minutos: medição automática e alarme alto-alto independente.' },
+                            { termo: 'Sistema integrado de prevenção', definicao: 'Resposta imediata: segurança 100% independente, sem depender de ação humana.' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Lacunas: Níveis, Respiro e Integridade',
+                        tipo: 'lacunas',
+                        frases: [
+                            { texto: 'O radar mede o nível enviando ___ eletromagnéticas e analisando o reflexo na superfície do produto.', resposta: 'ondas' },
+                            { texto: 'A VPV controla a saída de vapores por pressão e a entrada de ar por ___.', resposta: 'vácuo' },
+                            { texto: 'O nível máximo ___ é o limite que o tanque pode atingir na rotina normal de trabalho.', resposta: 'operacional' },
+                            { texto: 'Para que a defesa contra transbordamento funcione mesmo se o operador falhar, o alarme precisa estar ligado a um ___ automático.', resposta: 'intertravamento' },
+                            { texto: 'O fundo duplo (liner) existe para detectar perda de contenção no ___ do tanque antes que ela alcance o meio ambiente.', resposta: 'fundo' },
+                            { texto: 'Corrosão no fundo do tanque só é percebida de forma confiável em inspeção ___.', resposta: 'interna' }
+                        ]
+                    },
+
+                    // ─── BLOCO 3: EMERGÊNCIA E INTEGRAÇÃO ────────────────────
+                    {
+                        nome: 'Quiz: Primeiros Minutos de uma Emergência',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'Durante um recebimento por duto, surge uma poça de produto no dique, com odor forte e nenhum fogo visível. Um operador está perto do ponto de vazamento. Qual é a primeira prioridade?',
+                                opcoes: [
+                                    'Recolher o produto com absorventes imediatamente',
+                                    'Retirar o operador e as demais pessoas da área e eliminar fontes de ignição',
+                                    'Medir o volume vazado para o relatório',
+                                    'Avisar o gestor e aguardar instruções antes de agir'
+                                ],
+                                correta: 1,
+                                explicacao: 'A ordem é: proteger vidas, estabilizar a emergência e só depois cuidar do meio ambiente e do patrimônio. Recolher produto com pessoas expostas inverte essa ordem.'
+                            },
+                            {
+                                pergunta: 'Qual ação ataca diretamente aquilo que está alimentando a ocorrência?',
+                                opcoes: [
+                                    'Parar bombas e interromper o recebimento, de preferência por comando remoto',
+                                    'Esperar o vazamento diminuir sozinho',
+                                    'Chamar mais gente para observar',
+                                    'Cobrir a poça com lona'
+                                ],
+                                correta: 0,
+                                explicacao: 'Enquanto houver produto entrando, a ocorrência cresce. Cortar a alimentação, por meios remotos e seguros, é uma das primeiras ações.'
+                            },
+                            {
+                                pergunta: 'Ao decidir o que desligar numa emergência, o que NÃO deve ser desligado indiscriminadamente?',
+                                opcoes: [
+                                    'Bombas de transferência da área afetada',
+                                    'Serviços de manutenção e trabalhos a quente',
+                                    'Bombas de incêndio, comunicação, detecção, alarmes e sistemas de segurança',
+                                    'Carregamento e descarga de caminhões'
+                                ],
+                                correta: 2,
+                                explicacao: 'A parada deve ser seletiva, conforme o PAE. Os sistemas que protegem as pessoas e permitem o controle da emergência precisam continuar funcionando.'
+                            },
+                            {
+                                pergunta: 'Qual é o momento correto de acionar o apoio externo (bombeiros, serviços médicos, defesa civil)?',
+                                opcoes: [
+                                    'Somente depois de confirmada a extensão total da ocorrência',
+                                    'Apenas se o fogo atingir mais de um tanque',
+                                    'Nunca, pois o plano interno cobre qualquer cenário',
+                                    'Cedo, com as informações objetivas que já existem'
+                                ],
+                                correta: 3,
+                                explicacao: 'Acionar cedo não é perder o controle: é reconhecer que o cenário pode escalar além da capacidade local. Dados objetivos bastam: produto, volume, pessoas e sistemas já acionados.'
+                            },
+                            {
+                                pergunta: 'Quando é seguro iniciar o combate direto ao fogo?',
+                                opcoes: [
+                                    'Assim que a brigada chega, para ganhar tempo',
+                                    'Apenas quando o fogo diminuir sozinho',
+                                    'Quando houver produto identificado, alimentação interrompida, agente adequado, equipe protegida e comando autorizando',
+                                    'Somente depois que o Corpo de Bombeiros terminar'
+                                ],
+                                correta: 2,
+                                explicacao: 'Apagar a chama sem controlar a fonte pode formar uma nuvem inflamável e causar reignição ou explosão. O combate direto depende de poder isolar a alimentação.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene: Estratégia inicial de uma emergência',
+                        tipo: 'ordenar',
+                        itens: [
+                            'Assumir o comando e declarar a emergência',
+                            'Retirar e contabilizar as pessoas',
+                            'Isolar a área em zonas (quente, morna e fria)',
+                            'Interromper transferências e a alimentação do evento',
+                            'Proteger tanques e equipamentos expostos',
+                            'Avaliar se há condição segura para atacar o fogo'
+                        ]
+                    },
+
+                    {
+                        nome: 'V/F Final: Tudo junto',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Num incêndio alimentado por vazamento, apagar a chama sem controlar o vazamento pode gerar nuvem inflamável e reignição.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Extinguir sem isolar a fonte troca um incêndio por um risco maior. Por isso o combate está ligado à capacidade de parar a alimentação.'
+                            },
+                            {
+                                texto: 'Trabalho a quente em tanque só deve começar com permissão de trabalho válida e atmosfera verificada.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Solda e faísca perto de vapores inflamáveis são combinação de alto risco. Permissão e teste de atmosfera são as barreiras que separam o serviço do acidente.'
+                            },
+                            {
+                                texto: 'Um tanque aparentemente vazio é seguro para trabalho a quente, pois não há mais produto.',
+                                correta: false,
+                                explicacao: 'FALSO. Resíduos e vapores remanescentes podem formar mistura inflamável. Aparência de vazio não substitui limpeza, ventilação e medição da atmosfera.'
+                            },
+                            {
+                                texto: 'O resfriamento dos tanques vizinhos só precisa começar depois que o fogo se espalhar para eles.',
+                                correta: false,
+                                explicacao: 'FALSO. O calor irradiado já pode comprometer tanques próximos. Resfriar antes de a propagação acontecer é o que evita o efeito dominó.'
+                            },
+                            {
+                                texto: 'Descargas atmosféricas são uma fonte de ignição possível na região do respiro de um tanque.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O vapor que sai pelo respiro pode ser inflamado por uma descarga. Proteção contra raios, corta-chamas e atenção ao clima fazem parte do conjunto de barreiras.'
+                            },
+                            {
+                                texto: 'A barreira mais confiável é aquela que depende apenas de alguém lembrar de agir no momento certo.',
+                                correta: false,
+                                explicacao: 'FALSO. Quanto mais uma barreira depende de memória e reação humana, mais frágil ela é. Por isso existem alarmes independentes, intertravamentos e sistemas automáticos.'
+                            },
+                            {
+                                texto: 'No Bow Tie, quando uma barreira preventiva falha, a consequência passa a ser inevitável.',
+                                correta: false,
+                                explicacao: 'FALSO. É para isso que existem as barreiras mitigadoras, do lado direito do diagrama: reduzir o dano mesmo depois que o evento começou.'
                             }
                         ]
                     }

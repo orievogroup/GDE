@@ -4156,6 +4156,250 @@
                         ]
                     }
                 ]
+            },
+
+            'piecs_modulo7': {
+                nome: 'Disciplina Operacional e Coerência',
+                numero: '7',
+                descricao: 'Ninguém quer errar. O que sustenta o padrão, e o que o derruba aos poucos.',
+                icone: '🧭',
+                cor: '#4527A0',
+                senha: 'GDE',
+                bloqueadoPorSenha: false,
+                ativo: true,
+                logo: 'https://orievogroup.github.io/GDE/logo_gde.png',
+
+                fases: [
+
+                    {
+                        nome: 'Ninguém quer errar',
+                        tipo: 'artigo',
+                        conteudo: `
+                            <div style="background: linear-gradient(135deg, #071A2F, #4527A0); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                                <div style="font-size: 56px; margin-bottom: 12px;">🧭</div>
+                                <h2 style="color: white; margin: 0 0 8px 0; font-size: 24px;">Ninguém quer errar</h2>
+                                <p style="opacity: 0.9; margin: 0; font-size: 15px;">Quando o padrão se perde, quase sempre o sistema deixou de ajudar a pessoa.</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 20px;">Disciplina operacional tem dois lados que se alimentam. O da <strong>operação</strong>: fazer a tarefa do jeito definido, em todo turno, com ou sem ninguém olhando. E o do <strong>líder</strong>: agir de acordo com o que diz e responder do mesmo jeito aos desvios, com pressão ou sem.</p>
+
+                            <div style="background: #f3f0ff; border-left: 5px solid #4527A0; border-radius: 10px; padding: 18px 20px; margin-bottom: 20px;">
+                                <div style="font-size: 13px; font-weight: 800; color: #4527A0; text-transform: uppercase; margin-bottom: 8px;">A escada do drift</div>
+                                <p style="font-size: 14px; color: #444; margin: 0; line-height: 1.8;">Padrão claro, primeiro atalho, deu certo, tolerado, vira prática. Ninguém decide derivar: é a soma de pequenos "não aconteceu nada".</p>
+                            </div>
+
+                            <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0;">O que o líder tolera, a equipe aprende. Por isso o foco desta fase é prática: situações novas para você decidir como líder.</p>
+                        `
+                    },
+
+                    {
+                        nome: 'V/F: Procedimento e Prática',
+                        tipo: 'verdadeirofalso',
+                        afirmacoes: [
+                            {
+                                texto: 'Se o procedimento não cabe na rotina, o melhor é a equipe adaptar sem alarde, para não atrapalhar a operação.',
+                                correta: false,
+                                explicacao: 'FALSO. Adaptar em silêncio é como o drift começa. Procedimento que não cabe deve ser levado para revisão com quem executa a tarefa.'
+                            },
+                            {
+                                texto: 'Se um atalho foi feito muitas vezes sem consequência, isso mostra que ele é seguro.',
+                                correta: false,
+                                explicacao: 'FALSO. Não acontecer nada só mostra que, até agora, outra barreira ou a sorte seguraram. A barreira dispensada continua sendo necessária.'
+                            },
+                            {
+                                texto: 'O líder que vê um desvio e não comenta ainda não aprovou nada, porque não disse sim.',
+                                correta: false,
+                                explicacao: 'FALSO. Para a equipe, o silêncio de quem lidera é lido como aprovação. Ver e calar também é uma decisão.'
+                            },
+                            {
+                                texto: 'Disciplina operacional inclui seguir o procedimento do mesmo jeito mesmo quando ninguém está supervisionando.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. Padrão que só existe com fiscal por perto é obediência, não disciplina. Disciplina é o que se faz quando ninguém vê.'
+                            },
+                            {
+                                texto: 'Um operador novo que aprendeu o atalho do colega antigo demonstra um problema de caráter do novato.',
+                                correta: false,
+                                explicacao: 'FALSO. O novato aprendeu o que o ambiente ensinou. O ponto a investigar é o treinamento e o exemplo que ele recebeu.'
+                            },
+                            {
+                                texto: 'Alarme que dispara demais deve ser silenciado pela própria equipe, para ninguém se acostumar com ele.',
+                                correta: false,
+                                explicacao: 'FALSO. Alarme em excesso é problema do sistema e precisa ser analisado e corrigido. Silenciar por conta própria elimina a barreira.'
+                            },
+                            {
+                                texto: 'Reconhecer em público quem manteve o padrão em um dia de pressão ajuda a sustentar a disciplina.',
+                                correta: true,
+                                explicacao: 'VERDADEIRO. O que é reconhecido se repete. Dar nome ao comportamento certo mostra à equipe o que o líder valoriza.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Jogo: Frase de Campo e Resposta do Líder',
+                        tipo: 'associar',
+                        descricao: 'Ligue cada frase ouvida no campo à resposta mais útil do líder.',
+                        pares: [
+                            { termo: '"Sempre foi assim."', definicao: 'Prática tolerada: perguntar quando e por que começou, em vez de aceitar como padrão.' },
+                            { termo: '"Só dessa vez."', definicao: 'Primeiro atalho: responder na hora, antes de virar hábito.' },
+                            { termo: '"Ninguém lê esse procedimento."', definicao: 'Possível procedimento inviável: levar para revisão com quem executa.' },
+                            { termo: '"Preenchi o checklist de memória, depois."', definicao: 'Checklist virou papel: voltar ao campo e acompanhar o preenchimento durante a tarefa.' },
+                            { termo: '"Aprendi com o mais antigo."', definicao: 'Prática virou cultura: revisar o treinamento e o exemplo dos mais experientes.' },
+                            { termo: '"Esse alarme dispara à toa."', definicao: 'Causa no sistema: investigar o alarme em vez de silenciá-lo.' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene: Como um desvio se instala',
+                        tipo: 'ordenar',
+                        itens: [
+                            'O procedimento exige conferir o lacre da válvula antes de cada recebimento e todos fazem',
+                            'Num dia de fila, um operador pula a conferência e ganha 10 minutos',
+                            'Nada acontece e ele comenta com os colegas que "deu certo"',
+                            'O supervisor percebe que a conferência não foi feita e não comenta',
+                            'Os turnos seguintes passam a pular a conferência e o operador novo aprende assim',
+                            'A conferência passa a existir só no papel, assinada de memória'
+                        ]
+                    },
+
+                    {
+                        nome: 'Lacunas: Desenvolver e Sustentar',
+                        tipo: 'lacunas',
+                        frases: [
+                            { texto: 'Disciplina operacional é manter o padrão mesmo sem ___ e mesmo sob pressão.', resposta: 'supervisão' },
+                            { texto: 'O silêncio do líder diante de um desvio é lido pela equipe como ___.', resposta: 'aprovação' },
+                            { texto: 'Quando o procedimento não cabe na rotina, o caminho certo é levá-lo para ___ e não contorná-lo em silêncio.', resposta: 'revisão' },
+                            { texto: 'Desenvolver disciplina é tornar o certo mais ___ do que o atalho.', resposta: 'fácil' },
+                            { texto: 'Para sustentar o padrão, o líder verifica em ___ o que é feito de fato, não só o que está no papel.', resposta: 'campo' },
+                            { texto: 'Antes de perguntar quem foi, o líder pergunta o que no ___ fez o atalho parecer a melhor opção.', resposta: 'sistema' }
+                        ]
+                    },
+
+                    {
+                        nome: 'Ordene: A resposta do líder diante de um atalho',
+                        tipo: 'ordenar',
+                        itens: [
+                            'Avaliar se há risco imediato e, se houver, parar a tarefa',
+                            'Descrever o que viu: situação, comportamento e impacto',
+                            'Perguntar o que levou à escolha do atalho',
+                            'Combinar com a pessoa o que muda e o que o líder fará para ajudar',
+                            'Corrigir o que no sistema empurrou o desvio: procedimento, recurso ou treino',
+                            'Voltar ao campo em poucos dias e reconhecer o que mudou'
+                        ]
+                    },
+
+                    {
+                        nome: 'Quiz: O Líder sob Pressão',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'No turno da noite, um operador reclama que o checklist de partida tem 14 itens e leva 25 minutos. Ele admite que pula 3 itens que, segundo ele, se repetem. O que o líder faz?',
+                                opcoes: [
+                                    'Exige os 14 itens e registra a advertência',
+                                    'Mantém os 14 itens por ora, leva a reclamação para revisão do checklist com quem executa e dá retorno',
+                                    'Autoriza pular os 3 itens, desde que o operador assuma a responsabilidade',
+                                    'Ignora, porque o operador é experiente e sabe o que faz'
+                                ],
+                                correta: 1,
+                                explicacao: 'O padrão se mantém até ser revisado, e a reclamação é um dado do sistema. Autorizar pular itens ou ignorar cria drift, e só advertir deixa a causa intacta.'
+                            },
+                            {
+                                pergunta: 'Você vê um motorista de empresa contratada iniciando a descarga sem aterramento. Ele tem 20 anos de estrada e diz que "nunca deu problema". Qual é a primeira atitude?',
+                                opcoes: [
+                                    'Deixar a descarga terminar e conversar com ele depois',
+                                    'Mandar um e-mail à empresa contratada relatando o fato',
+                                    'Parar a operação, garantir o aterramento e só então conversar sobre o que aconteceu',
+                                    'Perguntar ao gerente se pode intervir'
+                                ],
+                                correta: 2,
+                                explicacao: 'Com risco imediato, a tarefa para primeiro. A conversa estruturada vem em seguida, em local reservado. Esperar terminar transforma o desvio em aprovação.'
+                            },
+                            {
+                                pergunta: 'Seu turno bateu a meta da semana pulando um passo do procedimento. O gerente elogia o resultado em reunião. Qual é a melhor atitude do líder?',
+                                opcoes: [
+                                    'Aproveitar o elogio e não mencionar o passo pulado',
+                                    'Pedir que a equipe não conte ao gerente',
+                                    'Punir quem pulou o passo',
+                                    'Agradecer, dizer ao gerente e à equipe qual passo foi pulado e por quê, e propor a correção'
+                                ],
+                                correta: 3,
+                                explicacao: 'Elogiar um resultado obtido com desvio ensina que o resultado vale mais que o padrão. A coerência exige nomear o passo pulado e tratar a causa.'
+                            },
+                            {
+                                pergunta: 'Seis meses depois de reforçar um procedimento em treinamento, o desvio voltou. Qual é a hipótese mais útil para o líder?',
+                                opcoes: [
+                                    'A equipe é indisciplinada',
+                                    'Falta de punição',
+                                    'A causa original do atalho, como prazo, recurso ou procedimento inviável, não foi tratada',
+                                    'O procedimento é ruim por definição'
+                                ],
+                                correta: 2,
+                                explicacao: 'Treinamento sozinho não resolve um desvio que tem causa no sistema. Quando a causa continua, o atalho volta.'
+                            },
+                            {
+                                pergunta: 'O operador mais antigo faz uma conferência diferente do procedimento e ensina assim aos novos. O que faz mais sentido?',
+                                opcoes: [
+                                    'Pedir aos novos que ignorem o jeito dele',
+                                    'Mudar o procedimento para o jeito dele, sem análise',
+                                    'Transferir o operador antigo para outra área',
+                                    'Conversar com ele para entender o motivo: se o jeito dele for melhor, revisar o procedimento, e se não for, alinhar o padrão'
+                                ],
+                                correta: 3,
+                                explicacao: 'O jeito dele pode ser um alerta de procedimento inviável ou uma melhoria real. Entender primeiro evita tanto o drift quanto o conflito.'
+                            }
+                        ]
+                    },
+
+                    {
+                        nome: 'Quiz Final: Disciplina e Coerência',
+                        tipo: 'quiz',
+                        perguntas: [
+                            {
+                                pergunta: 'Qual frase descreve melhor o drift operacional?',
+                                opcoes: [
+                                    'Um erro grave e isolado de um único operador',
+                                    'O afastamento gradual do padrão, tolerado pela equipe até virar prática',
+                                    'Uma mudança planejada e aprovada no procedimento',
+                                    'A falha de um equipamento por desgaste'
+                                ],
+                                correta: 1,
+                                explicacao: 'O drift é gradual e coletivo. Cada pequeno atalho que "deu certo" e foi tolerado abre espaço para o próximo.'
+                            },
+                            {
+                                pergunta: 'Qual atitude mais fortalece a coerência do líder?',
+                                opcoes: [
+                                    'Falar de segurança com firmeza no início de cada turno',
+                                    'Cobrar mais indicadores de segurança da equipe',
+                                    'Seguir ele mesmo o padrão e responder igual aos desvios, com pressão ou sem',
+                                    'Delegar o acompanhamento de segurança ao técnico'
+                                ],
+                                correta: 2,
+                                explicacao: 'Discurso não substitui exemplo. A equipe aprende com o que o líder faz e com o que ele deixa passar.'
+                            },
+                            {
+                                pergunta: 'Para desenvolver disciplina, qual combinação costuma funcionar melhor?',
+                                opcoes: [
+                                    'Mais punição e menos treinamento',
+                                    'Campanhas de conscientização periódicas',
+                                    'Checklists cada vez mais longos',
+                                    'Padrão claro, procedimento viável, treino na prática e retorno rápido'
+                                ],
+                                correta: 3,
+                                explicacao: 'Disciplina se constrói tornando o certo mais fácil que o atalho. Isso depende de clareza, viabilidade, treino real e feedback.'
+                            },
+                            {
+                                pergunta: 'Quando a pressão aumenta, o que o líder deve fazer para sustentar a disciplina?',
+                                opcoes: [
+                                    'Relaxar o padrão por alguns dias e retomar depois',
+                                    'Manter o critério, buscar alternativas com a equipe e verificar em campo',
+                                    'Deixar a decisão para o supervisor do turno',
+                                    'Esperar uma orientação da gerência'
+                                ],
+                                correta: 1,
+                                explicacao: 'O dia de pressão é o teste do padrão. Manter o critério, negociar alternativas e acompanhar em campo mostra à equipe que o padrão vale sempre.'
+                            }
+                        ]
+                    }
+                ]
             }
 
         };
